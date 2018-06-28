@@ -35,11 +35,7 @@ export default class Lists extends Component {
     if (this.state.data.items === undefined){
       return (
         <IceContainer>
-          <Pagination
-            style={styles.pagination}
-            current={this.state.current}
-            onChange={this.handlePaginationChange}
-          />
+          <div>正在加载...</div>
         </IceContainer>
       );
     } else {

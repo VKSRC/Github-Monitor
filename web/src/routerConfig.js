@@ -24,7 +24,7 @@ const routerConfig = [
   {
     path: '/',
     layout: HeaderAsideFooterLayout,
-    component: Dashboard,
+    component: Home,
   },
   {
     path: '/table',

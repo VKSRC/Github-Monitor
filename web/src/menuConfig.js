@@ -22,7 +22,7 @@ const headerMenuConfig = [
 const asideMenuConfig = [
   {
     name: 'Github查询',
-    path: '/Home',
+    path: '/',
     icon: 'search',
   },
   // {

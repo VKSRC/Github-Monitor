@@ -147,9 +147,9 @@ export default class Item extends Component {
 
 const styles = {
   code_list_item: {
+    margin: '-20px -15px',
     lineHeight: 1.5,
     color: '#24292e',
-    marginBottom: '20px',
   },
   avatar: {
     float: 'left',

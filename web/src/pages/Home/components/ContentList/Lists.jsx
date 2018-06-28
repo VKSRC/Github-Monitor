@@ -38,6 +38,9 @@ export default class Lists extends Component {
     return (
       <IceContainer>
         <Item />
+        <Item />
+        <Item />
+        <Item />
 
         <Pagination
           style={styles.pagination}

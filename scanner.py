@@ -91,24 +91,24 @@ def crawl():
                     node_index
                 ))[0].attrib['title']
 
-                leakage['type'] = node.xpath('//*[@id="code_search_results"]/div[1]/div[{}]/span[1]'.format(
+                leakage['language'] = node.xpath('//*[@id="code_search_results"]/div[1]/div[{}]/span[1]'.format(
                     node_index
                 ))
-                if len(leakage['type']) > 0:
-                    leakage['type'] = leakage['type'][0].text.strip()
+                if len(leakage['language']) > 0:
+                    leakage['language'] = leakage['language'][0].text.strip()
                 else:
-                    leakage['type'] = None
+                    leakage['language'] = None
 
                 code = node.xpath('//*[@id="code_search_results"]/div[1]/div[{}]/div[2]/table'.format(
                     node_index
                 ))[0]
                 leakage['code'] = html.tostring(code)
 
-                leakage['datetime'] = node.xpath(
+                leakage['add_time'] = node.xpath(
                     '//*[@id="code_search_results"]/div[1]/div[{}]/div[1]/div/span[2]/relative-time'.format(
                         node_index
                     ))[0].attrib['datetime']
-                leakage['datetime'] = utc2local(leakage['datetime'])
+                leakage['add_time'] = utc2local(leakage['add_time'])
 
                 leakage['account'] = project_full_name.split('/')[0]
 

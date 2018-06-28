@@ -16,6 +16,7 @@ def index():
 
 
 class LeakageList(Resource):
+
     def get(self):
         parser = reqparse.RequestParser()
         parser.add_argument('page', type=int, default=1, help="Which page with data")
@@ -32,12 +33,16 @@ class LeakageList(Resource):
         if args.get('language'):
             db_leakages = db_leakages.filter(Leakage.language == args.get('language'))
 
-        print(args.get('page'))
-        db_leakages = db_leakages.order_by(-Leakage.add_time).limit(10)
-        leakages = []
+        db_leakages = db_leakages.order_by(-Leakage.add_time)\
+            .paginate(page=args.get('page'), per_page=args.get('page_size'))
+        leakages = {
+            'pages': db_leakages.pages,
+            'current_page': db_leakages.page,
+            'items': [],
+        }
 
-        for i in db_leakages:
-            leakages.append(i.to_json())
+        for i in db_leakages.items:
+            leakages['items'].append(i.to_json())
 
         return leakages
 

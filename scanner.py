@@ -4,18 +4,17 @@
 
 import sys
 import re
-import db
 import logging
 import requests
 from lxml import html
 from utils import utc2local
 from sqlalchemy.exc import DataError
+from models import db, Leakage, Keywords
 
 
 GITHUB_USERNAME = 'yuzesheji@qq.com'
 GITHUB_PASSWORD = 'wxs497inmdratg'
 
-db_session = db.Session()
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('Github-Monitor')
 
@@ -44,7 +43,7 @@ def create_session():
 
 
 def get_keywords():
-    db_keywords = db_session.query(db.Keywords).all()
+    db_keywords = Keywords.query.all()
     keywords = []
     for row in db_keywords:
         keywords.append(row.name)
@@ -116,13 +115,13 @@ def crawl():
                     node_index
                 ))[0].attrib['src']
 
-                leakage_db = db.Leakage(**leakage)
-                db_session.add(leakage_db)
+                leakage_db = Leakage(**leakage)
+                db.session.add(leakage_db)
                 try:
-                    db_session.commit()
+                    db.session.commit()
                 except DataError as e:
                     logger.warning(e)
-                    db_session.rollback()
+                    db.session.rollback()
 
 
 crawl()

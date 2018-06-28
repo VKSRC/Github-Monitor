@@ -4,10 +4,12 @@
 
 from flask import Flask, render_template
 from flask_restful import Resource, Api, reqparse
+from flask_cors import CORS
 from models import Leakage
 
 app = Flask(__name__)
 api = Api(app)
+CORS(app)
 
 
 @app.route('/')

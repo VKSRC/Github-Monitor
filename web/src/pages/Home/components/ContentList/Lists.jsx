@@ -43,14 +43,14 @@ export default class Lists extends Component {
         <IceContainer>
 
           {this.state.data.items.map((item, index) => {
-            console.log(item, index);
             return <Item key={index} data={item} />
           })}
-
           <Pagination
             style={styles.pagination}
             current={this.state.current}
             onChange={this.handlePaginationChange}
+            total={this.state.data.count}
+            pageSize={this.state.data.per_page}
           />
         </IceContainer>
       );

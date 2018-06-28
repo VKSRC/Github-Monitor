@@ -38,8 +38,10 @@ class LeakageList(Resource):
         db_leakages = db_leakages.order_by(-Leakage.add_time)\
             .paginate(page=args.get('page'), per_page=args.get('page_size'))
         leakages = {
+            'count': db_leakages.total,
             'pages': db_leakages.pages,
             'current_page': db_leakages.page,
+            'per_page': db_leakages.per_page,
             'items': [],
         }
 

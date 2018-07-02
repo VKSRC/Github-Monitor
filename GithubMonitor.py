@@ -23,16 +23,16 @@ class LeakageList(Resource):
         parser = reqparse.RequestParser()
         parser.add_argument('page', type=int, default=1, help="Which page with data")
         parser.add_argument('page_size', type=int, default=10, help="Which page count with data")
-        parser.add_argument('status', type=int, help="data status")
+        parser.add_argument('status', type=str, help="data status")
         parser.add_argument('language', type=str, help="which type with data")
         args = parser.parse_args()
 
         db_leakages = Leakage.query
 
-        if args.get('status'):
+        if args.get('status') and args.get('status') != '全部':
             db_leakages = db_leakages.filter(Leakage.status == args.get('status'))
 
-        if args.get('language'):
+        if args.get('language') and args.get('language') != '全部':
             db_leakages = db_leakages.filter(Leakage.language == args.get('language'))
 
         db_leakages = db_leakages.order_by(-Leakage.add_time)\

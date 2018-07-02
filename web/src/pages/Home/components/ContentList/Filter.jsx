@@ -46,9 +46,19 @@ export default class Filter extends Component {
     });
   }
 
-  handleClick = (value) => {
-    console.log(value);
-  };
+  handleStatusChange(value) {
+    this.setState({
+      status: value,
+    });
+    this.props.onStatusChange(value);
+  }
+
+  handleLanguageChange(value) {
+    this.setState({
+      language: value,
+    });
+    this.props.onLanguageChange(value);
+  }
 
   render() {
     const { activeIndex } = this.state;
@@ -69,18 +79,27 @@ export default class Filter extends Component {
                     let activeStyle = null;
                     if (item.label === '状态') {
                       activeStyle = this.state.status === text ? styles.active : null;
-                    } else if (item.label === '类型') {
-                      activeStyle = this.state.language === text ? styles.active : null;
-                    }
-                    return (
-                      <span
-                        onClick={() => this.handleClick(text)}
-                        style={{ ...styles.filterText, ...activeStyle }}
-                        key={idx}
-                      >
+                      return (
+                        <span
+                          onClick={() => this.handleStatusChange(text)}
+                          style={{ ...styles.filterText, ...activeStyle }}
+                          key={idx}
+                        >
                         {text}
                       </span>
-                    );
+                      );
+                    } else if (item.label === '类型') {
+                      activeStyle = this.state.language === text ? styles.active : null;
+                      return (
+                        <span
+                          onClick={() => this.handleLanguageChange(text)}
+                          style={{ ...styles.filterText, ...activeStyle }}
+                          key={idx}
+                        >
+                        {text}
+                      </span>
+                      );
+                    }
                   })}
                 </div>
               </div>

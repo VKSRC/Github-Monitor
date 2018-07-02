@@ -14,15 +14,27 @@ export default class Lists extends Component {
     this.state = {
       current: 1,
       data: [],
-      filter: {
-        status: 0,
-        language: '',
-      }
+      status: '全部',
+      language: '全部',
     };
   }
 
+  buildUrl(page = 1, language = this.state.language, status = this.state.status) {
+    return `${config.API_URL}/api/leakage?language=${language}&status=${status}&page=${page}`;
+  }
+
   componentDidMount() {
-    axios(`${config.API_URL}/api/leakage`).then((response) => {
+    axios(this.buildUrl()).then((response) => {
+      const {data} = response;
+      this.setState({
+        data: data,
+      })
+    });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    let url = this.buildUrl(1, nextProps.language, nextProps.status);
+    axios(url).then((response) => {
       const {data} = response;
       this.setState({
         data: data,
@@ -31,7 +43,6 @@ export default class Lists extends Component {
   }
 
   handlePaginationChange = (current) => {
-    console.log();
     this.setState({
       current,
     });

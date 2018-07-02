@@ -11,14 +11,39 @@ export default class ContentList extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
+
+    this.handleFilterStatusChange = this.handleFilterStatusChange.bind(this);
+    this.handleFilterLanguageChange = this.handleFilterLanguageChange.bind(this);
+
+    this.state = {
+      status: '全部',
+      language: '全部',
+    };
+  }
+
+  handleFilterStatusChange(status) {
+    this.setState({
+      status: status,
+    });
+  }
+
+  handleFilterLanguageChange(language) {
+    this.setState({
+      language: language,
+    });
   }
 
   render() {
     return (
       <div>
-        <Filter />
-        <Lists />
+        <Filter
+          onStatusChange={this.handleFilterStatusChange}
+          onLanguageChange={this.handleFilterLanguageChange}
+        />
+        <Lists
+          status={this.state.status}
+          language={this.state.language}
+        />
       </div>
     );
   }

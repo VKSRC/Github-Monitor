@@ -3,6 +3,7 @@ import IceContainer from '@icedesign/container';
 import { Grid, Pagination } from '@icedesign/base';
 import Item from './Item';
 import axios from 'axios'
+import {config} from '../../../../config'
 
 
 export default class Lists extends Component {
@@ -13,11 +14,15 @@ export default class Lists extends Component {
     this.state = {
       current: 1,
       data: [],
+      filter: {
+        status: 0,
+        language: '',
+      }
     };
   }
 
   componentDidMount() {
-    axios('http://127.0.0.1:5000/api/leakage').then((response) => {
+    axios(`${config.API_URL}/api/leakage`).then((response) => {
       const {data} = response;
       this.setState({
         data: data,
@@ -26,6 +31,7 @@ export default class Lists extends Component {
   }
 
   handlePaginationChange = (current) => {
+    console.log();
     this.setState({
       current,
     });

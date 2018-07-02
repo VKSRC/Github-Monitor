@@ -1,20 +1,22 @@
 import React, { Component } from 'react';
 import IceContainer from '@icedesign/container';
+import {config} from '../../../../config'
+import axios from 'axios'
 
 const data = [
   {
     label: '状态',
     value: [
       '全部',
-      '未确认',
-      '已确认',
+      '待确认',
+      '待处理',
       '已处理',
       '无风险',
     ],
   },
   {
     label: '类型',
-    value: ['全部', 'Python', 'PHP', 'Java', 'C', 'Markdown'],
+    value: ['全部'],
   },
 ];
 
@@ -24,8 +26,24 @@ export default class Filter extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeIndex: 0,
+      status: '全部',
+      language: '全部',
     };
+  }
+
+  componentDidMount() {
+    axios(`${config.API_URL}/api/language`).then((response) => {
+      if (response) {
+        response.data.map((item, index) => {
+          if (item[0]) data[1]['value'].push(item[0]);
+
+          // 为了获取数据后重新渲染一次
+          this.setState({
+            status: '全部',
+          })
+        });
+      }
+    });
   }
 
   handleClick = (value) => {
@@ -48,8 +66,12 @@ export default class Filter extends Component {
                 <div style={styles.filterLabel}>{item.label}:</div>
                 <div style={styles.filterList}>
                   {item.value.map((text, idx) => {
-                    const activeStyle =
-                      activeIndex === idx ? styles.active : null;
+                    let activeStyle = null;
+                    if (item.label === '状态') {
+                      activeStyle = this.state.status === text ? styles.active : null;
+                    } else if (item.label === '类型') {
+                      activeStyle = this.state.language === text ? styles.active : null;
+                    }
                     return (
                       <span
                         onClick={() => this.handleClick(text)}

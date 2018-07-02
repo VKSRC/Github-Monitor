@@ -5,7 +5,7 @@
 from flask import Flask, render_template
 from flask_restful import Resource, Api, reqparse
 from flask_cors import CORS
-from models import Leakage
+from models import Leakage, db
 
 app = Flask(__name__)
 api = Api(app)
@@ -52,6 +52,16 @@ class LeakageList(Resource):
 
 
 api.add_resource(LeakageList, '/api/leakage')
+
+
+class LanguageList(Resource):
+    def get(self):
+        language = db.session.query(Leakage.language, db.func.count('*').label("language_count"))\
+            .group_by(Leakage.language).order_by(db.desc('language_count')).limit(10).all()
+        return language
+
+
+api.add_resource(LanguageList, '/api/language')
 
 
 if __name__ == '__main__':

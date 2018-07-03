@@ -2,12 +2,13 @@
 # -*- coding: utf-8 -*-
 # Author: Tuuu Nya<song@secbox.cn>
 
-from flask import Flask, render_template
+from flask import Flask, render_template, request, abort
 from flask_restful import Resource, Api, reqparse
 from flask_cors import CORS
 from models import Leakage, db
 
 app = Flask(__name__)
+app.debug = True
 api = Api(app)
 CORS(app)
 
@@ -52,6 +53,24 @@ class LeakageList(Resource):
 
 
 api.add_resource(LeakageList, '/api/leakage')
+
+
+class LeakageDetail(Resource):
+    def get(self, id):
+        return Leakage.query.get_or_404(id).to_json()
+
+    def put(self, id):
+        req = request.get_json()
+        if req.get('status') in [1, 2, 3, 4]:
+            leakage = Leakage.query.get_or_404(id)
+            leakage.status = req.get('status')
+            db.session.commit()
+            return leakage.to_json()
+        else:
+            return abort("status error")
+
+
+api.add_resource(LeakageDetail, '/api/leakage/<string:id>')
 
 
 class LanguageList(Resource):

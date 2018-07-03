@@ -4,6 +4,7 @@ import { Grid, Pagination } from '@icedesign/base';
 import Item from './Item';
 import axios from 'axios'
 import {config} from '../../../../config'
+import {statusConvert} from '../../../../utils'
 
 
 export default class Lists extends Component {
@@ -33,14 +34,14 @@ export default class Lists extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    let url = this.buildUrl(1, nextProps.language, nextProps.status);
+    let url = this.buildUrl(1, nextProps.language, statusConvert(nextProps.status));
 
     /*
       重新传入props是切换了filter
       所以这里默认渲染第一页的数据
     */
     this.setState({
-      status: nextProps.status,
+      status: statusConvert(nextProps.status),
       language: nextProps.language,
       current: 1,
     });

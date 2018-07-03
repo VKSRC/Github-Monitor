@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import IceContainer from '@icedesign/container';
 import { Grid, Tag, Button } from '@icedesign/base';
+import axios from 'axios';
+import {config} from '../../../../config'
 
 
 const { Row, Col } = Grid;
@@ -11,6 +13,14 @@ export default class Item extends Component {
 
   constructor(props){
     super(props);
+  }
+
+  handleOperation(id, status, e) {
+    axios.put(`${config.API_URL}/api/leakage/${id}`, {
+      status: status,
+    }).then((response) => {
+      console.log(response);
+    })
   }
 
   render() {
@@ -25,9 +35,9 @@ export default class Item extends Component {
               </a>
               <span style={styles.code_type}>
                 <ButtonGroup>
-                  <Button type="primary">确认</Button>
-                  <Button type="primary">处理</Button>
-                  <Button type="primary">加白</Button>
+                  <Button type="primary" onClick={(e) => this.handleOperation(this.props.data.id, 2, e)}>确认</Button>
+                  <Button type="primary" onClick={(e) => this.handleOperation(this.props.data.id, 3, e)}>处理</Button>
+                  <Button type="primary" onClick={(e) => this.handleOperation(this.props.data.id, 4, e)}>加白</Button>
                 </ButtonGroup>
               </span>
 

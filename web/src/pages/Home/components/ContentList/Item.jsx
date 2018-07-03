@@ -3,6 +3,7 @@ import IceContainer from '@icedesign/container';
 import { Grid, Tag, Button, Dialog } from '@icedesign/base';
 import axios from 'axios';
 import {config} from '../../../../config'
+import {statusConvert} from "../../../../utils";
 
 
 const { Row, Col } = Grid;
@@ -85,7 +86,8 @@ export default class Item extends Component {
 
                   <div className="mb-8">
                     <span><Tag shape="readonly" size="small">{this.props.data.language}</Tag></span>
-                    <span className="text-gray"><Tag shape="readonly" size="small">{this.props.data.add_time}</Tag></span>
+                    <span><Tag shape="readonly" size="small">{this.props.data.add_time}</Tag></span>
+                    <span><Tag shape="readonly" size="small">{statusConvert(null ,this.props.data.status)}</Tag></span>
                   </div>
 
                   <div className="code-list">

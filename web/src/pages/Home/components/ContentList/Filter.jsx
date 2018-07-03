@@ -26,7 +26,7 @@ export default class Filter extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      status: '全部',
+      status: '待确认',
       language: '全部',
     };
   }
@@ -39,7 +39,7 @@ export default class Filter extends Component {
 
           // 为了获取数据后重新渲染一次
           this.setState({
-            status: '全部',
+            status: '待确认',
           })
         });
       }

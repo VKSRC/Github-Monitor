@@ -15,7 +15,7 @@ export default class Lists extends Component {
     this.state = {
       current: 1,
       data: [],
-      status: '全部',
+      status: 1,
       language: '全部',
     };
   }

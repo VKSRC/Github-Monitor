@@ -16,7 +16,7 @@ export default class ContentList extends Component {
     this.handleFilterLanguageChange = this.handleFilterLanguageChange.bind(this);
 
     this.state = {
-      status: '全部',
+      status: '待确认',
       language: '全部',
     };
   }

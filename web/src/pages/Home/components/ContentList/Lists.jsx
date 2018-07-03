@@ -34,6 +34,17 @@ export default class Lists extends Component {
 
   componentWillReceiveProps(nextProps) {
     let url = this.buildUrl(1, nextProps.language, nextProps.status);
+
+    /*
+      重新传入props是切换了filter
+      所以这里默认渲染第一页的数据
+    */
+    this.setState({
+      status: nextProps.status,
+      language: nextProps.language,
+      current: 1,
+    });
+
     axios(url).then((response) => {
       const {data} = response;
       this.setState({
@@ -43,6 +54,16 @@ export default class Lists extends Component {
   }
 
   handlePaginationChange = (current) => {
+    let url = this.buildUrl(current);
+    axios(url).then((response) => {
+      const {data} = response;
+      this.setState({
+        data: data,
+      })
+    });
+
+    // 切换页面后，页面滚动到顶部
+    scrollTo(0,0);
     this.setState({
       current,
     });

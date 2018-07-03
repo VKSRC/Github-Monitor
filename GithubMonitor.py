@@ -36,7 +36,7 @@ class LeakageList(Resource):
         if args.get('language') and args.get('language') != '全部':
             db_leakages = db_leakages.filter(Leakage.language == args.get('language'))
 
-        db_leakages = db_leakages.order_by(-Leakage.add_time)\
+        db_leakages = db_leakages.order_by(db.desc(Leakage.add_time))\
             .paginate(page=args.get('page'), per_page=args.get('page_size'))
         leakages = {
             'count': db_leakages.total,

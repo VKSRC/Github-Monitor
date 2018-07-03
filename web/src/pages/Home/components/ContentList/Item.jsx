@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import IceContainer from '@icedesign/container';
-import { Grid, Tag, Button } from '@icedesign/base';
+import { Grid, Tag, Button, Dialog } from '@icedesign/base';
 import axios from 'axios';
 import {config} from '../../../../config'
 
@@ -13,27 +13,52 @@ export default class Item extends Component {
 
   constructor(props){
     super(props);
+    this.state = {
+      show: true,
+    }
   }
 
   handleOperation(id, status, e) {
     axios.put(`${config.API_URL}/api/leakage/${id}`, {
       status: status,
     }).then((response) => {
-      console.log(response);
+      if (response.data.status === status) {
+        Dialog.alert({
+          title: "提示",
+          content: "操作成功！",
+          needWrapper: false,
+          style: {
+            width: "150px",
+          },
+          onOk: () => {
+            this.setState({
+              show: false,
+            })
+          }
+        })
+      }
+    })
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      show: true,
     })
   }
 
   render() {
-    return (
-      <IceContainer>
-        <div style={styles.code_list_item}>
-          <Row>
-            <Col l="24">
-              <a href="#">
-                <img src={this.props.data.account_avatar} height="32" width="32"
-                     style={styles.avatar}/>
-              </a>
-              <span style={styles.code_type}>
+    console.log(this.state);
+    if (this.state.show) {
+      return (
+        <IceContainer>
+          <div style={styles.code_list_item}>
+            <Row>
+              <Col l="24">
+                <a href="#">
+                  <img src={this.props.data.account_avatar} height="32" width="32"
+                       style={styles.avatar}/>
+                </a>
+                <span style={styles.code_type}>
                 <ButtonGroup>
                   <Button type="primary" onClick={(e) => this.handleOperation(this.props.data.id, 2, e)}>确认</Button>
                   <Button type="primary" onClick={(e) => this.handleOperation(this.props.data.id, 3, e)}>处理</Button>
@@ -41,28 +66,31 @@ export default class Item extends Component {
                 </ButtonGroup>
               </span>
 
-              <Col l="24" className="leakage">
-                <a href="index.js" style={styles.code_title}>{this.props.data.account}</a>
-                <span style={{margin: '0 4px'}}>–</span>
-                <a href="#">{this.props.data.file_name}</a>
+                <Col l="24" className="leakage">
+                  <a href="index.js" style={styles.code_title}>{this.props.data.account}</a>
+                  <span style={{margin: '0 4px'}}>–</span>
+                  <a href="#">{this.props.data.file_name}</a>
 
-                <div className="mb-8">
-                  <span><Tag shape="readonly" size="small">{this.props.data.language}</Tag></span>
-                  <span className="text-gray"><Tag shape="readonly" size="small">{this.props.data.add_time}</Tag></span>
-                </div>
-
-                <div className="code-list">
-                  <div className="file-box blob-wrapper">
-                    <div dangerouslySetInnerHTML={{__html: this.props.data.code}} />
+                  <div className="mb-8">
+                    <span><Tag shape="readonly" size="small">{this.props.data.language}</Tag></span>
+                    <span className="text-gray"><Tag shape="readonly" size="small">{this.props.data.add_time}</Tag></span>
                   </div>
-                </div>
-              </Col>
-            </Col>
-          </Row>
-        </div>
 
-      </IceContainer>
-    );
+                  <div className="code-list">
+                    <div className="file-box blob-wrapper">
+                      <div dangerouslySetInnerHTML={{__html: this.props.data.code}} />
+                    </div>
+                  </div>
+                </Col>
+              </Col>
+            </Row>
+          </div>
+
+        </IceContainer>
+      );
+    }else{
+      return null;
+    }
   }
 
 }

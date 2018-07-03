@@ -60,9 +60,21 @@ export default class Item extends Component {
                 </a>
                 <span style={styles.code_type}>
                 <ButtonGroup>
-                  <Button type="primary" onClick={(e) => this.handleOperation(this.props.data.id, 2, e)}>确认</Button>
-                  <Button type="primary" onClick={(e) => this.handleOperation(this.props.data.id, 3, e)}>处理</Button>
-                  <Button type="primary" onClick={(e) => this.handleOperation(this.props.data.id, 4, e)}>加白</Button>
+                  {
+                    this.props.data.status === 1
+                    &&
+                    <Button type="primary" onClick={(e) => this.handleOperation(this.props.data.id, 2, e)}>确认</Button>
+                  }
+                  {
+                    this.props.data.status === 2
+                    &&
+                    <Button type="primary" onClick={(e) => this.handleOperation(this.props.data.id, 3, e)}>处理</Button>
+                  }
+                  {
+                    this.props.data.status === 1
+                    &&
+                    <Button type="primary" onClick={(e) => this.handleOperation(this.props.data.id, 4, e)}>加白</Button>
+                  }
                 </ButtonGroup>
               </span>
 

@@ -116,11 +116,6 @@ def crawl():
                     node_index
                 ))[0].attrib['src']
 
-                # 判断是否在白名单, 如果真, 则跳过
-                rs = WhiteList.query.filter_by(name=leakage['file_name']).all()
-                if rs:
-                    continue
-
                 # 判断是否已经入库, 如果真, 则更新`update_datetime`字段。
                 rs = Leakage.query\
                     .filter_by(file_name=leakage['file_name'], project_name=leakage['project_name']).all()
@@ -128,6 +123,11 @@ def crawl():
                     for l in rs:
                         l.update_time = datetime.datetime.now()
                         db.session.commit()
+
+                # 判断是否在白名单, 如果真, 则跳过
+                rs = WhiteList.query.filter_by(name=leakage['file_name']).all()
+                if rs:
+                    continue
 
                 leakage_db = Leakage(**leakage)
                 db.session.add(leakage_db)

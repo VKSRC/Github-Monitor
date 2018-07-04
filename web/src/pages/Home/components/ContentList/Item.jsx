@@ -48,7 +48,6 @@ export default class Item extends Component {
   }
 
   render() {
-    console.log(this.state);
     if (this.state.show) {
       return (
         <IceContainer>

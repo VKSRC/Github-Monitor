@@ -23,7 +23,7 @@ class LeakageList(Resource):
     def get(self):
         parser = reqparse.RequestParser()
         parser.add_argument('page', type=int, default=1, help="Which page with data")
-        parser.add_argument('page_size', type=int, default=10, help="Which page count with data")
+        parser.add_argument('page_size', type=str, default=10, help="Which page count with data")
         parser.add_argument('status', type=str, help="data status")
         parser.add_argument('language', type=str, help="which type with data")
         args = parser.parse_args()

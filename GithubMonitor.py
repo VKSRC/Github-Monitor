@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 # Author: Tuuu Nya<song@secbox.cn>
 
+import datetime
 from flask import Flask, render_template, request, abort
 from flask_restful import Resource, Api, reqparse
 from flask_cors import CORS
@@ -64,6 +65,7 @@ class LeakageDetail(Resource):
         if req.get('status') in [1, 2, 3, 4]:
             leakage = Leakage.query.get_or_404(id)
             leakage.status = req.get('status')
+            leakage.handle_time = datetime.datetime.now()
             db.session.commit()
             return leakage.to_json()
         else:

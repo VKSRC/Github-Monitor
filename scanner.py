@@ -123,6 +123,7 @@ def crawl():
                     for l in rs:
                         l.update_time = datetime.datetime.now()
                         db.session.commit()
+                    continue
 
                 # 判断是否在白名单, 如果真, 则跳过
                 rs = WhiteList.query.filter_by(name=leakage['file_name']).all()

@@ -84,8 +84,10 @@ export default class Item extends Component {
                   <a href="#">{this.props.data.file_name}</a>
 
                   <div className="mb-8">
-                    <span><Tag shape="readonly" size="small">{this.props.data.language}</Tag></span>
-                    <span><Tag shape="readonly" size="small">{this.props.data.add_time}</Tag></span>
+                    {this.props.data.language === null || <span><Tag shape="readonly" size="small">{this.props.data.language}</Tag></span>}
+                    <span><Tag shape="readonly" size="small">发现：{this.props.data.add_time}</Tag></span>
+                    {this.props.data.update_time === null || <span><Tag shape="readonly" size="small">更新：{this.props.data.update_time}</Tag></span>}
+                    {this.props.data.handle_time === null || <span><Tag shape="readonly" size="small">处理：{this.props.data.handle_time}</Tag></span>}
                     <span><Tag shape="readonly" size="small">{statusConvert(null ,this.props.data.status)}</Tag></span>
                   </div>
 

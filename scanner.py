@@ -6,10 +6,11 @@ import sys
 import re
 import logging
 import requests
+import datetime
 from lxml import html
 from utils import utc2local
 from sqlalchemy.exc import DataError
-from models import db, Leakage, Keywords
+from models import db, Leakage, Keywords, WhiteList
 
 
 GITHUB_USERNAME = 'yuzesheji@qq.com'
@@ -114,6 +115,19 @@ def crawl():
                 leakage['account_avatar'] = node.xpath('//*[@id="code_search_results"]/div[1]/div[{}]/a[1]/img'.format(
                     node_index
                 ))[0].attrib['src']
+
+                # 判断是否在白名单, 如果真, 则跳过
+                rs = WhiteList.query.filter_by(name=leakage['file_name']).all()
+                if rs:
+                    continue
+
+                # 判断是否已经入库, 如果真, 则更新`update_datetime`字段。
+                rs = Leakage.query\
+                    .filter_by(file_name=leakage['file_name'], project_name=leakage['project_name']).all()
+                if rs:
+                    for l in rs:
+                        l.update_time = datetime.datetime.now()
+                        db.session.commit()
 
                 leakage_db = Leakage(**leakage)
                 db.session.add(leakage_db)

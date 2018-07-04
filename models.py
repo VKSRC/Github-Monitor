@@ -23,6 +23,8 @@ class Leakage(db.Model):
     language = db.Column(db.String(50))
     code = db.Column(LONGTEXT)
     add_time = db.Column(db.DateTime(timezone=Timezone))
+    update_time = db.Column(db.DateTime(timezone=Timezone))
+    handle_time = db.Column(db.DateTime(timezone=Timezone))
     account = db.Column(db.String(50))
     account_avatar = db.Column(db.Text)
     # 1:待确认  2:待处理  3:已处理  4:无风险
@@ -35,7 +37,9 @@ class Leakage(db.Model):
             'file_name': self.file_name,
             'language': self.language,
             'code': self.code,
-            'add_time': datetime.strftime(self.add_time, '%Y-%m-%d %H:%M:%S'),
+            'add_time': datetime.strftime(self.add_time, '%Y-%m-%d %H:%M:%S' if self.add_time else None),
+            'update_time': datetime.strftime(self.update_time, '%Y-%m-%d %H:%M:%S') if self.update_time else None,
+            'handle_time': datetime.strftime(self.handle_time, '%Y-%m-%d %H:%M:%S') if self.handle_time else None,
             'account': self.account,
             'account_avatar': self.account_avatar,
             'status': self.status,

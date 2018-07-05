@@ -79,7 +79,7 @@ export default class Item extends Component {
               </span>
 
                 <Col l="24" className="leakage">
-                  <a href="index.js" style={styles.code_title}>{this.props.data.account}</a>
+                  <a href="index.js" style={styles.code_title}>{this.props.data.account}/{this.props.data.project_name}</a>
                   <span style={{margin: '0 4px'}}>–</span>
                   <a href="#">{this.props.data.file_name}</a>
 

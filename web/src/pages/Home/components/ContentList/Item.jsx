@@ -54,7 +54,7 @@ export default class Item extends Component {
           <div style={styles.code_list_item}>
             <Row>
               <Col l="24">
-                <a href="#">
+                <a href={this.props.data.account_url} target="_blank">
                   <img src={this.props.data.account_avatar} height="32" width="32"
                        style={styles.avatar}/>
                 </a>
@@ -79,9 +79,9 @@ export default class Item extends Component {
               </span>
 
                 <Col l="24" className="leakage">
-                  <a href="index.js" style={styles.code_title}>{this.props.data.account}/{this.props.data.project_name}</a>
+                  <a href={this.props.data.project_url} target="_blank" style={styles.code_title}>{this.props.data.account}/{this.props.data.project_name}</a>
                   <span style={{margin: '0 4px'}}>–</span>
-                  <a href="#">{this.props.data.file_name}</a>
+                  <a href={this.props.data.file_url} target="_blank">{this.props.data.file_name}</a>
 
                   <div className="mb-8">
                     {this.props.data.language === null || <span><Tag shape="readonly" size="small">{this.props.data.language}</Tag></span>}

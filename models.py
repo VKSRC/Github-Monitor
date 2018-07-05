@@ -37,7 +37,9 @@ class Leakage(db.Model):
     def to_json(self):
         return {
             'id': self.id,
+            'project_url': self.project_url,
             'project_name': self.project_name,
+            'file_url': self.file_url,
             'file_name': self.file_name,
             'language': self.language,
             'code': self.code,
@@ -45,6 +47,7 @@ class Leakage(db.Model):
             'update_time': datetime.strftime(self.update_time, '%Y-%m-%d %H:%M:%S') if self.update_time else None,
             'handle_time': datetime.strftime(self.handle_time, '%Y-%m-%d %H:%M:%S') if self.handle_time else None,
             'account': self.account,
+            'account_url': self.account_url,
             'account_avatar': self.account_avatar,
             'status': self.status,
         }

@@ -62,6 +62,14 @@ def get_page_count(keyword, session):
         return int(1)
 
 
+def get_code_count(keyword, session):
+    search_url = 'https://github.com/search?o=desc&q={}&s=indexed&type=Code'.format(keyword)
+    search_response = session.get(search_url).text
+    tree = html.document_fromstring(search_response)
+    code_count = tree.xpath('//*[@id="js-pjax-container"]/div/div/div[2]/div/div[1]/h3')[0].text
+    return code_count.strip()
+
+
 def crawl():
     session = create_session()
     keywords = get_keywords() if get_keywords() != 0 else None
@@ -74,22 +82,34 @@ def crawl():
         page_count = get_page_count(keyword, session)
         logger.info('Crawl keyword:{}, Page count:{}'.format(keyword, page_count))
 
+        code_count = get_code_count(keyword, session)
+        logger.info('Total: {}'.format(code_count))
+
         for page in range(1, page_count+1):
             search_url = 'https://github.com/search?o=desc&q={}&s=indexed&type=Code&p={}'.format(keyword, page)
-            search_response = session.get(search_url).text
+
+            try:
+                search_response = session.get(search_url).text
+            except requests.exceptions.ConnectionError:
+                continue
+
             tree = html.document_fromstring(search_response)
             nodes = tree.xpath('//*[@id="code_search_results"]/div[1]/div[*]')
             for node in nodes:
                 node_index = nodes.index(node) + 1
                 leakage = dict()
-                project_full_name = node.xpath('//*[@id="code_search_results"]/div[1]/div[{}]/div[1]/a[1]'.format(
+                project_full_name_node = node.xpath('//*[@id="code_search_results"]/div[1]/div[{}]/div[1]/a[1]'.format(
                     node_index
-                ))[0].text
-                leakage['project_name'] = project_full_name.split('/')[1]
+                ))[0]
+                leakage['project_name'] = project_full_name_node.text.split('/')[1]
+                leakage['project_url'] = 'https://github.com' + str(project_full_name_node.attrib['href'])
 
                 leakage['file_name'] = node.xpath('//*[@id="code_search_results"]/div[1]/div[{}]/div[1]/a[2]'.format(
                     node_index
                 ))[0].attrib['title']
+                leakage['file_url'] = 'https://github.com' + str(node.xpath('//*[@id="code_search_results"]/div[1]/div[{}]/div[1]/a[2]'.format(
+                    node_index
+                ))[0].attrib['href'])
 
                 leakage['language'] = node.xpath('//*[@id="code_search_results"]/div[1]/div[{}]/span[1]'.format(
                     node_index
@@ -110,15 +130,20 @@ def crawl():
                     ))[0].attrib['datetime']
                 leakage['add_time'] = utc2local(leakage['add_time'])
 
-                leakage['account'] = project_full_name.split('/')[0]
+                leakage['account'] = project_full_name_node.text.split('/')[0]
 
                 leakage['account_avatar'] = node.xpath('//*[@id="code_search_results"]/div[1]/div[{}]/a[1]/img'.format(
                     node_index
                 ))[0].attrib['src']
+                leakage['account_url'] = 'https://github.com/{}'.format(leakage['account'])
 
                 # 判断是否已经入库, 如果真, 则更新`update_datetime`字段。
                 rs = Leakage.query\
-                    .filter_by(file_name=leakage['file_name'], project_name=leakage['project_name']).all()
+                    .filter_by(
+                        file_name=leakage['file_name'],
+                        project_name=leakage['project_name'],
+                        code=leakage['code'])\
+                    .all()
                 if rs:
                     for l in rs:
                         l.update_time = datetime.datetime.now()

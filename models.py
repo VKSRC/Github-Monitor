@@ -20,7 +20,9 @@ class Leakage(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     project_name = db.Column(db.String(100))
+    project_url = db.Column(db.Text)
     file_name = db.Column(db.Text)
+    file_url = db.Column(db.Text)
     language = db.Column(db.String(50))
     code = db.Column(LONGTEXT)
     add_time = db.Column(db.DateTime(timezone=Timezone))
@@ -28,6 +30,7 @@ class Leakage(db.Model):
     handle_time = db.Column(db.DateTime(timezone=Timezone))
     account = db.Column(db.String(50))
     account_avatar = db.Column(db.Text)
+    account_url = db.Column(db.Text)
     # 1:待确认  2:待处理  3:已处理  4:无风险
     status = db.Column(db.Integer, default=1)
 

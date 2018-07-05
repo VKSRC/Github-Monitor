@@ -7,7 +7,11 @@ import re
 import logging
 import requests
 import datetime
+import smtplib
 from lxml import html
+from email.mime.text import MIMEText
+from email.header import Header
+
 from utils import utc2local
 from sqlalchemy.exc import DataError
 from models import db, Leakage, Keywords, WhiteList
@@ -15,6 +19,28 @@ from models import db, Leakage, Keywords, WhiteList
 
 GITHUB_USERNAME = 'yuzesheji@qq.com'
 GITHUB_PASSWORD = 'wxs497inmdratg'
+
+EMAIL_SERVER = 'smtp.163.com'
+EMAIL_PORT = '25'
+EMAIL_USERNAME = '18758225035@163.com'
+EMAIL_PASSWORD = 'buzhidao123'
+
+
+def send_email(subject, content):
+    receivers = ['18758225035@163.com']
+    sender = EMAIL_USERNAME
+    message = MIMEText(content, _subtype='html', _charset='utf-8')
+    message['From'] = Header('Github-Monitor <{}>'.format(EMAIL_USERNAME), 'utf-8')
+    message['To'] = Header(','.join(receivers), 'utf-8')
+    message['Subject'] = Header(subject, 'utf-8')
+
+    server = smtplib.SMTP(EMAIL_SERVER, EMAIL_PORT)
+    if EMAIL_PORT in ['465', '587']:
+        server.starttls()
+    server.login(EMAIL_USERNAME, EMAIL_PASSWORD)
+    server.sendmail(sender, receivers, message.as_string())
+    server.quit()
+
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('Github-Monitor')
@@ -73,10 +99,14 @@ def get_code_count(keyword, session):
 def crawl():
     session = create_session()
     keywords = get_keywords() if get_keywords() != 0 else None
+    notice = False
 
     if len(keywords) == 0:
         logger.critical('Keywords are None')
         sys.exit()
+
+    if Leakage.query.all():
+        notice = True
 
     for keyword in keywords:
         page_count = get_page_count(keyword, session)
@@ -107,9 +137,10 @@ def crawl():
                 leakage['file_name'] = node.xpath('//*[@id="code_search_results"]/div[1]/div[{}]/div[1]/a[2]'.format(
                     node_index
                 ))[0].attrib['title']
-                leakage['file_url'] = 'https://github.com' + str(node.xpath('//*[@id="code_search_results"]/div[1]/div[{}]/div[1]/a[2]'.format(
-                    node_index
-                ))[0].attrib['href'])
+                leakage['file_url'] = 'https://github.com'\
+                    + str(node.xpath('//*[@id="code_search_results"]/div[1]/div[{}]/div[1]/a[2]'.format(
+                        node_index
+                    ))[0].attrib['href'])
 
                 leakage['language'] = node.xpath('//*[@id="code_search_results"]/div[1]/div[{}]/span[1]'.format(
                     node_index
@@ -137,6 +168,10 @@ def crawl():
                 ))[0].attrib['src']
                 leakage['account_url'] = 'https://github.com/{}'.format(leakage['account'])
 
+                raw_link = leakage['file_url'].replace("https://github.com", "https://raw.githubusercontent.com")\
+                    .replace("/blob", "")
+                raw_code = session.get(raw_link).text
+
                 # 判断是否已经入库, 如果真, 则更新`update_datetime`字段。
                 rs = Leakage.query\
                     .filter_by(
@@ -154,6 +189,27 @@ def crawl():
                 rs = WhiteList.query.filter_by(name=leakage['file_name']).all()
                 if rs:
                     continue
+
+                # 发送邮件提醒
+                content = '''
+                <h3>关键词</h3> 
+                <p>{keyword}</p>
+                <h3>所在项目</h3> 
+                <p><a href="{project_url}" target="_blank">{account}/{project_name}</a></p>
+                <h3>代码地址</h3>
+                <p><a href="{link}" target="_blank">{link}</a></p>
+                <h3>部分相关代码)</h3>
+                <pre><code style="background-color: #f6f8f6;white-space: pre;">{code}</code></pre>
+                '''
+                if notice:
+                    send_email('[Github-Monitor] 监控提醒', content.format(
+                        keyword=keyword,
+                        account=leakage['account'],
+                        project_url=leakage['project_url'],
+                        project_name=leakage['project_name'],
+                        link=leakage['file_url'],
+                        code=raw_code[:1000],
+                    ))
 
                 leakage_db = Leakage(**leakage)
                 db.session.add(leakage_db)

@@ -15,7 +15,7 @@ services:
         environment:
             MYSQL_ROOT_PASSWORD: hacksb
             MYSQL_DATABASE: github-monitor
-        command: ['--character-set-server=utf8', '--collation-server=utf8_general_ci']
+        command: ['--character-set-server=utf8', '--collation-server=utf8_unicode_ci']
         expose:
             - "3306"
         volumes:

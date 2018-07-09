@@ -36,7 +36,7 @@ celery_app.conf.timezone = get_conf('Common', 'TIMEZONE')
 celery_app.conf.beat_schedule = {
     'github-scanner': {
         'task': 'scanner.crawl',
-        'schedule': crontab(minute="*/15")
+        'schedule': crontab(hour="*/4")
     }
 }
 

@@ -1,0 +1,18 @@
+version: '3'
+services:
+    web:
+        build: ./
+        ports: 
+            - "8001:5000"
+        depends_on:
+            - mysql
+    mysql:
+        image: mariadb
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: hacksb
+            MYSQL_DATABASE: github-monitor
+        expose:
+            - "3306"
+        volumes:
+            - ./data/:/var/lib/mysql

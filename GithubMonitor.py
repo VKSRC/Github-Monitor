@@ -22,7 +22,7 @@ def get_conf(section, option):
 
 
 app = Flask(__name__)
-app.debug = bool(get_conf('Common', 'DEBUG'))
+app.debug = bool(int(get_conf('Common', 'DEBUG')))
 api = Api(app)
 CORS(app)
 

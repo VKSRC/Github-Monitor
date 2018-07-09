@@ -6,6 +6,9 @@ services:
             - "8001:5000"
         depends_on:
             - mysql
+            - redis
+        environment:
+            C_FORCE_ROOT: "True"
     mysql:
         image: mariadb
         restart: always
@@ -16,3 +19,7 @@ services:
             - "3306"
         volumes:
             - ./data/:/var/lib/mysql
+    redis:
+        image: redis:4
+        volumes:
+            - ./data_redis/:/data

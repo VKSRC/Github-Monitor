@@ -237,5 +237,3 @@ def crawl():
 
     logger.info("done")
 
-
-crawl()

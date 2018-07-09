@@ -2,14 +2,27 @@
 # -*- coding: utf-8 -*-
 # Author: Tuuu Nya<song@secbox.cn>
 
+import os
 import datetime
+import configparser
 from flask import Flask, render_template, request, abort
 from flask_restful import Resource, Api, reqparse
 from flask_cors import CORS
 from models import Leakage, db
 
+
+base_path = os.path.split(os.path.realpath(__file__))[0]
+conf_path = '{}/config.ini'.format(base_path)
+
+
+def get_conf(section, option):
+    config = configparser.ConfigParser()
+    config.read(conf_path)
+    return config.get(section=section, option=option)
+
+
 app = Flask(__name__)
-app.debug = True
+app.debug = bool(get_conf('Common', 'DEBUG'))
 api = Api(app)
 CORS(app)
 

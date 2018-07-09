@@ -5,3 +5,4 @@ venv/
 .DS_Store
 celerybeat-schedule
 dump.rdb
+config.ini

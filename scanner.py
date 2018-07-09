@@ -2,12 +2,14 @@
 # -*- coding: utf-8 -*-
 # Author: Tuuu Nya<song@secbox.cn>
 
+import os
 import sys
 import re
 import logging
 import requests
 import datetime
 import smtplib
+import configparser
 from lxml import html
 from email.mime.text import MIMEText
 from email.header import Header
@@ -18,18 +20,18 @@ from sqlalchemy.exc import DataError
 from models import db, Leakage, Keywords, WhiteList
 
 
-GITHUB_USERNAME = 'yuzesheji@qq.com'
-GITHUB_PASSWORD = 'wxs497inmdratg'
+base_path = os.path.split(os.path.realpath(__file__))[0]
+conf_path = '{}/config.ini'.format(base_path)
 
-EMAIL_SERVER = 'smtp.163.com'
-EMAIL_PORT = '25'
-EMAIL_USERNAME = '18758225035@163.com'
-EMAIL_PASSWORD = 'buzhidao123'
 
-BROKER_URL = 'redis://127.0.0.1:6379/0'
+def get_conf(section, option):
+    config = configparser.ConfigParser()
+    config.read(conf_path)
+    return config.get(section=section, option=option)
 
-celery_app = Celery('Github-Monitor', broker=BROKER_URL)
-celery_app.conf.timezone = 'Asia/Shanghai'
+
+celery_app = Celery('Github-Monitor', broker=get_conf('Celery', 'BROKER_URL'))
+celery_app.conf.timezone = get_conf('Common', 'TIMEZONE')
 
 celery_app.conf.beat_schedule = {
     'github-scanner': {
@@ -54,8 +56,8 @@ def create_session():
         'commit': 'Sign in',
         'utf8': '✓',
         'authenticity_token': authenticity_token,
-        'login': GITHUB_USERNAME,
-        'password': GITHUB_PASSWORD
+        'login': get_conf('Github', 'USERNAME'),
+        'password': get_conf('Github', 'PASSWORD')
     }
     login_result_page = session.post('https://github.com/session', data=post_data).text
     match_result = re.findall(r'Signed\sin\sas\s<strong class="css-truncate-target">(.*?)</strong>',
@@ -95,16 +97,16 @@ def get_code_count(keyword, session):
 
 def send_email(subject, content):
     receivers = ['18758225035@163.com']
-    sender = EMAIL_USERNAME
+    sender = get_conf('Email', 'USERNAME')
     message = MIMEText(content, _subtype='html', _charset='utf-8')
-    message['From'] = Header('Github-Monitor <{}>'.format(EMAIL_USERNAME), 'utf-8')
+    message['From'] = Header('Github-Monitor <{}>'.format(get_conf('Email', 'USERNAME')), 'utf-8')
     message['To'] = Header(','.join(receivers), 'utf-8')
     message['Subject'] = Header(subject, 'utf-8')
 
-    server = smtplib.SMTP(EMAIL_SERVER, EMAIL_PORT)
-    if EMAIL_PORT in ['465', '587']:
+    server = smtplib.SMTP(get_conf('Email', 'SERVER'), get_conf('Email', 'PORT'))
+    if get_conf('Email', 'PORT') in ['465', '587']:
         server.starttls()
-    server.login(EMAIL_USERNAME, EMAIL_PASSWORD)
+    server.login(get_conf('Email', 'USERNAME'), get_conf('Email', 'PASSWORD'))
     server.sendmail(sender, receivers, message.as_string())
     server.quit()
 
@@ -212,7 +214,7 @@ def crawl():
                 <p><a href="{project_url}" target="_blank">{account}/{project_name}</a></p>
                 <h3>代码地址</h3>
                 <p><a href="{link}" target="_blank">{link}</a></p>
-                <h3>部分相关代码)</h3>
+                <h3>部分相关代码</h3>
                 <pre><code style="background-color: #f6f8f6;white-space: pre;">{code}</code></pre>
                 '''
                 if notice:
@@ -234,3 +236,6 @@ def crawl():
                     db.session.rollback()
 
     logger.info("done")
+
+
+crawl()

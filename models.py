@@ -2,17 +2,29 @@
 # -*- coding: utf-8 -*-
 # Author: Tuuu Nya<song@secbox.cn>
 
+import os
 from datetime import datetime
 from sqlalchemy.dialects.mysql import LONGTEXT
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+import configparser
+
+
+base_path = os.path.split(os.path.realpath(__file__))[0]
+conf_path = '{}/config.ini'.format(base_path)
+
+
+def get_conf(section, option):
+    config = configparser.ConfigParser()
+    config.read(conf_path)
+    return config.get(section=section, option=option)
+
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = \
-    'mysql+pymysql://root:hacksb@127.0.0.1/github-monitor?charset=utf8&autocommit=true'
+app.config['SQLALCHEMY_DATABASE_URI'] = get_conf('Database', 'URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 db = SQLAlchemy(app)
-Timezone = 'Asia/Shanghai'
+Timezone = get_conf('Common', 'TIMEZONE')
 
 
 class Leakage(db.Model):

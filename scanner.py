@@ -11,7 +11,8 @@ import smtplib
 from lxml import html
 from email.mime.text import MIMEText
 from email.header import Header
-
+from celery import Celery
+from celery.schedules import crontab
 from utils import utc2local
 from sqlalchemy.exc import DataError
 from models import db, Leakage, Keywords, WhiteList
@@ -25,21 +26,17 @@ EMAIL_PORT = '25'
 EMAIL_USERNAME = '18758225035@163.com'
 EMAIL_PASSWORD = 'buzhidao123'
 
+BROKER_URL = 'redis://127.0.0.1:6379/0'
 
-def send_email(subject, content):
-    receivers = ['18758225035@163.com']
-    sender = EMAIL_USERNAME
-    message = MIMEText(content, _subtype='html', _charset='utf-8')
-    message['From'] = Header('Github-Monitor <{}>'.format(EMAIL_USERNAME), 'utf-8')
-    message['To'] = Header(','.join(receivers), 'utf-8')
-    message['Subject'] = Header(subject, 'utf-8')
+celery_app = Celery('Github-Monitor', broker=BROKER_URL)
+celery_app.conf.timezone = 'Asia/Shanghai'
 
-    server = smtplib.SMTP(EMAIL_SERVER, EMAIL_PORT)
-    if EMAIL_PORT in ['465', '587']:
-        server.starttls()
-    server.login(EMAIL_USERNAME, EMAIL_PASSWORD)
-    server.sendmail(sender, receivers, message.as_string())
-    server.quit()
+celery_app.conf.beat_schedule = {
+    'github-scanner': {
+        'task': 'scanner.crawl',
+        'schedule': crontab(minute="*/15")
+    }
+}
 
 
 logging.basicConfig(level=logging.INFO)
@@ -96,6 +93,23 @@ def get_code_count(keyword, session):
     return code_count.strip()
 
 
+def send_email(subject, content):
+    receivers = ['18758225035@163.com']
+    sender = EMAIL_USERNAME
+    message = MIMEText(content, _subtype='html', _charset='utf-8')
+    message['From'] = Header('Github-Monitor <{}>'.format(EMAIL_USERNAME), 'utf-8')
+    message['To'] = Header(','.join(receivers), 'utf-8')
+    message['Subject'] = Header(subject, 'utf-8')
+
+    server = smtplib.SMTP(EMAIL_SERVER, EMAIL_PORT)
+    if EMAIL_PORT in ['465', '587']:
+        server.starttls()
+    server.login(EMAIL_USERNAME, EMAIL_PASSWORD)
+    server.sendmail(sender, receivers, message.as_string())
+    server.quit()
+
+
+@celery_app.task
 def crawl():
     session = create_session()
     keywords = get_keywords() if get_keywords() != 0 else None
@@ -219,5 +233,4 @@ def crawl():
                     logger.warning(e)
                     db.session.rollback()
 
-
-crawl()
+    logger.info("done")

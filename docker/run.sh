@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 supervisord
-tail -f /var/log/supervisor/flask*.log
+tail -f /var/log/supervisor/*.log

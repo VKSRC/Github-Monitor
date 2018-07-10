@@ -5,6 +5,7 @@
 import os
 import sys
 import re
+import pytz
 import logging
 import requests
 import datetime
@@ -43,6 +44,7 @@ celery_app.conf.beat_schedule = {
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('Github-Monitor')
+TIMEZONE = pytz.timezone(get_conf('Common', 'TIMEZONE'))
 
 
 # 登录Github并返回session
@@ -197,7 +199,7 @@ def crawl():
                     .all()
                 if rs:
                     for l in rs:
-                        l.update_time = datetime.datetime.now()
+                        l.update_time = datetime.datetime.now(TIMEZONE)
                         db.session.commit()
                     continue
 

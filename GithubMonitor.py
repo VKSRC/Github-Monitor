@@ -3,6 +3,7 @@
 # Author: Tuuu Nya<song@secbox.cn>
 
 import os
+import pytz
 import datetime
 import configparser
 from flask import Flask, render_template, request, abort
@@ -21,6 +22,7 @@ def get_conf(section, option):
     return config.get(section=section, option=option)
 
 
+TIMEZONE = pytz.timezone(get_conf('Common', 'TIMEZONE'))
 app = Flask(__name__)
 app.debug = bool(int(get_conf('Common', 'DEBUG')))
 api = Api(app)
@@ -78,7 +80,7 @@ class LeakageDetail(Resource):
         if req.get('status') in [1, 2, 3, 4]:
             leakage = Leakage.query.get_or_404(id)
             leakage.status = req.get('status')
-            leakage.handle_time = datetime.datetime.now()
+            leakage.handle_time = datetime.datetime.now(TIMEZONE)
             db.session.commit()
             return leakage.to_json()
         else:

@@ -7,10 +7,8 @@ services:
         depends_on:
             - mysql
             - redis
-        environment:
-            C_FORCE_ROOT: "True"
     mysql:
-        image: mariadb
+        image: mysql:5.5
         restart: always
         environment:
             MYSQL_ROOT_PASSWORD: hacksb

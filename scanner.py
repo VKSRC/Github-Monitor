@@ -80,7 +80,12 @@ def get_keywords():
 
 def get_page_count(keyword, session):
     search_url = 'https://github.com/search?o=desc&q={}&s=indexed&type=Code'.format(keyword)
-    search_response = session.get(search_url).text
+    try:
+        search_response = session.get(search_url).text
+    except requests.exceptions.ChunkedEncodingError:
+        return int(1)
+    except requests.exceptions.ConnectionError:
+        return int(1)
     tree = html.document_fromstring(search_response)
     page_count = tree.xpath('//*[@id="code_search_results"]/div[2]/div/a[last()-1]')[0].text
     if len(page_count) > 0:
@@ -91,7 +96,12 @@ def get_page_count(keyword, session):
 
 def get_code_count(keyword, session):
     search_url = 'https://github.com/search?o=desc&q={}&s=indexed&type=Code'.format(keyword)
-    search_response = session.get(search_url).text
+    try:
+        search_response = session.get(search_url).text
+    except requests.exceptions.ChunkedEncodingError:
+        return int(0)
+    except requests.exceptions.ConnectionError:
+        return int(0)
     tree = html.document_fromstring(search_response)
     code_count = tree.xpath('//*[@id="js-pjax-container"]/div/div/div[2]/div/div[1]/h3')[0].text
     return code_count.strip()

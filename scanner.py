@@ -18,6 +18,7 @@ from celery import Celery
 from celery.schedules import crontab
 from utils import utc2local
 from sqlalchemy.exc import DataError
+from sqlalchemy.orm.exc import StaleDataError
 from models import db, Leakage, Keywords, WhiteList
 
 
@@ -209,7 +210,10 @@ def crawl():
                 if rs:
                     for l in rs:
                         l.update_time = datetime.datetime.now(TIMEZONE)
-                        db.session.commit()
+                        try:
+                            db.session.commit()
+                        except StaleDataError:
+                            db.session.rollback()
                     continue
 
                 # 判断是否在白名单, 如果真, 则跳过

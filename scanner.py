@@ -204,8 +204,7 @@ def crawl():
                 rs = Leakage.query\
                     .filter_by(
                         file_name=leakage['file_name'],
-                        project_name=leakage['project_name'],
-                        code=leakage['code'])\
+                        project_name=leakage['project_name'])\
                     .all()
                 if rs:
                     for l in rs:

@@ -1,9 +1,9 @@
 .idea/
 __pycache__/
 venv/
-*.pyc
 .DS_Store
 celerybeat-schedule
 dump.rdb
 config.ini
 data/
+db.sqlite3

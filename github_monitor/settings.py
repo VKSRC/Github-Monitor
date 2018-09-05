@@ -129,3 +129,7 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10,
     'PAGE_QUERY_PARAM': 'page_size',
 }
+
+GITHUB_TOKEN = [
+    '5d2f994307b2733016573afba0e93f0e610767db'
+]

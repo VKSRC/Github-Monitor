@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'github_monitor.apps.leakage',
+    'github_monitor.apps.monitor',
 ]
 
 MIDDLEWARE = [
@@ -77,12 +77,16 @@ WSGI_APPLICATION = 'github_monitor.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'github-monitor',
-        'USER': 'root',
-        'PASSWORD': 'hacksb',
-        'HOST': '127.0.0.1',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'github_monitor.db'),
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'github-monitor',
+    #     'USER': 'root',
+    #     'PASSWORD': 'hacksb',
+    #     'HOST': '127.0.0.1',
+    # }
 }
 
 

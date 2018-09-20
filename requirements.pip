@@ -1,0 +1,6 @@
+django==2.0
+django-filter==2.0.0
+djangorestframework==3.8.2
+requests==2.19.1
+mysqlclient==1.3.13
+uWSGI==2.0.17.1

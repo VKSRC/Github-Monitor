@@ -1,4 +1,5 @@
 from django.db import models
+from .task import Task
 
 
 class Leakage(models.Model):
@@ -7,6 +8,7 @@ class Leakage(models.Model):
         (1, '已处理'),
         (2, '白名单')
     )
+    task = models.ForeignKey(Task, null=True, on_delete=models.SET_NULL)
     sha = models.CharField(max_length=40, null=True)
     content = models.TextField(null=False, default='')
     html_url = models.CharField(max_length=512, null=True)

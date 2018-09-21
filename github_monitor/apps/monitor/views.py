@@ -10,6 +10,7 @@ from .serializers.task_serializers import TaskSerializer
 class LeakageViewSet(ModelViewSet):
     queryset = Leakage.objects.order_by('-id')
     serializer_class = LeakageSerializer
+    http_method_names = ('get', 'put')
 
 
 class TokenViewSet(ModelViewSet):

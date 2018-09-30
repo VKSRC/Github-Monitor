@@ -34,7 +34,7 @@ class TaskProcessor(object):
             key = key.decode()
             if key.startswith('token'):
                 reset = RS.hget(key, 'reset').decode()
-                if not reset or int(reset) < timezone.now().timestamp():
+                if not reset or float(reset) < timezone.now().timestamp():
                     return key.split(':')[1]
         return None
 

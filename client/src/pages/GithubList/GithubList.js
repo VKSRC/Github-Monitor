@@ -4,25 +4,29 @@ import { Card, Form, Avatar, Col, Row, Tag, Button, Pagination } from 'antd';
 import TagSelect from '@/components/TagSelect';
 import StandardFormRow from '@/components/StandardFormRow';
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import { github } from 'react-syntax-highlighter/styles/hljs';
+import { github as hlGithub } from 'react-syntax-highlighter/styles/hljs';
 
 const FormItem = Form.Item;
 const ButtonGroup = Button.Group;
 
-@connect(({ profile, loading }) => ({
-  profile,
-  loading: loading.effects['profile/fetchBasic'],
+@connect(({ github, loading }) => ({
+  github,
+  loading: loading.effects['github/fetchLeakageLists'],
 }))
 class GithubList extends React.Component {
+  componentWillMount() {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'github/fetchLeakageLists',
+      payload: {
+        page: 1,
+        pageSize: 10,
+      },
+    });
+  }
+
   render() {
-    const Code = () => {
-      const codeString = '(num) => num + 1';
-      return (
-        <SyntaxHighlighter language="javascript" style={github}>
-          {codeString}
-        </SyntaxHighlighter>
-      );
-    };
+    const { github } = this.props;
 
     return (
       <div>
@@ -57,43 +61,46 @@ class GithubList extends React.Component {
           </Form>
         </Card>
 
-        <Card style={{ marginTop: '20px' }}>
-          <div style={{ marginBottom: '10px' }}>
-            <Row>
-              <Col span={1}>
-                <Avatar
-                  size="large"
-                  src="https://avatars1.githubusercontent.com/u/35955015?s=64&v=4"
-                />
-              </Col>
-              <Col span={21}>
-                <h3>
-                  <a href="#" target="_blank">
-                    wxfghy/scrapy-project
-                  </a>{' '}
-                  -{' '}
-                  <a href="#">
-                    <small>2016-03-17-part-time-online-esl-teachers.md</small>
-                  </a>
-                </h3>
-                <Tag color="blue">Markdown</Tag>
-                <Tag color="blue">2018-10-10 12:00:11</Tag>
-                <Tag color="blue">待确认</Tag>
-              </Col>
-              <Col span={2}>
-                <ButtonGroup>
-                  <Button type="primary">确认</Button>
-                  <Button>加白</Button>
-                </ButtonGroup>
-              </Col>
-            </Row>
-            <Row style={{ marginTop: '10px' }}>
-              <Col>
-                <Code />
-              </Col>
-            </Row>
-          </div>
+        {github.results.map(leakage => (
+          <Card style={{ marginTop: '20px' }} key={leakage.id}>
+            <div style={{ marginBottom: '10px' }}>
+              <Row>
+                <Col span={1}>
+                  <Avatar size="large" src={leakage.user_avatar} />
+                </Col>
+                <Col span={21}>
+                  <h3>
+                    <a href={leakage.repo_url} target="_blank" rel="noopener noreferrer">
+                      {leakage.user_name}/{leakage.repo_name}
+                    </a>{' '}
+                    -{' '}
+                    <a href={leakage.html_url}>
+                      <small>{leakage.file_name}</small>
+                    </a>
+                  </h3>
+                  <Tag color="blue">Markdown</Tag>
+                  <Tag color="blue">{leakage.add_time}</Tag>
+                  <Tag color="blue">待确认</Tag>
+                </Col>
+                <Col span={2}>
+                  <ButtonGroup>
+                    <Button type="primary">确认</Button>
+                    <Button>加白</Button>
+                  </ButtonGroup>
+                </Col>
+              </Row>
+              <Row style={{ marginTop: '10px' }}>
+                <Col>
+                  <SyntaxHighlighter language="javascript" style={hlGithub}>
+                    leakage.content
+                  </SyntaxHighlighter>
+                </Col>
+              </Row>
+            </div>
+          </Card>
+        ))}
 
+        <Card style={{ marginTop: '20px' }}>
           <Pagination defaultCurrent={1} total={100} />
         </Card>
       </div>

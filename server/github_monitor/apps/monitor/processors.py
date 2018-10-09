@@ -56,7 +56,7 @@ class TaskProcessor(object):
         session, _token = self._new_session()
         while True:
             try:
-                response = session.search_code(keyword, sort='indexed', order='desc')
+                response = session.search_code(keyword, sort='indexed', order='desc', highlight=True)
                 total = response.totalCount
                 break
             except GithubException as e:
@@ -84,6 +84,23 @@ class TaskProcessor(object):
             self.process_pages(page_content)
 
     def process_pages(self, _contents):
+
+        def format_fragments(_text_matches):
+            fragments = ''
+            for match in _text_matches:
+                join_em_fragment = ''
+                start = 0
+                fragment = match.get('fragment', '')
+                match_infos = match.get('matches', [])
+                for _info in match_infos:
+                    indices = _info.get('indices')
+                    text = _info.get('text')
+                    join_em_fragment += fragment[start:indices[0]] + '<em>' + text + '</em>'
+                    start = indices[1]
+                join_em_fragment += fragment[start:]
+                fragments += join_em_fragment
+            return fragments
+
         for _file in _contents:
             exists_leakages = Leakage.objects.filter(sha=_file.sha)
             if exists_leakages:
@@ -94,6 +111,7 @@ class TaskProcessor(object):
                     'task': self.task,
                     'sha': _file.sha,
                     'content': _file.decoded_content.decode(),
+                    'fragment': format_fragments(_file.text_matches),
                     'html_url': _file.html_url,
                     'last_modified': dateutil.parser.parse(_file.last_modified),
                     'file_name': _file.name,
@@ -116,10 +134,8 @@ class TaskProcessor(object):
                 _thread = Thread(target=self.search_by_keyword_thread, args=(keyword, ))
                 _thread.start()
                 self.thread_pool.append(_thread)
-            while self.thread_pool:
-                for i in range(len(self.thread_pool) - 1, -1, -1):
-                    if not self.thread_pool[i].isAlive():
-                        self.thread_pool.pop(i)
+            for th in self.thread_pool:
+                th.join()
             connection.close()
             self.task.status = 2
             self.task.finished_time = timezone.now()

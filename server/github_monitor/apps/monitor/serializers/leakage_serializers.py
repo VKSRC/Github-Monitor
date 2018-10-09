@@ -8,7 +8,7 @@ class LeakageSerializer(serializers.HyperlinkedModelSerializer):
         fields = (
             'id',
             'sha',
-            'content',
+            'fragment',
             'html_url',
             'last_modified',
             'file_name',

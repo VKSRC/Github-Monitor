@@ -11,6 +11,7 @@ export default {
   },
 
   effects: {
+    // payload = { page, page_size }
     *fetchLeakageLists({ payload }, { call, put }) {
       const response = yield call(queryLeakageLists, payload);
       yield put({

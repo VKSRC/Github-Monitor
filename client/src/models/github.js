@@ -1,4 +1,5 @@
-import { queryLeakageLists } from '@/services/github';
+import { queryLeakageLists, queryUpdateLeakageStatus } from '@/services/github';
+import { message } from 'antd';
 
 export default {
   namespace: 'github',
@@ -11,13 +12,32 @@ export default {
   },
 
   effects: {
-    // payload = { page, page_size }
+    // payload = { page, page_size, status }
     *fetchLeakageLists({ payload }, { call, put }) {
       const response = yield call(queryLeakageLists, payload);
       yield put({
         type: 'getLeakageLists',
         response,
         payload,
+      });
+    },
+
+    *updateLeakageStatus({ payload }, { call, put }) {
+      yield call(queryUpdateLeakageStatus, payload);
+      message.success('操作成功!');
+      yield put({ type: 'reload' });
+    },
+
+    *reload(action, { put, select }) {
+      const { github } = yield select();
+      const { page, pageSize, status } = github;
+      yield put({
+        type: 'fetchLeakageLists',
+        payload: {
+          page,
+          pageSize,
+          status,
+        },
       });
     },
   },
@@ -27,7 +47,7 @@ export default {
       return {
         ...state,
         page: action.payload.page,
-        page_size: action.payload.pageSize,
+        pageSize: action.payload.pageSize,
         results: action.response.results,
         total: action.response.count,
       };

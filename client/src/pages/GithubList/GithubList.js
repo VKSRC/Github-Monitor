@@ -10,9 +10,8 @@ import { leakageStatus, leakageTagColor } from '../../constants';
 const FormItem = Form.Item;
 const ButtonGroup = Button.Group;
 
-@connect(({ github, loading }) => ({
+@connect(({ github }) => ({
   github,
-  loading: loading.effects['github/fetchLeakageLists'],
 }))
 class GithubList extends React.Component {
   constructor(props) {
@@ -64,10 +63,20 @@ class GithubList extends React.Component {
     });
   };
 
+  updateLeakageStatus = (id, status) => {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'github/updateLeakageStatus',
+      payload: {
+        id,
+        status,
+      },
+    });
+  };
+
   render() {
     const { github } = this.props;
     const { tag } = this.state;
-    console.log(github);
 
     return (
       <div>
@@ -131,8 +140,10 @@ class GithubList extends React.Component {
                 </Col>
                 <Col span={3}>
                   <ButtonGroup>
-                    <Button type="primary">确认</Button>
-                    <Button>加白</Button>
+                    <Button type="primary" onClick={() => this.updateLeakageStatus(leakage.id, 1)}>
+                      处理
+                    </Button>
+                    <Button onClick={() => this.updateLeakageStatus(leakage.id, 2)}>加白</Button>
                   </ButtonGroup>
                 </Col>
               </Row>

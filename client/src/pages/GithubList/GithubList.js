@@ -15,6 +15,14 @@ const ButtonGroup = Button.Group;
   loading: loading.effects['github/fetchLeakageLists'],
 }))
 class GithubList extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      tag: 'a',
+    };
+  }
+
   componentWillMount() {
     const { dispatch } = this.props;
     dispatch({
@@ -28,17 +36,37 @@ class GithubList extends React.Component {
 
   changePage = page => {
     const { dispatch } = this.props;
+    const { tag } = this.state;
     dispatch({
       type: 'github/fetchLeakageLists',
       payload: {
         page,
         pageSize: 10,
+        status: tag,
       },
     }).then(() => window.scrollTo(0, 0));
   };
 
+  changeTag = tag => {
+    const lastTag = tag.pop();
+    const { dispatch } = this.props;
+    this.setState({
+      tag: lastTag,
+    });
+
+    dispatch({
+      type: 'github/fetchLeakageLists',
+      payload: {
+        page: 1,
+        pageSize: 10,
+        status: lastTag,
+      },
+    });
+  };
+
   render() {
     const { github } = this.props;
+    const { tag } = this.state;
     console.log(github);
 
     return (
@@ -47,11 +75,11 @@ class GithubList extends React.Component {
           <Form layout="inline">
             <StandardFormRow title="状态" block style={{ paddingBottom: 11 }}>
               <FormItem>
-                <TagSelect>
-                  <TagSelect.Option value="cat1">待确认</TagSelect.Option>
-                  <TagSelect.Option value="cat2">待处理</TagSelect.Option>
-                  <TagSelect.Option value="cat3">已处理</TagSelect.Option>
-                  <TagSelect.Option value="cat4">无风险</TagSelect.Option>
+                <TagSelect onChange={this.changeTag} value={tag} hideCheckAll>
+                  <TagSelect.Option value="a">全部</TagSelect.Option>
+                  <TagSelect.Option value="0">未处理</TagSelect.Option>
+                  <TagSelect.Option value="1">已处理</TagSelect.Option>
+                  <TagSelect.Option value="2">白名单</TagSelect.Option>
                 </TagSelect>
               </FormItem>
             </StandardFormRow>
@@ -120,7 +148,7 @@ class GithubList extends React.Component {
         ))}
 
         <Card style={{ marginTop: '20px' }}>
-          <Pagination defaultCurrent="1" total={github.total} onChange={this.changePage} />
+          <Pagination defaultCurrent={1} total={github.total} onChange={this.changePage} />
         </Card>
       </div>
     );

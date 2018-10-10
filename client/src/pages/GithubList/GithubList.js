@@ -5,6 +5,7 @@ import TagSelect from '@/components/TagSelect';
 import StandardFormRow from '@/components/StandardFormRow';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { github as hlGithub } from 'react-syntax-highlighter/styles/hljs';
+import { leakageStatus, leakageTagColor } from '../../constants';
 
 const FormItem = Form.Item;
 const ButtonGroup = Button.Group;
@@ -25,8 +26,20 @@ class GithubList extends React.Component {
     });
   }
 
+  changePage = page => {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'github/fetchLeakageLists',
+      payload: {
+        page,
+        pageSize: 10,
+      },
+    }).then(() => window.scrollTo(0, 0));
+  };
+
   render() {
     const { github } = this.props;
+    console.log(github);
 
     return (
       <div>
@@ -68,7 +81,7 @@ class GithubList extends React.Component {
                 <Col span={1}>
                   <Avatar size="large" src={leakage.user_avatar} />
                 </Col>
-                <Col span={21}>
+                <Col span={20}>
                   <h3>
                     <a href={leakage.repo_url} target="_blank" rel="noopener noreferrer">
                       {leakage.user_name}/{leakage.repo_name}
@@ -78,11 +91,17 @@ class GithubList extends React.Component {
                       <small>{leakage.file_name}</small>
                     </a>
                   </h3>
-                  <Tag color="blue">Markdown</Tag>
-                  <Tag color="blue">{leakage.add_time}</Tag>
-                  <Tag color="blue">待确认</Tag>
+                  <Tag color="blue">
+                    发布时间：
+                    {leakage.last_modified}
+                  </Tag>
+                  <Tag color="blue">
+                    入库时间：
+                    {leakage.add_time}
+                  </Tag>
+                  <Tag color={leakageTagColor[leakage.status]}>{leakageStatus[leakage.status]}</Tag>
                 </Col>
-                <Col span={2}>
+                <Col span={3}>
                   <ButtonGroup>
                     <Button type="primary">确认</Button>
                     <Button>加白</Button>
@@ -92,7 +111,7 @@ class GithubList extends React.Component {
               <Row style={{ marginTop: '10px' }}>
                 <Col>
                   <SyntaxHighlighter language="javascript" style={hlGithub}>
-                    leakage.content
+                    {leakage.fragment}
                   </SyntaxHighlighter>
                 </Col>
               </Row>
@@ -101,7 +120,7 @@ class GithubList extends React.Component {
         ))}
 
         <Card style={{ marginTop: '20px' }}>
-          <Pagination defaultCurrent={1} total={100} />
+          <Pagination defaultCurrent="1" total={github.total} onChange={this.changePage} />
         </Card>
       </div>
     );

@@ -158,7 +158,7 @@ class GithubList extends React.Component {
           </Card>
         ))}
 
-        <Card style={{ marginTop: '20px' }}>
+        <Card style={{ marginTop: '20px', textAlign: 'center' }}>
           <Pagination defaultCurrent={1} total={github.total} onChange={this.changePage} />
         </Card>
       </div>

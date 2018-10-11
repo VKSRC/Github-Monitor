@@ -11,6 +11,12 @@ export async function queryLeakageLists({ page = 1, pageSize = 10, status = 'a' 
   });
 }
 
-export async function wait() {
-  return request(`${API_HOST}`);
+export async function queryUpdateLeakageStatus({ id, status }) {
+  return request(`${API_HOST}/api/monitor/result/${id}.json`, {
+    method: 'PUT',
+    body: {
+      status,
+    },
+    credentials: 'same-origin',
+  });
 }

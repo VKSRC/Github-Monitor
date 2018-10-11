@@ -28,3 +28,13 @@ export async function queryTaskLists({ page = 1, pageSize = 10 }) {
     credentials: 'same-origin',
   });
 }
+
+export async function queryCreateTask(payload) {
+  const url = `${API_HOST}/api/monitor/task.json`;
+
+  return request(url, {
+    method: 'POST',
+    body: payload,
+    credentials: 'same-origin',
+  });
+}

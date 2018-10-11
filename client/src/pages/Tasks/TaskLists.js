@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, Table, Badge, Form, Button } from 'antd';
 import { connect } from 'dva';
 import { taskStatus } from '@/constants';
+import TaskAddModal from './TaskAddModal';
 
 const FormItem = Form.Item;
 
@@ -81,6 +82,14 @@ class TaskLists extends React.Component {
     });
   };
 
+  createTaskHandler = values => {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'task/createTasks',
+      payload: values,
+    });
+  };
+
   render() {
     const { task } = this.props;
 
@@ -89,9 +98,9 @@ class TaskLists extends React.Component {
         <Card bordered={false}>
           <Form>
             <FormItem>
-              <Button type="primary" htmlType="submit">
-                添加用户
-              </Button>
+              <TaskAddModal onOk={this.createTaskHandler}>
+                <Button type="primary">添加任务</Button>
+              </TaskAddModal>
             </FormItem>
           </Form>
           <Table

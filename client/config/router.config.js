@@ -22,6 +22,12 @@ export default [
         icon: 'dashboard',
         component: './GithubList/GithubList',
       },
+      {
+        path: '/github/task',
+        name: 'taskLists',
+        icon: 'schedule',
+        component: './Tasks/TaskLists',
+      },
     ],
     authority: ['admin', 'user'],
     Routes: ['src/pages/Authorized'],

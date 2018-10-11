@@ -4,4 +4,6 @@ const leakageStatus = ['未处理', '已处理', '白名单'];
 
 const leakageTagColor = ['blue', '#666', 'green'];
 
-export { API_HOST, leakageStatus, leakageTagColor };
+const taskStatus = ['等待中', '运行中', '完成'];
+
+export { API_HOST, leakageStatus, leakageTagColor, taskStatus };

@@ -80,7 +80,7 @@ class GithubList extends React.Component {
 
     return (
       <div>
-        <Card title="Github泄漏查询" bordered={false}>
+        <Card bordered={false}>
           <Form layout="inline">
             <StandardFormRow title="状态" block style={{ paddingBottom: 11 }}>
               <FormItem>

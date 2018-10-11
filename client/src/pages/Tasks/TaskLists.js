@@ -1,7 +1,9 @@
 import React from 'react';
-import { Card, Table, Badge } from 'antd';
+import { Card, Table, Badge, Form, Button } from 'antd';
 import { connect } from 'dva';
 import { taskStatus } from '@/constants';
+
+const FormItem = Form.Item;
 
 @connect(({ task }) => ({
   task,
@@ -85,6 +87,13 @@ class TaskLists extends React.Component {
     return (
       <div>
         <Card bordered={false}>
+          <Form>
+            <FormItem>
+              <Button type="primary" htmlType="submit">
+                添加用户
+              </Button>
+            </FormItem>
+          </Form>
           <Table
             columns={this.columns}
             dataSource={task.tasks}

@@ -7,6 +7,7 @@ export default {
   state: {
     page: 0,
     page_size: 10,
+    status: 'a',
     results: [],
     total: 0,
   },
@@ -48,6 +49,7 @@ export default {
         ...state,
         page: action.payload.page,
         pageSize: action.payload.pageSize,
+        status: action.payload.status,
         results: action.response.results,
         total: action.response.count,
       };

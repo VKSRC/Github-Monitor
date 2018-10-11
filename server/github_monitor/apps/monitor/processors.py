@@ -86,20 +86,21 @@ class TaskProcessor(object):
     def process_pages(self, _contents):
 
         def format_fragments(_text_matches):
-            fragments = ''
-            for match in _text_matches:
-                join_em_fragment = ''
-                start = 0
-                fragment = match.get('fragment', '')
-                match_infos = match.get('matches', [])
-                for _info in match_infos:
-                    indices = _info.get('indices')
-                    text = _info.get('text')
-                    join_em_fragment += fragment[start:indices[0]] + '<em>' + text + '</em>'
-                    start = indices[1]
-                join_em_fragment += fragment[start:]
-                fragments += join_em_fragment
-            return fragments
+            return ''.join([f['fragment'] for f in _text_matches])
+            # fragments = ''
+            # for match in _text_matches:
+            #     join_em_fragment = ''
+            #     start = 0
+            #     fragment = match.get('fragment', '')
+            #     match_infos = match.get('matches', [])
+            #     for _info in match_infos:
+            #         indices = _info.get('indices')
+            #         text = _info.get('text')
+            #         join_em_fragment += fragment[start:indices[0]] + '<em>' + text + '</em>'
+            #         start = indices[1]
+            #     join_em_fragment += fragment[start:]
+            #     fragments += join_em_fragment
+            # return fragments
 
         for _file in _contents:
             exists_leakages = Leakage.objects.filter(sha=_file.sha)

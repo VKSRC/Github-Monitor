@@ -68,12 +68,33 @@ class TaskLists extends React.Component {
     });
   }
 
+  changePage = page => {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'task/fetchTasks',
+      payload: {
+        page,
+        pageSize: 10,
+      },
+    });
+  };
+
   render() {
     const { task } = this.props;
+
     return (
       <div>
         <Card bordered={false}>
-          <Table columns={this.columns} dataSource={task.tasks} rowKey="id" />
+          <Table
+            columns={this.columns}
+            dataSource={task.tasks}
+            rowKey="id"
+            pagination={{
+              current: task.page,
+              total: task.total,
+              onChange: this.changePage,
+            }}
+          />
         </Card>
       </div>
     );

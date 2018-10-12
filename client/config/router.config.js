@@ -28,6 +28,12 @@ export default [
         icon: 'schedule',
         component: './Tasks/TaskLists',
       },
+      {
+        path: '/github/token',
+        name: 'tokenLists',
+        icon: 'lock',
+        component: './Token/TokenLists',
+      },
     ],
     authority: ['admin', 'user'],
     Routes: ['src/pages/Authorized'],

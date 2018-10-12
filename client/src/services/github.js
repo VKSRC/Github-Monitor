@@ -38,3 +38,11 @@ export async function queryCreateTask(payload) {
     credentials: 'same-origin',
   });
 }
+
+export async function queryTokenLists({ page = 1, pageSize = 10 }) {
+  const url = `${API_HOST}/api/monitor/token.json?page=${page}&page_size=${pageSize}`;
+
+  return request(url, {
+    credentials: 'same-origin',
+  });
+}

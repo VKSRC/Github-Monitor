@@ -42,6 +42,7 @@ export default {
   'menu.dashboard.workplace': 'Workplace',
   'menu.githubList': 'Search System',
   'menu.taskLists': 'Tasks Management',
+  'menu.tokenLists': 'Token Management',
   'menu.form': 'Form',
   'menu.form.basicform': 'Basic Form',
   'menu.form.stepform': 'Step Form',

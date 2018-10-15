@@ -43,6 +43,7 @@ export default {
   'menu.dashboard.workplace': '工作台',
   'menu.githubList': '查询系统',
   'menu.taskLists': '任务管理',
+  'menu.tokenLists': 'Token管理',
   'menu.form': '表单页',
   'menu.form.basicform': '基础表单',
   'menu.form.stepform': '分步表单',

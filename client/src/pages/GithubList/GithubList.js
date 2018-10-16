@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
-import { Card, Form, Avatar, Col, Row, Tag, Button, Pagination } from 'antd';
+import { Card, Form, Avatar, Col, Row, Tag, Button, Pagination, Select } from 'antd';
 import TagSelect from '@/components/TagSelect';
 import StandardFormRow from '@/components/StandardFormRow';
 import SyntaxHighlighter from 'react-syntax-highlighter';
@@ -9,60 +9,54 @@ import { leakageStatus, leakageTagColor } from '../../constants';
 
 const FormItem = Form.Item;
 const ButtonGroup = Button.Group;
+const { Option } = Select;
 
 @connect(({ github }) => ({
   github,
 }))
 class GithubList extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      tag: 'a',
-    };
-  }
-
   componentWillMount() {
     const { dispatch } = this.props;
+
+    // 获取泄漏列表
     dispatch({
       type: 'github/fetchLeakageLists',
       payload: {
         page: 1,
         pageSize: 10,
       },
+    });
+
+    // 获取任务列表(筛选需要用)
+    dispatch({
+      type: 'github/fetchTasks',
     });
   }
 
   changePage = page => {
     const { dispatch } = this.props;
-    const { tag } = this.state;
     dispatch({
-      type: 'github/fetchLeakageLists',
+      type: 'github/changePage',
       payload: {
         page,
-        pageSize: 10,
-        status: tag,
       },
     }).then(() => window.scrollTo(0, 0));
   };
 
+  // 筛选状态
   changeTag = tag => {
-    const lastTag = tag.pop();
+    const status = tag.pop();
     const { dispatch } = this.props;
-    this.setState({
-      tag: lastTag,
-    });
 
     dispatch({
-      type: 'github/fetchLeakageLists',
+      type: 'github/filterStatus',
       payload: {
-        page: 1,
-        pageSize: 10,
-        status: lastTag,
+        status,
       },
     });
   };
 
+  // 更改泄漏项状态
   updateLeakageStatus = (id, status) => {
     const { dispatch } = this.props;
     dispatch({
@@ -74,9 +68,20 @@ class GithubList extends React.Component {
     });
   };
 
+  // 任务筛选
+  taskFilterHandler = task => {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'github/filterTask',
+      payload: {
+        task,
+      },
+    });
+  };
+
   render() {
     const { github } = this.props;
-    const { tag } = this.state;
+    const { tasks, status } = github;
 
     return (
       <div>
@@ -84,7 +89,7 @@ class GithubList extends React.Component {
           <Form layout="inline">
             <StandardFormRow title="状态" block style={{ paddingBottom: 11 }}>
               <FormItem>
-                <TagSelect onChange={this.changeTag} value={tag} hideCheckAll>
+                <TagSelect onChange={this.changeTag} value={status} hideCheckAll>
                   <TagSelect.Option value="a">全部</TagSelect.Option>
                   <TagSelect.Option value="0">未处理</TagSelect.Option>
                   <TagSelect.Option value="1">已处理</TagSelect.Option>
@@ -93,19 +98,15 @@ class GithubList extends React.Component {
               </FormItem>
             </StandardFormRow>
 
-            <StandardFormRow title="类型" block style={{ paddingBottom: 11 }}>
-              <FormItem>
-                <TagSelect>
-                  <TagSelect.Option value="cat1">HTML</TagSelect.Option>
-                  <TagSelect.Option value="cat2">Text</TagSelect.Option>
-                  <TagSelect.Option value="cat3">CSV</TagSelect.Option>
-                  <TagSelect.Option value="cat4">Markdown</TagSelect.Option>
-                  <TagSelect.Option value="cat5">JSON</TagSelect.Option>
-                  <TagSelect.Option value="cat6">Jupyter NoteBook</TagSelect.Option>
-                  <TagSelect.Option value="cat7">Javascript</TagSelect.Option>
-                  <TagSelect.Option value="cat8">Java</TagSelect.Option>
-                  <TagSelect.Option value="cat9">XML</TagSelect.Option>
-                </TagSelect>
+            <StandardFormRow title="任务" block style={{ paddingBottom: 11 }}>
+              <FormItem wrapperCol={{ span: 6 }}>
+                <Select placeholder="按任务筛选条目" onChange={this.taskFilterHandler} allowClear>
+                  {tasks.map(task => (
+                    <Option value={task.id} key={task.id}>
+                      {task.name}
+                    </Option>
+                  ))}
+                </Select>
               </FormItem>
             </StandardFormRow>
           </Form>

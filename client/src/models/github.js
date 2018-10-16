@@ -1,4 +1,8 @@
-import { queryLeakageLists, queryUpdateLeakageStatus } from '@/services/github';
+import {
+  queryLeakageLists,
+  queryUpdateLeakageStatus,
+  queryTasksForFilter,
+} from '@/services/github';
 import { message } from 'antd';
 
 export default {
@@ -8,12 +12,14 @@ export default {
     page: 0,
     page_size: 10,
     status: 'a',
+    task: '',
     results: [],
+    tasks: [],
     total: 0,
   },
 
   effects: {
-    // payload = { page, page_size, status }
+    // 获取泄漏项
     *fetchLeakageLists({ payload }, { call, put }) {
       const response = yield call(queryLeakageLists, payload);
       yield put({
@@ -23,21 +29,97 @@ export default {
       });
     },
 
+    // 修改泄漏项目的状态(处理/加白)
     *updateLeakageStatus({ payload }, { call, put }) {
       yield call(queryUpdateLeakageStatus, payload);
       message.success('操作成功!');
       yield put({ type: 'reload' });
     },
 
-    *reload(action, { put, select }) {
+    // 筛选状态
+    *filterStatus({ payload }, { put, select }) {
+      const { github } = yield select();
+      const { page, pageSize, task } = github;
+
+      // 修改state状态
+      yield put({
+        type: 'filterWithStatus',
+        status: payload.status,
+      });
+
+      // 已筛选后的状态获取最新的泄漏项
+      yield put({
+        type: 'fetchLeakageLists',
+        payload: {
+          page,
+          pageSize,
+          task,
+          status: payload.status,
+        },
+      });
+    },
+
+    // 以任务筛选
+    *filterTask({ payload }, { put, select }) {
       const { github } = yield select();
       const { page, pageSize, status } = github;
+
+      yield put({
+        type: 'filterWithTask',
+        task: payload.task,
+      });
+
+      yield put({
+        type: 'fetchLeakageLists',
+        payload: {
+          page,
+          pageSize,
+          task: payload.task,
+          status,
+        },
+      });
+    },
+
+    // 获取任务列表用于筛选
+    *fetchTasks(action, { call, put }) {
+      const response = yield call(queryTasksForFilter);
+
+      yield put({
+        type: 'getTasksForFilter',
+        response,
+      });
+    },
+
+    // 翻页
+    *changePage({ payload }, { put, select }) {
+      const { github } = yield select();
+      const { status, task } = github;
+
+      yield put({
+        type: 'changePageReducer',
+        page: payload.page,
+      });
+
+      yield put({
+        type: 'fetchLeakageLists',
+        payload: {
+          page: payload.page,
+          task,
+          status,
+        },
+      });
+    },
+
+    *reload(action, { put, select }) {
+      const { github } = yield select();
+      const { page, pageSize, status, task } = github;
       yield put({
         type: 'fetchLeakageLists',
         payload: {
           page,
           pageSize,
           status,
+          task,
         },
       });
     },
@@ -52,6 +134,34 @@ export default {
         status: action.payload.status,
         results: action.response.results,
         total: action.response.count,
+      };
+    },
+
+    getTasksForFilter(state, action) {
+      return {
+        ...state,
+        tasks: action.response,
+      };
+    },
+
+    filterWithStatus(state, action) {
+      return {
+        ...state,
+        status: action.status,
+      };
+    },
+
+    filterWithTask(state, action) {
+      return {
+        ...state,
+        task: action.task,
+      };
+    },
+
+    changePageReducer(state, action) {
+      return {
+        ...state,
+        page: action.page,
       };
     },
   },

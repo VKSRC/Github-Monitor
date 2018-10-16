@@ -75,6 +75,9 @@ class TaskAddModal extends React.Component {
                 ],
               })(<Input />)}
             </FormItem>
+            <FormItem {...formItemLayout} label="邮箱" help="支持多个邮箱使用分号(;)分隔">
+              {getFieldDecorator('mail', {})(<Input />)}
+            </FormItem>
             <FormItem {...formItemLayout} label="爬取页数">
               {getFieldDecorator('pages', {
                 initialValue: 5,

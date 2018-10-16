@@ -16,3 +16,4 @@ class Task(models.Model):
     status = models.IntegerField(choices=statusItemChoices, default=0)
     start_time = models.DateTimeField(null=True)
     finished_time = models.DateTimeField(null=True)
+    mail = models.TextField(null=True, default='', verbose_name='通知邮箱列表')

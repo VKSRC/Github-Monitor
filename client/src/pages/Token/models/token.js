@@ -1,4 +1,5 @@
-import { queryTokenLists } from '@/services/github';
+import { message } from 'antd';
+import { queryTokenLists, queryCreateToken } from '@/services/github';
 
 export default {
   namespace: 'token',
@@ -17,6 +18,24 @@ export default {
         type: 'show',
         response,
         payload,
+      });
+    },
+
+    *createToken({ payload }, { call, put }) {
+      yield call(queryCreateToken, payload);
+      message.success('添加Token成功!');
+      yield put({ type: 'reload' });
+    },
+
+    *reload(action, { put, select }) {
+      const { token } = yield select();
+      const { page, pageSize } = token;
+      yield put({
+        type: 'fetchTokens',
+        payload: {
+          page,
+          pageSize,
+        },
       });
     },
   },

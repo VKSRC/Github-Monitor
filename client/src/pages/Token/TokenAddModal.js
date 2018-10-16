@@ -31,9 +31,11 @@ class TokenAddModal extends React.Component {
   };
 
   hideModalHandler = () => {
+    const { form } = this.props;
     this.setState({
       visible: false,
     });
+    form.resetFields();
   };
 
   render() {
@@ -60,6 +62,10 @@ class TokenAddModal extends React.Component {
                   {
                     required: true,
                     message: 'Token不可为空!',
+                  },
+                  {
+                    len: 40,
+                    message: 'Token应为40位!',
                   },
                 ],
               })(<Input />)}

@@ -46,3 +46,13 @@ export async function queryTokenLists({ page = 1, pageSize = 10 }) {
     credentials: 'same-origin',
   });
 }
+
+export async function queryCreateToken(payload) {
+  const url = `${API_HOST}/api/monitor/token.json`;
+
+  return request(url, {
+    method: 'POST',
+    body: payload,
+    credentials: 'same-origin',
+  });
+}

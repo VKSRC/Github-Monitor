@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, Form, Button, Table } from 'antd';
 import { connect } from 'dva';
+import TokenAddModal from './TokenAddModal';
 
 const FormItem = Form.Item;
 
@@ -34,6 +35,14 @@ class TokenLists extends React.Component {
     });
   }
 
+  createTokenHandler = values => {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'token/createToken',
+      payload: values,
+    });
+  };
+
   render() {
     const { token } = this.props;
     const { tokens } = token;
@@ -42,7 +51,9 @@ class TokenLists extends React.Component {
         <Card bordered={false}>
           <Form>
             <FormItem>
-              <Button type="primary">添加Token</Button>
+              <TokenAddModal onOk={this.createTokenHandler}>
+                <Button type="primary">添加Token</Button>
+              </TokenAddModal>
             </FormItem>
           </Form>
           <Table columns={this.columns} dataSource={tokens} rowKey="id" />

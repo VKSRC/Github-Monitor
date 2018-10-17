@@ -1,0 +1,12 @@
+[Unit]
+Description=Github Monitor TASK SERVICE
+Before=mysqld.service
+After=syslog.target
+
+[Service]
+ExecStart=/usr/bin/env PYTHONPATH=/opt/Github-Monitor/server /opt/Github-Monitor/server/.env/bin/python3 -m manage monitor_task_service
+KillMode=process
+Type=simple
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,14 @@
+[Unit]
+Description=USM BE UWSGI
+Before=mysqld.service
+After=syslog.target
+
+[Service]
+ExecStart=/opt/Github-Monitor/server/.env/bin/uwsgi --ini /opt/Github-Monitor/conf/uwsgi.ini
+KillSignal=SIGQUIT
+Type=notify
+StandardError=syslog
+NotifyAccess=all
+
+[Install]
+WantedBy=multi-user.target

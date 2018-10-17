@@ -25,7 +25,7 @@ SECRET_KEY = 'vg+4ng$x7b!wd@1e$_j%95#f29x72*m&i#vx1#+4i&=xk_91v='
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -81,13 +81,6 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'github_monitor.db'),
     }
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': 'github-monitor',
-    #     'USER': 'root',
-    #     'PASSWORD': 'hacksb',
-    #     'HOST': '127.0.0.1',
-    # }
 }
 
 
@@ -138,6 +131,7 @@ REST_FRAMEWORK = {
     )
 }
 
-GITHUB_TOKEN = [
-    '5d2f994307b2733016573afba0e93f0e610767db'
-]
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'mail.vipkid.com.cn'
+EMAIL_PORT = '25'
+SECURITY_EMAIL = 'security@vipkid.com.cn'

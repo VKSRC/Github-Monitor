@@ -1,0 +1,14 @@
+DEBUG = False
+
+ALLOWED_HOSTS = ['internal-sec-usm-255622910.cn-north-1.elb.amazonaws.com.cn']
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'github',
+        'USER': 'root',
+        'PASSWORD': 'uSm@v1pSec!',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+    }
+}

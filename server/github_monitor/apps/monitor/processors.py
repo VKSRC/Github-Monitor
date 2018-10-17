@@ -1,11 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import os
 import time
 import redis
 import logging
 import dateutil.parser
 from django.utils import timezone
 from django.db import connection
+from django.template.loader import render_to_string
+from django.core.mail import EmailMessage
+from django.conf import settings
 from threading import Thread
 from github import Github
 from github import GithubException
@@ -26,6 +30,7 @@ class TaskProcessor(object):
 
     def __init__(self, task):
         self.task = task
+        self.email_results = []
         self.thread_pool = list()
 
     @staticmethod
@@ -85,6 +90,23 @@ class TaskProcessor(object):
 
     def process_pages(self, _contents):
 
+        def get_data(github_file):
+            github_file.update()
+            repo = github_file.repository
+            return {
+                'task': self.task,
+                'sha': github_file.sha,
+                'fragment': format_fragments(github_file.text_matches),
+                'html_url': github_file.html_url,
+                'last_modified': dateutil.parser.parse(github_file.last_modified) if github_file.last_modified else None,
+                'file_name': github_file.name,
+                'repo_name': repo.name,
+                'repo_url': repo.html_url,
+                'user_avatar': repo.owner.avatar_url,
+                'user_name': repo.owner.login,
+                'user_url': repo.owner.html_url
+            }
+
         def format_fragments(_text_matches):
             return ''.join([f['fragment'] for f in _text_matches])
             # fragments = ''
@@ -105,28 +127,40 @@ class TaskProcessor(object):
         for _file in _contents:
             exists_leakages = Leakage.objects.filter(sha=_file.sha)
             if exists_leakages:
-                exists_leakages.filter(status=1).update(status=0, add_time=timezone.now())
+                if exists_leakages.filter(status=1):
+                    update_data = get_data(_file)
+                    self.email_results.append(update_data)
+                    update_data.update({'status': 0, 'add_time': timezone.now()})
+                    exists_leakages.filter(status=1).update(**update_data)
             else:
-                repo = _file.repository
-                data = {
-                    'task': self.task,
-                    'sha': _file.sha,
-                    'content': _file.decoded_content.decode(),
-                    'fragment': format_fragments(_file.text_matches),
-                    'html_url': _file.html_url,
-                    'last_modified': dateutil.parser.parse(_file.last_modified),
-                    'file_name': _file.name,
-                    'repo_name': repo.name,
-                    'repo_url': repo.html_url,
-                    'user_avatar': repo.owner.avatar_url,
-                    'user_name': repo.owner.login,
-                    'user_url': repo.owner.html_url
-                }
+                data = get_data(_file)
+                self.email_results.append(data)
                 Leakage(**data).save()
+
+    def render_email_html(self):
+        template_file = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)), 'templates', 'mail.html'
+        )
+        return render_to_string(template_file, {
+            'results': self.email_results,
+            'task': self.task
+        })
+
+    def send_email(self):
+        if self.task.mail and self.email_results:
+            email = EmailMessage(
+                '[GITHUB安全监控]发现新的泄露信息',
+                self.render_email_html(),
+                settings.SECURITY_EMAIL,
+                self.task.mail.split(';'),
+            )
+            email.content_subtype = "html"
+            email.send()
 
     def process(self):
         while True:
             connection.close()
+            self.email_results = []
             self.task.status = 1
             self.task.start_time = timezone.now()
             self.task.save()
@@ -141,11 +175,12 @@ class TaskProcessor(object):
             self.task.status = 2
             self.task.finished_time = timezone.now()
             self.task.save()
+            self.send_email()
             # sleep一个周期的时间
             time.sleep(60 * self.task.interval)
 
 
 if __name__ == '__main__':
-    t = Task.objects.get(id=1)
+    t = Task.objects.get(id=5)
     cp = TaskProcessor(t)
     cp.process()

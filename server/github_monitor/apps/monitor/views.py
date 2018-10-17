@@ -35,5 +35,5 @@ class TaskViewSet(ModelViewSet):
     serializer_class = TaskSerializer
 
     @action(methods=['GET'], detail=False, url_path='get_basics', url_name='get_basic_task_info')
-    def get_basic_task_info(self, request):
+    def get_basic_task_info(self, request, format=None):
         return Response(Task.objects.values('id', 'name').order_by('-id'))

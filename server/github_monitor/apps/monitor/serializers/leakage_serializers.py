@@ -25,7 +25,7 @@ class LeakageSerializer(serializers.HyperlinkedModelSerializer):
             'add_time'
         )
         read_only_fields = (
-            'id', 'sha', 'content', 'fragment', 'html_url', 'last_modified',
+            'id', 'sha', 'fragment', 'html_url', 'last_modified',
             'file_name', 'repo_name', 'repo_url', 'user_avatar',
             'user_name', 'user_url', 'add_time'
         )

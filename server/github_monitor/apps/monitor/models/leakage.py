@@ -10,7 +10,6 @@ class Leakage(models.Model):
     )
     task = models.ForeignKey(Task, null=True, on_delete=models.SET_NULL)
     sha = models.CharField(max_length=40, null=True)
-    content = models.TextField(null=False, default='')
     fragment = models.TextField(null=False, default='')
     html_url = models.CharField(max_length=512, null=True)
     last_modified = models.DateTimeField(null=True)

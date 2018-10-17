@@ -134,6 +134,7 @@ export default {
         status: action.payload.status,
         results: action.response.results,
         total: action.response.count,
+        task: action.payload.task,
       };
     },
 

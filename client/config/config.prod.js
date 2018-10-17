@@ -43,7 +43,7 @@ export default {
   ],
   define: {
     APP_TYPE: process.env.APP_TYPE || '',
-    'window.DEV': true,
+    'window.PROD': true,
   },
   // 路由配置
   routes: pageRoutes,

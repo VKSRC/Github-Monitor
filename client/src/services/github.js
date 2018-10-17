@@ -1,10 +1,12 @@
 import request from '@/utils/request';
 import { API_HOST } from '../constants';
 
-export async function queryLeakageLists({ page = 1, pageSize = 10, status = 'a' }) {
+export async function queryLeakageLists({ page = 1, pageSize = 10, status = 'a', task = '' }) {
   let url = `${API_HOST}/api/monitor/result.json?page=${page}&page_size=${pageSize}`;
 
   if (status !== 'a') url += `&status=${status}`;
+
+  if (task) url += `&task_id=${task}`;
 
   return request(url, {
     credentials: 'same-origin',
@@ -35,6 +37,14 @@ export async function queryCreateTask(payload) {
   return request(url, {
     method: 'POST',
     body: payload,
+    credentials: 'same-origin',
+  });
+}
+
+export async function queryTasksForFilter() {
+  const url = `${API_HOST}/api/monitor/task/get_basics.json`;
+
+  return request(url, {
     credentials: 'same-origin',
   });
 }

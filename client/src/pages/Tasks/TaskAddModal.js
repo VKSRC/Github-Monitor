@@ -2,6 +2,7 @@ import React from 'react';
 import { Modal, Form, Input, InputNumber } from 'antd';
 
 const FormItem = Form.Item;
+const { TextArea } = Input;
 
 class TaskAddModal extends React.Component {
   constructor(props) {
@@ -65,7 +66,7 @@ class TaskAddModal extends React.Component {
                 ],
               })(<Input />)}
             </FormItem>
-            <FormItem {...formItemLayout} label="关键词">
+            <FormItem {...formItemLayout} label="关键词" help="支持多个关键词使用换行分隔">
               {getFieldDecorator('keywords', {
                 rules: [
                   {
@@ -73,7 +74,7 @@ class TaskAddModal extends React.Component {
                     message: '关键词不可为空!',
                   },
                 ],
-              })(<Input />)}
+              })(<TextArea rows={4} />)}
             </FormItem>
             <FormItem {...formItemLayout} label="邮箱" help="支持多个邮箱使用分号(;)分隔">
               {getFieldDecorator('mail', {})(<Input />)}

@@ -150,6 +150,7 @@ class GithubList extends React.Component {
                     入库时间：
                     {leakage.add_time}
                   </Tag>
+                  <Tag color="blue">{leakage.keyword}</Tag>
                   <Tag color={leakageTagColor[leakage.status]}>{leakageStatus[leakage.status]}</Tag>
                 </Col>
                 <Col span={3}>

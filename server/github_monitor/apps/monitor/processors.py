@@ -127,11 +127,11 @@ class TaskProcessor(object):
         for _file in _contents:
             exists_leakages = Leakage.objects.filter(sha=_file.sha)
             if exists_leakages:
-                for leak in exists_leakages.filter(status=1):
+                if exists_leakages.filter(status=1):
                     update_data = get_data(_file)
                     self.email_results.append(update_data)
                     update_data.update({'status': 0, 'add_time': timezone.now()})
-                    leak.update(update_data)
+                    exists_leakages.filter(status=1).update(**update_data)
             else:
                 data = get_data(_file)
                 self.email_results.append(data)

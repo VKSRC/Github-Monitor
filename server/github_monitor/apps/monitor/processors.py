@@ -86,15 +86,16 @@ class TaskProcessor(object):
                 else:
                     logger.exception(e)
                 continue
-            self.process_pages(page_content)
+            self.process_pages(page_content, keyword)
 
-    def process_pages(self, _contents):
+    def process_pages(self, _contents, _keyword):
 
         def get_data(github_file):
             github_file.update()
             repo = github_file.repository
             return {
                 'task': self.task,
+                'keyword': _keyword,
                 'sha': github_file.sha,
                 'fragment': format_fragments(github_file.text_matches),
                 'html_url': github_file.html_url,

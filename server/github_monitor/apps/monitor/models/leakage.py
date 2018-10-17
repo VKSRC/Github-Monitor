@@ -9,6 +9,7 @@ class Leakage(models.Model):
         (2, '白名单')
     )
     task = models.ForeignKey(Task, null=True, on_delete=models.SET_NULL)
+    keyword = models.CharField(max_length=256, null=True, default='')
     sha = models.CharField(max_length=40, null=True)
     fragment = models.TextField(null=False, default='')
     html_url = models.CharField(max_length=512, null=True)

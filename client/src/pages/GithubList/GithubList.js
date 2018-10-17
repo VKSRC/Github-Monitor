@@ -16,15 +16,23 @@ const { Option } = Select;
 }))
 class GithubList extends React.Component {
   componentWillMount() {
-    const { dispatch } = this.props;
+    const { dispatch, location } = this.props;
+    const { taskId } = location.query;
+
+    const payload = {
+      page: 1,
+      pageSize: 10,
+    };
+
+    // 如果从url中传入了taskId则加入到payload中
+    if (taskId) {
+      payload.task = taskId;
+    }
 
     // 获取泄漏列表
     dispatch({
       type: 'github/fetchLeakageLists',
-      payload: {
-        page: 1,
-        pageSize: 10,
-      },
+      payload,
     });
 
     // 获取任务列表(筛选需要用)
@@ -100,9 +108,14 @@ class GithubList extends React.Component {
 
             <StandardFormRow title="任务" block style={{ paddingBottom: 11 }}>
               <FormItem wrapperCol={{ span: 6 }}>
-                <Select placeholder="按任务筛选条目" onChange={this.taskFilterHandler} allowClear>
+                <Select
+                  placeholder="按任务筛选条目"
+                  onChange={this.taskFilterHandler}
+                  value={github.task}
+                  allowClear
+                >
                   {tasks.map(task => (
-                    <Option value={task.id} key={task.id}>
+                    <Option value={`${task.id}`} key={task.id}>
                       {task.name}
                     </Option>
                   ))}

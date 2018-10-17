@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, Table, Badge, Form, Button } from 'antd';
 import { connect } from 'dva';
+import Link from 'umi/link';
 import { taskStatus } from '@/constants';
 import TaskAddModal from './TaskAddModal';
 
@@ -21,6 +22,7 @@ class TaskLists extends React.Component {
       {
         title: '任务名称',
         dataIndex: 'name',
+        render: (record, obj) => <Link to={`/github/list/?taskId=${obj.id}`}>{record}</Link>,
       },
       {
         title: '关键词',

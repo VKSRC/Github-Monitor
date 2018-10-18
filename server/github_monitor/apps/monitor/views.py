@@ -17,7 +17,7 @@ class LeakageViewSet(ModelViewSet):
     serializer_class = LeakageSerializer
 
     def get_queryset(self):
-        querysets = Leakage.objects.order_by('-id')
+        querysets = Leakage.objects.order_by('-last_modified')
         task_id = self.request.GET.get('task_id', '')
         if task_id:
             querysets = querysets.filter(task__id=task_id)

@@ -16,6 +16,8 @@ DATABASES = {
 
 LOG_FILE = '/var/log/github_monitor.log'
 
+STATIC_ROOT = '/opt/Github-Monitor/static_prod/'
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,

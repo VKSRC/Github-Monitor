@@ -6,7 +6,7 @@ import redis
 import logging
 import dateutil.parser
 from django.utils import timezone
-from django.db import connection
+from django.db import connection, close_old_connections
 from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
 from django.conf import settings
@@ -87,6 +87,7 @@ class TaskProcessor(object):
                     logger.exception(e)
                 continue
             self.process_pages(page_content, keyword)
+        close_old_connections()
 
     def process_pages(self, _contents, _keyword):
 

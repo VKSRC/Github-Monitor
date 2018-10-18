@@ -10,10 +10,13 @@ DATABASES = {
         'PASSWORD': 'uSm@v1pSec!',
         'HOST': '127.0.0.1',
         'PORT': '3306',
+        'OPTIONS': {'charset': 'utf8mb4'},
     }
 }
 
 LOG_FILE = '/var/log/github_monitor.log'
+
+STATIC_ROOT = '/opt/Github-Monitor/static_prod/'
 
 LOGGING = {
     'version': 1,

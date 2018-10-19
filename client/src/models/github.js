@@ -39,19 +39,20 @@ export default {
     // 筛选状态
     *filterStatus({ payload }, { put, select }) {
       const { github } = yield select();
-      const { page, pageSize, task } = github;
+      const { pageSize, task } = github;
 
       // 修改state状态
       yield put({
         type: 'filterWithStatus',
         status: payload.status,
+        page: 1,
       });
 
       // 已筛选后的状态获取最新的泄漏项
       yield put({
         type: 'fetchLeakageLists',
         payload: {
-          page,
+          page: 1,
           pageSize,
           task,
           status: payload.status,
@@ -149,6 +150,7 @@ export default {
       return {
         ...state,
         status: action.status,
+        page: action.page,
       };
     },
 

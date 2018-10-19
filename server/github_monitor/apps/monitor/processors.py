@@ -127,6 +127,12 @@ class TaskProcessor(object):
             # return fragments
 
         for _file in _contents:
+
+            # 如果是`*.github.io`博客类型的仓库则跳过
+            repo = _file.repository
+            if repo.name.endswith(".github.io"):
+                continue
+
             exists_leakages = Leakage.objects.filter(sha=_file.sha)
             if exists_leakages:
                 if exists_leakages.filter(status=1):

@@ -7,7 +7,7 @@ from ..models.task import Task
 class TaskSerializer(serializers.ModelSerializer):
     keywords = serializers.CharField(required=True, label='关键词', help_text='多个关键词换行分隔')
     name = serializers.SlugField(max_length=50, validators=[UniqueValidator(queryset=Task.objects.all())], label=u'任务名称')
-    pages = serializers.IntegerField(default=5, allow_null=False, label='爬取页数', help_text='默认为5')
+    pages = serializers.IntegerField(default=5, allow_null=False, label='爬取页数', help_text='默认为5, 0为搜索全部')
     interval = serializers.IntegerField(default=60, allow_null=False, label='爬取间隔(分钟)', help_text='默认为60')
     mail = serializers.CharField(
         required=False, allow_null=True, allow_blank=True, label='通知邮箱', help_text='多个邮箱分号分隔'

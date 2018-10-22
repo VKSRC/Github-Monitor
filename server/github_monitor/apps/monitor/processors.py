@@ -62,7 +62,8 @@ class TaskProcessor(object):
         while True:
             try:
                 response = session.search_code(keyword, sort='indexed', order='desc', highlight=True)
-                total = response.totalCount
+                # github api支持最多搜索1000条记录
+                total = min(response.totalCount, 1000)
                 break
             except GithubException as e:
                 if 'abuse-rate-limits' in e.data.get('documentation_url'):
@@ -70,10 +71,10 @@ class TaskProcessor(object):
                 else:
                     logger.exception(e)
                 continue
-        if total < per_page:
-            pages = 1
-        else:
-            pages = self.task.pages
+        # E.G. total = 50，max_page = 1; total = 51, max_page = 2
+        # 需要搜索的页数为max_page和task.page中最小的值
+        max_page = (total // per_page) if (not total % per_page) else (total // per_page + 1)
+        pages = min(max_page, self.task.pages) if self.task.pages else max_page
         # 搜索代码
         page = 0
         while page < pages:

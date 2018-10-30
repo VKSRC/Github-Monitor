@@ -1,6 +1,8 @@
+from rest_framework import status
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from django.core.exceptions import ObjectDoesNotExist
 from .models.leakage import Leakage
 from .models.token import Token
 from .models.task import Task
@@ -22,6 +24,15 @@ class LeakageViewSet(ModelViewSet):
         if task_id:
             querysets = querysets.filter(task__id=task_id)
         return querysets
+
+    @action(methods=['PUT'], detail=True, url_path='ignore_repository', url_name='ignore_repository')
+    def ignore_repo(self, request, pk):
+        try:
+            leak = Leakage.objects.get(id=pk)
+        except ObjectDoesNotExist:
+            return Response('记录不存在', status=status.HTTP_400_BAD_REQUEST)
+        Leakage.objects.filter(repo_url=leak.repo_url, status=0).update(status=2)
+        return Response('仓库加白成功', status=status.HTTP_200_OK)
 
 
 class TokenViewSet(ModelViewSet):

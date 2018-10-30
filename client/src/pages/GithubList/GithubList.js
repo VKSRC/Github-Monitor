@@ -76,6 +76,17 @@ class GithubList extends React.Component {
     });
   };
 
+  // 对指定仓库的泄露信息全部加白
+  ignoreRepository = id => {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'github/ignoreRepository',
+      payload: {
+        id,
+      },
+    });
+  };
+
   // 任务筛选
   taskFilterHandler = task => {
     const { dispatch } = this.props;
@@ -159,6 +170,7 @@ class GithubList extends React.Component {
                       处理
                     </Button>
                     <Button onClick={() => this.updateLeakageStatus(leakage.id, 2)}>加白</Button>
+                    <Button onClick={() => this.ignoreRepository(leakage.id)}>忽略仓库</Button>
                   </ButtonGroup>
                 </Col>
               </Row>

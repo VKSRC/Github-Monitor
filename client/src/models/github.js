@@ -2,6 +2,7 @@ import {
   queryLeakageLists,
   queryUpdateLeakageStatus,
   queryTasksForFilter,
+  queryIgnoreRepository,
 } from '@/services/github';
 import { message } from 'antd';
 
@@ -32,6 +33,13 @@ export default {
     // 修改泄漏项目的状态(处理/加白)
     *updateLeakageStatus({ payload }, { call, put }) {
       yield call(queryUpdateLeakageStatus, payload);
+      message.success('操作成功!');
+      yield put({ type: 'reload' });
+    },
+
+    // 加白指定仓库发现的全部泄露代码
+    *ignoreRepository({ payload }, { call, put }) {
+      yield call(queryIgnoreRepository, payload);
       message.success('操作成功!');
       yield put({ type: 'reload' });
     },

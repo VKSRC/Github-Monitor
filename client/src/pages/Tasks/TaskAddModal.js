@@ -79,12 +79,16 @@ class TaskAddModal extends React.Component {
             <FormItem {...formItemLayout} label="邮箱" help="支持多个邮箱使用分号(;)分隔">
               {getFieldDecorator('mail', {})(<Input />)}
             </FormItem>
-            <FormItem {...formItemLayout} label="爬取页数">
+            <FormItem
+              {...formItemLayout}
+              label="爬取页数"
+              help="默认为5页(一页50条记录); 0为搜索全部"
+            >
               {getFieldDecorator('pages', {
                 initialValue: 5,
               })(<InputNumber min={0} />)}
             </FormItem>
-            <FormItem {...formItemLayout} label="爬取间隔">
+            <FormItem {...formItemLayout} label="爬取间隔" help="单位: 分钟">
               {getFieldDecorator('interval', {
                 initialValue: 60,
               })(<InputNumber min={0} />)}

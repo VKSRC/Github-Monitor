@@ -23,6 +23,13 @@ export async function queryUpdateLeakageStatus({ id, status }) {
   });
 }
 
+export async function queryIgnoreRepository({ id }) {
+  return request(`${API_HOST}/api/monitor/result/${id}/ignore_repository/`, {
+    method: 'PUT',
+    credentials: 'same-origin',
+  });
+}
+
 export async function queryTaskLists({ page = 1, pageSize = 10 }) {
   const url = `${API_HOST}/api/monitor/task.json?page=${page}&page_size=${pageSize}`;
 

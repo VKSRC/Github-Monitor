@@ -140,10 +140,10 @@ class GithubList extends React.Component {
           <Card style={{ marginTop: '20px' }} key={leakage.id}>
             <div style={{ marginBottom: '10px' }}>
               <Row>
-                <Col span={1}>
+                <Col xxl={1} xl={1} lg={2} md={2} sm={2}>
                   <Avatar size="large" src={leakage.user_avatar} />
                 </Col>
-                <Col span={20}>
+                <Col xxl={19} xl={18} lg={16} md={14} sm={14}>
                   <h3>
                     <a href={leakage.repo_url} target="_blank" rel="noopener noreferrer">
                       {leakage.user_name}/{leakage.repo_name}
@@ -164,7 +164,7 @@ class GithubList extends React.Component {
                   <Tag color="blue">{leakage.keyword}</Tag>
                   <Tag color={leakageTagColor[leakage.status]}>{leakageStatus[leakage.status]}</Tag>
                 </Col>
-                <Col span={3}>
+                <Col xxl={4} xl={5} lg={6} md={8} sm={8}>
                   <ButtonGroup>
                     <Button type="primary" onClick={() => this.updateLeakageStatus(leakage.id, 1)}>
                       处理

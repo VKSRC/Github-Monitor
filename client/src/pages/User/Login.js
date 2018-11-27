@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'dva';
 import { FormattedMessage } from 'umi/locale';
 import Login from '@/components/Login';
+import { getAccountToken } from '@/utils/authority';
 import styles from './Login.less';
 
 const { UserName, Password, Submit } = Login;
@@ -18,7 +19,8 @@ class LoginPage extends Component {
         type: 'login/login',
         payload: values,
       }).then(() => {
-        window.location.href = '/';
+        const token = getAccountToken();
+        if (token) window.location.href = '/';
       });
     }
   };

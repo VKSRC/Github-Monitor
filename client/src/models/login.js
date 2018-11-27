@@ -1,48 +1,30 @@
 import { routerRedux } from 'dva/router';
 import { stringify } from 'qs';
-import { fakeAccountLogin, getFakeCaptcha } from '@/services/api';
-import { setAuthority } from '@/utils/authority';
-import { getPageQuery } from '@/utils/utils';
 import { reloadAuthorized } from '@/utils/Authorized';
+import { queryLogin } from '@/services/user';
+import { message } from 'antd';
+import { setAuthority, setAccountToken } from '@/utils/authority';
 
 export default {
   namespace: 'login',
 
   state: {
-    status: undefined,
+    status: false,
+    token: '',
   },
 
   effects: {
     *login({ payload }, { call, put }) {
-      const response = yield call(fakeAccountLogin, payload);
+      const response = yield call(queryLogin, payload);
+
+      if (response.status === 400) {
+        message.error('帐号密码不正确！');
+      }
+
       yield put({
         type: 'changeLoginStatus',
         payload: response,
       });
-      // Login successfully
-      if (response.status === 'ok') {
-        reloadAuthorized();
-        const urlParams = new URL(window.location.href);
-        const params = getPageQuery();
-        let { redirect } = params;
-        if (redirect) {
-          const redirectUrlParams = new URL(redirect);
-          if (redirectUrlParams.origin === urlParams.origin) {
-            redirect = redirect.substr(urlParams.origin.length);
-            if (redirect.startsWith('/#')) {
-              redirect = redirect.substr(2);
-            }
-          } else {
-            window.location.href = redirect;
-            return;
-          }
-        }
-        yield put(routerRedux.replace(redirect || '/'));
-      }
-    },
-
-    *getCaptcha({ payload }, { call }) {
-      yield call(getFakeCaptcha, payload);
     },
 
     *logout(_, { put }) {
@@ -67,11 +49,18 @@ export default {
 
   reducers: {
     changeLoginStatus(state, { payload }) {
-      setAuthority(payload.currentAuthority);
+      if (payload.token) {
+        setAccountToken(payload.token);
+        setAuthority('admin');
+      } else {
+        setAccountToken('');
+        setAuthority('guest');
+      }
+
       return {
         ...state,
-        status: payload.status,
-        type: payload.type,
+        token: payload.token,
+        status: true,
       };
     },
   },

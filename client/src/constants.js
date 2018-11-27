@@ -4,7 +4,8 @@ let API_HOST;
 const { DEV, PROD } = window;
 
 if (DEV) {
-  API_HOST = 'http://10.32.16.99:8000';
+  // API_HOST = 'http://10.32.16.99:8000';
+  API_HOST = `http://${window.location.host}`;
 } else if (PROD) {
   API_HOST = `http://${window.location.host}/`;
 }

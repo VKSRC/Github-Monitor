@@ -1,8 +1,8 @@
 import fetch from 'dva/fetch';
-import { notification } from 'antd';
 import router from 'umi/router';
 import hash from 'hash.js';
 import { isAntdPro } from './utils';
+import { getAccountToken } from '@/utils/authority';
 
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
@@ -27,10 +27,6 @@ const checkStatus = response => {
     return response;
   }
   const errortext = codeMessage[response.status] || response.statusText;
-  notification.error({
-    message: `请求错误 ${response.status}: ${response.url}`,
-    description: errortext,
-  });
   const error = new Error(errortext);
   error.name = response.status;
   error.response = response;
@@ -104,6 +100,15 @@ export default function request(
     }
   }
 
+  // 如果Token存在，则在请求中带上Token
+  const token = getAccountToken();
+  if (token) {
+    newOptions.headers = {
+      Authorization: `Token ${token}`,
+      ...newOptions.headers,
+    };
+  }
+
   return fetch(url, newOptions)
     .then(checkStatus)
     .then(response => cachedSave(response, hashcode))
@@ -137,5 +142,7 @@ export default function request(
       if (status >= 404 && status < 422) {
         router.push('/exception/404');
       }
+      /* eslint-disable */
+      if (status === 400) return e.response;
     });
 }

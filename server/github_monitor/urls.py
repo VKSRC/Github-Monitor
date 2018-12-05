@@ -19,6 +19,6 @@ from rest_framework.authtoken import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path(r'api/monitor/', include('github_monitor.apps.monitor.urls'), name='monitor'),
-    path('login', views.obtain_auth_token),
+    path('api/monitor/', include('github_monitor.apps.monitor.urls'), name='monitor'),
+    path('api/login', views.obtain_auth_token),
 ]

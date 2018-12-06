@@ -6,6 +6,7 @@ from multiprocessing import Process
 from github_monitor.apps.monitor.models.token import Token
 from github_monitor.apps.monitor.models.task import Task
 from github_monitor.apps.monitor.processors import TaskProcessor
+from django.db import close_old_connections
 
 
 class Command(BaseCommand):
@@ -20,6 +21,7 @@ class Command(BaseCommand):
             _processor.process()
 
         while True:
+            close_old_connections()
             for token in Token.objects.all():
                 key = 'token:%s' % token.value
                 if not self.RS.exists(key):

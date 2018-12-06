@@ -9,3 +9,4 @@ config.ini
 data/
 db.sqlite3
 github_monitor.db
+.env

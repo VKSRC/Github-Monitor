@@ -141,4 +141,4 @@ REST_FRAMEWORK = {
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'mail.vipkid.com.cn'
 EMAIL_PORT = '25'
-SECURITY_EMAIL = 'security@vipkid.com.cn'
+FROM_EMAIL = 'security@vipkid.com.cn'

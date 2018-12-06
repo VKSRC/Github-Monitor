@@ -171,7 +171,7 @@ class TaskProcessor(object):
             email = EmailMessage(
                 '[GITHUB安全监控]发现新的泄露信息',
                 self.render_email_html(),
-                settings.SECURITY_EMAIL,
+                settings.FROM_EMAIL,
                 self.task.mail.split(';'),
             )
             email.content_subtype = "html"

@@ -23,6 +23,8 @@ COPY docker/uwsgi_params /home/docker/Github-Monitor/server/
 
 # copy run.sh
 COPY docker/run.sh /home/docker/Github-Monitor/
+COPY docker/wait-for-it.sh /home/docker/Github-Monitor/
+RUN chmod +x /home/docker/Github-Monitor/wait-for-it.sh
 
 # install requirement
 RUN pip3 install -r /home/docker/Github-Monitor/server/requirements.pip -i http://pypi.doubanio.com/simple --trusted-host pypi.doubanio.com

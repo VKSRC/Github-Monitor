@@ -16,6 +16,16 @@ DATABASES = {
     }
 }
 
+# if nameless sendmail should set EMAIL_HOST_USER and EMAIL_HOST_PASSWORD is None
+EMAIL_HOST = os.environ.get('EMAIL_HOST')
+EMAIL_PORT = os.environ.get('EMAIL_PORT')
+FROM_EMAIL = os.environ.get('FROM_EMAIL')
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER') or None
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD') or None
+EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS') or False
+EMAIL_USE_SSL = os.environ.get('EMAIL_USE_SSL') or False
+
+
 LOG_FILE = '/var/log/github_monitor.log'
 
 LOGGING = {

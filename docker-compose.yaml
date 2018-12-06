@@ -1,0 +1,23 @@
+version: "3"
+services:
+  web:
+    build: .
+    ports:
+      - "8001:80"
+    volumes:
+      - ./docker/data/redis/:/var/lib/redis/
+    depends_on:
+      - mysql
+    env_file:
+      - .env
+  mysql:
+    image: mysql:5.7
+    restart: always
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --init-connect='SET NAMES utf8mb4;'
+    expose:
+      - 3306
+    volumes:
+      - ./docker/data/mysql/:/var/lib/mysql/
+    environment:
+      MYSQL_ROOT_PASSWORD: vipkid@2018
+      MYSQL_DATABASE: github

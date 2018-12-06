@@ -16,9 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.authtoken import views
+from github_monitor.apps.monitor.views import UserView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/monitor/', include('github_monitor.apps.monitor.urls'), name='monitor'),
     path('api/login/', views.obtain_auth_token),
+    path('api/user/', UserView.as_view())
 ]

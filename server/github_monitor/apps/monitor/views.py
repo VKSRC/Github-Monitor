@@ -1,5 +1,6 @@
 from rest_framework import status
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.views import APIView
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.core.exceptions import ObjectDoesNotExist
@@ -48,3 +49,9 @@ class TaskViewSet(ModelViewSet):
     @action(methods=['GET'], detail=False, url_path='get_basics', url_name='get_basic_task_info')
     def get_basic_task_info(self, request, format=None):
         return Response(Task.objects.values('id', 'name').order_by('-id'))
+
+
+class UserView(APIView):
+    def get(self, request, format=None):
+        username = request.user.username
+        return Response({"username": username})

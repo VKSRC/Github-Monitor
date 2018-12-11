@@ -8,5 +8,5 @@ dump.rdb
 config.ini
 data/
 db.sqlite3
-github_monitor.db
+github.db
 .env

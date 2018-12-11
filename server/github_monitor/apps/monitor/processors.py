@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 import os
 import time
-import redis
 import logging
 import dateutil.parser
 from urllib3.exceptions import ReadTimeoutError
@@ -23,7 +22,7 @@ from github_monitor.apps.monitor.models.task import Task
 from github_monitor.apps.monitor.models.leakage import Leakage
 
 logger = logging.getLogger(__name__)
-RS = redis.Redis()
+RS = settings.RS
 # 默认搜索页数
 per_page = 50
 

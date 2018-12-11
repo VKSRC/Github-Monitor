@@ -11,10 +11,11 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+import redis
 from dotenv import load_dotenv
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-load_dotenv(dotenv_path=os.path.join(BASE_DIR, '..', '.env'))
+load_dotenv(dotenv_path=os.path.join(BASE_DIR, '..', '.env'), override=True)
 
 
 # Quick-start development settings - unsuitable for production
@@ -158,3 +159,8 @@ EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER') or None
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD') or None
 EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS') or False
 EMAIL_USE_SSL = os.environ.get('EMAIL_USE_SSL') or False
+
+REDIS_HOST = os.environ.get('REDIS_HOST')
+REDIS_PORT = os.environ.get('REDIS_PORT')
+REDIS_PASSWORD = os.environ.get('REDIS_PASSWORD') or None
+RS = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, password=REDIS_PASSWORD, db=0)

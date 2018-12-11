@@ -3,8 +3,6 @@ from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 from ..models.token import Token
 
-RS = redis.Redis()
-
 
 class TokenSerializer(serializers.ModelSerializer):
     value = serializers.SlugField(

@@ -1,19 +1,19 @@
 import time
-import redis
 from django.core.management.base import BaseCommand
+from django.db import close_old_connections
 from django.db.models import Q
+from django.conf import settings
 from multiprocessing import Process
 from github_monitor.apps.monitor.models.token import Token
 from github_monitor.apps.monitor.models.task import Task
 from github_monitor.apps.monitor.processors import TaskProcessor
-from django.db import close_old_connections
 
 
 class Command(BaseCommand):
 
     task_id_list = []
     INTERVAL = 5
-    RS = redis.Redis()
+    RS = settings.RS
 
     def handle(self, *args, **options):
 

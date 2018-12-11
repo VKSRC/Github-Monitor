@@ -1,7 +1,5 @@
 from django.db import models
-import redis
-
-RS = redis.Redis()
+from django.conf import settings
 
 
 class Token(models.Model):
@@ -9,5 +7,5 @@ class Token(models.Model):
 
     def save(self, *args, **kwargs):
         rs_key = 'token:%s' % self.value
-        RS.hset(rs_key, 'reset', '')
+        settings.RS.hset(rs_key, 'reset', '')
         return super(Token, self).save(*args, **kwargs)

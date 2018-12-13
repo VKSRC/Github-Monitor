@@ -100,10 +100,11 @@ class TaskProcessor(object):
     def process_pages(self, _contents, _keyword):
 
         def get_data(github_file):
-            try:
-                github_file.update()
-            except UnknownObjectException:
-                pass
+            if not github_file.last_modified:
+                try:
+                    github_file.update()
+                except UnknownObjectException:
+                    pass
             repo = github_file.repository
             return {
                 'task': self.task,
@@ -139,9 +140,17 @@ class TaskProcessor(object):
 
         for _file in _contents:
 
-            # 如果是`*.github.io`博客类型的仓库则跳过
-            repo = _file.repository
-            if repo.name.endswith(".github.io"):
+            # 根据配置的规则、忽略某些吃账号或仓库下的代码
+            repository = _file.repository
+            user = repository.owner.login
+            repo_name = repository.name
+            ignore = False
+            if user in self.task.ignore_org.split('\n'):
+                ignore = True
+            for _repo in self.task.ignore_repo.split('\n'):
+                if _repo in repo_name:
+                    ignore = True
+            if ignore:
                 continue
 
             exists_leakages = Leakage.objects.filter(sha=_file.sha)

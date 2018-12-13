@@ -43,7 +43,16 @@ class TaskModal extends React.Component {
 
   render() {
     const { visible } = this.state;
-    const { children, form, data } = this.props;
+    const { children, form, data = {} } = this.props;
+    const {
+      name = '',
+      keywords = '',
+      ignore_org: ignoreOrg = '',
+      ignore_repo: ignoreRepo = '',
+      email = '',
+      pages = 5,
+      interval = 60,
+    } = data;
     const { getFieldDecorator } = form;
     const formItemLayout = {
       labelCol: { span: 6 },
@@ -53,7 +62,7 @@ class TaskModal extends React.Component {
       <span>
         <span onClick={this.showModalHandler}>{children}</span>
         <Modal
-          title="添加任务"
+          title={data ? '编辑任务' : '添加任务'}
           visible={visible}
           onOk={this.okHandler}
           onCancel={this.hideModalHandler}
@@ -61,7 +70,7 @@ class TaskModal extends React.Component {
           <Form layout="horizontal">
             <FormItem {...formItemLayout} label="任务名称">
               {getFieldDecorator('name', {
-                initialValue: data ? data.name : '',
+                initialValue: name,
                 rules: [
                   {
                     required: true,
@@ -72,7 +81,7 @@ class TaskModal extends React.Component {
             </FormItem>
             <FormItem {...formItemLayout} label="关键词" help="支持多个关键词使用换行分隔">
               {getFieldDecorator('keywords', {
-                initialValue: data ? data.keywords : '',
+                initialValue: keywords,
                 rules: [
                   {
                     required: true,
@@ -81,9 +90,27 @@ class TaskModal extends React.Component {
                 ],
               })(<TextArea rows={4} />)}
             </FormItem>
+            <FormItem
+              {...formItemLayout}
+              label="忽略账号"
+              help="忽略指定账号下的仓库, 支持多个账号名使用换行分隔, 如VKSRC"
+            >
+              {getFieldDecorator('ignore_org', {
+                initialValue: ignoreOrg,
+              })(<TextArea rows={3} />)}
+            </FormItem>
+            <FormItem
+              {...formItemLayout}
+              label="忽略仓库"
+              help="忽略包含某些关键词的仓库, 支持多个关键词使用换行分隔, 如.github.io"
+            >
+              {getFieldDecorator('ignore_repo', {
+                initialValue: ignoreRepo,
+              })(<TextArea rows={3} />)}
+            </FormItem>
             <FormItem {...formItemLayout} label="邮箱" help="支持多个邮箱使用分号(;)分隔">
               {getFieldDecorator('mail', {
-                initialValue: data ? data.email : '',
+                initialValue: email,
               })(<Input />)}
             </FormItem>
             <FormItem
@@ -92,12 +119,12 @@ class TaskModal extends React.Component {
               help="默认为5页(一页50条记录); 0为搜索全部"
             >
               {getFieldDecorator('pages', {
-                initialValue: data ? data.pages : 5,
+                initialValue: pages,
               })(<InputNumber min={0} />)}
             </FormItem>
             <FormItem {...formItemLayout} label="爬取间隔" help="单位: 分钟">
               {getFieldDecorator('interval', {
-                initialValue: data ? data.interval : 60,
+                initialValue: interval,
               })(<InputNumber min={0} />)}
             </FormItem>
           </Form>

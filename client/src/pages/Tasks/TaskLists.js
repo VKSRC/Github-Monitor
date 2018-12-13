@@ -3,7 +3,7 @@ import { Card, Table, Badge, Form, Button } from 'antd';
 import { connect } from 'dva';
 import Link from 'umi/link';
 import { taskStatus } from '@/constants';
-import TaskAddModal from './TaskAddModal';
+import TaskModal from './TaskModal';
 
 const FormItem = Form.Item;
 
@@ -64,9 +64,9 @@ class TaskLists extends React.Component {
         key: 'action',
         render: obj => (
           <span>
-            <TaskAddModal data={obj} onOk={this.editTaskHandler}>
+            <TaskModal data={obj} onOk={this.editTaskHandler}>
               <a>编辑</a>
-            </TaskAddModal>
+            </TaskModal>
           </span>
         ),
       },
@@ -120,9 +120,9 @@ class TaskLists extends React.Component {
         <Card bordered={false}>
           <Form>
             <FormItem>
-              <TaskAddModal onOk={this.createTaskHandler}>
+              <TaskModal onOk={this.createTaskHandler}>
                 <Button type="primary">添加任务</Button>
-              </TaskAddModal>
+              </TaskModal>
             </FormItem>
           </Form>
           <Table

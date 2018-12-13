@@ -4,7 +4,7 @@ import { Modal, Form, Input, InputNumber } from 'antd';
 const FormItem = Form.Item;
 const { TextArea } = Input;
 
-class TaskAddModal extends React.Component {
+class TaskModal extends React.Component {
   constructor(props) {
     super(props);
 
@@ -107,4 +107,4 @@ class TaskAddModal extends React.Component {
   }
 }
 
-export default Form.create()(TaskAddModal);
+export default Form.create()(TaskModal);

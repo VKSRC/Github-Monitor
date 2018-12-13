@@ -1,5 +1,5 @@
 import { message } from 'antd';
-import { queryTaskLists, queryCreateTask } from '@/services/github';
+import { queryTaskLists, queryCreateTask, queryEditTask } from '@/services/github';
 
 export default {
   namespace: 'task',
@@ -24,6 +24,12 @@ export default {
     *createTasks({ payload }, { call, put }) {
       yield call(queryCreateTask, payload);
       message.success('添加任务成功!');
+      yield put({ type: 'reload' });
+    },
+
+    *editTask({ id, payload }, { call, put }) {
+      yield call(queryEditTask, id, payload);
+      message.success('修改任务成功!');
       yield put({ type: 'reload' });
     },
 

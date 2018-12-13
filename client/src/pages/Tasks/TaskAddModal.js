@@ -21,10 +21,14 @@ class TaskAddModal extends React.Component {
   };
 
   okHandler = () => {
-    const { onOk, form } = this.props;
+    const { onOk, form, data } = this.props;
     form.validateFields((err, values) => {
       if (!err) {
-        onOk(values);
+        if (!data) {
+          onOk(values);
+        } else {
+          onOk(data.id, values);
+        }
         form.resetFields();
         this.hideModalHandler();
       }
@@ -39,13 +43,12 @@ class TaskAddModal extends React.Component {
 
   render() {
     const { visible } = this.state;
-    const { children, form } = this.props;
+    const { children, form, data } = this.props;
     const { getFieldDecorator } = form;
     const formItemLayout = {
       labelCol: { span: 6 },
       wrapperCol: { span: 14 },
     };
-
     return (
       <span>
         <span onClick={this.showModalHandler}>{children}</span>
@@ -58,6 +61,7 @@ class TaskAddModal extends React.Component {
           <Form layout="horizontal">
             <FormItem {...formItemLayout} label="任务名称">
               {getFieldDecorator('name', {
+                initialValue: data ? data.name : '',
                 rules: [
                   {
                     required: true,
@@ -68,6 +72,7 @@ class TaskAddModal extends React.Component {
             </FormItem>
             <FormItem {...formItemLayout} label="关键词" help="支持多个关键词使用换行分隔">
               {getFieldDecorator('keywords', {
+                initialValue: data ? data.keywords : '',
                 rules: [
                   {
                     required: true,
@@ -77,7 +82,9 @@ class TaskAddModal extends React.Component {
               })(<TextArea rows={4} />)}
             </FormItem>
             <FormItem {...formItemLayout} label="邮箱" help="支持多个邮箱使用分号(;)分隔">
-              {getFieldDecorator('mail', {})(<Input />)}
+              {getFieldDecorator('mail', {
+                initialValue: data ? data.email : '',
+              })(<Input />)}
             </FormItem>
             <FormItem
               {...formItemLayout}
@@ -85,12 +92,12 @@ class TaskAddModal extends React.Component {
               help="默认为5页(一页50条记录); 0为搜索全部"
             >
               {getFieldDecorator('pages', {
-                initialValue: 5,
+                initialValue: data ? data.pages : 5,
               })(<InputNumber min={0} />)}
             </FormItem>
             <FormItem {...formItemLayout} label="爬取间隔" help="单位: 分钟">
               {getFieldDecorator('interval', {
-                initialValue: 60,
+                initialValue: data ? data.interval : 60,
               })(<InputNumber min={0} />)}
             </FormItem>
           </Form>

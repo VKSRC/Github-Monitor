@@ -48,6 +48,16 @@ export async function queryCreateTask(payload) {
   });
 }
 
+export async function queryEditTask(id, payload) {
+  const url = `${API_HOST}/api/monitor/task/${id}.json`;
+
+  return request(url, {
+    method: 'PUT',
+    body: payload,
+    credentials: 'same-origin',
+  });
+}
+
 export async function queryTasksForFilter() {
   const url = `${API_HOST}/api/monitor/task/get_basics.json`;
 

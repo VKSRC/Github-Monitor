@@ -59,6 +59,17 @@ class TaskLists extends React.Component {
         title: '完成时间',
         dataIndex: 'finished_time',
       },
+      {
+        title: '操作',
+        key: 'action',
+        render: obj => (
+          <span>
+            <TaskAddModal data={obj} onOk={this.editTaskHandler}>
+              <a>编辑</a>
+            </TaskAddModal>
+          </span>
+        ),
+      },
     ];
   }
 
@@ -88,6 +99,15 @@ class TaskLists extends React.Component {
     const { dispatch } = this.props;
     dispatch({
       type: 'task/createTasks',
+      payload: values,
+    });
+  };
+
+  editTaskHandler = (id, values) => {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'task/editTask',
+      id,
       payload: values,
     });
   };

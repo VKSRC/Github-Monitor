@@ -8,6 +8,8 @@ class TaskSerializer(serializers.ModelSerializer):
     keywords = serializers.CharField(required=True, label='关键词', help_text='多个关键词换行分隔')
     name = serializers.SlugField(max_length=50, validators=[UniqueValidator(queryset=Task.objects.all())], label=u'任务名称')
     pages = serializers.IntegerField(default=5, allow_null=False, label='爬取页数', help_text='默认为5, 0为搜索全部')
+    ignore_org = serializers.CharField(required=False, allow_null=True, allow_blank=True, label='忽略用户')
+    ignore_repo = serializers.CharField(required=False, allow_null=True, allow_blank=True, label='忽略仓库')
     interval = serializers.IntegerField(default=60, allow_null=False, label='爬取间隔(分钟)', help_text='默认为60')
     mail = serializers.CharField(
         required=False, allow_null=True, allow_blank=True, label='通知邮箱', help_text='多个邮箱分号分隔'
@@ -17,9 +19,7 @@ class TaskSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Task
-        fields = (
-            'id', 'name', 'keywords', 'pages', 'interval', 'status', 'start_time', 'finished_time', 'mail'
-        )
+        fields = '__all__'
         read_only_fields = (
             'id', 'status', 'start_time', 'finished_time'
         )

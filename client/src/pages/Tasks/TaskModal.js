@@ -49,7 +49,7 @@ class TaskModal extends React.Component {
       keywords = '',
       ignore_org: ignoreOrg = '',
       ignore_repo: ignoreRepo = '',
-      email = '',
+      mail = '',
       pages = 5,
       interval = 60,
     } = data;
@@ -110,7 +110,7 @@ class TaskModal extends React.Component {
             </FormItem>
             <FormItem {...formItemLayout} label="邮箱" help="支持多个邮箱使用分号(;)分隔">
               {getFieldDecorator('mail', {
-                initialValue: email,
+                initialValue: mail,
               })(<Input />)}
             </FormItem>
             <FormItem

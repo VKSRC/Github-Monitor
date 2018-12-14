@@ -11,7 +11,7 @@ from github_monitor.apps.monitor.processors import TaskProcessor
 
 class Command(BaseCommand):
 
-    task_id_list = []
+    task_dict = dict()
     INTERVAL = 5
     RS = settings.RS
 
@@ -27,10 +27,19 @@ class Command(BaseCommand):
                 if not self.RS.exists(key):
                     self.RS.hset(key, 'reset', '')
 
-            for task in Task.objects.filter(~Q(id__in=self.task_id_list)):
+            for task in Task.objects.filter(~Q(id__in=self.task_dict)):
                 processor = TaskProcessor(task)
                 p = Process(target=_process, args=(processor, ))
                 p.start()
-                self.task_id_list.append(task.id)
+                self.task_dict[task.id] = p
+
+            # 对于已删除的任务, 将其进程终止掉
+            task_dict_copy = self.task_dict.copy()
+            for task_id in task_dict_copy:
+                if not Task.objects.filter(id=task_id).count():
+                    # task be deleted
+                    print('terminate')
+                    self.task_dict[task_id].terminate()
+                    self.task_dict.pop(task_id)
 
             time.sleep(self.INTERVAL)

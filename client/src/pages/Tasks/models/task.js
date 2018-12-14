@@ -1,5 +1,5 @@
 import { message } from 'antd';
-import { queryTaskLists, queryCreateTask, queryEditTask } from '@/services/github';
+import { queryTaskLists, queryCreateTask, queryEditTask, queryRemoveTask } from '@/services/github';
 
 export default {
   namespace: 'task',
@@ -30,6 +30,12 @@ export default {
     *editTask({ id, payload }, { call, put }) {
       yield call(queryEditTask, id, payload);
       message.success('修改任务成功!');
+      yield put({ type: 'reload' });
+    },
+
+    *removeTask({ id }, { call, put }) {
+      yield call(queryRemoveTask, id);
+      message.success('删除任务成功!');
       yield put({ type: 'reload' });
     },
 

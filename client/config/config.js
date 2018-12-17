@@ -88,7 +88,7 @@ export default {
     start_url: '/index.html',
     icons: [
       {
-        src: '/favicon.icon',
+        src: '/favicon.ico',
         sizes: '48x48',
         type: 'image/x-icon',
       },

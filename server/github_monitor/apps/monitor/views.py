@@ -53,7 +53,7 @@ class TaskViewSet(ModelViewSet):
     def destroy(self, request, *args, **kwargs):
         obj = self.get_object()
         if obj.status != 1:
-            super(TaskViewSet, self).destroy(request, *args, **kwargs)
+            return super(TaskViewSet, self).destroy(request, *args, **kwargs)
         else:
             return Response('正在执行的任务不允许删除', status=status.HTTP_400_BAD_REQUEST)
 

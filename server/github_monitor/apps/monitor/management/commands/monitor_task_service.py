@@ -36,6 +36,7 @@ class Command(BaseCommand):
             # 对于已删除的任务, 将其进程终止掉
             task_dict_copy = self.task_dict.copy()
             for task_id in task_dict_copy:
+                close_old_connections()
                 if not Task.objects.filter(id=task_id).count():
                     # task be deleted
                     print('terminate')

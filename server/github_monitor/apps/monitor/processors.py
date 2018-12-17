@@ -192,7 +192,11 @@ class TaskProcessor(object):
             self.task.status = 2
             self.task.finished_time = timezone.now()
             self.task.save()
-            self.send_email()
+            try:
+                self.send_email()
+            except Exception as e:
+                logger.exception(e)
+                pass
             # sleep一个周期的时间
             time.sleep(60 * self.task.interval)
 

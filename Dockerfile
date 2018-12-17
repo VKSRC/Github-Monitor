@@ -31,8 +31,12 @@ RUN pip3 install -r /home/docker/Github-Monitor/server/requirements.pip -i http:
 
 # volumne
 VOLUME ["/var/lib/redis"]
+VOLUME ["/home/docker/Github-Monitor/.env"]
 
 WORKDIR /home/docker/Github-Monitor/
 
+ENV LANG C.UTF-8
+
 EXPOSE 80
+
 CMD ["/bin/bash", "run.sh"]

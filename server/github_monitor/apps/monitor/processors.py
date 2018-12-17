@@ -123,20 +123,6 @@ class TaskProcessor(object):
 
         def format_fragments(_text_matches):
             return ''.join([f['fragment'] for f in _text_matches])
-            # fragments = ''
-            # for match in _text_matches:
-            #     join_em_fragment = ''
-            #     start = 0
-            #     fragment = match.get('fragment', '')
-            #     match_infos = match.get('matches', [])
-            #     for _info in match_infos:
-            #         indices = _info.get('indices')
-            #         text = _info.get('text')
-            #         join_em_fragment += fragment[start:indices[0]] + '<em>' + text + '</em>'
-            #         start = indices[1]
-            #     join_em_fragment += fragment[start:]
-            #     fragments += join_em_fragment
-            # return fragments
 
         for _file in _contents:
 
@@ -145,10 +131,12 @@ class TaskProcessor(object):
             user = repository.owner.login
             repo_name = repository.name
             ignore = False
-            if user in self.task.ignore_org.split('\n'):
-                ignore = True
+            for org in self.task.ignore_org.split('\n'):
+                if user == org.strip(' \r\n'):
+                    ignore = True
             for _repo in self.task.ignore_repo.split('\n'):
-                if _repo in repo_name:
+                _repo = _repo.strip(' \r\n')
+                if _repo and (_repo in repo_name):
                     ignore = True
             if ignore:
                 continue
@@ -191,6 +179,7 @@ class TaskProcessor(object):
             self.email_results = []
             self.task.status = 1
             self.task.start_time = timezone.now()
+            self.task.finished_time = None
             self.task.save()
             keyword_list = self.task.keywords.split('\n')
             for keyword in keyword_list:

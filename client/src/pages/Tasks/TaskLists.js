@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Table, Badge, Form, Button } from 'antd';
+import { Card, Table, Badge, Form, Button, Divider, Popconfirm } from 'antd';
 import { connect } from 'dva';
 import Link from 'umi/link';
 import { taskStatus } from '@/constants';
@@ -64,9 +64,22 @@ class TaskLists extends React.Component {
         key: 'action',
         render: obj => (
           <span>
-            <TaskModal data={obj} onOk={this.editTaskHandler}>
-              <a>编辑</a>
-            </TaskModal>
+            {obj.status === 1 ? (
+              '无'
+            ) : (
+              <div>
+                <TaskModal data={obj} onOk={this.editTaskHandler}>
+                  <a>编辑</a>
+                </TaskModal>
+                <Divider type="vertical" />
+                <Popconfirm
+                  title="是否要删除该任务？"
+                  onConfirm={() => this.removeTaskHandler(obj.id)}
+                >
+                  <a>删除</a>
+                </Popconfirm>
+              </div>
+            )}
           </span>
         ),
       },
@@ -109,6 +122,14 @@ class TaskLists extends React.Component {
       type: 'task/editTask',
       id,
       payload: values,
+    });
+  };
+
+  removeTaskHandler = id => {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'task/removeTask',
+      id,
     });
   };
 

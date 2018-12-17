@@ -14,7 +14,7 @@ services:
   mysql:
     image: mysql:5.7
     restart: always
-    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --init-connect='SET NAMES utf8mb4;'
+    command: --max_allowed_packet=1073741824 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --init-connect='SET NAMES utf8mb4;'
     expose:
       - 3306
     volumes:

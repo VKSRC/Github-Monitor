@@ -177,5 +177,5 @@ Github API有次数限制，1分钟最多请求30次，为了提高爬取速度�
 
 关注VKSRC微信公众号，有任何建议和意见都可以发送到公众号/提交Issue。
 
-![Wechat](docs/media/Wechat.jpeg)
+![Wechat](docs/media/wechat.jpeg)
 

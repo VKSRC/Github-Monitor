@@ -16,7 +16,7 @@ const FooterView = () => (
       ]}
       copyright={
         <Fragment>
-          Copyright <Icon type="copyright" /> 2018 VIPKID安全团队
+          Copyright <Icon type="copyright" /> 2018 VIPKID - 安全中心
         </Fragment>
       }
     />

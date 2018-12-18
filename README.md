@@ -40,7 +40,7 @@
 
 #### 修改配置文件
 
- 首先复制根目录的`.env.sample`并重命名为`.env`，修改其中的`Email Settings`和`initial Administrator`配置。这两个配置分别控制邮件提醒，以及初始管理帐号密码。
+ 首先复制根目录的`.env.docker`并重命名为`.env`，修改其中的`Email Settings`和`initial Administrator`配置。这两个配置分别控制邮件提醒，以及初始管理帐号密码。
  
 #### 一键启动
  

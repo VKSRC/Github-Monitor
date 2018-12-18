@@ -22,6 +22,7 @@ class GithubList extends React.Component {
     const payload = {
       page: 1,
       pageSize: 10,
+      status: '0',
     };
 
     // 如果从url中传入了taskId则加入到payload中
@@ -149,7 +150,7 @@ class GithubList extends React.Component {
                       {leakage.user_name}/{leakage.repo_name}
                     </a>{' '}
                     -{' '}
-                    <a href={leakage.html_url}>
+                    <a href={leakage.html_url} target="_blank" rel="noopener noreferrer">
                       <small>{leakage.file_name}</small>
                     </a>
                   </h3>

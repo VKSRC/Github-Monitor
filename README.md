@@ -14,7 +14,7 @@
 
 -----
 
-**GITHUB MONITOR** 是vipkid安全研发团队打造的用于监控Github代码仓库、及时发现企业内部代码泄露、从而降低由于代码泄露导致的一系列安全风险。用户通过简单的任务配置，即可在分钟级发现代码泄露的情况。项目后端使用 **[django-rest-framework](https://www.django-rest-framework.org/)** 开发，前端使用 **[react](https://reactjs.org/)** 和 **[antd-pro](https://pro.ant.design/)** 开发。
+**GITHUB MONITOR** 是vipkid安全研发团队打造的用于监控Github代码仓库的系统。通过该系统可以及时发现企业内部代码泄露、从而降低由于代码泄露导致的一系列安全风险。用户仅需通过简单的任务配置，即可在分钟级发现代码泄露的情况。项目后端使用 **[django-rest-framework](https://www.django-rest-framework.org/)** 开发，前端使用 **[react](https://reactjs.org/)** 和 **[antd-pro](https://pro.ant.design/)** 开发。
 
 
 ## 系统特点
@@ -22,6 +22,7 @@
 * 简单且灵活的任务配置
 * 邮件提醒
 * github token管理
+* 支持docker一键部署
 * 运行十分稳定
 
 ## 安装指南
@@ -42,6 +43,8 @@
 
  首先复制根目录的`.env.docker`并重命名为`.env`，修改其中的`Email Settings`和`initial Administrator`配置。这两个配置分别控制邮件提醒，以及初始管理帐号密码。
  
+ **注意: 如果需要访问的地址不是`127.0.0.1`或`localhost`, 需要修改`ALLOWED_HOST`参数,将访问地址加到里面, 如: `ALLOWED_HOSTS="127.0.0.1,localhost,github.sec.vipkid.com.cn"`**
+ 
 #### 一键启动
  
  ```
@@ -54,7 +57,7 @@
 
 如果想修改启动端口，可以修改`docker-compose.yaml`文件中`web`容器的`ports`。
 
-默认为`8001:80`，必须要修改为`8080`端口可改为`8080:80`。
+默认为`8001:80`，比如要修改为`8080`端口可改为`8080:80`。
 
 ### 2. 源码部署:
 项目运行依赖 **redis**, 请在运行服务前启动**redis-server**

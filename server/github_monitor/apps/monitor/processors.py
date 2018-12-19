@@ -177,6 +177,7 @@ class TaskProcessor(object):
         while True:
             connection.close()
             self.email_results = []
+            self.task.refresh_from_db()
             self.task.status = 1
             self.task.start_time = timezone.now()
             self.task.finished_time = None

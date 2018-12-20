@@ -157,8 +157,8 @@ EMAIL_PORT = os.environ.get('EMAIL_PORT')
 FROM_EMAIL = os.environ.get('FROM_EMAIL')
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER') or None
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD') or None
-EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS') or False
-EMAIL_USE_SSL = os.environ.get('EMAIL_USE_SSL') or False
+EMAIL_USE_TLS = True if os.environ.get('EMAIL_USE_TLS') == 'True' else False
+EMAIL_USE_SSL = True if os.environ.get('EMAIL_USE_SSL') == 'True' else False
 
 REDIS_HOST = os.environ.get('REDIS_HOST')
 REDIS_PORT = os.environ.get('REDIS_PORT')

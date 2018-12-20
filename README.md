@@ -45,6 +45,7 @@
  
  **注意: 如果需要访问的地址不是`127.0.0.1`或`localhost`, 需要修改`ALLOWED_HOST`参数,将访问地址加到里面, 如: `ALLOWED_HOSTS="127.0.0.1,localhost,github.sec.vipkid.com.cn"`**
  
+ 
 #### 一键启动
  
  ```
@@ -52,6 +53,8 @@
  ```
  
 访问`http://127.0.0.1:8001`即可看到页面。
+
+**注意: 第一次启动由于mysql容器启动时间较久，可能会用30s左右的时间，页面才可以正常访问**
  
 #### 修改启动端口
 
@@ -80,6 +83,11 @@ DB_PORT="3306"  # mysql port
 DB_USER="root"  # mysql用户名
 DB_PASSWORD="vipkid@2018"  # mysql密码
 
+# Redis Settings
+REDIS_HOST="127.0.0.1"  # redis host
+REDIS_PORT="6379"  # redis port
+REDIS_PASSWORD=""  # redis password
+
 # Email Settings
 # If you do not fill it in, it is None/False
 EMAIL_HOST="smtp.example.com"  # smtp host
@@ -87,8 +95,8 @@ EMAIL_PORT="25"  # smtp port
 FROM_EMAIL="secuirty@example.com"  # 发件人
 EMAIL_HOST_USER="security@example.com"  # email user, 如为匿名发送，将值设为空字符即可
 EMAIL_HOST_PASSWORD="password123!@#"  # email password, 如为匿名发送，将值设为空字符即可
-EMAIL_USE_TLS=
-EMAIL_USE_SSL=
+EMAIL_USE_TLS="False"  # 与SMTP服务器通信时是否使用TLS（安全）连接, 可选True/False
+EMAIL_USE_SSL="False"  # 与SMTP服务器通信时是否使用SSL（安全）连接, 可选True/False
 
 # initial Administrator
 INIT_ADMIN_USERNAME="admin"  # 初始化系统用户使用的用户名

@@ -13,17 +13,18 @@
       a('y8nQ');
       var d,
         s,
-        i = l(a('Vl3Y')),
-        u = l(a('q1tI')),
-        c = a('MuoO'),
-        p = l(a('zXrS')),
-        f = i.default.Item,
-        h = ((d = (0, c.connect)(e => {
+        i,
+        u = l(a('Vl3Y')),
+        c = l(a('q1tI')),
+        p = a('MuoO'),
+        f = l(a('zXrS')),
+        h = u.default.Item,
+        v = ((d = (0, p.connect)(e => {
           var t = e.token;
           return { token: t };
         })),
         d(
-          (s = class extends u.default.Component {
+          ((i = class extends c.default.Component {
             constructor(e) {
               super(e),
                 (this.createTokenHandler = e => {
@@ -42,26 +43,26 @@
             render() {
               var e = this.props.token,
                 t = e.tokens;
-              return u.default.createElement(
+              return c.default.createElement(
                 'div',
                 null,
-                u.default.createElement(
+                c.default.createElement(
                   r.default,
                   { bordered: !1 },
-                  u.default.createElement(
-                    i.default,
+                  c.default.createElement(
+                    u.default,
                     null,
-                    u.default.createElement(
-                      f,
+                    c.default.createElement(
+                      h,
                       null,
-                      u.default.createElement(
-                        p.default,
+                      c.default.createElement(
+                        f.default,
                         { onOk: this.createTokenHandler },
-                        u.default.createElement(o.default, { type: 'primary' }, '\u6dfb\u52a0Token')
+                        c.default.createElement(o.default, { type: 'primary' }, '\u6dfb\u52a0Token')
                       )
                     )
                   ),
-                  u.default.createElement(n.default, {
+                  c.default.createElement(n.default, {
                     columns: this.columns,
                     dataSource: t,
                     rowKey: 'id',
@@ -69,10 +70,11 @@
                 )
               );
             }
-          })
+          }),
+          (s = i))
         ) || s),
-        v = h;
-      t.default = v;
+        m = v;
+      t.default = m;
     },
     zXrS: function(e, t, a) {
       'use strict';

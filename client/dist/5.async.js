@@ -310,29 +310,30 @@
       Object.defineProperty(t, '__esModule', { value: !0 }), (t.default = void 0);
       var l,
         s,
-        u = r(a('q1tI')),
-        o = a('MuoO'),
-        i = a('LLXN'),
-        d = n(a('QBZU')),
-        p = a('34ay'),
-        c = n(a('w2qy')),
-        f = d.default.UserName,
-        m = d.default.Password,
-        h = d.default.Submit,
-        v = ((l = (0, o.connect)(e => {
+        u,
+        o = r(a('q1tI')),
+        i = a('MuoO'),
+        d = a('LLXN'),
+        p = n(a('QBZU')),
+        c = a('34ay'),
+        f = n(a('w2qy')),
+        m = p.default.UserName,
+        h = p.default.Password,
+        v = p.default.Submit,
+        g = ((l = (0, i.connect)(e => {
           var t = e.login,
             a = e.loading;
           return { login: t, submitting: a.effects['login/login'] };
         })),
         l(
-          (s = class extends u.Component {
+          ((u = class extends o.Component {
             constructor() {
               super(...arguments),
                 (this.handleSubmit = (e, t) => {
                   if (!e) {
                     var a = this.props.dispatch;
                     a({ type: 'login/login', payload: t }).then(() => {
-                      var e = (0, p.getAccountToken)();
+                      var e = (0, c.getAccountToken)();
                       e && (window.location.href = '/');
                     });
                   }
@@ -340,11 +341,11 @@
             }
             render() {
               var e = this.props.submitting;
-              return u.default.createElement(
+              return o.default.createElement(
                 'div',
-                { className: c.default.main },
-                u.default.createElement(
-                  d.default,
+                { className: f.default.main },
+                o.default.createElement(
+                  p.default,
                   {
                     defaultActiveKey: 'account',
                     onTabChange: this.onTabChange,
@@ -353,27 +354,28 @@
                       this.loginForm = e;
                     },
                   },
-                  u.default.createElement(f, {
+                  o.default.createElement(m, {
                     name: 'username',
                     placeholder: '\u8bf7\u8f93\u5165\u5e10\u53f7',
                   }),
-                  u.default.createElement(m, {
+                  o.default.createElement(h, {
                     name: 'password',
                     placeholder: '\u8bf7\u8f93\u5165\u5bc6\u7801',
                     onPressEnter: () => this.loginForm.validateFields(this.handleSubmit),
                   }),
-                  u.default.createElement(
-                    h,
+                  o.default.createElement(
+                    v,
                     { loading: e },
-                    u.default.createElement(i.FormattedMessage, { id: 'app.login.login' })
+                    o.default.createElement(d.FormattedMessage, { id: 'app.login.login' })
                   )
                 )
               );
             }
-          })
+          }),
+          (s = u))
         ) || s),
-        g = v;
-      t.default = g;
+        b = g;
+      t.default = b;
     },
     Yrmy: function(e, t, a) {
       'use strict';

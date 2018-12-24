@@ -37,50 +37,51 @@
       var c,
         f,
         g,
-        h = r(a('Vl3Y')),
-        v = s(a('q1tI')),
-        E = a('MuoO'),
-        w = a('LLXN'),
-        M = r(a('mOP9')),
-        b = r(a('usdK')),
-        y = r(a('5WY0')),
-        F = h.default.Item,
-        P = p.default.Option,
-        S = m.default.Group,
-        k = {
-          ok: v.default.createElement(
+        h,
+        v = r(a('Vl3Y')),
+        E = s(a('q1tI')),
+        w = a('MuoO'),
+        M = a('LLXN'),
+        b = r(a('mOP9')),
+        y = r(a('usdK')),
+        F = r(a('5WY0')),
+        P = v.default.Item,
+        S = p.default.Option,
+        k = m.default.Group,
+        C = {
+          ok: E.default.createElement(
             'div',
-            { className: y.default.success },
-            v.default.createElement(w.FormattedMessage, {
+            { className: F.default.success },
+            E.default.createElement(M.FormattedMessage, {
               id: 'validation.password.strength.strong',
             })
           ),
-          pass: v.default.createElement(
+          pass: E.default.createElement(
             'div',
-            { className: y.default.warning },
-            v.default.createElement(w.FormattedMessage, {
+            { className: F.default.warning },
+            E.default.createElement(M.FormattedMessage, {
               id: 'validation.password.strength.medium',
             })
           ),
-          poor: v.default.createElement(
+          poor: E.default.createElement(
             'div',
-            { className: y.default.error },
-            v.default.createElement(w.FormattedMessage, {
+            { className: F.default.error },
+            E.default.createElement(M.FormattedMessage, {
               id: 'validation.password.strength.short',
             })
           ),
         },
-        C = { ok: 'success', pass: 'normal', poor: 'exception' },
-        q = ((c = (0, E.connect)(e => {
+        q = { ok: 'success', pass: 'normal', poor: 'exception' },
+        x = ((c = (0, w.connect)(e => {
           var t = e.register,
             a = e.loading;
           return { register: t, submitting: a.effects['register/submit'] };
         })),
-        (f = h.default.create()),
+        (f = v.default.create()),
         c(
           (g =
             f(
-              (g = class extends v.Component {
+              ((h = class extends E.Component {
                 constructor() {
                   super(...arguments),
                     (this.state = {
@@ -127,7 +128,7 @@
                     (this.checkConfirm = (e, t, a) => {
                       var r = this.props.form;
                       t && t !== r.getFieldValue('password')
-                        ? a((0, w.formatMessage)({ id: 'validation.password.twice' }))
+                        ? a((0, M.formatMessage)({ id: 'validation.password.twice' }))
                         : a();
                     }),
                     (this.checkPassword = (e, t, a) => {
@@ -147,7 +148,7 @@
                         }
                       else
                         this.setState({
-                          help: (0, w.formatMessage)({ id: 'validation.password.required' }),
+                          help: (0, M.formatMessage)({ id: 'validation.password.required' }),
                           visible: !!t,
                         }),
                           a('error');
@@ -160,12 +161,12 @@
                         t = e.getFieldValue('password'),
                         a = this.getPasswordStatus();
                       return t && t.length
-                        ? v.default.createElement(
+                        ? E.default.createElement(
                             'div',
-                            { className: y.default[`progress-${a}`] },
-                            v.default.createElement(n.default, {
-                              status: C[a],
-                              className: y.default.progress,
+                            { className: F.default[`progress-${a}`] },
+                            E.default.createElement(n.default, {
+                              status: q[a],
+                              className: F.default.progress,
                               strokeWidth: 6,
                               percent: 10 * t.length > 100 ? 100 : 10 * t.length,
                               showInfo: !1,
@@ -180,7 +181,7 @@
                     a = e.register,
                     r = t.getFieldValue('mail');
                   'ok' === a.status &&
-                    b.default.push({ pathname: '/user/register-result', state: { account: r } });
+                    y.default.push({ pathname: '/user/register-result', state: { account: r } });
                 }
                 componentWillUnmount() {
                   clearInterval(this.interval);
@@ -195,55 +196,55 @@
                     u = s.prefix,
                     c = s.help,
                     f = s.visible;
-                  return v.default.createElement(
+                  return E.default.createElement(
                     'div',
-                    { className: y.default.main },
-                    v.default.createElement(
+                    { className: F.default.main },
+                    E.default.createElement(
                       'h3',
                       null,
-                      v.default.createElement(w.FormattedMessage, { id: 'app.register.register' })
+                      E.default.createElement(M.FormattedMessage, { id: 'app.register.register' })
                     ),
-                    v.default.createElement(
-                      h.default,
+                    E.default.createElement(
+                      v.default,
                       { onSubmit: this.handleSubmit },
-                      v.default.createElement(
-                        F,
+                      E.default.createElement(
+                        P,
                         null,
                         r('mail', {
                           rules: [
                             {
                               required: !0,
-                              message: (0, w.formatMessage)({ id: 'validation.email.required' }),
+                              message: (0, M.formatMessage)({ id: 'validation.email.required' }),
                             },
                             {
                               type: 'email',
-                              message: (0, w.formatMessage)({
+                              message: (0, M.formatMessage)({
                                 id: 'validation.email.wrong-format',
                               }),
                             },
                           ],
                         })(
-                          v.default.createElement(m.default, {
+                          E.default.createElement(m.default, {
                             size: 'large',
-                            placeholder: (0, w.formatMessage)({ id: 'form.email.placeholder' }),
+                            placeholder: (0, M.formatMessage)({ id: 'form.email.placeholder' }),
                           })
                         )
                       ),
-                      v.default.createElement(
-                        F,
+                      E.default.createElement(
+                        P,
                         { help: c },
-                        v.default.createElement(
+                        E.default.createElement(
                           o.default,
                           {
-                            content: v.default.createElement(
+                            content: E.default.createElement(
                               'div',
                               { style: { padding: '4px 0' } },
-                              k[this.getPasswordStatus()],
+                              C[this.getPasswordStatus()],
                               this.renderPasswordProgress(),
-                              v.default.createElement(
+                              E.default.createElement(
                                 'div',
                                 { style: { marginTop: 10 } },
-                                v.default.createElement(w.FormattedMessage, {
+                                E.default.createElement(M.FormattedMessage, {
                                   id: 'validation.password.strength.msg',
                                 })
                               )
@@ -253,46 +254,46 @@
                             visible: f,
                           },
                           r('password', { rules: [{ validator: this.checkPassword }] })(
-                            v.default.createElement(m.default, {
+                            E.default.createElement(m.default, {
                               size: 'large',
                               type: 'password',
-                              placeholder: (0, w.formatMessage)({
+                              placeholder: (0, M.formatMessage)({
                                 id: 'form.password.placeholder',
                               }),
                             })
                           )
                         )
                       ),
-                      v.default.createElement(
-                        F,
+                      E.default.createElement(
+                        P,
                         null,
                         r('confirm', {
                           rules: [
                             {
                               required: !0,
-                              message: (0, w.formatMessage)({
+                              message: (0, M.formatMessage)({
                                 id: 'validation.confirm-password.required',
                               }),
                             },
                             { validator: this.checkConfirm },
                           ],
                         })(
-                          v.default.createElement(m.default, {
+                          E.default.createElement(m.default, {
                             size: 'large',
                             type: 'password',
-                            placeholder: (0, w.formatMessage)({
+                            placeholder: (0, M.formatMessage)({
                               id: 'form.confirm-password.placeholder',
                             }),
                           })
                         )
                       ),
-                      v.default.createElement(
-                        F,
+                      E.default.createElement(
+                        P,
                         null,
-                        v.default.createElement(
-                          S,
+                        E.default.createElement(
+                          k,
                           { compact: !0 },
-                          v.default.createElement(
+                          E.default.createElement(
                             p.default,
                             {
                               size: 'large',
@@ -300,100 +301,100 @@
                               onChange: this.changePrefix,
                               style: { width: '20%' },
                             },
-                            v.default.createElement(P, { value: '86' }, '+86'),
-                            v.default.createElement(P, { value: '87' }, '+87')
+                            E.default.createElement(S, { value: '86' }, '+86'),
+                            E.default.createElement(S, { value: '87' }, '+87')
                           ),
                           r('mobile', {
                             rules: [
                               {
                                 required: !0,
-                                message: (0, w.formatMessage)({
+                                message: (0, M.formatMessage)({
                                   id: 'validation.phone-number.required',
                                 }),
                               },
                               {
                                 pattern: /^\d{10}$/,
-                                message: (0, w.formatMessage)({
+                                message: (0, M.formatMessage)({
                                   id: 'validation.phone-number.wrong-format',
                                 }),
                               },
                             ],
                           })(
-                            v.default.createElement(m.default, {
+                            E.default.createElement(m.default, {
                               size: 'large',
                               style: { width: '80%' },
-                              placeholder: (0, w.formatMessage)({
+                              placeholder: (0, M.formatMessage)({
                                 id: 'form.phone-number.placeholder',
                               }),
                             })
                           )
                         )
                       ),
-                      v.default.createElement(
-                        F,
+                      E.default.createElement(
+                        P,
                         null,
-                        v.default.createElement(
+                        E.default.createElement(
                           l.default,
                           { gutter: 8 },
-                          v.default.createElement(
+                          E.default.createElement(
                             d.default,
                             { span: 16 },
                             r('captcha', {
                               rules: [
                                 {
                                   required: !0,
-                                  message: (0, w.formatMessage)({
+                                  message: (0, M.formatMessage)({
                                     id: 'validation.verification-code.required',
                                   }),
                                 },
                               ],
                             })(
-                              v.default.createElement(m.default, {
+                              E.default.createElement(m.default, {
                                 size: 'large',
-                                placeholder: (0, w.formatMessage)({
+                                placeholder: (0, M.formatMessage)({
                                   id: 'form.verification-code.placeholder',
                                 }),
                               })
                             )
                           ),
-                          v.default.createElement(
+                          E.default.createElement(
                             d.default,
                             { span: 8 },
-                            v.default.createElement(
+                            E.default.createElement(
                               i.default,
                               {
                                 size: 'large',
                                 disabled: n,
-                                className: y.default.getCaptcha,
+                                className: F.default.getCaptcha,
                                 onClick: this.onGetCaptcha,
                               },
                               n
                                 ? `${n} s`
-                                : (0, w.formatMessage)({ id: 'app.register.get-verification-code' })
+                                : (0, M.formatMessage)({ id: 'app.register.get-verification-code' })
                             )
                           )
                         )
                       ),
-                      v.default.createElement(
-                        F,
+                      E.default.createElement(
+                        P,
                         null,
-                        v.default.createElement(
+                        E.default.createElement(
                           i.default,
                           {
                             size: 'large',
                             loading: a,
-                            className: y.default.submit,
+                            className: F.default.submit,
                             type: 'primary',
                             htmlType: 'submit',
                           },
-                          v.default.createElement(w.FormattedMessage, {
+                          E.default.createElement(M.FormattedMessage, {
                             id: 'app.register.register',
                           })
                         ),
-                        v.default.createElement(
-                          M.default,
-                          { className: y.default.login, to: '/User/Login' },
-                          v.default.createElement(w.FormattedMessage, {
+                        E.default.createElement(
+                          b.default,
+                          { className: F.default.login, to: '/User/Login' },
+                          E.default.createElement(M.FormattedMessage, {
                             id: 'app.register.sing-in',
                           })
                         )
@@ -401,11 +402,12 @@
                     )
                   );
                 }
-              })
+              }),
+              (g = h))
             ) || g)
         ) || g),
-        x = q;
-      t.default = x;
+        N = x;
+      t.default = N;
     },
   },
 ]);

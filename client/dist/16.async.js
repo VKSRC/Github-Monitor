@@ -12,13 +12,14 @@
       r('+L6B');
       var l,
         s,
-        d = a(r('2/Rp')),
-        u = i(r('q1tI')),
-        g = r('MuoO'),
-        p = a(r('uUKN')),
-        c = ((l = (0, g.connect)(e => ({ isloading: e.error.isloading }))),
+        d,
+        u = a(r('2/Rp')),
+        g = i(r('q1tI')),
+        p = r('MuoO'),
+        c = a(r('uUKN')),
+        f = ((l = (0, p.connect)(e => ({ isloading: e.error.isloading }))),
         l(
-          (s = class extends u.PureComponent {
+          ((d = class extends g.PureComponent {
             constructor() {
               super(...arguments),
                 (this.state = { isloading: !1 }),
@@ -30,39 +31,40 @@
             }
             render() {
               var e = this.state.isloading;
-              return u.default.createElement(
+              return g.default.createElement(
                 n.default,
                 null,
-                u.default.createElement(
+                g.default.createElement(
                   o.default,
-                  { spinning: e, wrapperClassName: p.default.trigger },
-                  u.default.createElement(
-                    d.default,
+                  { spinning: e, wrapperClassName: c.default.trigger },
+                  g.default.createElement(
+                    u.default,
                     { type: 'danger', onClick: () => this.triggerError(401) },
                     '\u89e6\u53d1401'
                   ),
-                  u.default.createElement(
-                    d.default,
+                  g.default.createElement(
+                    u.default,
                     { type: 'danger', onClick: () => this.triggerError(403) },
                     '\u89e6\u53d1403'
                   ),
-                  u.default.createElement(
-                    d.default,
+                  g.default.createElement(
+                    u.default,
                     { type: 'danger', onClick: () => this.triggerError(500) },
                     '\u89e6\u53d1500'
                   ),
-                  u.default.createElement(
-                    d.default,
+                  g.default.createElement(
+                    u.default,
                     { type: 'danger', onClick: () => this.triggerError(404) },
                     '\u89e6\u53d1404'
                   )
                 )
               );
             }
-          })
+          }),
+          (s = d))
         ) || s),
-        f = c;
-      t.default = f;
+        h = f;
+      t.default = h;
     },
     uUKN: function(e, t, r) {
       e.exports = { trigger: 'antd-pro-pages-exception-style-trigger' };

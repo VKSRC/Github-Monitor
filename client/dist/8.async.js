@@ -189,15 +189,16 @@
       Object.defineProperty(t, '__esModule', { value: !0 }), (t.default = void 0), a('Pwec');
       var r,
         i,
-        o = l(a('CtXQ')),
-        s = l(a('U+yc')),
-        d = n(a('q1tI')),
-        u = l(a('mOP9')),
-        c = l(a('fqkP')),
-        h = l(a('h3zL')),
-        p = l(a('X5mu')),
-        m = ((r = (0, c.default)(600)),
-        (i = class extends d.PureComponent {
+        o,
+        s = l(a('CtXQ')),
+        d = l(a('U+yc')),
+        u = n(a('q1tI')),
+        c = l(a('mOP9')),
+        h = l(a('fqkP')),
+        p = l(a('h3zL')),
+        m = l(a('X5mu')),
+        f = ((r = (0, h.default)(600)),
+        (o = class extends u.PureComponent {
           constructor() {
             super(...arguments),
               (this.toggle = () => {
@@ -219,25 +220,26 @@
               t = e.collapsed,
               a = e.isMobile,
               l = e.logo;
-            return d.default.createElement(
+            return u.default.createElement(
               'div',
-              { className: h.default.header },
+              { className: p.default.header },
               a &&
-                d.default.createElement(
-                  u.default,
-                  { to: '/', className: h.default.logo, key: 'logo' },
-                  d.default.createElement('img', { src: l, alt: 'logo', width: '32' })
+                u.default.createElement(
+                  c.default,
+                  { to: '/', className: p.default.logo, key: 'logo' },
+                  u.default.createElement('img', { src: l, alt: 'logo', width: '32' })
                 ),
-              d.default.createElement(o.default, {
-                className: h.default.trigger,
+              u.default.createElement(s.default, {
+                className: p.default.trigger,
                 type: t ? 'menu-unfold' : 'menu-fold',
                 onClick: this.toggle,
               }),
-              d.default.createElement(p.default, this.props)
+              u.default.createElement(m.default, this.props)
             );
           }
         }),
-        (0, s.default)(
+        (i = o),
+        (0, d.default)(
           i.prototype,
           'triggerResizeEvent',
           [r],
@@ -245,7 +247,7 @@
           i.prototype
         ),
         i);
-      t.default = m;
+      t.default = f;
     },
     PceP: function(e, t, a) {
       'use strict';
@@ -273,33 +275,34 @@
       a('OaEy');
       var f,
         g,
-        v = l(a('2fM7')),
-        y = n(a('q1tI')),
-        b = a('LLXN'),
-        M = a('P5Jw'),
-        E = a('MuoO'),
-        C = l(a('BGR+')),
-        k = l(a('BFsb')),
-        x = l(a('WJM/')),
-        N = l(a('Pjk0')),
-        P = v.default.Option,
-        S = e => {
+        v,
+        y = l(a('2fM7')),
+        b = n(a('q1tI')),
+        M = a('LLXN'),
+        E = a('P5Jw'),
+        C = a('MuoO'),
+        k = l(a('BGR+')),
+        x = l(a('BFsb')),
+        N = l(a('WJM/')),
+        P = l(a('Pjk0')),
+        S = y.default.Option,
+        w = e => {
           var t = e.children,
             a = e.title,
             l = e.style;
-          return y.default.createElement(
+          return b.default.createElement(
             'div',
             { style: (0, m.default)({}, l, { marginBottom: 24 }) },
-            y.default.createElement('h3', { className: k.default.title }, a),
+            b.default.createElement('h3', { className: x.default.title }, a),
             t
           );
         },
-        w = ((f = (0, E.connect)(e => {
+        L = ((f = (0, C.connect)(e => {
           var t = e.setting;
           return { setting: t };
         })),
         f(
-          (g = class extends y.PureComponent {
+          ((v = class extends b.PureComponent {
             constructor() {
               super(...arguments),
                 (this.state = { collapse: !1 }),
@@ -312,9 +315,9 @@
                     r = e.fixSiderbar;
                   return [
                     {
-                      title: (0, b.formatMessage)({ id: 'app.setting.content-width' }),
-                      action: y.default.createElement(
-                        v.default,
+                      title: (0, M.formatMessage)({ id: 'app.setting.content-width' }),
+                      action: b.default.createElement(
+                        y.default,
                         {
                           value: t,
                           size: 'small',
@@ -323,41 +326,41 @@
                         },
                         'sidemenu' === l
                           ? null
-                          : y.default.createElement(
-                              P,
+                          : b.default.createElement(
+                              S,
                               { value: 'Fixed' },
-                              (0, b.formatMessage)({ id: 'app.setting.content-width.fixed' })
+                              (0, M.formatMessage)({ id: 'app.setting.content-width.fixed' })
                             ),
-                        y.default.createElement(
-                          P,
+                        b.default.createElement(
+                          S,
                           { value: 'Fluid' },
-                          (0, b.formatMessage)({ id: 'app.setting.content-width.fluid' })
+                          (0, M.formatMessage)({ id: 'app.setting.content-width.fluid' })
                         )
                       ),
                     },
                     {
-                      title: (0, b.formatMessage)({ id: 'app.setting.fixedheader' }),
-                      action: y.default.createElement(p.default, {
+                      title: (0, M.formatMessage)({ id: 'app.setting.fixedheader' }),
+                      action: b.default.createElement(p.default, {
                         size: 'small',
                         checked: !!a,
                         onChange: e => this.changeSetting('fixedHeader', e),
                       }),
                     },
                     {
-                      title: (0, b.formatMessage)({ id: 'app.setting.hideheader' }),
+                      title: (0, M.formatMessage)({ id: 'app.setting.hideheader' }),
                       disabled: !a,
-                      disabledReason: (0, b.formatMessage)({ id: 'app.setting.hideheader.hint' }),
-                      action: y.default.createElement(p.default, {
+                      disabledReason: (0, M.formatMessage)({ id: 'app.setting.hideheader.hint' }),
+                      action: b.default.createElement(p.default, {
                         size: 'small',
                         checked: !!n,
                         onChange: e => this.changeSetting('autoHideHeader', e),
                       }),
                     },
                     {
-                      title: (0, b.formatMessage)({ id: 'app.setting.fixedsidebar' }),
+                      title: (0, M.formatMessage)({ id: 'app.setting.fixedsidebar' }),
                       disabled: 'topmenu' === l,
-                      disabledReason: (0, b.formatMessage)({ id: 'app.setting.fixedsidebar.hint' }),
-                      action: y.default.createElement(p.default, {
+                      disabledReason: (0, M.formatMessage)({ id: 'app.setting.fixedsidebar.hint' }),
+                      action: b.default.createElement(p.default, {
                         size: 'small',
                         checked: !!r,
                         onChange: e => this.changeSetting('fixSiderbar', e),
@@ -382,14 +385,14 @@
                   this.setState({ collapse: !e });
                 }),
                 (this.renderLayoutSettingItem = e => {
-                  var t = y.default.cloneElement(e.action, { disabled: e.disabled });
-                  return y.default.createElement(
+                  var t = b.default.cloneElement(e.action, { disabled: e.disabled });
+                  return b.default.createElement(
                     c.default,
                     { title: e.disabled ? e.disabledReason : '', placement: 'left' },
-                    y.default.createElement(
+                    b.default.createElement(
                       h.default.Item,
                       { actions: [t] },
-                      y.default.createElement(
+                      b.default.createElement(
                         'span',
                         { style: { opacity: e.disabled ? '0.5' : '' } },
                         e.title
@@ -405,17 +408,17 @@
                 l = e.layout,
                 n = e.colorWeak,
                 c = this.state.collapse;
-              return y.default.createElement(
+              return b.default.createElement(
                 r.default,
                 {
                   visible: c,
                   width: 300,
                   onClose: this.togglerContent,
                   placement: 'right',
-                  handler: y.default.createElement(
+                  handler: b.default.createElement(
                     'div',
-                    { className: k.default.handle },
-                    y.default.createElement(u.default, {
+                    { className: x.default.handle },
+                    b.default.createElement(u.default, {
                       type: c ? 'close' : 'setting',
                       style: { color: '#fff', fontSize: 20 },
                     })
@@ -423,105 +426,105 @@
                   onHandleClick: this.togglerContent,
                   style: { zIndex: 999 },
                 },
-                y.default.createElement(
+                b.default.createElement(
                   'div',
-                  { className: k.default.content },
-                  y.default.createElement(
-                    S,
-                    { title: (0, b.formatMessage)({ id: 'app.setting.pagestyle' }) },
-                    y.default.createElement(N.default, {
+                  { className: x.default.content },
+                  b.default.createElement(
+                    w,
+                    { title: (0, M.formatMessage)({ id: 'app.setting.pagestyle' }) },
+                    b.default.createElement(P.default, {
                       list: [
                         {
                           key: 'dark',
                           url:
                             'https://gw.alipayobjects.com/zos/rmsportal/LCkqqYNmvBEbokSDscrm.svg',
-                          title: (0, b.formatMessage)({ id: 'app.setting.pagestyle.dark' }),
+                          title: (0, M.formatMessage)({ id: 'app.setting.pagestyle.dark' }),
                         },
                         {
                           key: 'light',
                           url:
                             'https://gw.alipayobjects.com/zos/rmsportal/jpRkZQMyYRryryPNtyIC.svg',
-                          title: (0, b.formatMessage)({ id: 'app.setting.pagestyle.light' }),
+                          title: (0, M.formatMessage)({ id: 'app.setting.pagestyle.light' }),
                         },
                       ],
                       value: t,
                       onChange: e => this.changeSetting('navTheme', e),
                     })
                   ),
-                  y.default.createElement(x.default, {
-                    title: (0, b.formatMessage)({ id: 'app.setting.themecolor' }),
+                  b.default.createElement(N.default, {
+                    title: (0, M.formatMessage)({ id: 'app.setting.themecolor' }),
                     value: a,
                     onChange: e => this.changeSetting('primaryColor', e),
                   }),
-                  y.default.createElement(d.default, null),
-                  y.default.createElement(
-                    S,
-                    { title: (0, b.formatMessage)({ id: 'app.setting.navigationmode' }) },
-                    y.default.createElement(N.default, {
+                  b.default.createElement(d.default, null),
+                  b.default.createElement(
+                    w,
+                    { title: (0, M.formatMessage)({ id: 'app.setting.navigationmode' }) },
+                    b.default.createElement(P.default, {
                       list: [
                         {
                           key: 'sidemenu',
                           url:
                             'https://gw.alipayobjects.com/zos/rmsportal/JopDzEhOqwOjeNTXkoje.svg',
-                          title: (0, b.formatMessage)({ id: 'app.setting.sidemenu' }),
+                          title: (0, M.formatMessage)({ id: 'app.setting.sidemenu' }),
                         },
                         {
                           key: 'topmenu',
                           url:
                             'https://gw.alipayobjects.com/zos/rmsportal/KDNDBbriJhLwuqMoxcAr.svg',
-                          title: (0, b.formatMessage)({ id: 'app.setting.topmenu' }),
+                          title: (0, M.formatMessage)({ id: 'app.setting.topmenu' }),
                         },
                       ],
                       value: l,
                       onChange: e => this.changeSetting('layout', e),
                     })
                   ),
-                  y.default.createElement(h.default, {
+                  b.default.createElement(h.default, {
                     split: !1,
                     dataSource: this.getLayoutSetting(),
                     renderItem: this.renderLayoutSettingItem,
                   }),
-                  y.default.createElement(d.default, null),
-                  y.default.createElement(
-                    S,
-                    { title: (0, b.formatMessage)({ id: 'app.setting.othersettings' }) },
-                    y.default.createElement(
+                  b.default.createElement(d.default, null),
+                  b.default.createElement(
+                    w,
+                    { title: (0, M.formatMessage)({ id: 'app.setting.othersettings' }) },
+                    b.default.createElement(
                       h.default.Item,
                       {
                         actions: [
-                          y.default.createElement(p.default, {
+                          b.default.createElement(p.default, {
                             size: 'small',
                             checked: !!n,
                             onChange: e => this.changeSetting('colorWeak', e),
                           }),
                         ],
                       },
-                      (0, b.formatMessage)({ id: 'app.setting.weakmode' })
+                      (0, M.formatMessage)({ id: 'app.setting.weakmode' })
                     )
                   ),
-                  y.default.createElement(d.default, null),
-                  y.default.createElement(
-                    M.CopyToClipboard,
+                  b.default.createElement(d.default, null),
+                  b.default.createElement(
+                    E.CopyToClipboard,
                     {
-                      text: JSON.stringify((0, C.default)(e, ['colorWeak']), null, 2),
+                      text: JSON.stringify((0, k.default)(e, ['colorWeak']), null, 2),
                       onCopy: () =>
-                        s.default.success((0, b.formatMessage)({ id: 'app.setting.copyinfo' })),
+                        s.default.success((0, M.formatMessage)({ id: 'app.setting.copyinfo' })),
                     },
-                    y.default.createElement(
+                    b.default.createElement(
                       o.default,
                       { block: !0, icon: 'copy' },
-                      (0, b.formatMessage)({ id: 'app.setting.copy' })
+                      (0, M.formatMessage)({ id: 'app.setting.copy' })
                     )
                   ),
-                  y.default.createElement(i.default, {
+                  b.default.createElement(i.default, {
                     type: 'warning',
-                    className: k.default.productionHint,
-                    message: y.default.createElement(
+                    className: x.default.productionHint,
+                    message: b.default.createElement(
                       'div',
                       null,
-                      (0, b.formatMessage)({ id: 'app.setting.production.hint' }),
+                      (0, M.formatMessage)({ id: 'app.setting.production.hint' }),
                       ' ',
-                      y.default.createElement(
+                      b.default.createElement(
                         'a',
                         {
                           href: 'https://u.ant.design/pro-v2-default-settings',
@@ -535,10 +538,11 @@
                 )
               );
             }
-          })
+          }),
+          (g = v))
         ) || g),
-        L = w;
-      t.default = L;
+        O = L;
+      t.default = O;
     },
     Pjk0: function(e, t, a) {
       'use strict';

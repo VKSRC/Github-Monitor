@@ -22,7 +22,7 @@ class TaskLists extends React.Component {
       {
         title: '任务名称',
         dataIndex: 'name',
-        render: (record, obj) => <Link to={`/github/list/?taskId=${obj.id}`}>{record}</Link>,
+        render: (record, obj) => <Link to={`/list/?taskId=${obj.id}`}>{record}</Link>,
       },
       {
         title: '关键词',

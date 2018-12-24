@@ -342,316 +342,316 @@
   },
   '+wdc': function(e, t, n) {
     'use strict';
-    Object.defineProperty(t, '__esModule', { value: !0 });
-    var r = null,
-      o = !1,
-      c = 3,
-      i = -1,
-      a = -1,
-      l = !1,
-      u = !1;
-    function s() {
-      if (!l) {
-        var e = r.expirationTime;
-        u ? y() : (u = !0), m(p, e);
+    (function(e) {
+      Object.defineProperty(t, '__esModule', { value: !0 });
+      var n = null,
+        r = !1,
+        o = 3,
+        c = -1,
+        i = -1,
+        a = !1,
+        l = !1;
+      function u() {
+        if (!a) {
+          var e = n.expirationTime;
+          l ? _() : (l = !0), M(h, e);
+        }
       }
-    }
-    function f() {
-      var e = r,
-        t = r.next;
-      if (r === t) r = null;
-      else {
-        var n = r.previous;
-        (r = n.next = t), (t.previous = n);
-      }
-      (e.next = e.previous = null), (n = e.callback), (t = e.expirationTime), (e = e.priorityLevel);
-      var o = c,
-        i = a;
-      (c = e), (a = t);
-      try {
-        var l = n();
-      } finally {
-        (c = o), (a = i);
-      }
-      if ('function' === typeof l)
-        if (
-          ((l = { callback: l, priorityLevel: e, expirationTime: t, next: null, previous: null }),
-          null === r)
-        )
-          r = l.next = l.previous = l;
+      function s() {
+        var e = n,
+          t = n.next;
+        if (n === t) n = null;
         else {
-          (n = null), (e = r);
-          do {
-            if (e.expirationTime >= t) {
-              n = e;
-              break;
-            }
-            e = e.next;
-          } while (e !== r);
-          null === n ? (n = r) : n === r && ((r = l), s()),
-            (t = n.previous),
-            (t.next = n.previous = l),
-            (l.next = n),
-            (l.previous = t);
+          var r = n.previous;
+          (n = r.next = t), (t.previous = r);
         }
-    }
-    function h() {
-      if (-1 === i && null !== r && 1 === r.priorityLevel) {
-        l = !0;
+        (e.next = e.previous = null),
+          (r = e.callback),
+          (t = e.expirationTime),
+          (e = e.priorityLevel);
+        var c = o,
+          a = i;
+        (o = e), (i = t);
         try {
-          do {
-            f();
-          } while (null !== r && 1 === r.priorityLevel);
+          var l = r();
         } finally {
-          (l = !1), null !== r ? s() : (u = !1);
+          (o = c), (i = a);
+        }
+        if ('function' === typeof l)
+          if (
+            ((l = { callback: l, priorityLevel: e, expirationTime: t, next: null, previous: null }),
+            null === n)
+          )
+            n = l.next = l.previous = l;
+          else {
+            (r = null), (e = n);
+            do {
+              if (e.expirationTime >= t) {
+                r = e;
+                break;
+              }
+              e = e.next;
+            } while (e !== n);
+            null === r ? (r = n) : r === n && ((n = l), u()),
+              (t = r.previous),
+              (t.next = r.previous = l),
+              (l.next = r),
+              (l.previous = t);
+          }
+      }
+      function f() {
+        if (-1 === c && null !== n && 1 === n.priorityLevel) {
+          a = !0;
+          try {
+            do {
+              s();
+            } while (null !== n && 1 === n.priorityLevel);
+          } finally {
+            (a = !1), null !== n ? u() : (l = !1);
+          }
         }
       }
-    }
-    function p(e) {
-      l = !0;
-      var n = o;
-      o = e;
-      try {
-        if (e)
-          for (; null !== r; ) {
-            var c = t.unstable_now();
-            if (!(r.expirationTime <= c)) break;
+      function h(e) {
+        a = !0;
+        var o = r;
+        r = e;
+        try {
+          if (e)
+            for (; null !== n; ) {
+              var c = t.unstable_now();
+              if (!(n.expirationTime <= c)) break;
+              do {
+                s();
+              } while (null !== n && n.expirationTime <= c);
+            }
+          else if (null !== n)
             do {
-              f();
-            } while (null !== r && r.expirationTime <= c);
-          }
-        else if (null !== r)
-          do {
-            f();
-          } while (null !== r && !g());
-      } finally {
-        (l = !1), (o = n), null !== r ? s() : (u = !1), h();
+              s();
+            } while (null !== n && !x());
+        } finally {
+          (a = !1), (r = o), null !== n ? u() : (l = !1), f();
+        }
       }
-    }
-    var d,
-      v,
-      m,
-      y,
-      g,
-      b = Date,
-      z = 'function' === typeof setTimeout ? setTimeout : void 0,
-      w = 'function' === typeof clearTimeout ? clearTimeout : void 0,
-      M = 'function' === typeof requestAnimationFrame ? requestAnimationFrame : void 0,
-      _ = 'function' === typeof cancelAnimationFrame ? cancelAnimationFrame : void 0;
-    function H(e) {
-      (d = M(function(t) {
-        w(v), e(t);
-      })),
-        (v = z(function() {
-          _(d), e(t.unstable_now());
-        }, 100));
-    }
-    if ('object' === typeof performance && 'function' === typeof performance.now) {
-      var x = performance;
-      t.unstable_now = function() {
-        return x.now();
-      };
-    } else
-      t.unstable_now = function() {
-        return b.now();
-      };
-    if ('undefined' !== typeof window && window._schedMock) {
-      var O = window._schedMock;
-      (m = O[0]), (y = O[1]), (g = O[2]);
-    } else if ('undefined' === typeof window || 'function' !== typeof window.addEventListener) {
-      var k = null,
-        L = -1,
-        S = function(e, t) {
-          if (null !== k) {
-            var n = k;
+      var p,
+        d,
+        v = Date,
+        m = 'function' === typeof setTimeout ? setTimeout : void 0,
+        y = 'function' === typeof clearTimeout ? clearTimeout : void 0,
+        g = 'function' === typeof requestAnimationFrame ? requestAnimationFrame : void 0,
+        b = 'function' === typeof cancelAnimationFrame ? cancelAnimationFrame : void 0;
+      function z(e) {
+        (p = g(function(t) {
+          y(d), e(t);
+        })),
+          (d = m(function() {
+            b(p), e(t.unstable_now());
+          }, 100));
+      }
+      if ('object' === typeof performance && 'function' === typeof performance.now) {
+        var w = performance;
+        t.unstable_now = function() {
+          return w.now();
+        };
+      } else
+        t.unstable_now = function() {
+          return v.now();
+        };
+      var M,
+        _,
+        x,
+        H = null;
+      if (
+        ('undefined' !== typeof window ? (H = window) : 'undefined' !== typeof e && (H = e),
+        H && H._schedMock)
+      ) {
+        var O = H._schedMock;
+        (M = O[0]), (_ = O[1]), (x = O[2]), (t.unstable_now = O[3]);
+      } else if ('undefined' === typeof window || 'function' !== typeof MessageChannel) {
+        var k = null,
+          S = function(e) {
+            if (null !== k)
+              try {
+                k(e);
+              } finally {
+                k = null;
+              }
+          };
+        (M = function(e) {
+          null !== k ? setTimeout(M, 0, e) : ((k = e), setTimeout(S, 0, !1));
+        }),
+          (_ = function() {
             k = null;
+          }),
+          (x = function() {
+            return !1;
+          });
+      } else {
+        'undefined' !== typeof console &&
+          ('function' !== typeof g &&
+            console.error(
+              "This browser doesn't support requestAnimationFrame. Make sure that you load a polyfill in older browsers. https://fb.me/react-polyfills"
+            ),
+          'function' !== typeof b &&
+            console.error(
+              "This browser doesn't support cancelAnimationFrame. Make sure that you load a polyfill in older browsers. https://fb.me/react-polyfills"
+            ));
+        var L = null,
+          C = !1,
+          V = -1,
+          T = !1,
+          E = !1,
+          P = 0,
+          A = 33,
+          j = 33;
+        x = function() {
+          return P <= t.unstable_now();
+        };
+        var F = new MessageChannel(),
+          R = F.port2;
+        F.port1.onmessage = function() {
+          C = !1;
+          var e = L,
+            n = V;
+          (L = null), (V = -1);
+          var r = t.unstable_now(),
+            o = !1;
+          if (0 >= P - r) {
+            if (!(-1 !== n && n <= r)) return T || ((T = !0), z(N)), (L = e), void (V = n);
+            o = !0;
+          }
+          if (null !== e) {
+            E = !0;
             try {
-              (L = t), n(e);
+              e(o);
             } finally {
-              L = -1;
+              E = !1;
             }
           }
         };
-      (m = function(e, t) {
-        -1 !== L
-          ? setTimeout(m, 0, e, t)
-          : ((k = e), setTimeout(S, t, !0, t), setTimeout(S, 1073741823, !1, 1073741823));
-      }),
-        (y = function() {
-          k = null;
+        var N = function(e) {
+          if (null !== L) {
+            z(N);
+            var t = e - P + j;
+            t < j && A < j ? (8 > t && (t = 8), (j = t < A ? A : t)) : (A = t),
+              (P = e + j),
+              C || ((C = !0), R.postMessage(void 0));
+          } else T = !1;
+        };
+        (M = function(e, t) {
+          (L = e), (V = t), E || 0 > t ? R.postMessage(void 0) : T || ((T = !0), z(N));
         }),
-        (g = function() {
-          return !1;
-        }),
-        (t.unstable_now = function() {
-          return -1 === L ? 0 : L;
-        });
-    } else {
-      'undefined' !== typeof console &&
-        ('function' !== typeof M &&
-          console.error(
-            "This browser doesn't support requestAnimationFrame. Make sure that you load a polyfill in older browsers. https://fb.me/react-polyfills"
-          ),
-        'function' !== typeof _ &&
-          console.error(
-            "This browser doesn't support cancelAnimationFrame. Make sure that you load a polyfill in older browsers. https://fb.me/react-polyfills"
-          ));
-      var C = null,
-        V = !1,
-        T = -1,
-        E = !1,
-        P = !1,
-        A = 0,
-        j = 33,
-        F = 33;
-      g = function() {
-        return A <= t.unstable_now();
-      };
-      var R =
-        '__reactIdleCallback$' +
-        Math.random()
-          .toString(36)
-          .slice(2);
-      window.addEventListener(
-        'message',
-        function(e) {
-          if (e.source === window && e.data === R) {
-            (V = !1), (e = C);
-            var n = T;
-            (C = null), (T = -1);
-            var r = t.unstable_now(),
-              o = !1;
-            if (0 >= A - r) {
-              if (!(-1 !== n && n <= r)) return E || ((E = !0), H(N)), (C = e), void (T = n);
-              o = !0;
-            }
-            if (null !== e) {
-              P = !0;
-              try {
-                e(o);
-              } finally {
-                P = !1;
-              }
-            }
-          }
-        },
-        !1
-      );
-      var N = function(e) {
-        if (null !== C) {
-          H(N);
-          var t = e - A + F;
-          t < F && j < F ? (8 > t && (t = 8), (F = t < j ? j : t)) : (j = t),
-            (A = e + F),
-            V || ((V = !0), window.postMessage(R, '*'));
-        } else E = !1;
-      };
-      (m = function(e, t) {
-        (C = e), (T = t), P || 0 > t ? window.postMessage(R, '*') : E || ((E = !0), H(N));
-      }),
-        (y = function() {
-          (C = null), (V = !1), (T = -1);
-        });
-    }
-    (t.unstable_ImmediatePriority = 1),
-      (t.unstable_UserBlockingPriority = 2),
-      (t.unstable_NormalPriority = 3),
-      (t.unstable_IdlePriority = 5),
-      (t.unstable_LowPriority = 4),
-      (t.unstable_runWithPriority = function(e, n) {
-        switch (e) {
-          case 1:
-          case 2:
-          case 3:
-          case 4:
-          case 5:
-            break;
-          default:
-            e = 3;
-        }
-        var r = c,
-          o = i;
-        (c = e), (i = t.unstable_now());
-        try {
-          return n();
-        } finally {
-          (c = r), (i = o), h();
-        }
-      }),
-      (t.unstable_scheduleCallback = function(e, n) {
-        var o = -1 !== i ? i : t.unstable_now();
-        if ('object' === typeof n && null !== n && 'number' === typeof n.timeout) n = o + n.timeout;
-        else
-          switch (c) {
+          (_ = function() {
+            (L = null), (C = !1), (V = -1);
+          });
+      }
+      (t.unstable_ImmediatePriority = 1),
+        (t.unstable_UserBlockingPriority = 2),
+        (t.unstable_NormalPriority = 3),
+        (t.unstable_IdlePriority = 5),
+        (t.unstable_LowPriority = 4),
+        (t.unstable_runWithPriority = function(e, n) {
+          switch (e) {
             case 1:
-              n = o + -1;
-              break;
             case 2:
-              n = o + 250;
-              break;
-            case 5:
-              n = o + 1073741823;
-              break;
+            case 3:
             case 4:
-              n = o + 1e4;
+            case 5:
               break;
             default:
-              n = o + 5e3;
+              e = 3;
           }
-        if (
-          ((e = { callback: e, priorityLevel: c, expirationTime: n, next: null, previous: null }),
-          null === r)
-        )
-          (r = e.next = e.previous = e), s();
-        else {
-          o = null;
-          var a = r;
-          do {
-            if (a.expirationTime > n) {
-              o = a;
-              break;
-            }
-            a = a.next;
-          } while (a !== r);
-          null === o ? (o = r) : o === r && ((r = e), s()),
-            (n = o.previous),
-            (n.next = o.previous = e),
-            (e.next = o),
-            (e.previous = n);
-        }
-        return e;
-      }),
-      (t.unstable_cancelCallback = function(e) {
-        var t = e.next;
-        if (null !== t) {
-          if (t === e) r = null;
-          else {
-            e === r && (r = t);
-            var n = e.previous;
-            (n.next = t), (t.previous = n);
-          }
-          e.next = e.previous = null;
-        }
-      }),
-      (t.unstable_wrapCallback = function(e) {
-        var n = c;
-        return function() {
-          var r = c,
-            o = i;
-          (c = n), (i = t.unstable_now());
+          var r = o,
+            i = c;
+          (o = e), (c = t.unstable_now());
           try {
-            return e.apply(this, arguments);
+            return n();
           } finally {
-            (c = r), (i = o), h();
+            (o = r), (c = i), f();
           }
-        };
-      }),
-      (t.unstable_getCurrentPriorityLevel = function() {
-        return c;
-      }),
-      (t.unstable_shouldYield = function() {
-        return !o && ((null !== r && r.expirationTime < a) || g());
-      });
+        }),
+        (t.unstable_scheduleCallback = function(e, r) {
+          var i = -1 !== c ? c : t.unstable_now();
+          if ('object' === typeof r && null !== r && 'number' === typeof r.timeout)
+            r = i + r.timeout;
+          else
+            switch (o) {
+              case 1:
+                r = i + -1;
+                break;
+              case 2:
+                r = i + 250;
+                break;
+              case 5:
+                r = i + 1073741823;
+                break;
+              case 4:
+                r = i + 1e4;
+                break;
+              default:
+                r = i + 5e3;
+            }
+          if (
+            ((e = { callback: e, priorityLevel: o, expirationTime: r, next: null, previous: null }),
+            null === n)
+          )
+            (n = e.next = e.previous = e), u();
+          else {
+            i = null;
+            var a = n;
+            do {
+              if (a.expirationTime > r) {
+                i = a;
+                break;
+              }
+              a = a.next;
+            } while (a !== n);
+            null === i ? (i = n) : i === n && ((n = e), u()),
+              (r = i.previous),
+              (r.next = i.previous = e),
+              (e.next = i),
+              (e.previous = r);
+          }
+          return e;
+        }),
+        (t.unstable_cancelCallback = function(e) {
+          var t = e.next;
+          if (null !== t) {
+            if (t === e) n = null;
+            else {
+              e === n && (n = t);
+              var r = e.previous;
+              (r.next = t), (t.previous = r);
+            }
+            e.next = e.previous = null;
+          }
+        }),
+        (t.unstable_wrapCallback = function(e) {
+          var n = o;
+          return function() {
+            var r = o,
+              i = c;
+            (o = n), (c = t.unstable_now());
+            try {
+              return e.apply(this, arguments);
+            } finally {
+              (o = r), (c = i), f();
+            }
+          };
+        }),
+        (t.unstable_getCurrentPriorityLevel = function() {
+          return o;
+        }),
+        (t.unstable_shouldYield = function() {
+          return !r && ((null !== n && n.expirationTime < i) || x());
+        }),
+        (t.unstable_continueExecution = function() {
+          null !== n && u();
+        }),
+        (t.unstable_pauseExecution = function() {}),
+        (t.unstable_getFirstCallbackNode = function() {
+          return n;
+        });
+    }.call(this, n('yLpj')));
   },
   '/1p2': function(e, t, n) {
     'use strict';
@@ -895,11 +895,11 @@
     function _(e, t) {
       if (!(e instanceof t)) throw new TypeError('Cannot call a class as a function');
     }
-    function H(e, t) {
+    function x(e, t) {
       if (!e) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
       return !t || ('object' !== typeof t && 'function' !== typeof t) ? e : t;
     }
-    function x(e, t) {
+    function H(e, t) {
       if ('function' !== typeof t && null !== t)
         throw new TypeError('Super expression must either be null or a function, not ' + typeof t);
       (e.prototype = Object.create(t && t.prototype, {
@@ -914,8 +914,8 @@
       return n;
     }
     var k = 0,
-      L = {};
-    function S() {}
+      S = {};
+    function L() {}
     function C(e, t) {
       var n = {
         run: function(r) {
@@ -987,7 +987,7 @@
           i = (function(n) {
             function i(e, t) {
               _(this, i);
-              var r = H(this, n.call(this, e, t));
+              var r = x(this, n.call(this, e, t));
               return (
                 (r.version = E),
                 (r.state = {}),
@@ -1013,7 +1013,7 @@
               );
             }
             return (
-              x(i, n),
+              H(i, n),
               (i.prototype.getChildContext = function() {
                 var e,
                   t = this.propsMode ? null : this.subscription;
@@ -1034,9 +1034,9 @@
               (i.prototype.componentWillUnmount = function() {
                 this.subscription && this.subscription.tryUnsubscribe(),
                   (this.subscription = null),
-                  (this.notifyNestedSubs = S),
+                  (this.notifyNestedSubs = L),
                   (this.store = null),
-                  (this.selector.run = S),
+                  (this.selector.run = L),
                   (this.selector.shouldComponentUpdate = !1);
               }),
               (i.prototype.getWrappedInstance = function() {
@@ -1070,7 +1070,7 @@
                 this.selector.run(this.props),
                   this.selector.shouldComponentUpdate
                     ? ((this.componentDidUpdate = this.notifyNestedSubsOnComponentDidUpdate),
-                      this.setState(L))
+                      this.setState(S))
                     : this.notifyNestedSubs();
               }),
               (i.prototype.notifyNestedSubsOnComponentDidUpdate = function() {
@@ -2288,25 +2288,109 @@
   '2/Rp': function(e, t, n) {
     'use strict';
     n.r(t);
-    var r = n('QbLZ'),
-      o = n.n(r),
-      c = n('YEIV'),
+    var r = n('q1tI'),
+      o = n('17x9'),
+      c = n('TSYQ'),
       i = n.n(c),
-      a = n('iCc5'),
-      l = n.n(a),
-      u = n('V7oC'),
-      s = n.n(u),
-      f = n('FYw3'),
-      h = n.n(f),
-      p = n('mRg0'),
-      d = n.n(p),
-      v = n('q1tI'),
-      m = n('17x9'),
-      y = n('TSYQ'),
-      g = n.n(y),
-      b = n('g0mS'),
-      z = n('CtXQ'),
-      w = function(e, t) {
+      a = n('g0mS'),
+      l = n('CtXQ');
+    function u(e) {
+      return (
+        (u =
+          'function' === typeof Symbol && 'symbol' === typeof Symbol.iterator
+            ? function(e) {
+                return typeof e;
+              }
+            : function(e) {
+                return e &&
+                  'function' === typeof Symbol &&
+                  e.constructor === Symbol &&
+                  e !== Symbol.prototype
+                  ? 'symbol'
+                  : typeof e;
+              }),
+        u(e)
+      );
+    }
+    function s() {
+      return (
+        (s =
+          Object.assign ||
+          function(e) {
+            for (var t = 1; t < arguments.length; t++) {
+              var n = arguments[t];
+              for (var r in n) Object.prototype.hasOwnProperty.call(n, r) && (e[r] = n[r]);
+            }
+            return e;
+          }),
+        s.apply(this, arguments)
+      );
+    }
+    function f(e, t, n) {
+      return (
+        t in e
+          ? Object.defineProperty(e, t, {
+              value: n,
+              enumerable: !0,
+              configurable: !0,
+              writable: !0,
+            })
+          : (e[t] = n),
+        e
+      );
+    }
+    function h(e, t) {
+      if (!(e instanceof t)) throw new TypeError('Cannot call a class as a function');
+    }
+    function p(e, t) {
+      for (var n = 0; n < t.length; n++) {
+        var r = t[n];
+        (r.enumerable = r.enumerable || !1),
+          (r.configurable = !0),
+          'value' in r && (r.writable = !0),
+          Object.defineProperty(e, r.key, r);
+      }
+    }
+    function d(e, t, n) {
+      return t && p(e.prototype, t), n && p(e, n), e;
+    }
+    function v(e, t) {
+      return !t || ('object' !== u(t) && 'function' !== typeof t) ? m(e) : t;
+    }
+    function m(e) {
+      if (void 0 === e)
+        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+      return e;
+    }
+    function y(e) {
+      return (
+        (y = Object.setPrototypeOf
+          ? Object.getPrototypeOf
+          : function(e) {
+              return e.__proto__ || Object.getPrototypeOf(e);
+            }),
+        y(e)
+      );
+    }
+    function g(e, t) {
+      if ('function' !== typeof t && null !== t)
+        throw new TypeError('Super expression must either be null or a function');
+      (e.prototype = Object.create(t && t.prototype, {
+        constructor: { value: e, writable: !0, configurable: !0 },
+      })),
+        t && b(e, t);
+    }
+    function b(e, t) {
+      return (
+        (b =
+          Object.setPrototypeOf ||
+          function(e, t) {
+            return (e.__proto__ = t), e;
+          }),
+        b(e, t)
+      );
+    }
+    var z = function(e, t) {
         var n = {};
         for (var r in e)
           Object.prototype.hasOwnProperty.call(e, r) && t.indexOf(r) < 0 && (n[r] = e[r]);
@@ -2317,210 +2401,239 @@
         }
         return n;
       },
-      M = /^[\u4e00-\u9fa5]{2}$/,
-      _ = M.test.bind(M);
-    function H(e) {
+      w = /^[\u4e00-\u9fa5]{2}$/,
+      M = w.test.bind(w);
+    function _(e) {
       return 'string' === typeof e;
     }
     function x(e, t) {
       if (null != e) {
         var n = t ? ' ' : '';
-        return 'string' !== typeof e && 'number' !== typeof e && H(e.type) && _(e.props.children)
-          ? v['cloneElement'](e, {}, e.props.children.split('').join(n))
+        return 'string' !== typeof e && 'number' !== typeof e && _(e.type) && M(e.props.children)
+          ? r['cloneElement'](e, {}, e.props.children.split('').join(n))
           : 'string' === typeof e
-            ? (_(e) && (e = e.split('').join(n)), v['createElement']('span', null, e))
+            ? (M(e) && (e = e.split('').join(n)), r['createElement']('span', null, e))
             : e;
       }
     }
-    var O = (function(e) {
-        function t(e) {
-          l()(this, t);
-          var n = h()(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, e));
-          return (
-            (n.saveButtonRef = function(e) {
-              n.buttonNode = e;
-            }),
-            (n.handleClick = function(e) {
-              var t = n.state.loading,
-                r = n.props.onClick;
-              t || (r && r(e));
-            }),
-            (n.state = { loading: e.loading, hasTwoCNChar: !1 }),
-            n
-          );
-        }
+    var H = (function(e) {
+      function t(e) {
+        var n;
         return (
-          d()(t, e),
-          s()(t, [
-            {
-              key: 'componentDidMount',
-              value: function() {
-                this.fixTwoCNChar();
-              },
-            },
-            {
-              key: 'componentWillReceiveProps',
-              value: function(e) {
-                var t = this,
-                  n = this.props.loading,
-                  r = e.loading;
-                n && clearTimeout(this.delayTimeout),
-                  'boolean' !== typeof r && r && r.delay
-                    ? (this.delayTimeout = window.setTimeout(function() {
-                        return t.setState({ loading: r });
-                      }, r.delay))
-                    : this.setState({ loading: r });
-              },
-            },
-            {
-              key: 'componentDidUpdate',
-              value: function() {
-                this.fixTwoCNChar();
-              },
-            },
-            {
-              key: 'componentWillUnmount',
-              value: function() {
-                this.delayTimeout && clearTimeout(this.delayTimeout);
-              },
-            },
-            {
-              key: 'fixTwoCNChar',
-              value: function() {
-                if (this.buttonNode) {
-                  var e = this.buttonNode.textContent || this.buttonNode.innerText;
-                  this.isNeedInserted() && _(e)
-                    ? this.state.hasTwoCNChar || this.setState({ hasTwoCNChar: !0 })
-                    : this.state.hasTwoCNChar && this.setState({ hasTwoCNChar: !1 });
-                }
-              },
-            },
-            {
-              key: 'isNeedInserted',
-              value: function() {
-                var e = this.props,
-                  t = e.icon,
-                  n = e.children;
-                return 1 === v['Children'].count(n) && !t;
-              },
-            },
-            {
-              key: 'render',
-              value: function() {
-                var e,
-                  t = this,
-                  n = this.props,
-                  r = n.type,
-                  c = n.shape,
-                  a = n.size,
-                  l = n.className,
-                  u = n.children,
-                  s = n.icon,
-                  f = n.prefixCls,
-                  h = n.ghost,
-                  p = (n.loading, n.block),
-                  d = w(n, [
-                    'type',
-                    'shape',
-                    'size',
-                    'className',
-                    'children',
-                    'icon',
-                    'prefixCls',
-                    'ghost',
-                    'loading',
-                    'block',
-                  ]),
-                  m = this.state,
-                  y = m.loading,
-                  M = m.hasTwoCNChar,
-                  _ = '';
-                switch (a) {
-                  case 'large':
-                    _ = 'lg';
-                    break;
-                  case 'small':
-                    _ = 'sm';
-                  default:
-                    break;
-                }
-                var H = new Date(),
-                  O = 11 === H.getMonth() && 25 === H.getDate(),
-                  k = g()(
-                    f,
-                    l,
-                    ((e = {}),
-                    i()(e, f + '-' + r, r),
-                    i()(e, f + '-' + c, c),
-                    i()(e, f + '-' + _, _),
-                    i()(e, f + '-icon-only', !u && s),
-                    i()(e, f + '-loading', y),
-                    i()(e, f + '-background-ghost', h),
-                    i()(e, f + '-two-chinese-chars', M),
-                    i()(e, f + '-block', p),
-                    i()(e, 'christmas', O),
-                    e)
-                  ),
-                  L = y ? 'loading' : s,
-                  S = L ? v['createElement'](z['default'], { type: L }) : null,
-                  C =
-                    u || 0 === u
-                      ? v['Children'].map(u, function(e) {
-                          return x(e, t.isNeedInserted());
-                        })
-                      : null,
-                  V = O ? 'Ho Ho Ho!' : d.title;
-                if ('href' in d)
-                  return v['createElement'](
-                    'a',
-                    o()({}, d, {
-                      className: k,
-                      onClick: this.handleClick,
-                      title: V,
-                      ref: this.saveButtonRef,
-                    }),
-                    S,
-                    C
-                  );
-                var T = d.htmlType,
-                  E = w(d, ['htmlType']);
-                return v['createElement'](
-                  b['a'],
-                  null,
-                  v['createElement'](
-                    'button',
-                    o()({}, E, {
-                      type: T || 'button',
-                      className: k,
-                      onClick: this.handleClick,
-                      title: V,
-                      ref: this.saveButtonRef,
-                    }),
-                    S,
-                    C
-                  )
-                );
-              },
-            },
-          ]),
-          t
+          h(this, t),
+          (n = v(this, y(t).call(this, e))),
+          (n.saveButtonRef = function(e) {
+            n.buttonNode = e;
+          }),
+          (n.handleClick = function(e) {
+            var t = n.state.loading,
+              r = n.props.onClick;
+            t || (r && r(e));
+          }),
+          (n.state = { loading: e.loading, hasTwoCNChar: !1 }),
+          n
         );
-      })(v['Component']),
-      k = O;
-    (O.__ANT_BUTTON = !0),
-      (O.defaultProps = { prefixCls: 'ant-btn', loading: !1, ghost: !1, block: !1 }),
-      (O.propTypes = {
-        type: m['string'],
-        shape: m['oneOf'](['circle', 'circle-outline']),
-        size: m['oneOf'](['large', 'default', 'small']),
-        htmlType: m['oneOf'](['submit', 'button', 'reset']),
-        onClick: m['func'],
-        loading: m['oneOfType']([m['bool'], m['object']]),
-        className: m['string'],
-        icon: m['string'],
-        block: m['bool'],
+      }
+      return (
+        g(t, e),
+        d(t, [
+          {
+            key: 'componentDidMount',
+            value: function() {
+              this.fixTwoCNChar();
+            },
+          },
+          {
+            key: 'componentWillReceiveProps',
+            value: function(e) {
+              var t = this,
+                n = this.props.loading,
+                r = e.loading;
+              n && clearTimeout(this.delayTimeout),
+                'boolean' !== typeof r && r && r.delay
+                  ? (this.delayTimeout = window.setTimeout(function() {
+                      return t.setState({ loading: r });
+                    }, r.delay))
+                  : this.setState({ loading: r });
+            },
+          },
+          {
+            key: 'componentDidUpdate',
+            value: function() {
+              this.fixTwoCNChar();
+            },
+          },
+          {
+            key: 'componentWillUnmount',
+            value: function() {
+              this.delayTimeout && clearTimeout(this.delayTimeout);
+            },
+          },
+          {
+            key: 'fixTwoCNChar',
+            value: function() {
+              if (this.buttonNode) {
+                var e = this.buttonNode.textContent || this.buttonNode.innerText;
+                this.isNeedInserted() && M(e)
+                  ? this.state.hasTwoCNChar || this.setState({ hasTwoCNChar: !0 })
+                  : this.state.hasTwoCNChar && this.setState({ hasTwoCNChar: !1 });
+              }
+            },
+          },
+          {
+            key: 'isNeedInserted',
+            value: function() {
+              var e = this.props,
+                t = e.icon,
+                n = e.children;
+              return 1 === r['Children'].count(n) && !t;
+            },
+          },
+          {
+            key: 'render',
+            value: function() {
+              var e,
+                t = this,
+                n = this.props,
+                o = n.type,
+                c = n.shape,
+                u = n.size,
+                h = n.className,
+                p = n.children,
+                d = n.icon,
+                v = n.prefixCls,
+                m = n.ghost,
+                y = (n.loading, n.block),
+                g = z(n, [
+                  'type',
+                  'shape',
+                  'size',
+                  'className',
+                  'children',
+                  'icon',
+                  'prefixCls',
+                  'ghost',
+                  'loading',
+                  'block',
+                ]),
+                b = this.state,
+                w = b.loading,
+                M = b.hasTwoCNChar,
+                _ = '';
+              switch (u) {
+                case 'large':
+                  _ = 'lg';
+                  break;
+                case 'small':
+                  _ = 'sm';
+                default:
+                  break;
+              }
+              var H = new Date(),
+                O = 11 === H.getMonth() && 25 === H.getDate(),
+                k = i()(
+                  v,
+                  h,
+                  ((e = {}),
+                  f(e, ''.concat(v, '-').concat(o), o),
+                  f(e, ''.concat(v, '-').concat(c), c),
+                  f(e, ''.concat(v, '-').concat(_), _),
+                  f(e, ''.concat(v, '-icon-only'), !p && 0 !== p && d),
+                  f(e, ''.concat(v, '-loading'), w),
+                  f(e, ''.concat(v, '-background-ghost'), m),
+                  f(e, ''.concat(v, '-two-chinese-chars'), M),
+                  f(e, ''.concat(v, '-block'), y),
+                  f(e, 'christmas', O),
+                  e)
+                ),
+                S = w ? 'loading' : d,
+                L = S ? r['createElement'](l['default'], { type: S }) : null,
+                C =
+                  p || 0 === p
+                    ? r['Children'].map(p, function(e) {
+                        return x(e, t.isNeedInserted());
+                      })
+                    : null,
+                V = O ? 'Ho Ho Ho!' : g.title,
+                T = g;
+              if (void 0 !== T.href)
+                return r['createElement'](
+                  'a',
+                  s({}, T, {
+                    className: k,
+                    onClick: this.handleClick,
+                    title: V,
+                    ref: this.saveButtonRef,
+                  }),
+                  L,
+                  C
+                );
+              var E = g,
+                P = E.htmlType,
+                A = z(E, ['htmlType']);
+              return r['createElement'](
+                a['a'],
+                null,
+                r['createElement'](
+                  'button',
+                  s({}, A, {
+                    type: P || 'button',
+                    className: k,
+                    onClick: this.handleClick,
+                    title: V,
+                    ref: this.saveButtonRef,
+                  }),
+                  L,
+                  C
+                )
+              );
+            },
+          },
+        ]),
+        t
+      );
+    })(r['Component']);
+    function O() {
+      return (
+        (O =
+          Object.assign ||
+          function(e) {
+            for (var t = 1; t < arguments.length; t++) {
+              var n = arguments[t];
+              for (var r in n) Object.prototype.hasOwnProperty.call(n, r) && (e[r] = n[r]);
+            }
+            return e;
+          }),
+        O.apply(this, arguments)
+      );
+    }
+    function k(e, t, n) {
+      return (
+        t in e
+          ? Object.defineProperty(e, t, {
+              value: n,
+              enumerable: !0,
+              configurable: !0,
+              writable: !0,
+            })
+          : (e[t] = n),
+        e
+      );
+    }
+    (H.__ANT_BUTTON = !0),
+      (H.defaultProps = { prefixCls: 'ant-btn', loading: !1, ghost: !1, block: !1 }),
+      (H.propTypes = {
+        type: o['string'],
+        shape: o['oneOf'](['circle', 'circle-outline']),
+        size: o['oneOf'](['large', 'default', 'small']),
+        htmlType: o['oneOf'](['submit', 'button', 'reset']),
+        onClick: o['func'],
+        loading: o['oneOfType']([o['bool'], o['object']]),
+        className: o['string'],
+        icon: o['string'],
+        block: o['bool'],
       });
-    var L = function(e, t) {
+    var S = function(e, t) {
         var n = {};
         for (var r in e)
           Object.prototype.hasOwnProperty.call(e, r) && t.indexOf(r) < 0 && (n[r] = e[r]);
@@ -2531,14 +2644,14 @@
         }
         return n;
       },
-      S = function(e) {
+      L = function(e) {
         var t = e.prefixCls,
           n = void 0 === t ? 'ant-btn-group' : t,
-          r = e.size,
+          o = e.size,
           c = e.className,
-          a = L(e, ['prefixCls', 'size', 'className']),
+          a = S(e, ['prefixCls', 'size', 'className']),
           l = '';
-        switch (r) {
+        switch (o) {
           case 'large':
             l = 'lg';
             break;
@@ -2547,12 +2660,12 @@
           default:
             break;
         }
-        var u = g()(n, i()({}, n + '-' + l, l), c);
-        return v['createElement']('div', o()({}, a, { className: u }));
+        var u = i()(n, k({}, ''.concat(n, '-').concat(l), l), c);
+        return r['createElement']('div', O({}, a, { className: u }));
       },
-      C = S;
-    k.Group = C;
-    t['default'] = k;
+      C = L;
+    H.Group = C;
+    t['default'] = H;
   },
   '25dN': function(e, t, n) {
     var r = n('XKFU');
@@ -3110,15 +3223,15 @@
               new b().entries().next();
             })))
       ) {
-        var H = new b(),
-          x = H[z](y ? {} : -0, 1) != H,
+        var x = new b(),
+          H = x[z](y ? {} : -0, 1) != x,
           O = f(function() {
-            H.has(1);
+            x.has(1);
           }),
           k = h(function(e) {
             new b(e);
           }),
-          L =
+          S =
             !y &&
             f(function() {
               var e = new b(),
@@ -3134,8 +3247,8 @@
           })),
           (b.prototype = w),
           (w.constructor = b)),
-          (O || L) && (_('delete'), _('has'), m && _('get')),
-          (L || x) && _(z),
+          (O || S) && (_('delete'), _('has'), m && _('get')),
+          (S || H) && _(z),
           y && w.clear && delete w.clear;
       } else (b = v.getConstructor(t, e, m, z)), i(b.prototype, n), (a.NEED = !0);
       return p(b, e), (M[e] = b), o(o.G + o.W + o.F * (b != g), M), y || v.setStrong(b, e, m), b;
@@ -3560,18 +3673,18 @@
       return null == e ? (void 0 === e ? z : b) : w && w in Object(e) ? d(e) : g(e);
     }
     var _ = M;
-    function H(e, t) {
+    function x(e, t) {
       return function(n) {
         return e(t(n));
       };
     }
-    var x = H,
-      O = x(Object.getPrototypeOf, Object),
+    var H = x,
+      O = H(Object.getPrototypeOf, Object),
       k = O;
-    function L(e) {
+    function S(e) {
       return null != e && 'object' == typeof e;
     }
-    var S = L,
+    var L = S,
       C = '[object Object]',
       V = Function.prototype,
       T = Object.prototype,
@@ -3579,7 +3692,7 @@
       P = T.hasOwnProperty,
       A = E.call(Object);
     function j(e) {
-      if (!S(e) || _(e) != C) return !1;
+      if (!L(e) || _(e) != C) return !1;
       var t = k(e);
       if (null === t) return !0;
       var n = P.call(t, 'constructor') && t.constructor;
@@ -3673,23 +3786,23 @@
               .toString(36)
               .substr(2, z);
           },
-          H = (0, h.default)(),
-          x = function(e) {
-            o(Y, e), (Y.length = t.length), H.notifyListeners(Y.location, Y.action);
+          x = (0, h.default)(),
+          H = function(e) {
+            o(Y, e), (Y.length = t.length), x.notifyListeners(Y.location, Y.action);
           },
           O = function(e) {
-            (0, p.isExtraneousPopstateEvent)(e) || S(M(e.state));
+            (0, p.isExtraneousPopstateEvent)(e) || L(M(e.state));
           },
           k = function() {
-            S(M(y()));
+            L(M(y()));
           },
-          L = !1,
-          S = function(e) {
-            if (L) (L = !1), x();
+          S = !1,
+          L = function(e) {
+            if (S) (S = !1), H();
             else {
               var t = 'POP';
-              H.confirmTransitionTo(e, t, g, function(n) {
-                n ? x({ action: t, location: e }) : C(e);
+              x.confirmTransitionTo(e, t, g, function(n) {
+                n ? H({ action: t, location: e }) : C(e);
               });
             }
           },
@@ -3700,7 +3813,7 @@
             var r = T.indexOf(e.key);
             -1 === r && (r = 0);
             var o = n - r;
-            o && ((L = !0), j(o));
+            o && ((S = !0), j(o));
           },
           V = M(y()),
           T = [V.key],
@@ -3718,7 +3831,7 @@
             );
             var c = 'PUSH',
               a = (0, u.createLocation)(e, o, _(), Y.location);
-            H.confirmTransitionTo(a, c, g, function(e) {
+            x.confirmTransitionTo(a, c, g, function(e) {
               if (e) {
                 var r = E(a),
                   o = a.key,
@@ -3728,7 +3841,7 @@
                   else {
                     var u = T.indexOf(Y.location.key),
                       s = T.slice(0, -1 === u ? 0 : u + 1);
-                    s.push(a.key), (T = s), x({ action: c, location: a });
+                    s.push(a.key), (T = s), H({ action: c, location: a });
                   }
                 else
                   (0, i.default)(
@@ -3750,7 +3863,7 @@
             );
             var c = 'REPLACE',
               a = (0, u.createLocation)(e, o, _(), Y.location);
-            H.confirmTransitionTo(a, c, g, function(e) {
+            x.confirmTransitionTo(a, c, g, function(e) {
               if (e) {
                 var r = E(a),
                   o = a.key,
@@ -3760,7 +3873,7 @@
                     window.location.replace(r);
                   else {
                     var u = T.indexOf(Y.location.key);
-                    -1 !== u && (T[u] = a.key), x({ action: c, location: a });
+                    -1 !== u && (T[u] = a.key), H({ action: c, location: a });
                   }
                 else
                   (0, i.default)(
@@ -3791,7 +3904,7 @@
           I = !1,
           U = function() {
             var e = arguments.length > 0 && void 0 !== arguments[0] && arguments[0],
-              t = H.setPrompt(e);
+              t = x.setPrompt(e);
             return (
               I || (D(1), (I = !0)),
               function() {
@@ -3800,7 +3913,7 @@
             );
           },
           q = function(e) {
-            var t = H.appendListener(e);
+            var t = x.appendListener(e);
             return (
               D(1),
               function() {
@@ -3888,13 +4001,13 @@
   },
   '7+IK': function(e, t, n) {
     'use strict';
-    Object.defineProperty(t, '__esModule', { value: !0 });
-    var r = n('Z0Lh'),
-      o = c(r);
-    function c(e) {
+    Object.defineProperty(t, '__esModule', { value: !0 }), (t['default'] = void 0);
+    var r = o(n('Z0Lh'));
+    function o(e) {
       return e && e.__esModule ? e : { default: e };
     }
-    (t['default'] = o['default']), (e.exports = t['default']);
+    var c = r['default'];
+    t['default'] = c;
   },
   '7CJS': function(e, t, n) {
     e.exports = {
@@ -3930,12 +4043,12 @@
         w = n('0/R4'),
         M = n('S/j/'),
         _ = n('M6Qj'),
-        H = n('Kuth'),
-        x = n('OP3Y'),
+        x = n('Kuth'),
+        H = n('OP3Y'),
         O = n('kJMx').f,
         k = n('J+6e'),
-        L = n('ylqs'),
-        S = n('K0xU'),
+        S = n('ylqs'),
+        L = n('K0xU'),
         C = n('CkkT'),
         V = n('w2a5'),
         T = n('69bn'),
@@ -3978,27 +4091,27 @@
         ve = X.slice,
         me = X.toString,
         ye = X.toLocaleString,
-        ge = S('iterator'),
-        be = S('toStringTag'),
-        ze = L('typed_constructor'),
-        we = L('def_constructor'),
+        ge = L('iterator'),
+        be = L('toStringTag'),
+        ze = S('typed_constructor'),
+        we = S('def_constructor'),
         Me = a.CONSTR,
         _e = a.TYPED,
-        He = a.VIEW,
-        xe = 'Wrong length!',
+        xe = a.VIEW,
+        He = 'Wrong length!',
         Oe = C(1, function(e, t) {
           return Ve(T(e, e[we]), t);
         }),
         ke = c(function() {
           return 1 === new W(new Uint16Array([1]).buffer)[0];
         }),
-        Le =
+        Se =
           !!W &&
           !!W[Z].set &&
           c(function() {
             new W(1).set({});
           }),
-        Se = function(e, t) {
+        Le = function(e, t) {
           var n = d(e);
           if (n < 0 || n % t) throw q('Wrong offset!');
           return n;
@@ -4141,12 +4254,12 @@
         },
         Ie = function(e) {
           Ce(this);
-          var t = Se(arguments[1], 1),
+          var t = Le(arguments[1], 1),
             n = this.length,
             r = M(e),
             o = v(r.length),
             c = 0;
-          if (o + t > n) throw q(xe);
+          if (o + t > n) throw q(He);
           while (c < o) this[t + c] = r[c++];
         },
         Ue = {
@@ -4204,7 +4317,7 @@
             p = 'set' + e,
             d = o[u],
             y = d || {},
-            g = d && x(d),
+            g = d && H(d),
             b = !d || !a.ABV,
             M = {},
             _ = d && d[Z],
@@ -4212,18 +4325,18 @@
               var r = e._d;
               return r.v[f](n * t + r.o, ke);
             },
-            L = function(e, n, r) {
+            S = function(e, n, r) {
               var o = e._d;
               l && (r = (r = Math.round(r)) < 0 ? 0 : r > 255 ? 255 : 255 & r),
                 o.v[p](n * t + o.o, r, ke);
             },
-            S = function(e, t) {
+            L = function(e, t) {
               I(e, t, {
                 get: function() {
                   return k(this, t);
                 },
                 set: function(e) {
-                  return L(this, t, e);
+                  return S(this, t, e);
                 },
                 enumerable: !0,
               });
@@ -4240,18 +4353,18 @@
                 if (w(n)) {
                   if (!(n instanceof Q || (l = z(n)) == B || l == K))
                     return _e in n ? Ee(d, n) : Ae.call(d, n);
-                  (c = n), (p = Se(r, t));
+                  (c = n), (p = Le(r, t));
                   var y = n.byteLength;
                   if (void 0 === o) {
-                    if (y % t) throw q(xe);
-                    if (((i = y - p), i < 0)) throw q(xe);
-                  } else if (((i = v(o) * t), i + p > y)) throw q(xe);
+                    if (y % t) throw q(He);
+                    if (((i = y - p), i < 0)) throw q(He);
+                  } else if (((i = v(o) * t), i + p > y)) throw q(He);
                   a = i / t;
                 } else (a = m(n)), (i = a * t), (c = new Q(i));
                 h(e, '_d', { b: c, o: p, l: i, e: a, v: new J(c) });
-                while (f < a) S(e, f++);
+                while (f < a) L(e, f++);
               })),
-              (_ = d[Z] = H(Be)),
+              (_ = d[Z] = x(Be)),
               h(_, 'constructor', d))
             : (c(function() {
                 d(1);
@@ -4269,9 +4382,9 @@
                   w(n)
                     ? n instanceof Q || (c = z(n)) == B || c == K
                       ? void 0 !== o
-                        ? new y(n, Se(r, t), o)
+                        ? new y(n, Le(r, t), o)
                         : void 0 !== r
-                          ? new y(n, Se(r, t))
+                          ? new y(n, Le(r, t))
                           : new y(n)
                       : _e in n
                         ? Ee(d, n)
@@ -4289,7 +4402,7 @@
             T = Ue.values;
           h(d, ze, !0),
             h(_, _e, u),
-            h(_, He, !0),
+            h(_, xe, !0),
             h(_, we, d),
             (l ? new d(1)[be] == u : be in _) ||
               I(_, be, {
@@ -4312,7 +4425,7 @@
             G in _ || h(_, G, t),
             i(i.P, u, Ne),
             j(u),
-            i(i.P + i.F * Le, u, { set: Ie }),
+            i(i.P + i.F * Se, u, { set: Ie }),
             i(i.P + i.F * !V, u, Ue),
             r || _.toString == me || (_.toString = me),
             i(
@@ -4389,16 +4502,16 @@
       w = 'Wrong length!',
       M = 'Wrong index!',
       _ = r[g],
-      H = r[b],
-      x = r.Math,
+      x = r[b],
+      H = r.Math,
       O = r.RangeError,
       k = r.Infinity,
-      L = _,
-      S = x.abs,
-      C = x.pow,
-      V = x.floor,
-      T = x.log,
-      E = x.LN2,
+      S = _,
+      L = H.abs,
+      C = H.pow,
+      V = H.floor,
+      T = H.log,
+      E = H.LN2,
       P = 'buffer',
       A = 'byteLength',
       j = 'byteOffset',
@@ -4417,7 +4530,7 @@
         f = 0,
         h = e < 0 || (0 === e && 1 / e < 0) ? 1 : 0;
       for (
-        e = S(e),
+        e = L(e),
           e != e || e === k
             ? ((o = e != e ? 1 : 0), (r = l))
             : ((r = V(T(e) / E)),
@@ -4507,19 +4620,19 @@
         })
       ) {
         _ = function(e) {
-          return s(this, _), new L(p(e));
+          return s(this, _), new S(p(e));
         };
-        for (var Q, J = (_[z] = L[z]), $ = d(L), ee = 0; $.length > ee; )
-          (Q = $[ee++]) in _ || a(_, Q, L[Q]);
+        for (var Q, J = (_[z] = S[z]), $ = d(S), ee = 0; $.length > ee; )
+          (Q = $[ee++]) in _ || a(_, Q, S[Q]);
         c || (J.constructor = _);
       }
-      var te = new H(new _(2)),
-        ne = H[z].setInt8;
+      var te = new x(new _(2)),
+        ne = x[z].setInt8;
       te.setInt8(0, 2147483648),
         te.setInt8(1, 2147483649),
         (!te.getInt8(0) && te.getInt8(1)) ||
           l(
-            H[z],
+            x[z],
             {
               setInt8: function(e, t) {
                 ne.call(this, e, (t << 24) >> 24);
@@ -4536,16 +4649,16 @@
         var t = p(e);
         (this._b = m.call(new Array(t), 0)), (this[R] = t);
       }),
-        (H = function(e, t, n) {
-          s(this, H, b), s(e, _, b);
+        (x = function(e, t, n) {
+          s(this, x, b), s(e, _, b);
           var r = e[R],
             o = f(t);
           if (o < 0 || o > r) throw O('Wrong offset!');
           if (((n = void 0 === n ? r - o : h(n)), o + n > r)) throw O(w);
           (this[F] = e), (this[N] = o), (this[R] = n);
         }),
-        o && (G(_, A, '_l'), G(H, P, '_b'), G(H, A, '_l'), G(H, j, '_o')),
-        l(H[z], {
+        o && (G(_, A, '_l'), G(x, P, '_b'), G(x, A, '_l'), G(x, j, '_o')),
+        l(x[z], {
           getInt8: function(e) {
             return (Z(this, 1, e)[0] << 24) >> 24;
           },
@@ -4597,7 +4710,7 @@
             X(this, 8, e, B, t, arguments[2]);
           },
         });
-    y(_, g), y(H, b), a(H[z], i.VIEW, !0), (t[g] = _), (t[b] = H);
+    y(_, g), y(x, b), a(x[z], i.VIEW, !0), (t[g] = _), (t[b] = x);
   },
   '7SZZ': function(e, t, n) {
     'use strict';
@@ -5202,7 +5315,7 @@
         } catch (e) {}
         return !Error.isPrototypeOf(t) && !0 === t.call({}, e);
       }
-      function H(e) {
+      function x(e) {
         var t;
         try {
           e();
@@ -5211,11 +5324,11 @@
         }
         return t;
       }
-      function x(e, t, n, r) {
+      function H(e, t, n, r) {
         var o;
         if ('function' !== typeof t) throw new TypeError('"block" argument must be a function');
         'string' === typeof n && ((r = n), (n = null)),
-          (o = H(t)),
+          (o = x(t)),
           (r = (n && n.name ? ' (' + n.name + ').' : '.') + (r ? ' ' + r : '.')),
           e && !o && y(o, n, 'Missing expected exception' + r);
         var i = 'string' === typeof r,
@@ -5277,10 +5390,10 @@
           e === t && y(e, t, n, '!==', f.notStrictEqual);
         }),
         (f.throws = function(e, t, n) {
-          x(!0, e, t, n);
+          H(!0, e, t, n);
         }),
         (f.doesNotThrow = function(e, t, n) {
-          x(!1, e, t, n);
+          H(!1, e, t, n);
         }),
         (f.ifError = function(e) {
           if (e) throw e;
@@ -5389,6 +5502,13 @@
       }
     );
   },
+  A5AN: function(e, t, n) {
+    'use strict';
+    var r = n('AvRE')(!0);
+    e.exports = function(e, t, n) {
+      return t + (n ? r(e, t).length : 1);
+    };
+  },
   A5Xg: function(e, t, n) {
     var r = n('NsO/'),
       o = n('ar/p').f,
@@ -5431,13 +5551,13 @@
       w = n('G8Mo'),
       M = n('rr1i'),
       _ = n('oVml'),
-      H = n('A5Xg'),
-      x = n('vwuL'),
+      x = n('A5Xg'),
+      H = n('vwuL'),
       O = n('2faE'),
       k = n('w6GO'),
-      L = x.f,
-      S = O.f,
-      C = H.f,
+      S = H.f,
+      L = O.f,
+      C = x.f,
       V = r.Symbol,
       T = r.JSON,
       E = T && T.stringify,
@@ -5458,19 +5578,19 @@
           return (
             7 !=
             _(
-              S({}, 'a', {
+              L({}, 'a', {
                 get: function() {
-                  return S(this, 'a', { value: 7 }).a;
+                  return L(this, 'a', { value: 7 }).a;
                 },
               })
             ).a
           );
         })
           ? function(e, t, n) {
-              var r = L(I, t);
-              r && delete I[t], S(e, t, n), r && e !== I && S(I, t, r);
+              var r = S(I, t);
+              r && delete I[t], L(e, t, n), r && e !== I && L(I, t, r);
             }
-          : S,
+          : L,
       B = function(e) {
         var t = (N[e] = _(V[P]));
         return (t._k = e), t;
@@ -5492,9 +5612,9 @@
           o(N, t)
             ? (n.enumerable
                 ? (o(e, A) && e[A][t] && (e[A][t] = !1), (n = _(n, { enumerable: M(0, !1) })))
-                : (o(e, A) || S(e, A, M(1, {})), (e[A][t] = !0)),
+                : (o(e, A) || L(e, A, M(1, {})), (e[A][t] = !0)),
               W(e, t, n))
-            : S(e, t, n)
+            : L(e, t, n)
         );
       },
       Z = function(e, t) {
@@ -5518,7 +5638,7 @@
       },
       J = function(e, t) {
         if (((e = z(e)), (t = w(t, !0)), e !== I || !o(N, t) || o(D, t))) {
-          var n = L(e, t);
+          var n = S(e, t);
           return !n || !o(N, t) || (o(e, A) && e[A][t]) || (n.enumerable = !0), n;
         }
       },
@@ -5553,9 +5673,9 @@
       a(V[P], 'toString', function() {
         return this._k;
       }),
-      (x.f = J),
+      (H.f = J),
       (O.f = G),
-      (n('ar/p').f = H.f = $),
+      (n('ar/p').f = x.f = $),
       (n('NV0k').f = Q),
       (n('mqlF').f = ee),
       c && !n('uOPS') && a(I, 'propertyIsEnumerable', Q, !0),
@@ -5676,8 +5796,8 @@
       var w,
         M,
         _,
-        H = function(e) {
-          if (!h && e in L) return L[e];
+        x = function(e) {
+          if (!h && e in S) return S[e];
           switch (e) {
             case d:
               return function() {
@@ -5692,34 +5812,34 @@
             return new n(this, e);
           };
         },
-        x = t + ' Iterator',
+        H = t + ' Iterator',
         O = g == v,
         k = !1,
-        L = e.prototype,
-        S = L[f] || L[p] || (g && L[g]),
-        C = S || H(g),
-        V = g ? (O ? H('entries') : C) : void 0,
-        T = ('Array' == t && L.entries) || S;
+        S = e.prototype,
+        L = S[f] || S[p] || (g && S[g]),
+        C = L || x(g),
+        V = g ? (O ? x('entries') : C) : void 0,
+        T = ('Array' == t && S.entries) || L;
       if (
         (T &&
           ((_ = s(T.call(new e()))),
           _ !== Object.prototype &&
             _.next &&
-            (u(_, x, !0), r || 'function' == typeof _[f] || i(_, f, m))),
+            (u(_, H, !0), r || 'function' == typeof _[f] || i(_, f, m))),
         O &&
-          S &&
-          S.name !== v &&
+          L &&
+          L.name !== v &&
           ((k = !0),
           (C = function() {
-            return S.call(this);
+            return L.call(this);
           })),
-        (r && !z) || (!h && !k && L[f]) || i(L, f, C),
+        (r && !z) || (!h && !k && S[f]) || i(S, f, C),
         (a[t] = C),
-        (a[x] = m),
+        (a[H] = m),
         g)
       )
-        if (((w = { values: O ? C : H(v), keys: b ? C : H(d), entries: V }), z))
-          for (M in w) M in L || c(L, M, w[M]);
+        if (((w = { values: O ? C : x(v), keys: b ? C : x(d), entries: V }), z))
+          for (M in w) M in S || c(S, M, w[M]);
         else o(o.P + o.F * (h || k), t, w);
       return w;
     };
@@ -6515,38 +6635,36 @@
   CtXQ: function(e, t, n) {
     'use strict';
     n.r(t);
-    var r = n('QbLZ'),
-      o = n.n(r),
-      c = n('YEIV'),
-      i = n.n(c),
-      a = n('m1cH'),
+    var r = n('q1tI'),
+      o = n('TSYQ'),
+      c = n.n(o),
+      i = n('Optq'),
+      a = n('YEIV'),
       l = n.n(a),
-      u = n('q1tI'),
-      s = n('TSYQ'),
-      f = n.n(s),
-      h = n('Optq'),
-      p = n('jo6Y'),
+      u = n('QbLZ'),
+      s = n.n(u),
+      f = n('jo6Y'),
+      h = n.n(f),
+      p = n('iCc5'),
       d = n.n(p),
-      v = n('iCc5'),
+      v = n('V7oC'),
       m = n.n(v),
-      y = n('V7oC'),
+      y = n('FYw3'),
       g = n.n(y),
-      b = n('FYw3'),
+      b = n('mRg0'),
       z = n.n(b),
-      w = n('mRg0'),
-      M = n.n(w),
-      _ = n('bac3'),
-      H = { primaryColor: '#333', secondaryColor: '#E6E6E6' },
-      x = (function(e) {
+      w = n('bac3'),
+      M = { primaryColor: '#333', secondaryColor: '#E6E6E6' },
+      _ = (function(e) {
         function t() {
           return (
-            m()(this, t),
-            z()(this, (t.__proto__ || Object.getPrototypeOf(t)).apply(this, arguments))
+            d()(this, t),
+            g()(this, (t.__proto__ || Object.getPrototypeOf(t)).apply(this, arguments))
           );
         }
         return (
-          M()(t, e),
-          g()(
+          z()(t, e),
+          m()(
             t,
             [
               {
@@ -6555,12 +6673,12 @@
                   var e,
                     n = this.props,
                     r = n.type,
-                    c = n.className,
-                    a = n.onClick,
-                    l = n.style,
-                    u = n.primaryColor,
-                    s = n.secondaryColor,
-                    f = d()(n, [
+                    o = n.className,
+                    c = n.onClick,
+                    i = n.style,
+                    a = n.primaryColor,
+                    u = n.secondaryColor,
+                    f = h()(n, [
                       'type',
                       'className',
                       'onClick',
@@ -6568,33 +6686,33 @@
                       'primaryColor',
                       'secondaryColor',
                     ]),
-                    h = void 0,
-                    p = H;
+                    p = void 0,
+                    d = M;
                   if (
-                    (u && (p = { primaryColor: u, secondaryColor: s || Object(_['c'])(u) }),
-                    Object(_['d'])(r))
+                    (a && (d = { primaryColor: a, secondaryColor: u || Object(w['c'])(a) }),
+                    Object(w['d'])(r))
                   )
-                    h = r;
-                  else if ('string' === typeof r && ((h = t.get(r, p)), !h)) return null;
-                  return h
-                    ? (h &&
-                        'function' === typeof h.icon &&
-                        (h = o()({}, h, { icon: h.icon(p.primaryColor, p.secondaryColor) })),
-                      Object(_['b'])(
-                        h.icon,
-                        'svg-' + h.name,
-                        o()(
-                          ((e = { className: c, onClick: a, style: l }),
-                          i()(e, 'data-icon', h.name),
-                          i()(e, 'width', '1em'),
-                          i()(e, 'height', '1em'),
-                          i()(e, 'fill', 'currentColor'),
-                          i()(e, 'aria-hidden', 'true'),
+                    p = r;
+                  else if ('string' === typeof r && ((p = t.get(r, d)), !p)) return null;
+                  return p
+                    ? (p &&
+                        'function' === typeof p.icon &&
+                        (p = s()({}, p, { icon: p.icon(d.primaryColor, d.secondaryColor) })),
+                      Object(w['b'])(
+                        p.icon,
+                        'svg-' + p.name,
+                        s()(
+                          ((e = { className: o, onClick: c, style: i }),
+                          l()(e, 'data-icon', p.name),
+                          l()(e, 'width', '1em'),
+                          l()(e, 'height', '1em'),
+                          l()(e, 'fill', 'currentColor'),
+                          l()(e, 'aria-hidden', 'true'),
                           e),
                           f
                         )
                       ))
-                    : (Object(_['e'])('type should be string or icon definiton, but got ' + r),
+                    : (Object(w['e'])('type should be string or icon definiton, but got ' + r),
                       null);
                 },
               },
@@ -6606,7 +6724,7 @@
                   for (var e = this, t = arguments.length, n = Array(t), r = 0; r < t; r++)
                     n[r] = arguments[r];
                   n.forEach(function(t) {
-                    e.definitions.set(Object(_['f'])(t.name, t.theme), t);
+                    e.definitions.set(Object(w['f'])(t.name, t.theme), t);
                   });
                 },
               },
@@ -6619,13 +6737,13 @@
               {
                 key: 'get',
                 value: function(e) {
-                  var t = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : H;
+                  var t = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : M;
                   if (e) {
                     var n = this.definitions.get(e);
                     return (
                       n &&
                         'function' === typeof n.icon &&
-                        (n = o()({}, n, { icon: n.icon(t.primaryColor, t.secondaryColor) })),
+                        (n = s()({}, n, { icon: n.icon(t.primaryColor, t.secondaryColor) })),
                       n
                     );
                   }
@@ -6636,23 +6754,37 @@
                 value: function(e) {
                   var t = e.primaryColor,
                     n = e.secondaryColor;
-                  (H.primaryColor = t), (H.secondaryColor = n || Object(_['c'])(t));
+                  (M.primaryColor = t), (M.secondaryColor = n || Object(w['c'])(t));
                 },
               },
               {
                 key: 'getTwoToneColors',
                 value: function() {
-                  return o()({}, H);
+                  return s()({}, M);
                 },
               },
             ]
           ),
           t
         );
-      })(u['Component']);
-    (x.displayName = 'IconReact'), (x.definitions = new _['a']());
-    var O = x,
-      k = function(e, t) {
+      })(r['Component']);
+    (_.displayName = 'IconReact'), (_.definitions = new w['a']());
+    var x = _;
+    function H() {
+      return (
+        (H =
+          Object.assign ||
+          function(e) {
+            for (var t = 1; t < arguments.length; t++) {
+              var n = arguments[t];
+              for (var r in n) Object.prototype.hasOwnProperty.call(n, r) && (e[r] = n[r]);
+            }
+            return e;
+          }),
+        H.apply(this, arguments)
+      );
+    }
+    var O = function(e, t) {
         var n = {};
         for (var r in e)
           Object.prototype.hasOwnProperty.call(e, r) && t.indexOf(r) < 0 && (n[r] = e[r]);
@@ -6663,45 +6795,58 @@
         }
         return n;
       },
-      L = new Set();
+      k = new Set();
     function S() {
       var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {},
         t = e.scriptUrl,
         n = e.extraCommonProps,
-        r = void 0 === n ? {} : n;
+        o = void 0 === n ? {} : n;
       if (
         'undefined' !== typeof document &&
         'undefined' !== typeof window &&
         'function' === typeof document.createElement &&
         'string' === typeof t &&
         t.length &&
-        !L.has(t)
+        !k.has(t)
       ) {
         var c = document.createElement('script');
         c.setAttribute('src', t),
           c.setAttribute('data-namespace', t),
-          L.add(t),
+          k.add(t),
           document.body.appendChild(c);
       }
       var i = function(e) {
         var t = e.type,
           n = e.children,
-          c = k(e, ['type', 'children']),
+          c = O(e, ['type', 'children']),
           i = null;
         return (
-          e.type && (i = u['createElement']('use', { xlinkHref: '#' + t })),
+          e.type && (i = r['createElement']('use', { xlinkHref: '#'.concat(t) })),
           n && (i = n),
-          u['createElement'](B, o()({}, c, r), i)
+          r['createElement'](J, H({}, c, o), i)
         );
       };
       return (i.displayName = 'Iconfont'), i;
     }
-    var C,
-      V = n('6CfX'),
-      T = ((C = { width: '1em', height: '1em', fill: 'currentColor' }),
-      i()(C, 'aria-hidden', 'true'),
-      i()(C, 'focusable', 'false'),
-      C),
+    var L,
+      C = n('6CfX');
+    function V(e, t, n) {
+      return (
+        t in e
+          ? Object.defineProperty(e, t, {
+              value: n,
+              enumerable: !0,
+              configurable: !0,
+              writable: !0,
+            })
+          : (e[t] = n),
+        e
+      );
+    }
+    var T = ((L = { width: '1em', height: '1em', fill: 'currentColor' }),
+      V(L, 'aria-hidden', 'true'),
+      V(L, 'focusable', 'false'),
+      L),
       E = /-fill$/,
       P = /-o$/,
       A = /-twotone$/;
@@ -6726,7 +6871,7 @@
             ? (n += '-o')
             : 'twoTone' === t
               ? (n += '-twotone')
-              : Object(V['a'])(!1, "This icon '" + e + "' has unknown theme '" + t + "'"),
+              : Object(C['a'])(!1, "This icon '".concat(e, "' has unknown theme '").concat(t, "'")),
         n
       );
     }
@@ -6739,13 +6884,59 @@
       return e;
     }
     function D(e) {
-      return O.setTwoToneColors({ primaryColor: e });
+      return x.setTwoToneColors({ primaryColor: e });
     }
     function I() {
-      var e = O.getTwoToneColors();
+      var e = x.getTwoToneColors();
       return e.primaryColor;
     }
-    var U = function(e, t) {
+    function U() {
+      return (
+        (U =
+          Object.assign ||
+          function(e) {
+            for (var t = 1; t < arguments.length; t++) {
+              var n = arguments[t];
+              for (var r in n) Object.prototype.hasOwnProperty.call(n, r) && (e[r] = n[r]);
+            }
+            return e;
+          }),
+        U.apply(this, arguments)
+      );
+    }
+    function q(e, t, n) {
+      return (
+        t in e
+          ? Object.defineProperty(e, t, {
+              value: n,
+              enumerable: !0,
+              configurable: !0,
+              writable: !0,
+            })
+          : (e[t] = n),
+        e
+      );
+    }
+    function Y(e) {
+      return K(e) || B(e) || W();
+    }
+    function W() {
+      throw new TypeError('Invalid attempt to spread non-iterable instance');
+    }
+    function B(e) {
+      if (
+        Symbol.iterator in Object(e) ||
+        '[object Arguments]' === Object.prototype.toString.call(e)
+      )
+        return Array.from(e);
+    }
+    function K(e) {
+      if (Array.isArray(e)) {
+        for (var t = 0, n = new Array(e.length); t < e.length; t++) n[t] = e[t];
+        return n;
+      }
+    }
+    var G = function(e, t) {
       var n = {};
       for (var r in e)
         Object.prototype.hasOwnProperty.call(e, r) && t.indexOf(r) < 0 && (n[r] = e[r]);
@@ -6756,28 +6947,28 @@
       }
       return n;
     };
-    O.add.apply(
-      O,
-      l()(
-        Object.keys(h).map(function(e) {
-          return h[e];
+    x.add.apply(
+      x,
+      Y(
+        Object.keys(i).map(function(e) {
+          return i[e];
         })
       )
     ),
       D('#1890ff');
-    var q = 'outlined',
-      Y = void 0,
-      W = function(e) {
+    var Z = 'outlined',
+      X = void 0,
+      Q = function(e) {
         var t,
           n = e.className,
-          r = e.type,
-          c = e.component,
+          o = e.type,
+          i = e.component,
           a = e.viewBox,
           l = e.spin,
-          s = e.children,
-          h = e.theme,
-          p = e.twoToneColor,
-          d = U(e, [
+          u = e.children,
+          s = e.theme,
+          f = e.twoToneColor,
+          h = G(e, [
             'className',
             'type',
             'component',
@@ -6787,50 +6978,45 @@
             'theme',
             'twoToneColor',
           ]);
-        Object(V['a'])(
-          Boolean(r || c || s),
+        Object(C['a'])(
+          Boolean(o || i || u),
           'Icon should have `type` prop or `component` prop or `children`.'
         );
-        var v = f()(((t = {}), i()(t, 'anticon', !0), i()(t, 'anticon-' + r, Boolean(r)), t), n),
-          m = f()(i()({}, 'anticon-spin', !!l || 'loading' === r)),
-          y = void 0;
-        if (c) {
-          var g = o()({}, T, { className: m, viewBox: a });
-          a || delete g.viewBox, (y = u['createElement'](c, g, s));
+        var p,
+          d = c()(((t = {}), q(t, 'anticon', !0), q(t, 'anticon-'.concat(o), Boolean(o)), t), n),
+          v = c()(q({}, 'anticon-spin', !!l || 'loading' === o));
+        if (i) {
+          var m = U({}, T, { className: v, viewBox: a });
+          a || delete m.viewBox, (p = r['createElement'](i, m, u));
         }
-        if (s) {
-          Object(V['a'])(
+        if (u) {
+          Object(C['a'])(
             Boolean(a) ||
-              (1 === u['Children'].count(s) &&
-                u['isValidElement'](s) &&
-                'use' === u['Children'].only(s).type),
+              (1 === r['Children'].count(u) &&
+                r['isValidElement'](u) &&
+                'use' === r['Children'].only(u).type),
             'Make sure that you provide correct `viewBox` prop (default `0 0 1024 1024`) to the icon.'
           );
-          var b = o()({}, T, { className: m });
-          y = u['createElement']('svg', o()({}, b, { viewBox: a }), s);
+          var y = U({}, T, { className: v });
+          p = r['createElement']('svg', U({}, y, { viewBox: a }), u);
         }
-        if ('string' === typeof r) {
-          var z = r;
-          if (h) {
-            var w = j(r);
-            Object(V['a'])(
-              !w || h === w,
-              "The icon name '" +
-                r +
-                "' already specify a theme '" +
-                w +
-                "', the 'theme' prop '" +
-                h +
-                "' will be ignored."
+        if ('string' === typeof o) {
+          var g = o;
+          if (s) {
+            var b = j(o);
+            Object(C['a'])(
+              !b || s === b,
+              "The icon name '".concat(o, "' already specify a theme '").concat(b, "',") +
+                " the 'theme' prop '".concat(s, "' will be ignored.")
             );
           }
-          (z = R(F(N(r)), Y || h || q)),
-            (y = u['createElement'](O, { className: m, type: z, primaryColor: p }));
+          (g = R(F(N(g)), X || s || Z)),
+            (p = r['createElement'](x, { className: v, type: g, primaryColor: f }));
         }
-        return u['createElement']('i', o()({}, d, { className: v }), y);
+        return r['createElement']('i', U({}, h, { className: d }), p);
       };
-    (W.createFromIconfontCN = S), (W.getTwoToneColor = I), (W.setTwoToneColor = D);
-    var B = (t['default'] = W);
+    (Q.createFromIconfontCN = S), (Q.getTwoToneColor = I), (Q.setTwoToneColor = D);
+    var J = (t['default'] = Q);
   },
   D4iV: function(e, t, n) {
     var r,
@@ -7158,13 +7344,13 @@
               (0, l.createLocation)(e)
             );
           },
-          H = (0, f.default)(),
-          x = function(e) {
-            r(B, e), (B.length = t.length), H.notifyListeners(B.location, B.action);
+          x = (0, f.default)(),
+          H = function(e) {
+            r(B, e), (B.length = t.length), x.notifyListeners(B.location, B.action);
           },
           O = !1,
           k = null,
-          L = function() {
+          S = function() {
             var e = m(),
               t = w(e);
             if (e !== t) g(t);
@@ -7173,15 +7359,15 @@
                 r = B.location;
               if (!O && (0, l.locationsAreEqual)(r, n)) return;
               if (k === (0, u.createPath)(n)) return;
-              (k = null), S(n);
+              (k = null), L(n);
             }
           },
-          S = function(e) {
-            if (O) (O = !1), x();
+          L = function(e) {
+            if (O) (O = !1), H();
             else {
               var t = 'POP';
-              H.confirmTransitionTo(e, t, i, function(n) {
-                n ? x({ action: t, location: e }) : C(e);
+              x.confirmTransitionTo(e, t, i, function(n) {
+                n ? H({ action: t, location: e }) : C(e);
               });
             }
           },
@@ -7206,7 +7392,7 @@
             (0, c.default)(void 0 === t, 'Hash history cannot push state; it is ignored');
             var n = 'PUSH',
               r = (0, l.createLocation)(e, void 0, void 0, B.location);
-            H.confirmTransitionTo(r, n, i, function(e) {
+            x.confirmTransitionTo(r, n, i, function(e) {
               if (e) {
                 var t = (0, u.createPath)(r),
                   o = w(b + t),
@@ -7215,13 +7401,13 @@
                   (k = t), y(o);
                   var a = P.lastIndexOf((0, u.createPath)(B.location)),
                     l = P.slice(0, -1 === a ? 0 : a + 1);
-                  l.push(t), (P = l), x({ action: n, location: r });
+                  l.push(t), (P = l), H({ action: n, location: r });
                 } else
                   (0, c.default)(
                     !1,
                     'Hash history cannot PUSH the same path; a new entry will not be added to the history stack'
                   ),
-                    x();
+                    H();
               }
             });
           },
@@ -7229,14 +7415,14 @@
             (0, c.default)(void 0 === t, 'Hash history cannot replace state; it is ignored');
             var n = 'REPLACE',
               r = (0, l.createLocation)(e, void 0, void 0, B.location);
-            H.confirmTransitionTo(r, n, i, function(e) {
+            x.confirmTransitionTo(r, n, i, function(e) {
               if (e) {
                 var t = (0, u.createPath)(r),
                   o = w(b + t),
                   c = m() !== o;
                 c && ((k = t), g(o));
                 var i = P.indexOf((0, u.createPath)(B.location));
-                -1 !== i && (P[i] = t), x({ action: n, location: r });
+                -1 !== i && (P[i] = t), H({ action: n, location: r });
               }
             });
           },
@@ -7253,12 +7439,12 @@
           I = 0,
           U = function(e) {
             (I += e),
-              1 === I ? window.addEventListener(d, L) : 0 === I && window.removeEventListener(d, L);
+              1 === I ? window.addEventListener(d, S) : 0 === I && window.removeEventListener(d, S);
           },
           q = !1,
           Y = function() {
             var e = arguments.length > 0 && void 0 !== arguments[0] && arguments[0],
-              t = H.setPrompt(e);
+              t = x.setPrompt(e);
             return (
               q || (U(1), (q = !0)),
               function() {
@@ -7267,7 +7453,7 @@
             );
           },
           W = function(e) {
-            var t = H.appendListener(e);
+            var t = x.appendListener(e);
             return (
               U(1),
               function() {
@@ -7701,21 +7887,6 @@
                         setTimeout(i(b, e, 1), 0);
                       })),
       (e.exports = { set: h, clear: p });
-  },
-  H4fg: function(e, t, n) {
-    'use strict';
-    t['a'] = {
-      items_per_page: '/ page',
-      jump_to: 'Goto',
-      jump_to_confirm: 'confirm',
-      page: '',
-      prev_page: 'Previous Page',
-      next_page: 'Next Page',
-      prev_5: 'Previous 5 Pages',
-      next_5: 'Next 5 Pages',
-      prev_3: 'Previous 3 Pages',
-      next_3: 'Next 3 Pages',
-    };
   },
   H6hf: function(e, t, n) {
     var r = n('y3w9');
@@ -8258,37 +8429,86 @@
   },
   'IU+Z': function(e, t, n) {
     'use strict';
-    var r = n('Mukb'),
-      o = n('KroJ'),
+    n('sMXx');
+    var r = n('KroJ'),
+      o = n('Mukb'),
       c = n('eeVq'),
       i = n('vhPU'),
-      a = n('K0xU');
-    e.exports = function(e, t, n) {
-      var l = a(e),
-        u = n(i, l, ''[e]),
-        s = u[0],
-        f = u[1];
-      c(function() {
-        var t = {};
+      a = n('K0xU'),
+      l = n('Ugos'),
+      u = a('species'),
+      s = !c(function() {
+        var e = /./;
         return (
-          (t[l] = function() {
-            return 7;
+          (e.exec = function() {
+            var e = [];
+            return (e.groups = { a: '7' }), e;
           }),
-          7 != ''[e](t)
+          '7' !== ''.replace(e, '$<a>')
         );
-      }) &&
-        (o(String.prototype, e, s),
-        r(
-          RegExp.prototype,
-          l,
-          2 == t
-            ? function(e, t) {
-                return f.call(e, this, t);
-              }
-            : function(e) {
-                return f.call(e, this);
-              }
-        ));
+      }),
+      f = (function() {
+        var e = /(?:)/,
+          t = e.exec;
+        e.exec = function() {
+          return t.apply(this, arguments);
+        };
+        var n = 'ab'.split(e);
+        return 2 === n.length && 'a' === n[0] && 'b' === n[1];
+      })();
+    e.exports = function(e, t, n) {
+      var h = a(e),
+        p = !c(function() {
+          var t = {};
+          return (
+            (t[h] = function() {
+              return 7;
+            }),
+            7 != ''[e](t)
+          );
+        }),
+        d = p
+          ? !c(function() {
+              var t = !1,
+                n = /a/;
+              return (
+                (n.exec = function() {
+                  return (t = !0), null;
+                }),
+                'split' === e &&
+                  ((n.constructor = {}),
+                  (n.constructor[u] = function() {
+                    return n;
+                  })),
+                n[h](''),
+                !t
+              );
+            })
+          : void 0;
+      if (!p || !d || ('replace' === e && !s) || ('split' === e && !f)) {
+        var v = /./[h],
+          m = n(i, h, ''[e], function(e, t, n, r, o) {
+            return t.exec === l
+              ? p && !o
+                ? { done: !0, value: v.call(t, n, r) }
+                : { done: !0, value: e.call(n, t, r) }
+              : { done: !1 };
+          }),
+          y = m[0],
+          g = m[1];
+        r(String.prototype, e, y),
+          o(
+            RegExp.prototype,
+            h,
+            2 == t
+              ? function(e, t) {
+                  return g.call(e, this, t);
+                }
+              : function(e) {
+                  return g.call(e, this);
+                }
+          );
+      }
     };
   },
   IXt9: function(e, t, n) {
@@ -8530,22 +8750,22 @@
       w = n('vBP9'),
       M = n('zXhZ'),
       _ = 'Promise',
-      H = l.TypeError,
-      x = l.process,
-      O = x && x.versions,
+      x = l.TypeError,
+      H = l.process,
+      O = H && H.versions,
       k = (O && O.v8) || '',
-      L = l[_],
-      S = 'process' == s(x),
+      S = l[_],
+      L = 'process' == s(H),
       C = function() {},
       V = (o = b.f),
       T = !!(function() {
         try {
-          var e = L.resolve(1),
+          var e = S.resolve(1),
             t = ((e.constructor = {})[n('UWiX')('species')] = function(e) {
               e(C, C);
             });
           return (
-            (S || 'function' == typeof PromiseRejectionEvent) &&
+            (L || 'function' == typeof PromiseRejectionEvent) &&
             e.then(C) instanceof t &&
             0 !== k.indexOf('6.6') &&
             -1 === w.indexOf('Chrome/66')
@@ -8577,7 +8797,7 @@
                     ? (o || (2 == e._h && F(e), (e._h = 1)),
                       !0 === a ? (n = r) : (s && s.enter(), (n = a(r)), s && (s.exit(), (i = !0))),
                       n === t.promise
-                        ? u(H('Promise-chain cycle'))
+                        ? u(x('Promise-chain cycle'))
                         : (c = E(n))
                           ? c.call(n, l, u)
                           : l(n))
@@ -8601,13 +8821,13 @@
           if (
             (c &&
               ((t = z(function() {
-                S
-                  ? x.emit('unhandledRejection', o, e)
+                L
+                  ? H.emit('unhandledRejection', o, e)
                   : (n = l.onunhandledrejection)
                     ? n({ promise: e, reason: o })
                     : (r = l.console) && r.error && r.error('Unhandled promise rejection', o);
               })),
-              (e._h = S || j(e) ? 2 : 1)),
+              (e._h = L || j(e) ? 2 : 1)),
             (e._a = void 0),
             c && t.e)
           )
@@ -8620,8 +8840,8 @@
       F = function(e) {
         y.call(l, function() {
           var t;
-          S
-            ? x.emit('rejectionHandled', e)
+          L
+            ? H.emit('rejectionHandled', e)
             : (t = l.onrejectionhandled) && t({ promise: e, reason: e._v });
         });
       },
@@ -8641,7 +8861,7 @@
         if (!n._d) {
           (n._d = !0), (n = n._w || n);
           try {
-            if (n === e) throw H("Promise can't be resolved itself");
+            if (n === e) throw x("Promise can't be resolved itself");
             (t = E(e))
               ? g(function() {
                   var r = { _w: n, _d: !1 };
@@ -8658,8 +8878,8 @@
         }
       };
     T ||
-      ((L = function(e) {
-        d(this, L, _, '_h'), p(e), r.call(this);
+      ((S = function(e) {
+        d(this, S, _, '_h'), p(e), r.call(this);
         try {
           e(u(N, this, 1), u(R, this, 1));
         } catch (e) {
@@ -8675,13 +8895,13 @@
           (this._h = 0),
           (this._n = !1);
       }),
-      (r.prototype = n('XJU/')(L.prototype, {
+      (r.prototype = n('XJU/')(S.prototype, {
         then: function(e, t) {
-          var n = V(m(this, L));
+          var n = V(m(this, S));
           return (
             (n.ok = 'function' != typeof e || e),
             (n.fail = 'function' == typeof t && t),
-            (n.domain = S ? x.domain : void 0),
+            (n.domain = L ? H.domain : void 0),
             this._c.push(n),
             this._a && this._a.push(n),
             this._s && P(this, !1),
@@ -8697,10 +8917,10 @@
         (this.promise = e), (this.resolve = u(N, e, 1)), (this.reject = u(R, e, 1));
       }),
       (b.f = V = function(e) {
-        return e === L || e === i ? new c(e) : o(e);
+        return e === S || e === i ? new c(e) : o(e);
       })),
-      f(f.G + f.W + f.F * !T, { Promise: L }),
-      n('RfKB')(L, _),
+      f(f.G + f.W + f.F * !T, { Promise: S }),
+      n('RfKB')(S, _),
       n('TJWN')(_),
       (i = n('WEpk')[_]),
       f(f.S + f.F * !T, _, {
@@ -8712,7 +8932,7 @@
       }),
       f(f.S + f.F * (a || !T), _, {
         resolve: function(e) {
-          return M(a && this === i ? L : this, e);
+          return M(a && this === i ? S : this, e);
         },
       }),
       f(
@@ -8721,7 +8941,7 @@
             !(
               T &&
               n('TuGD')(function(e) {
-                L.all(e)['catch'](C);
+                S.all(e)['catch'](C);
               })
             ),
         _,
@@ -8920,7 +9140,7 @@
                 ? 'symbol'
                 : typeof e;
             },
-      H = ((function() {
+      x = ((function() {
         function e(e) {
           this.value = e;
         }
@@ -8984,7 +9204,7 @@
       function(e, t) {
         if (!(e instanceof t)) throw new TypeError('Cannot call a class as a function');
       }),
-      x = (function() {
+      H = (function() {
         function e(e, t) {
           for (var n = 0; n < t.length; n++) {
             var r = t[n];
@@ -9020,7 +9240,7 @@
           }
           return e;
         },
-      L = function(e, t) {
+      S = function(e, t) {
         if ('function' !== typeof t && null !== t)
           throw new TypeError(
             'Super expression must either be null or a function, not ' + typeof t
@@ -9030,7 +9250,7 @@
         })),
           t && (Object.setPrototypeOf ? Object.setPrototypeOf(e, t) : (e.__proto__ = t));
       },
-      S = function(e, t) {
+      L = function(e, t) {
         var n = {};
         for (var r in e)
           t.indexOf(r) >= 0 || (Object.prototype.hasOwnProperty.call(e, r) && (n[r] = e[r]));
@@ -9196,13 +9416,13 @@
         c = void 0 !== o && o,
         i = (function(t) {
           function n(e, t) {
-            H(this, n);
+            x(this, n);
             var r = C(this, (n.__proto__ || Object.getPrototypeOf(n)).call(this, e, t));
             return re(t), r;
           }
           return (
-            L(n, t),
-            x(n, [
+            S(n, t),
+            H(n, [
               {
                 key: 'getWrappedInstance',
                 value: function() {
@@ -9253,7 +9473,7 @@
     }
     var pe = function e(t) {
         var n = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {};
-        H(this, e);
+        x(this, e);
         var r = 'ordinal' === n.style,
           o = he(fe(t));
         this.format = function(e) {
@@ -9339,7 +9559,7 @@
       }
       return String(u);
     }
-    function He(e, t, n) {
+    function xe(e, t, n) {
       var r = arguments.length > 3 && void 0 !== arguments[3] ? arguments[3] : {},
         o = e.locale,
         c = e.formats,
@@ -9354,7 +9574,7 @@
       }
       return String(n);
     }
-    function xe(e, t, n) {
+    function He(e, t, n) {
       var r = arguments.length > 3 && void 0 !== arguments[3] ? arguments[3] : {},
         o = e.locale,
         c = ne(r, ye),
@@ -9440,16 +9660,16 @@
         }, {});
       return Oe(e, t, n, o);
     }
-    var Le = Object.freeze({
+    var Se = Object.freeze({
         formatDate: we,
         formatTime: Me,
         formatRelative: _e,
-        formatNumber: He,
-        formatPlural: xe,
+        formatNumber: xe,
+        formatPlural: He,
         formatMessage: Oe,
         formatHTMLMessage: ke,
       }),
-      Se = Object.keys(W),
+      Le = Object.keys(W),
       Ce = Object.keys(B),
       Ve = {
         formats: {},
@@ -9463,7 +9683,7 @@
       Te = (function(e) {
         function t(e) {
           var n = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {};
-          H(this, t);
+          x(this, t);
           var r = C(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, e, n));
           m()(
             'undefined' !== typeof Intl,
@@ -9494,13 +9714,13 @@
           );
         }
         return (
-          L(t, e),
-          x(t, [
+          S(t, e),
+          H(t, [
             {
               key: 'getConfig',
               value: function() {
                 var e = this.context.intl,
-                  t = ne(this.props, Se, e);
+                  t = ne(this.props, Le, e);
                 for (var n in Ve) void 0 === t[n] && (t[n] = Ve[n]);
                 if (!w(t.locale)) {
                   var r = t,
@@ -9526,7 +9746,7 @@
               key: 'getBoundFormatFns',
               value: function(e, t) {
                 return Ce.reduce(function(n, r) {
-                  return (n[r] = Le[r].bind(null, e, t)), n;
+                  return (n[r] = Se[r].bind(null, e, t)), n;
                 }, {});
               },
             },
@@ -9537,7 +9757,7 @@
                   t = this.getBoundFormatFns(e, this.state),
                   n = this.state,
                   r = n.now,
-                  o = S(n, ['now']);
+                  o = L(n, ['now']);
                 return { intl: k({}, e, t, { formatters: o, now: r }) };
               },
             },
@@ -9569,13 +9789,13 @@
       (Te.childContextTypes = { intl: K.isRequired });
     var Ee = (function(e) {
       function t(e, n) {
-        H(this, t);
+        x(this, t);
         var r = C(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, e, n));
         return re(n), r;
       }
       return (
-        L(t, e),
-        x(t, [
+        S(t, e),
+        H(t, [
           {
             key: 'shouldComponentUpdate',
             value: function() {
@@ -9603,13 +9823,13 @@
     (Ee.displayName = 'FormattedDate'), (Ee.contextTypes = { intl: K });
     var Pe = (function(e) {
       function t(e, n) {
-        H(this, t);
+        x(this, t);
         var r = C(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, e, n));
         return re(n), r;
       }
       return (
-        L(t, e),
-        x(t, [
+        S(t, e),
+        H(t, [
           {
             key: 'shouldComponentUpdate',
             value: function() {
@@ -9666,15 +9886,15 @@
     }
     var qe = (function(e) {
       function t(e, n) {
-        H(this, t);
+        x(this, t);
         var r = C(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, e, n));
         re(n);
         var o = isFinite(e.initialNow) ? Number(e.initialNow) : n.intl.now();
         return (r.state = { now: o }), r;
       }
       return (
-        L(t, e),
-        x(t, [
+        S(t, e),
+        H(t, [
           {
             key: 'scheduleNextUpdate',
             value: function(e, t) {
@@ -9749,13 +9969,13 @@
       (qe.defaultProps = { updateInterval: 1e4 });
     var Ye = (function(e) {
       function t(e, n) {
-        H(this, t);
+        x(this, t);
         var r = C(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, e, n));
         return re(n), r;
       }
       return (
-        L(t, e),
-        x(t, [
+        S(t, e),
+        H(t, [
           {
             key: 'shouldComponentUpdate',
             value: function() {
@@ -9783,13 +10003,13 @@
     (Ye.displayName = 'FormattedNumber'), (Ye.contextTypes = { intl: K });
     var We = (function(e) {
       function t(e, n) {
-        H(this, t);
+        x(this, t);
         var r = C(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, e, n));
         return re(n), r;
       }
       return (
-        L(t, e),
-        x(t, [
+        S(t, e),
+        H(t, [
           {
             key: 'shouldComponentUpdate',
             value: function() {
@@ -9824,13 +10044,13 @@
       },
       Ke = (function(e) {
         function t(e, n) {
-          H(this, t);
+          x(this, t);
           var r = C(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, e, n));
           return e.defaultMessage || re(n), r;
         }
         return (
-          L(t, e),
-          x(t, [
+          S(t, e),
+          H(t, [
             {
               key: 'shouldComponentUpdate',
               value: function(e) {
@@ -9918,13 +10138,13 @@
       (Ke.defaultProps = { values: {} });
     var Ge = (function(e) {
       function t(e, n) {
-        H(this, t);
+        x(this, t);
         var r = C(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, e, n));
         return re(n), r;
       }
       return (
-        L(t, e),
-        x(t, [
+        S(t, e),
+        H(t, [
           {
             key: 'shouldComponentUpdate',
             value: function(e) {
@@ -10009,24 +10229,21 @@
   },
   Jrzw: function(e, t, n) {
     'use strict';
-    Object.defineProperty(t, '__esModule', { value: !0 });
-    var r = n('jXed'),
-      o = f(r),
-      c = n('WmZF'),
-      i = f(c),
-      a = n('kM4J'),
-      l = f(a),
-      u = n('ncmp'),
-      s = f(u);
-    function f(e) {
+    Object.defineProperty(t, '__esModule', { value: !0 }), (t['default'] = void 0);
+    var r = a(n('jXed')),
+      o = a(n('WmZF')),
+      c = a(n('kM4J')),
+      i = a(n('ncmp'));
+    function a(e) {
       return e && e.__esModule ? e : { default: e };
     }
-    (t['default'] = {
+    var l = {
       locale: 'en',
-      Pagination: o['default'],
-      DatePicker: i['default'],
-      TimePicker: l['default'],
-      Calendar: s['default'],
+      Pagination: r['default'],
+      DatePicker: o['default'],
+      TimePicker: c['default'],
+      Calendar: i['default'],
+      global: { placeholder: 'Please select' },
       Table: {
         filterTitle: 'Filter menu',
         filterConfirm: 'OK',
@@ -10052,8 +10269,8 @@
         uploadError: 'Upload error',
         previewFile: 'Preview file',
       },
-    }),
-      (e.exports = t['default']);
+    };
+    t['default'] = l;
   },
   JxUR: function(e, t, n) {
     var r = n('jEeU'),
@@ -10103,79 +10320,115 @@
         });
   },
   KKXr: function(e, t, n) {
-    n('IU+Z')('split', 2, function(e, t, r) {
-      'use strict';
-      var o = n('quPj'),
-        c = r,
-        i = [].push,
-        a = 'split',
-        l = 'length',
-        u = 'lastIndex';
-      if (
-        'c' == 'abbc'[a](/(b)*/)[1] ||
-        4 != 'test'[a](/(?:)/, -1)[l] ||
-        2 != 'ab'[a](/(?:ab)*/)[l] ||
-        4 != '.'[a](/(.?)(.?)/)[l] ||
-        '.'[a](/()()/)[l] > 1 ||
-        ''[a](/.?/)[l]
-      ) {
-        var s = void 0 === /()??/.exec('')[1];
-        r = function(e, t) {
-          var n = String(this);
-          if (void 0 === e && 0 === t) return [];
-          if (!o(e)) return c.call(n, e, t);
-          var r,
-            a,
-            f,
-            h,
-            p,
-            d = [],
-            v =
-              (e.ignoreCase ? 'i' : '') +
-              (e.multiline ? 'm' : '') +
-              (e.unicode ? 'u' : '') +
-              (e.sticky ? 'y' : ''),
-            m = 0,
-            y = void 0 === t ? 4294967295 : t >>> 0,
-            g = new RegExp(e.source, v + 'g');
-          s || (r = new RegExp('^' + g.source + '$(?!\\s)', v));
-          while ((a = g.exec(n))) {
-            if (
-              ((f = a.index + a[0][l]),
-              f > m &&
-                (d.push(n.slice(m, a.index)),
-                !s &&
-                  a[l] > 1 &&
-                  a[0].replace(r, function() {
-                    for (p = 1; p < arguments[l] - 2; p++)
-                      void 0 === arguments[p] && (a[p] = void 0);
-                  }),
-                a[l] > 1 && a.index < n[l] && i.apply(d, a.slice(1)),
-                (h = a[0][l]),
-                (m = f),
-                d[l] >= y))
-            )
-              break;
-            g[u] === a.index && g[u]++;
-          }
-          return (
-            m === n[l] ? (!h && g.test('')) || d.push('') : d.push(n.slice(m)),
-            d[l] > y ? d.slice(0, y) : d
-          );
-        };
-      } else
-        '0'[a](void 0, 0)[l] &&
-          (r = function(e, t) {
-            return void 0 === e && 0 === t ? [] : c.call(this, e, t);
-          });
-      return [
-        function(n, o) {
-          var c = e(this),
-            i = void 0 == n ? void 0 : n[t];
-          return void 0 !== i ? i.call(n, c, o) : r.call(String(c), n, o);
-        },
-        r,
-      ];
+    'use strict';
+    var r = n('quPj'),
+      o = n('y3w9'),
+      c = n('69bn'),
+      i = n('A5AN'),
+      a = n('ne8i'),
+      l = n('Xxuz'),
+      u = n('Ugos'),
+      s = Math.min,
+      f = [].push,
+      h = 'split',
+      p = 'length',
+      d = 'lastIndex',
+      v = !!(function() {
+        try {
+          return new RegExp('x', 'y');
+        } catch (e) {}
+      })();
+    n('IU+Z')('split', 2, function(e, t, n, m) {
+      var y;
+      return (
+        (y =
+          'c' == 'abbc'[h](/(b)*/)[1] ||
+          4 != 'test'[h](/(?:)/, -1)[p] ||
+          2 != 'ab'[h](/(?:ab)*/)[p] ||
+          4 != '.'[h](/(.?)(.?)/)[p] ||
+          '.'[h](/()()/)[p] > 1 ||
+          ''[h](/.?/)[p]
+            ? function(e, t) {
+                var o = String(this);
+                if (void 0 === e && 0 === t) return [];
+                if (!r(e)) return n.call(o, e, t);
+                var c,
+                  i,
+                  a,
+                  l = [],
+                  s =
+                    (e.ignoreCase ? 'i' : '') +
+                    (e.multiline ? 'm' : '') +
+                    (e.unicode ? 'u' : '') +
+                    (e.sticky ? 'y' : ''),
+                  h = 0,
+                  v = void 0 === t ? 4294967295 : t >>> 0,
+                  m = new RegExp(e.source, s + 'g');
+                while ((c = u.call(m, o))) {
+                  if (
+                    ((i = m[d]),
+                    i > h &&
+                      (l.push(o.slice(h, c.index)),
+                      c[p] > 1 && c.index < o[p] && f.apply(l, c.slice(1)),
+                      (a = c[0][p]),
+                      (h = i),
+                      l[p] >= v))
+                  )
+                    break;
+                  m[d] === c.index && m[d]++;
+                }
+                return (
+                  h === o[p] ? (!a && m.test('')) || l.push('') : l.push(o.slice(h)),
+                  l[p] > v ? l.slice(0, v) : l
+                );
+              }
+            : '0'[h](void 0, 0)[p]
+              ? function(e, t) {
+                  return void 0 === e && 0 === t ? [] : n.call(this, e, t);
+                }
+              : n),
+        [
+          function(n, r) {
+            var o = e(this),
+              c = void 0 == n ? void 0 : n[t];
+            return void 0 !== c ? c.call(n, o, r) : y.call(String(o), n, r);
+          },
+          function(e, t) {
+            var r = m(y, e, this, t, y !== n);
+            if (r.done) return r.value;
+            var u = o(e),
+              f = String(this),
+              h = c(u, RegExp),
+              p = u.unicode,
+              d =
+                (u.ignoreCase ? 'i' : '') +
+                (u.multiline ? 'm' : '') +
+                (u.unicode ? 'u' : '') +
+                (v ? 'y' : 'g'),
+              g = new h(v ? u : '^(?:' + u.source + ')', d),
+              b = void 0 === t ? 4294967295 : t >>> 0;
+            if (0 === b) return [];
+            if (0 === f.length) return null === l(g, f) ? [f] : [];
+            var z = 0,
+              w = 0,
+              M = [];
+            while (w < f.length) {
+              g.lastIndex = v ? w : 0;
+              var _,
+                x = l(g, v ? f : f.slice(w));
+              if (null === x || (_ = s(a(g.lastIndex + (v ? 0 : w)), f.length)) === z)
+                w = i(f, w, p);
+              else {
+                if ((M.push(f.slice(z, w)), M.length === b)) return M;
+                for (var H = 1; H <= x.length - 1; H++)
+                  if ((M.push(x[H]), M.length === b)) return M;
+                w = z = _;
+              }
+            }
+            return M.push(f.slice(z)), M;
+          },
+        ]
+      );
     });
   },
   KP07: function(e, t, n) {
@@ -10604,10 +10857,19 @@
   },
   'Kz+r': function(e, t, n) {
     'use strict';
-    var r = n('H4fg'),
-      o = n('QbLZ'),
-      c = n.n(o),
-      i = {
+    var r = {
+        items_per_page: '/ page',
+        jump_to: 'Goto',
+        jump_to_confirm: 'confirm',
+        page: '',
+        prev_page: 'Previous Page',
+        next_page: 'Next Page',
+        prev_5: 'Previous 5 Pages',
+        next_5: 'Next 5 Pages',
+        prev_3: 'Previous 3 Pages',
+        next_3: 'Next 3 Pages',
+      },
+      o = {
         today: 'Today',
         now: 'Now',
         backToToday: 'Back to today',
@@ -10635,20 +10897,35 @@
         previousCentury: 'Last century',
         nextCentury: 'Next century',
       },
-      a = { placeholder: 'Select time' },
-      l = a,
-      u = {
-        lang: c()({ placeholder: 'Select date', rangePlaceholder: ['Start date', 'End date'] }, i),
-        timePickerLocale: c()({}, l),
+      c = { placeholder: 'Select time' },
+      i = c;
+    function a() {
+      return (
+        (a =
+          Object.assign ||
+          function(e) {
+            for (var t = 1; t < arguments.length; t++) {
+              var n = arguments[t];
+              for (var r in n) Object.prototype.hasOwnProperty.call(n, r) && (e[r] = n[r]);
+            }
+            return e;
+          }),
+        a.apply(this, arguments)
+      );
+    }
+    var l = {
+        lang: a({ placeholder: 'Select date', rangePlaceholder: ['Start date', 'End date'] }, o),
+        timePickerLocale: a({}, i),
       },
-      s = u,
-      f = s;
+      u = l,
+      s = u;
     t['a'] = {
       locale: 'en',
-      Pagination: r['a'],
-      DatePicker: s,
-      TimePicker: l,
-      Calendar: f,
+      Pagination: r,
+      DatePicker: u,
+      TimePicker: i,
+      Calendar: s,
+      global: { placeholder: 'Please select' },
       Table: {
         filterTitle: 'Filter menu',
         filterConfirm: 'OK',
@@ -11046,11 +11323,11 @@
     }
     var M = w('push'),
       _ = w('replace'),
-      H = w('go'),
-      x = w('goBack'),
+      x = w('go'),
+      H = w('goBack'),
       O = w('goForward'),
-      k = { push: M, replace: _, go: H, goBack: x, goForward: O };
-    function L(e) {
+      k = { push: M, replace: _, go: x, goBack: H, goForward: O };
+    function S(e) {
       return function() {
         return function(t) {
           return function(n) {
@@ -11088,10 +11365,10 @@
         return _;
       }),
       n.d(t, 'go', function() {
-        return H;
+        return x;
       }),
       n.d(t, 'goBack', function() {
-        return x;
+        return H;
       }),
       n.d(t, 'goForward', function() {
         return O;
@@ -11100,7 +11377,7 @@
         return k;
       }),
       n.d(t, 'routerMiddleware', function() {
-        return L;
+        return S;
       });
   },
   L8sY: function(e, t, n) {
@@ -11393,7 +11670,7 @@
         return i;
       }),
         (t.deprecate = function(n, o) {
-          if (H(e.process))
+          if (x(e.process))
             return function() {
               return t.deprecate(n, o).apply(this, arguments);
             };
@@ -11416,10 +11693,10 @@
           arguments.length >= 3 && (r.depth = arguments[2]),
           arguments.length >= 4 && (r.colors = arguments[3]),
           g(n) ? (r.showHidden = n) : n && t._extend(r, n),
-          H(r.showHidden) && (r.showHidden = !1),
-          H(r.depth) && (r.depth = 2),
-          H(r.colors) && (r.colors = !1),
-          H(r.customInspect) && (r.customInspect = !0),
+          x(r.showHidden) && (r.showHidden = !1),
+          x(r.depth) && (r.depth = 2),
+          x(r.colors) && (r.colors = !1),
+          x(r.customInspect) && (r.customInspect = !0),
           r.colors && (r.stylize = l),
           f(r, e, r.depth)
         );
@@ -11444,7 +11721,7 @@
         if (
           e.customInspect &&
           n &&
-          S(n.inspect) &&
+          L(n.inspect) &&
           n.inspect !== t.inspect &&
           (!n.constructor || n.constructor.prototype !== n)
         ) {
@@ -11457,33 +11734,33 @@
           a = s(i);
         if (
           (e.showHidden && (i = Object.getOwnPropertyNames(n)),
-          L(n) && (i.indexOf('message') >= 0 || i.indexOf('description') >= 0))
+          S(n) && (i.indexOf('message') >= 0 || i.indexOf('description') >= 0))
         )
           return p(n);
         if (0 === i.length) {
-          if (S(n)) {
+          if (L(n)) {
             var l = n.name ? ': ' + n.name : '';
             return e.stylize('[Function' + l + ']', 'special');
           }
-          if (x(n)) return e.stylize(RegExp.prototype.toString.call(n), 'regexp');
+          if (H(n)) return e.stylize(RegExp.prototype.toString.call(n), 'regexp');
           if (k(n)) return e.stylize(Date.prototype.toString.call(n), 'date');
-          if (L(n)) return p(n);
+          if (S(n)) return p(n);
         }
         var u,
           g = '',
           b = !1,
           z = ['{', '}'];
-        if ((y(n) && ((b = !0), (z = ['[', ']'])), S(n))) {
+        if ((y(n) && ((b = !0), (z = ['[', ']'])), L(n))) {
           var w = n.name ? ': ' + n.name : '';
           g = ' [Function' + w + ']';
         }
         return (
-          x(n) && (g = ' ' + RegExp.prototype.toString.call(n)),
+          H(n) && (g = ' ' + RegExp.prototype.toString.call(n)),
           k(n) && (g = ' ' + Date.prototype.toUTCString.call(n)),
-          L(n) && (g = ' ' + p(n)),
+          S(n) && (g = ' ' + p(n)),
           0 !== i.length || (b && 0 != n.length)
             ? r < 0
-              ? x(n)
+              ? H(n)
                 ? e.stylize(RegExp.prototype.toString.call(n), 'regexp')
                 : e.stylize('[Object]', 'special')
               : (e.seen.push(n),
@@ -11498,7 +11775,7 @@
         );
       }
       function h(e, t) {
-        if (H(t)) return e.stylize('undefined', 'undefined');
+        if (x(t)) return e.stylize('undefined', 'undefined');
         if (M(t)) {
           var n =
             "'" +
@@ -11560,7 +11837,7 @@
                         })
                         .join('\n')))
               : (a = e.stylize('[Circular]', 'special'))),
-          H(i))
+          x(i))
         ) {
           if (c && o.match(/^\d+$/)) return a;
           (i = JSON.stringify('' + o)),
@@ -11603,10 +11880,10 @@
       function _(e) {
         return 'symbol' === typeof e;
       }
-      function H(e) {
+      function x(e) {
         return void 0 === e;
       }
-      function x(e) {
+      function H(e) {
         return O(e) && '[object RegExp]' === V(e);
       }
       function O(e) {
@@ -11615,10 +11892,10 @@
       function k(e) {
         return O(e) && '[object Date]' === V(e);
       }
-      function L(e) {
+      function S(e) {
         return O(e) && ('[object Error]' === V(e) || e instanceof Error);
       }
-      function S(e) {
+      function L(e) {
         return 'function' === typeof e;
       }
       function C(e) {
@@ -11639,7 +11916,7 @@
       }
       (t.debuglog = function(e) {
         if (
-          (H(c) && (c = Object({ NODE_ENV: 'production' }).NODE_DEBUG || ''),
+          (x(c) && (c = Object({ NODE_ENV: 'production' }).NODE_DEBUG || ''),
           (e = e.toUpperCase()),
           !i[e])
         )
@@ -11685,12 +11962,12 @@
         (t.isNumber = w),
         (t.isString = M),
         (t.isSymbol = _),
-        (t.isUndefined = H),
-        (t.isRegExp = x),
+        (t.isUndefined = x),
+        (t.isRegExp = H),
         (t.isObject = O),
         (t.isDate = k),
-        (t.isError = L),
-        (t.isFunction = S),
+        (t.isError = S),
+        (t.isFunction = L),
         (t.isPrimitive = C),
         (t.isBuffer = n('1gqn'));
       var E = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -11817,8 +12094,8 @@
         n
       );
     }
-    var H = n('i8i4'),
-      x = n.n(H),
+    var x = n('i8i4'),
+      H = n.n(x),
       O = n('J9Du'),
       k = {
         isAppearSupported: function(e) {
@@ -11840,8 +12117,8 @@
           return e.transitionLeave || e.animation.leave;
         },
       },
-      L = k,
-      S = { enter: 'transitionEnter', appear: 'transitionAppear', leave: 'transitionLeave' },
+      S = k,
+      L = { enter: 'transitionEnter', appear: 'transitionAppear', leave: 'transitionLeave' },
       C = (function(e) {
         function t() {
           return (
@@ -11861,26 +12138,26 @@
             {
               key: 'componentWillEnter',
               value: function(e) {
-                L.isEnterSupported(this.props) ? this.transition('enter', e) : e();
+                S.isEnterSupported(this.props) ? this.transition('enter', e) : e();
               },
             },
             {
               key: 'componentWillAppear',
               value: function(e) {
-                L.isAppearSupported(this.props) ? this.transition('appear', e) : e();
+                S.isAppearSupported(this.props) ? this.transition('appear', e) : e();
               },
             },
             {
               key: 'componentWillLeave',
               value: function(e) {
-                L.isLeaveSupported(this.props) ? this.transition('leave', e) : e();
+                S.isLeaveSupported(this.props) ? this.transition('leave', e) : e();
               },
             },
             {
               key: 'transition',
               value: function(e, t) {
                 var n = this,
-                  r = x.a.findDOMNode(this),
+                  r = H.a.findDOMNode(this),
                   o = this.props,
                   c = o.transitionName,
                   i = 'object' === typeof c;
@@ -11888,7 +12165,7 @@
                 var a = function() {
                   (n.stopper = null), t();
                 };
-                if ((O['b'] || !o.animation[e]) && c && o[S[e]]) {
+                if ((O['b'] || !o.animation[e]) && c && o[L[e]]) {
                   var l = i ? c[e] : c + '-' + e,
                     u = l + '-active';
                   i && c[e + 'Active'] && (u = c[e + 'Active']),
@@ -12126,8 +12403,8 @@
             var o = b(E(r));
             e.isValidChildByKey(o, t)
               ? 'appear' === n
-                ? L.allowAppearCallback(r) && (r.onAppear(t), r.onEnd(t, !0))
-                : L.allowEnterCallback(r) && (r.onEnter(t), r.onEnd(t, !0))
+                ? S.allowAppearCallback(r) && (r.onAppear(t), r.onEnd(t, !0))
+                : S.allowEnterCallback(r) && (r.onEnter(t), r.onEnd(t, !0))
               : e.performLeave(t);
           }
         }),
@@ -12143,7 +12420,7 @@
             if (e.isValidChildByKey(r, t)) e.performEnter(t);
             else {
               var o = function() {
-                L.allowLeaveCallback(n) && (n.onLeave(t), n.onEnd(t, !1));
+                S.allowLeaveCallback(n) && (n.onLeave(t), n.onEnd(t, !1));
               };
               M(e.state.children, r, n.showProp) ? o() : e.setState({ children: r }, o);
             }
@@ -12175,8 +12452,8 @@
       var w,
         M,
         _,
-        H = function(e) {
-          if (!h && e in L) return L[e];
+        x = function(e) {
+          if (!h && e in S) return S[e];
           switch (e) {
             case d:
               return function() {
@@ -12191,34 +12468,34 @@
             return new n(this, e);
           };
         },
-        x = t + ' Iterator',
+        H = t + ' Iterator',
         O = g == v,
         k = !1,
-        L = e.prototype,
-        S = L[f] || L[p] || (g && L[g]),
-        C = S || H(g),
-        V = g ? (O ? H('entries') : C) : void 0,
-        T = ('Array' == t && L.entries) || S;
+        S = e.prototype,
+        L = S[f] || S[p] || (g && S[g]),
+        C = L || x(g),
+        V = g ? (O ? x('entries') : C) : void 0,
+        T = ('Array' == t && S.entries) || L;
       if (
         (T &&
           ((_ = s(T.call(new e()))),
           _ !== Object.prototype &&
             _.next &&
-            (u(_, x, !0), r || 'function' == typeof _[f] || i(_, f, m))),
+            (u(_, H, !0), r || 'function' == typeof _[f] || i(_, f, m))),
         O &&
-          S &&
-          S.name !== v &&
+          L &&
+          L.name !== v &&
           ((k = !0),
           (C = function() {
-            return S.call(this);
+            return L.call(this);
           })),
-        (r && !z) || (!h && !k && L[f]) || i(L, f, C),
+        (r && !z) || (!h && !k && S[f]) || i(S, f, C),
         (a[t] = C),
-        (a[x] = m),
+        (a[H] = m),
         g)
       )
-        if (((w = { values: O ? C : H(v), keys: b ? C : H(d), entries: V }), z))
-          for (M in w) M in L || c(L, M, w[M]);
+        if (((w = { values: O ? C : x(v), keys: b ? C : x(d), entries: V }), z))
+          for (M in w) M in S || c(S, M, w[M]);
         else o(o.P + o.F * (h || k), t, w);
       return w;
     };
@@ -12226,68 +12503,148 @@
   'MR/8': function(e, t, n) {
     'use strict';
     n.r(t);
-    var r = n('QbLZ'),
-      o = n.n(r),
-      c = n('iCc5'),
-      i = n.n(c),
-      a = n('V7oC'),
-      l = n.n(a),
-      u = n('FYw3'),
-      s = n.n(u),
-      f = n('mRg0'),
-      h = n.n(f),
-      p = n('q1tI'),
-      d = n('17x9'),
-      v = n('wd/R');
-    function m(e) {
+    var r = n('q1tI'),
+      o = n('17x9'),
+      c = n('wd/R');
+    function i(e) {
       return e['default'] || e;
     }
-    var y = n('ul5b');
-    function g(e) {
-      e && e.locale ? m(v).locale(e.locale) : m(v).locale('en');
+    var a = n('ul5b');
+    function l(e) {
+      return (
+        (l =
+          'function' === typeof Symbol && 'symbol' === typeof Symbol.iterator
+            ? function(e) {
+                return typeof e;
+              }
+            : function(e) {
+                return e &&
+                  'function' === typeof Symbol &&
+                  e.constructor === Symbol &&
+                  e !== Symbol.prototype
+                  ? 'symbol'
+                  : typeof e;
+              }),
+        l(e)
+      );
     }
+    function u() {
+      return (
+        (u =
+          Object.assign ||
+          function(e) {
+            for (var t = 1; t < arguments.length; t++) {
+              var n = arguments[t];
+              for (var r in n) Object.prototype.hasOwnProperty.call(n, r) && (e[r] = n[r]);
+            }
+            return e;
+          }),
+        u.apply(this, arguments)
+      );
+    }
+    function s(e, t) {
+      if (!(e instanceof t)) throw new TypeError('Cannot call a class as a function');
+    }
+    function f(e, t) {
+      for (var n = 0; n < t.length; n++) {
+        var r = t[n];
+        (r.enumerable = r.enumerable || !1),
+          (r.configurable = !0),
+          'value' in r && (r.writable = !0),
+          Object.defineProperty(e, r.key, r);
+      }
+    }
+    function h(e, t, n) {
+      return t && f(e.prototype, t), n && f(e, n), e;
+    }
+    function p(e, t) {
+      return !t || ('object' !== l(t) && 'function' !== typeof t) ? d(e) : t;
+    }
+    function d(e) {
+      if (void 0 === e)
+        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+      return e;
+    }
+    function v(e) {
+      return (
+        (v = Object.setPrototypeOf
+          ? Object.getPrototypeOf
+          : function(e) {
+              return e.__proto__ || Object.getPrototypeOf(e);
+            }),
+        v(e)
+      );
+    }
+    function m(e, t) {
+      if ('function' !== typeof t && null !== t)
+        throw new TypeError('Super expression must either be null or a function');
+      (e.prototype = Object.create(t && t.prototype, {
+        constructor: { value: e, writable: !0, configurable: !0 },
+      })),
+        t && y(e, t);
+    }
+    function y(e, t) {
+      return (
+        (y =
+          Object.setPrototypeOf ||
+          function(e, t) {
+            return (e.__proto__ = t), e;
+          }),
+        y(e, t)
+      );
+    }
+    function g(e) {
+      e && e.locale ? i(c).locale(e.locale) : i(c).locale('en');
+    }
+    n.d(t, 'default', function() {
+      return b;
+    });
     var b = (function(e) {
       function t(e) {
-        i()(this, t);
-        var n = s()(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, e));
-        return g(e.locale), Object(y['a'])(e.locale && e.locale.Modal), n;
+        var n;
+        return (
+          s(this, t),
+          (n = p(this, v(t).call(this, e))),
+          g(e.locale),
+          Object(a['a'])(e.locale && e.locale.Modal),
+          n
+        );
       }
       return (
-        h()(t, e),
-        l()(t, [
+        m(t, e),
+        h(t, [
           {
             key: 'getChildContext',
             value: function() {
-              return { antLocale: o()({}, this.props.locale, { exist: !0 }) };
+              return { antLocale: u({}, this.props.locale, { exist: !0 }) };
             },
           },
           {
             key: 'componentDidUpdate',
             value: function(e) {
               var t = this.props.locale;
-              e.locale !== t && g(t), Object(y['a'])(t && t.Modal);
+              e.locale !== t && g(t), Object(a['a'])(t && t.Modal);
             },
           },
           {
             key: 'componentWillUnmount',
             value: function() {
-              Object(y['a'])();
+              Object(a['a'])();
             },
           },
           {
             key: 'render',
             value: function() {
-              return p['Children'].only(this.props.children);
+              return r['Children'].only(this.props.children);
             },
           },
         ]),
         t
       );
-    })(p['Component']);
-    t['default'] = b;
-    (b.propTypes = { locale: d['object'] }),
+    })(r['Component']);
+    (b.propTypes = { locale: o['object'] }),
       (b.defaultProps = { locale: {} }),
-      (b.childContextTypes = { antLocale: d['object'] });
+      (b.childContextTypes = { antLocale: o['object'] });
   },
   MVZn: function(e, t, n) {
     var r = n('lSNA');
@@ -12529,15 +12886,27 @@
       n('hswa').f(RegExp.prototype, 'flags', { configurable: !0, get: n('C/va') });
   },
   OG14: function(e, t, n) {
-    n('IU+Z')('search', 1, function(e, t, n) {
+    'use strict';
+    var r = n('y3w9'),
+      o = n('g6HL'),
+      c = n('Xxuz');
+    n('IU+Z')('search', 1, function(e, t, n, i) {
       return [
         function(n) {
-          'use strict';
           var r = e(this),
             o = void 0 == n ? void 0 : n[t];
           return void 0 !== o ? o.call(n, r) : new RegExp(n)[t](String(r));
         },
-        n,
+        function(e) {
+          var t = i(n, e, this);
+          if (t.done) return t.value;
+          var a = r(e),
+            l = String(this),
+            u = a.lastIndex;
+          o(u, 0) || (a.lastIndex = 0);
+          var s = c(a, l);
+          return o(a.lastIndex, u) || (a.lastIndex = u), null === s ? -1 : s.index;
+        },
       ];
     });
   },
@@ -12568,10 +12937,10 @@
         var y = Object.getPrototypeOf,
           g = y && y(y(T([])));
         g && g !== r && o.call(g, i) && (m = g);
-        var b = (H.prototype = M.prototype = Object.create(m));
-        (_.prototype = b.constructor = H),
-          (H.constructor = _),
-          (H[l] = _.displayName = 'GeneratorFunction'),
+        var b = (x.prototype = M.prototype = Object.create(m));
+        (_.prototype = b.constructor = x),
+          (x.constructor = _),
+          (x[l] = _.displayName = 'GeneratorFunction'),
           (s.isGeneratorFunction = function(e) {
             var t = 'function' === typeof e && e.constructor;
             return !!t && (t === _ || 'GeneratorFunction' === (t.displayName || t.name));
@@ -12579,8 +12948,8 @@
           (s.mark = function(e) {
             return (
               Object.setPrototypeOf
-                ? Object.setPrototypeOf(e, H)
-                : ((e.__proto__ = H), l in e || (e[l] = 'GeneratorFunction')),
+                ? Object.setPrototypeOf(e, x)
+                : ((e.__proto__ = x), l in e || (e[l] = 'GeneratorFunction')),
               (e.prototype = Object.create(b)),
               e
             );
@@ -12588,7 +12957,7 @@
           (s.awrap = function(e) {
             return { __await: e };
           }),
-          x(O.prototype),
+          H(O.prototype),
           (O.prototype[a] = function() {
             return this;
           }),
@@ -12601,7 +12970,7 @@
                   return e.done ? e.value : o.next();
                 });
           }),
-          x(b),
+          H(b),
           (b[l] = 'Generator'),
           (b[i] = function() {
             return this;
@@ -12756,8 +13125,8 @@
       }
       function M() {}
       function _() {}
-      function H() {}
-      function x(e) {
+      function x() {}
+      function H(e) {
         ['next', 'throw', 'return'].forEach(function(t) {
           e[t] = function(e) {
             return this._invoke(t, e);
@@ -12808,7 +13177,7 @@
           while (1) {
             var i = n.delegate;
             if (i) {
-              var a = L(i, n);
+              var a = S(i, n);
               if (a) {
                 if (a === v) continue;
                 return a;
@@ -12829,13 +13198,13 @@
           }
         };
       }
-      function L(e, t) {
+      function S(e, t) {
         var r = e.iterator[t.method];
         if (r === n) {
           if (((t.delegate = null), 'throw' === t.method)) {
             if (
               e.iterator.return &&
-              ((t.method = 'return'), (t.arg = n), L(e, t), 'throw' === t.method)
+              ((t.method = 'return'), (t.arg = n), S(e, t), 'throw' === t.method)
             )
               return v;
             (t.method = 'throw'),
@@ -12860,7 +13229,7 @@
             (t.delegate = null),
             v);
       }
-      function S(e) {
+      function L(e) {
         var t = { tryLoc: e[0] };
         1 in e && (t.catchLoc = e[1]),
           2 in e && ((t.finallyLoc = e[2]), (t.afterLoc = e[3])),
@@ -12871,7 +13240,7 @@
         (t.type = 'normal'), delete t.arg, (e.completion = t);
       }
       function V(e) {
-        (this.tryEntries = [{ tryLoc: 'root' }]), e.forEach(S, this), this.reset(!0);
+        (this.tryEntries = [{ tryLoc: 'root' }]), e.forEach(L, this), this.reset(!0);
       }
       function T(e) {
         if (e) {
@@ -12967,14 +13336,6 @@
         'M880 184H712v-64c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v64H384v-64c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v64H144c-17.7 0-32 14.3-32 32v664c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V216c0-17.7-14.3-32-32-32zM648.3 426.8l-87.7 161.1h45.7c5.5 0 10 4.5 10 10v21.3c0 5.5-4.5 10-10 10h-63.4v29.7h63.4c5.5 0 10 4.5 10 10v21.3c0 5.5-4.5 10-10 10h-63.4V752c0 5.5-4.5 10-10 10h-41.3c-5.5 0-10-4.5-10-10v-51.8h-63.1c-5.5 0-10-4.5-10-10v-21.3c0-5.5 4.5-10 10-10h63.1v-29.7h-63.1c-5.5 0-10-4.5-10-10v-21.3c0-5.5 4.5-10 10-10h45.2l-88-161.1c-2.6-4.8-.9-10.9 4-13.6 1.5-.8 3.1-1.2 4.8-1.2h46c3.8 0 7.2 2.1 8.9 5.5l72.9 144.3 73.2-144.3a10 10 0 0 1 8.9-5.5h45c5.5 0 10 4.5 10 10 .1 1.7-.3 3.3-1.1 4.8z'
       )
     )),
-      (t.AlipaySquareFill = u(
-        'alipay-square',
-        c,
-        l(
-          o,
-          'M308.6 545.7c-19.8 2-57.1 10.7-77.4 28.6-61 53-24.5 150 99 150 71.8 0 143.5-45.7 199.8-119-80.2-38.9-148.1-66.8-221.4-59.6zM880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm29.4 663.2S703 689.4 598.7 639.5C528.8 725.2 438.6 777.3 345 777.3c-158.4 0-212.1-138.1-137.2-229 16.3-19.8 44.2-38.7 87.3-49.4 67.5-16.5 175 10.3 275.7 43.4 18.1-33.3 33.4-69.9 44.7-108.9H305.1V402h160v-56.2H271.3v-31.3h193.8v-80.1s0-13.5 13.7-13.5H557v93.6h191.7v31.3H557.1V402h156.4c-15 61.1-37.7 117.4-66.2 166.8 47.5 17.1 90.1 33.3 121.8 43.9 114.3 38.2 140.2 40.2 140.2 40.2v122.3z'
-        )
-      )),
       (t.AlertFill = u(
         'alert',
         c,
@@ -12989,6 +13350,14 @@
         l(
           o,
           'M308.6 545.7c-19.8 2-57.1 10.7-77.4 28.6-61 53-24.5 150 99 150 71.8 0 143.5-45.7 199.8-119-80.2-38.9-148.1-66.8-221.4-59.6zm460.5 67c100.1 33.4 154.7 43 166.7 44.8A445.9 445.9 0 0 0 960 512c0-247.4-200.6-448-448-448S64 264.6 64 512s200.6 448 448 448c155.9 0 293.2-79.7 373.5-200.5-75.6-29.8-213.6-85-286.8-120.1-69.9 85.7-160.1 137.8-253.7 137.8-158.4 0-212.1-138.1-137.2-229 16.3-19.8 44.2-38.7 87.3-49.4 67.5-16.5 175 10.3 275.7 43.4 18.1-33.3 33.4-69.9 44.7-108.9H305.1V402h160v-56.2H271.3v-31.3h193.8v-80.1s0-13.5 13.7-13.5H557v93.6h191.7v31.3H557.1V402h156.4c-15 61.1-37.7 117.4-66.2 166.8 47.5 17.1 90.1 33.3 121.8 43.9z'
+        )
+      )),
+      (t.AlipaySquareFill = u(
+        'alipay-square',
+        c,
+        l(
+          o,
+          'M308.6 545.7c-19.8 2-57.1 10.7-77.4 28.6-61 53-24.5 150 99 150 71.8 0 143.5-45.7 199.8-119-80.2-38.9-148.1-66.8-221.4-59.6zM880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm29.4 663.2S703 689.4 598.7 639.5C528.8 725.2 438.6 777.3 345 777.3c-158.4 0-212.1-138.1-137.2-229 16.3-19.8 44.2-38.7 87.3-49.4 67.5-16.5 175 10.3 275.7 43.4 18.1-33.3 33.4-69.9 44.7-108.9H305.1V402h160v-56.2H271.3v-31.3h193.8v-80.1s0-13.5 13.7-13.5H557v93.6h191.7v31.3H557.1V402h156.4c-15 61.1-37.7 117.4-66.2 166.8 47.5 17.1 90.1 33.3 121.8 43.9 114.3 38.2 140.2 40.2 140.2 40.2v122.3z'
         )
       )),
       (t.AliwangwangFill = u(
@@ -13031,6 +13400,14 @@
           'M270.1 741.7c0 23.4 19.1 42.5 42.6 42.5h48.7v120.4c0 30.5 24.5 55.4 54.6 55.4 30.2 0 54.6-24.8 54.6-55.4V784.1h85v120.4c0 30.5 24.5 55.4 54.6 55.4 30.2 0 54.6-24.8 54.6-55.4V784.1h48.7c23.5 0 42.6-19.1 42.6-42.5V346.4h-486v395.3zm357.1-600.1l44.9-65c2.6-3.8 2-8.9-1.5-11.4-3.5-2.4-8.5-1.2-11.1 2.6l-46.6 67.6c-30.7-12.1-64.9-18.8-100.8-18.8-35.9 0-70.1 6.7-100.8 18.8l-46.6-67.5c-2.6-3.8-7.6-5.1-11.1-2.6-3.5 2.4-4.1 7.4-1.5 11.4l44.9 65c-71.4 33.2-121.4 96.1-127.8 169.6h486c-6.6-73.6-56.7-136.5-128-169.7zM409.5 244.1a26.9 26.9 0 1 1 26.9-26.9 26.97 26.97 0 0 1-26.9 26.9zm208.4 0a26.9 26.9 0 1 1 26.9-26.9 26.97 26.97 0 0 1-26.9 26.9zm223.4 100.7c-30.2 0-54.6 24.8-54.6 55.4v216.4c0 30.5 24.5 55.4 54.6 55.4 30.2 0 54.6-24.8 54.6-55.4V400.1c.1-30.6-24.3-55.3-54.6-55.3zm-658.6 0c-30.2 0-54.6 24.8-54.6 55.4v216.4c0 30.5 24.5 55.4 54.6 55.4 30.2 0 54.6-24.8 54.6-55.4V400.1c0-30.6-24.5-55.3-54.6-55.3z'
         )
       )),
+      (t.AudioFill = u(
+        'audio',
+        c,
+        l(
+          o,
+          'M512 624c93.9 0 170-75.2 170-168V232c0-92.8-76.1-168-170-168s-170 75.2-170 168v224c0 92.8 76.1 168 170 168zm330-170c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8 0 140.3-113.7 254-254 254S258 594.3 258 454c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8 0 168.7 126.6 307.9 290 327.6V884H326.7c-13.7 0-24.7 14.3-24.7 32v36c0 4.4 2.8 8 6.2 8h407.6c3.4 0 6.2-3.6 6.2-8v-36c0-17.7-11-32-24.7-32H548V782.1c165.3-18 294-158 294-328.1z'
+        )
+      )),
       (t.AppleFill = u(
         'apple',
         c,
@@ -13047,12 +13424,12 @@
           'M864 144H560c-8.8 0-16 7.2-16 16v304c0 8.8 7.2 16 16 16h304c8.8 0 16-7.2 16-16V160c0-8.8-7.2-16-16-16zm0 400H560c-8.8 0-16 7.2-16 16v304c0 8.8 7.2 16 16 16h304c8.8 0 16-7.2 16-16V560c0-8.8-7.2-16-16-16zM464 144H160c-8.8 0-16 7.2-16 16v304c0 8.8 7.2 16 16 16h304c8.8 0 16-7.2 16-16V160c0-8.8-7.2-16-16-16zm0 400H160c-8.8 0-16 7.2-16 16v304c0 8.8 7.2 16 16 16h304c8.8 0 16-7.2 16-16V560c0-8.8-7.2-16-16-16z'
         )
       )),
-      (t.AudioFill = u(
-        'audio',
+      (t.BackwardFill = u(
+        'backward',
         c,
         l(
-          o,
-          'M512 624c93.9 0 170-75.2 170-168V232c0-92.8-76.1-168-170-168s-170 75.2-170 168v224c0 92.8 76.1 168 170 168zm330-170c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8 0 140.3-113.7 254-254 254S258 594.3 258 454c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8 0 168.7 126.6 307.9 290 327.6V884H326.7c-13.7 0-24.7 14.3-24.7 32v36c0 4.4 2.8 8 6.2 8h407.6c3.4 0 6.2-3.6 6.2-8v-36c0-17.7-11-32-24.7-32H548V782.1c165.3-18 294-158 294-328.1z'
+          r,
+          'M485.6 249.9L198.2 498c-8.3 7.1-8.3 20.8 0 27.9l287.4 248.2c10.7 9.2 26.4.9 26.4-14V263.8c0-14.8-15.7-23.2-26.4-13.9zm320 0L518.2 498a18.6 18.6 0 0 0-6.2 14c0 5.2 2.1 10.4 6.2 14l287.4 248.2c10.7 9.2 26.4.9 26.4-14V263.8c0-14.8-15.7-23.2-26.4-13.9z'
         )
       )),
       (t.BankFill = u(
@@ -13063,28 +13440,12 @@
           'M894 462c30.9 0 43.8-39.7 18.7-58L530.8 126.2a31.81 31.81 0 0 0-37.6 0L111.3 404c-25.1 18.2-12.2 58 18.8 58H192v374h-72c-4.4 0-8 3.6-8 8v52c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-52c0-4.4-3.6-8-8-8h-72V462h62zM381 836H264V462h117v374zm189 0H453V462h117v374zm190 0H642V462h118v374z'
         )
       )),
-      (t.BackwardFill = u(
-        'backward',
-        c,
-        l(
-          r,
-          'M485.6 249.9L198.2 498c-8.3 7.1-8.3 20.8 0 27.9l287.4 248.2c10.7 9.2 26.4.9 26.4-14V263.8c0-14.8-15.7-23.2-26.4-13.9zm320 0L518.2 498a18.6 18.6 0 0 0-6.2 14c0 5.2 2.1 10.4 6.2 14l287.4 248.2c10.7 9.2 26.4.9 26.4-14V263.8c0-14.8-15.7-23.2-26.4-13.9z'
-        )
-      )),
       (t.BehanceCircleFill = u(
         'behance-circle',
         c,
         l(
           o,
           'M420.3 470.3c8.7-6.3 12.9-16.7 12.9-31 .3-6.8-1.1-13.5-4.1-19.6-2.7-4.9-6.7-9-11.6-11.9a44.8 44.8 0 0 0-16.6-6c-6.4-1.2-12.9-1.8-19.3-1.7h-70.3v79.7h76.1c13.1.1 24.2-3.1 32.9-9.5zm11.8 72c-9.8-7.5-22.9-11.2-39.2-11.2h-81.8v94h80.2c7.5 0 14.4-.7 21.1-2.1a50.5 50.5 0 0 0 17.8-7.2c5.1-3.3 9.2-7.8 12.3-13.6 3-5.8 4.5-13.2 4.5-22.1 0-17.7-5-30.2-14.9-37.8zM512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm86.5 286.9h138.4v33.7H598.5v-33.7zM512 628.8a89.52 89.52 0 0 1-27 31c-11.8 8.2-24.9 14.2-38.8 17.7a167.4 167.4 0 0 1-44.6 5.7H236V342.1h161c16.3 0 31.1 1.5 44.6 4.3 13.4 2.8 24.8 7.6 34.4 14.1 9.5 6.5 17 15.2 22.3 26 5.2 10.7 7.9 24.1 7.9 40 0 17.2-3.9 31.4-11.7 42.9-7.9 11.5-19.3 20.8-34.8 28.1 21.1 6 36.6 16.7 46.8 31.7 10.4 15.2 15.5 33.4 15.5 54.8 0 17.4-3.3 32.3-10 44.8zM790.8 576H612.4c0 19.4 6.7 38 16.8 48 10.2 9.9 24.8 14.9 43.9 14.9 13.8 0 25.5-3.5 35.5-10.4 9.9-6.9 15.9-14.2 18.1-21.8h59.8c-9.6 29.7-24.2 50.9-44 63.7-19.6 12.8-43.6 19.2-71.5 19.2-19.5 0-37-3.2-52.7-9.3-15.1-5.9-28.7-14.9-39.9-26.5a121.2 121.2 0 0 1-25.1-41.2c-6.1-16.9-9.1-34.7-8.9-52.6 0-18.5 3.1-35.7 9.1-51.7 11.5-31.1 35.4-56 65.9-68.9 16.3-6.8 33.8-10.2 51.5-10 21 0 39.2 4 55 12.2a111.6 111.6 0 0 1 38.6 32.8c10.1 13.7 17.2 29.3 21.7 46.9 4.3 17.3 5.8 35.5 4.6 54.7zm-122-95.6c-10.8 0-19.9 1.9-26.9 5.6-7 3.7-12.8 8.3-17.2 13.6a48.4 48.4 0 0 0-9.1 17.4c-1.6 5.3-2.7 10.7-3.1 16.2H723c-1.6-17.3-7.6-30.1-15.6-39.1-8.4-8.9-21.9-13.7-38.6-13.7z'
-        )
-      )),
-      (t.BehanceSquareFill = u(
-        'behance-square',
-        c,
-        l(
-          o,
-          'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zM598.5 350.9h138.4v33.7H598.5v-33.7zM512 628.8a89.52 89.52 0 0 1-27 31c-11.8 8.2-24.9 14.2-38.8 17.7a167.4 167.4 0 0 1-44.6 5.7H236V342.1h161c16.3 0 31.1 1.5 44.6 4.3 13.4 2.8 24.8 7.6 34.4 14.1 9.5 6.5 17 15.2 22.3 26 5.2 10.7 7.9 24.1 7.9 40 0 17.2-3.9 31.4-11.7 42.9-7.9 11.5-19.3 20.8-34.8 28.1 21.1 6 36.6 16.7 46.8 31.7 10.4 15.2 15.5 33.4 15.5 54.8 0 17.4-3.3 32.3-10 44.8zM790.8 576H612.4c0 19.4 6.7 38 16.8 48 10.2 9.9 24.8 14.9 43.9 14.9 13.8 0 25.5-3.5 35.5-10.4 9.9-6.9 15.9-14.2 18.1-21.8h59.8c-9.6 29.7-24.2 50.9-44 63.7-19.6 12.8-43.6 19.2-71.5 19.2-19.5 0-37-3.2-52.7-9.3-15.1-5.9-28.7-14.9-39.9-26.5a121.2 121.2 0 0 1-25.1-41.2c-6.1-16.9-9.1-34.7-8.9-52.6 0-18.5 3.1-35.7 9.1-51.7 11.5-31.1 35.4-56 65.9-68.9 16.3-6.8 33.8-10.2 51.5-10 21 0 39.2 4 55 12.2a111.6 111.6 0 0 1 38.6 32.8c10.1 13.7 17.2 29.3 21.7 46.9 4.3 17.3 5.8 35.5 4.6 54.7zm-122-95.6c-10.8 0-19.9 1.9-26.9 5.6-7 3.7-12.8 8.3-17.2 13.6a48.4 48.4 0 0 0-9.1 17.4c-1.6 5.3-2.7 10.7-3.1 16.2H723c-1.6-17.3-7.6-30.1-15.6-39.1-8.4-8.9-21.9-13.7-38.6-13.7zm-248.5-10.1c8.7-6.3 12.9-16.7 12.9-31 .3-6.8-1.1-13.5-4.1-19.6-2.7-4.9-6.7-9-11.6-11.9a44.8 44.8 0 0 0-16.6-6c-6.4-1.2-12.9-1.8-19.3-1.7h-70.3v79.7h76.1c13.1.1 24.2-3.1 32.9-9.5zm11.8 72c-9.8-7.5-22.9-11.2-39.2-11.2h-81.8v94h80.2c7.5 0 14.4-.7 21.1-2.1s12.7-3.8 17.8-7.2c5.1-3.3 9.2-7.8 12.3-13.6 3-5.8 4.5-13.2 4.5-22.1 0-17.7-5-30.2-14.9-37.8z'
         )
       )),
       (t.BellFill = u(
@@ -13103,12 +13464,12 @@
           'M832 64H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V96c0-17.7-14.3-32-32-32zM668 345.9L621.5 312 572 347.4V124h96v221.9z'
         )
       )),
-      (t.BoxPlotFill = u(
-        'box-plot',
+      (t.BehanceSquareFill = u(
+        'behance-square',
         c,
         l(
           o,
-          'M952 224h-52c-4.4 0-8 3.6-8 8v248h-92V304c0-4.4-3.6-8-8-8H448v432h344c4.4 0 8-3.6 8-8V548h92v244c0 4.4 3.6 8 8 8h52c4.4 0 8-3.6 8-8V232c0-4.4-3.6-8-8-8zm-728 80v176h-92V232c0-4.4-3.6-8-8-8H72c-4.4 0-8 3.6-8 8v560c0 4.4 3.6 8 8 8h52c4.4 0 8-3.6 8-8V548h92v172c0 4.4 3.6 8 8 8h152V296H232c-4.4 0-8 3.6-8 8z'
+          'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zM598.5 350.9h138.4v33.7H598.5v-33.7zM512 628.8a89.52 89.52 0 0 1-27 31c-11.8 8.2-24.9 14.2-38.8 17.7a167.4 167.4 0 0 1-44.6 5.7H236V342.1h161c16.3 0 31.1 1.5 44.6 4.3 13.4 2.8 24.8 7.6 34.4 14.1 9.5 6.5 17 15.2 22.3 26 5.2 10.7 7.9 24.1 7.9 40 0 17.2-3.9 31.4-11.7 42.9-7.9 11.5-19.3 20.8-34.8 28.1 21.1 6 36.6 16.7 46.8 31.7 10.4 15.2 15.5 33.4 15.5 54.8 0 17.4-3.3 32.3-10 44.8zM790.8 576H612.4c0 19.4 6.7 38 16.8 48 10.2 9.9 24.8 14.9 43.9 14.9 13.8 0 25.5-3.5 35.5-10.4 9.9-6.9 15.9-14.2 18.1-21.8h59.8c-9.6 29.7-24.2 50.9-44 63.7-19.6 12.8-43.6 19.2-71.5 19.2-19.5 0-37-3.2-52.7-9.3-15.1-5.9-28.7-14.9-39.9-26.5a121.2 121.2 0 0 1-25.1-41.2c-6.1-16.9-9.1-34.7-8.9-52.6 0-18.5 3.1-35.7 9.1-51.7 11.5-31.1 35.4-56 65.9-68.9 16.3-6.8 33.8-10.2 51.5-10 21 0 39.2 4 55 12.2a111.6 111.6 0 0 1 38.6 32.8c10.1 13.7 17.2 29.3 21.7 46.9 4.3 17.3 5.8 35.5 4.6 54.7zm-122-95.6c-10.8 0-19.9 1.9-26.9 5.6-7 3.7-12.8 8.3-17.2 13.6a48.4 48.4 0 0 0-9.1 17.4c-1.6 5.3-2.7 10.7-3.1 16.2H723c-1.6-17.3-7.6-30.1-15.6-39.1-8.4-8.9-21.9-13.7-38.6-13.7zm-248.5-10.1c8.7-6.3 12.9-16.7 12.9-31 .3-6.8-1.1-13.5-4.1-19.6-2.7-4.9-6.7-9-11.6-11.9a44.8 44.8 0 0 0-16.6-6c-6.4-1.2-12.9-1.8-19.3-1.7h-70.3v79.7h76.1c13.1.1 24.2-3.1 32.9-9.5zm11.8 72c-9.8-7.5-22.9-11.2-39.2-11.2h-81.8v94h80.2c7.5 0 14.4-.7 21.1-2.1s12.7-3.8 17.8-7.2c5.1-3.3 9.2-7.8 12.3-13.6 3-5.8 4.5-13.2 4.5-22.1 0-17.7-5-30.2-14.9-37.8z'
         )
       )),
       (t.BuildFill = u(
@@ -13135,20 +13496,20 @@
           'M112 880c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V460H112v420zm768-696H712v-64c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v64H384v-64c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v64H144c-17.7 0-32 14.3-32 32v176h800V216c0-17.7-14.3-32-32-32z'
         )
       )),
+      (t.BoxPlotFill = u(
+        'box-plot',
+        c,
+        l(
+          o,
+          'M952 224h-52c-4.4 0-8 3.6-8 8v248h-92V304c0-4.4-3.6-8-8-8H448v432h344c4.4 0 8-3.6 8-8V548h92v244c0 4.4 3.6 8 8 8h52c4.4 0 8-3.6 8-8V232c0-4.4-3.6-8-8-8zm-728 80v176h-92V232c0-4.4-3.6-8-8-8H72c-4.4 0-8 3.6-8 8v560c0 4.4 3.6 8 8 8h52c4.4 0 8-3.6 8-8V548h92v172c0 4.4 3.6 8 8 8h152V296H232c-4.4 0-8 3.6-8 8z'
+        )
+      )),
       (t.CalculatorFill = u(
         'calculator',
         c,
         l(
           o,
           'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zM440.2 765h-50.8c-2.2 0-4.5-1.1-5.9-2.9L348 718.6l-35.5 43.5a7.38 7.38 0 0 1-5.9 2.9h-50.8c-6.6 0-10.2-7.9-5.8-13.1l62.7-76.8-61.2-74.9c-4.3-5.2-.7-13.1 5.9-13.1h50.9c2.2 0 4.5 1.1 5.9 2.9l34 41.6 34-41.6c1.5-1.9 3.6-2.9 5.9-2.9h50.8c6.6 0 10.2 7.9 5.9 13.1L383.5 675l62.7 76.8c4.2 5.3.6 13.2-6 13.2zm7.8-382c0 2.2-1.4 4-3.2 4H376v68.7c0 1.9-1.8 3.3-4 3.3h-48c-2.2 0-4-1.4-4-3.2V387h-68.8c-1.8 0-3.2-1.8-3.2-4v-48c0-2.2 1.4-4 3.2-4H320v-68.8c0-1.8 1.8-3.2 4-3.2h48c2.2 0 4 1.4 4 3.2V331h68.7c1.9 0 3.3 1.8 3.3 4v48zm328 369c0 2.2-1.4 4-3.2 4H579.2c-1.8 0-3.2-1.8-3.2-4v-48c0-2.2 1.4-4 3.2-4h193.5c1.9 0 3.3 1.8 3.3 4v48zm0-104c0 2.2-1.4 4-3.2 4H579.2c-1.8 0-3.2-1.8-3.2-4v-48c0-2.2 1.4-4 3.2-4h193.5c1.9 0 3.3 1.8 3.3 4v48zm0-265c0 2.2-1.4 4-3.2 4H579.2c-1.8 0-3.2-1.8-3.2-4v-48c0-2.2 1.4-4 3.2-4h193.5c1.9 0 3.3 1.8 3.3 4v48z'
-        )
-      )),
-      (t.CameraFill = u(
-        'camera',
-        c,
-        l(
-          o,
-          'M864 260H728l-32.4-90.8a32.07 32.07 0 0 0-30.2-21.2H358.6c-13.5 0-25.6 8.5-30.1 21.2L296 260H160c-44.2 0-80 35.8-80 80v456c0 44.2 35.8 80 80 80h704c44.2 0 80-35.8 80-80V340c0-44.2-35.8-80-80-80zM512 716c-88.4 0-160-71.6-160-160s71.6-160 160-160 160 71.6 160 160-71.6 160-160 160zm-96-160a96 96 0 1 0 192 0 96 96 0 1 0-192 0z'
         )
       )),
       (t.CarFill = u(
@@ -13159,12 +13520,12 @@
           'M959 413.4L935.3 372a8 8 0 0 0-10.9-2.9l-50.7 29.6-78.3-216.2a63.9 63.9 0 0 0-60.9-44.4H301.2c-34.7 0-65.5 22.4-76.2 55.5l-74.6 205.2-50.8-29.6a8 8 0 0 0-10.9 2.9L65 413.4c-2.2 3.8-.9 8.6 2.9 10.8l60.4 35.2-14.5 40c-1.2 3.2-1.8 6.6-1.8 10v348.2c0 15.7 11.8 28.4 26.3 28.4h67.6c12.3 0 23-9.3 25.6-22.3l7.7-37.7h545.6l7.7 37.7c2.7 13 13.3 22.3 25.6 22.3h67.6c14.5 0 26.3-12.7 26.3-28.4V509.4c0-3.4-.6-6.8-1.8-10l-14.5-40 60.3-35.2a8 8 0 0 0 3-10.8zM264 621c-22.1 0-40-17.9-40-40s17.9-40 40-40 40 17.9 40 40-17.9 40-40 40zm388 75c0 4.4-3.6 8-8 8H380c-4.4 0-8-3.6-8-8v-84c0-4.4 3.6-8 8-8h40c4.4 0 8 3.6 8 8v36h168v-36c0-4.4 3.6-8 8-8h40c4.4 0 8 3.6 8 8v84zm108-75c-22.1 0-40-17.9-40-40s17.9-40 40-40 40 17.9 40 40-17.9 40-40 40zM220 418l72.7-199.9.5-1.3.4-1.3c1.1-3.3 4.1-5.5 7.6-5.5h427.6l75.4 208H220z'
         )
       )),
-      (t.CaretDownFill = u(
-        'caret-down',
+      (t.CameraFill = u(
+        'camera',
         c,
         l(
-          r,
-          'M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z'
+          o,
+          'M864 260H728l-32.4-90.8a32.07 32.07 0 0 0-30.2-21.2H358.6c-13.5 0-25.6 8.5-30.1 21.2L296 260H160c-44.2 0-80 35.8-80 80v456c0 44.2 35.8 80 80 80h704c44.2 0 80-35.8 80-80V340c0-44.2-35.8-80-80-80zM512 716c-88.4 0-160-71.6-160-160s71.6-160 160-160 160 71.6 160 160-71.6 160-160 160zm-96-160a96 96 0 1 0 192 0 96 96 0 1 0-192 0z'
         )
       )),
       (t.CaretLeftFill = u(
@@ -13175,6 +13536,14 @@
           'M689 165.1L308.2 493.5c-10.9 9.4-10.9 27.5 0 37L689 858.9c14.2 12.2 35 1.2 35-18.5V183.6c0-19.7-20.8-30.7-35-18.5z'
         )
       )),
+      (t.CaretDownFill = u(
+        'caret-down',
+        c,
+        l(
+          r,
+          'M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z'
+        )
+      )),
       (t.CaretRightFill = u(
         'caret-right',
         c,
@@ -13183,12 +13552,12 @@
           'M715.8 493.5L335 165.1c-14.2-12.2-35-1.2-35 18.5v656.8c0 19.7 20.8 30.7 35 18.5l380.8-328.4c10.9-9.4 10.9-27.6 0-37z'
         )
       )),
-      (t.CheckCircleFill = u(
-        'check-circle',
+      (t.CaretUpFill = u(
+        'caret-up',
         c,
         l(
-          o,
-          'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm193.5 301.7l-210.6 292a31.8 31.8 0 0 1-51.7 0L318.5 484.9c-3.8-5.3 0-12.7 6.5-12.7h46.9c10.2 0 19.9 4.9 25.9 13.3l71.2 98.8 157.2-218c6-8.3 15.6-13.3 25.9-13.3H699c6.5 0 10.3 7.4 6.5 12.7z'
+          r,
+          'M858.9 689L530.5 308.2c-9.4-10.9-27.5-10.9-37 0L165.1 689c-12.2 14.2-1.2 35 18.5 35h656.8c19.7 0 30.7-20.8 18.5-35z'
         )
       )),
       (t.CarryOutFill = u(
@@ -13199,12 +13568,12 @@
           'M880 184H712v-64c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v64H384v-64c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v64H144c-17.7 0-32 14.3-32 32v664c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V216c0-17.7-14.3-32-32-32zM694.5 432.7L481.9 725.4a16.1 16.1 0 0 1-26 0l-126.4-174c-3.8-5.3 0-12.7 6.5-12.7h55.2c5.1 0 10 2.5 13 6.6l64.7 89 150.9-207.8c3-4.1 7.8-6.6 13-6.6H688c6.5.1 10.3 7.5 6.5 12.8z'
         )
       )),
-      (t.CaretUpFill = u(
-        'caret-up',
+      (t.CheckCircleFill = u(
+        'check-circle',
         c,
         l(
-          r,
-          'M858.9 689L530.5 308.2c-9.4-10.9-27.5-10.9-37 0L165.1 689c-12.2 14.2-1.2 35 18.5 35h656.8c19.7 0 30.7-20.8 18.5-35z'
+          o,
+          'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm193.5 301.7l-210.6 292a31.8 31.8 0 0 1-51.7 0L318.5 484.9c-3.8-5.3 0-12.7 6.5-12.7h46.9c10.2 0 19.9 4.9 25.9 13.3l71.2 98.8 157.2-218c6-8.3 15.6-13.3 25.9-13.3H699c6.5 0 10.3 7.4 6.5 12.7z'
         )
       )),
       (t.CheckSquareFill = u(
@@ -13279,6 +13648,14 @@
           'M307.9 536.7l87.6 49.9V681l96.7 55.9V524.8L307.9 418.4zM880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zM755.7 653.2L512 794 268.3 653.2V371.8l110-63.6-.4-.2h.2L512 231l134 77h-.2l-.3.2 110.1 63.6v281.4zm-223.9 83.7l97.3-56.2v-94.1l87-49.5V418.5L531.8 525zm-20-352L418 331l-91.1 52.6 185.2 107 185.2-106.9-91.4-52.8z'
         )
       )),
+      (t.CodepenSquareFill = u(
+        'codepen-square',
+        c,
+        l(
+          o,
+          'M723.1 428L535.9 303.4v111.3l103.6 69.1zM512 456.1l-84.5 56.4 84.5 56.4 84.5-56.4zm23.9 154.2v111.3L723.1 597l-83.6-55.8zm-151.4-69.1L300.9 597l187.2 124.6V610.3l-103.6-69.1zM880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-90 485c0 1.1-.1 2.1-.2 3.1 0 .4-.1.7-.2 1a14.16 14.16 0 0 1-.8 3.2c-.2.6-.4 1.2-.6 1.7-.2.4-.4.8-.5 1.2-.3.5-.5 1.1-.8 1.6-.2.4-.4.7-.7 1.1-.3.5-.7 1-1 1.5-.3.4-.5.7-.8 1-.4.4-.8.9-1.2 1.3-.3.3-.6.6-1 .9-.4.4-.9.8-1.4 1.1-.4.3-.7.6-1.1.8-.1.1-.3.2-.4.3L525.2 786c-4 2.7-8.6 4-13.2 4-4.7 0-9.3-1.4-13.3-4L244.6 616.9c-.1-.1-.3-.2-.4-.3l-1.1-.8c-.5-.4-.9-.7-1.3-1.1-.3-.3-.6-.6-1-.9-.4-.4-.8-.8-1.2-1.3a7 7 0 0 1-.8-1c-.4-.5-.7-1-1-1.5-.2-.4-.5-.7-.7-1.1-.3-.5-.6-1.1-.8-1.6-.2-.4-.4-.8-.5-1.2-.2-.6-.4-1.2-.6-1.7-.1-.4-.3-.8-.4-1.2-.2-.7-.3-1.3-.4-2-.1-.3-.1-.7-.2-1-.1-1-.2-2.1-.2-3.1V427.9c0-1 .1-2.1.2-3.1.1-.3.1-.7.2-1a14.16 14.16 0 0 1 .8-3.2c.2-.6.4-1.2.6-1.7.2-.4.4-.8.5-1.2.2-.5.5-1.1.8-1.6.2-.4.4-.7.7-1.1.6-.9 1.2-1.7 1.8-2.5.4-.4.8-.9 1.2-1.3.3-.3.6-.6 1-.9.4-.4.9-.8 1.3-1.1.4-.3.7-.6 1.1-.8.1-.1.3-.2.4-.3L498.7 239c8-5.3 18.5-5.3 26.5 0l254.1 169.1c.1.1.3.2.4.3l1.1.8 1.4 1.1c.3.3.6.6 1 .9.4.4.8.8 1.2 1.3.7.8 1.3 1.6 1.8 2.5.2.4.5.7.7 1.1.3.5.6 1 .8 1.6.2.4.4.8.5 1.2.2.6.4 1.2.6 1.7.1.4.3.8.4 1.2.2.7.3 1.3.4 2 .1.3.1.7.2 1 .1 1 .2 2.1.2 3.1V597zm-47.8-44.6v-79.8l-59.8 39.9zm-460.4-79.8v79.8l59.8-39.9zm206.3-57.9V303.4L300.9 428l83.6 55.8z'
+        )
+      )),
       (t.CodeFill = u(
         'code',
         c,
@@ -13293,14 +13670,6 @@
         l(
           o,
           'M488.1 414.7V303.4L300.9 428l83.6 55.8zm254.1 137.7v-79.8l-59.8 39.9zM512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm278 533c0 1.1-.1 2.1-.2 3.1 0 .4-.1.7-.2 1a14.16 14.16 0 0 1-.8 3.2c-.2.6-.4 1.2-.6 1.7-.2.4-.4.8-.5 1.2-.3.5-.5 1.1-.8 1.6-.2.4-.4.7-.7 1.1-.3.5-.7 1-1 1.5-.3.4-.5.7-.8 1-.4.4-.8.9-1.2 1.3-.3.3-.6.6-1 .9-.4.4-.9.8-1.4 1.1-.4.3-.7.6-1.1.8-.1.1-.3.2-.4.3L525.2 786c-4 2.7-8.6 4-13.2 4-4.7 0-9.3-1.4-13.3-4L244.6 616.9c-.1-.1-.3-.2-.4-.3l-1.1-.8c-.5-.4-.9-.7-1.3-1.1-.3-.3-.6-.6-1-.9-.4-.4-.8-.8-1.2-1.3a7 7 0 0 1-.8-1c-.4-.5-.7-1-1-1.5-.2-.4-.5-.7-.7-1.1-.3-.5-.6-1.1-.8-1.6-.2-.4-.4-.8-.5-1.2-.2-.6-.4-1.2-.6-1.7-.1-.4-.3-.8-.4-1.2-.2-.7-.3-1.3-.4-2-.1-.3-.1-.7-.2-1-.1-1-.2-2.1-.2-3.1V427.9c0-1 .1-2.1.2-3.1.1-.3.1-.7.2-1a14.16 14.16 0 0 1 .8-3.2c.2-.6.4-1.2.6-1.7.2-.4.4-.8.5-1.2.2-.5.5-1.1.8-1.6.2-.4.4-.7.7-1.1.6-.9 1.2-1.7 1.8-2.5.4-.4.8-.9 1.2-1.3.3-.3.6-.6 1-.9.4-.4.9-.8 1.3-1.1.4-.3.7-.6 1.1-.8.1-.1.3-.2.4-.3L498.7 239c8-5.3 18.5-5.3 26.5 0l254.1 169.1c.1.1.3.2.4.3l1.1.8 1.4 1.1c.3.3.6.6 1 .9.4.4.8.8 1.2 1.3.7.8 1.3 1.6 1.8 2.5.2.4.5.7.7 1.1.3.5.6 1 .8 1.6.2.4.4.8.5 1.2.2.6.4 1.2.6 1.7.1.4.3.8.4 1.2.2.7.3 1.3.4 2 .1.3.1.7.2 1 .1 1 .2 2.1.2 3.1V597zm-254.1 13.3v111.3L723.1 597l-83.6-55.8zM281.8 472.6v79.8l59.8-39.9zM512 456.1l-84.5 56.4 84.5 56.4 84.5-56.4zM723.1 428L535.9 303.4v111.3l103.6 69.1zM384.5 541.2L300.9 597l187.2 124.6V610.3l-103.6-69.1z'
-        )
-      )),
-      (t.CodepenSquareFill = u(
-        'codepen-square',
-        c,
-        l(
-          o,
-          'M723.1 428L535.9 303.4v111.3l103.6 69.1zM512 456.1l-84.5 56.4 84.5 56.4 84.5-56.4zm23.9 154.2v111.3L723.1 597l-83.6-55.8zm-151.4-69.1L300.9 597l187.2 124.6V610.3l-103.6-69.1zM880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-90 485c0 1.1-.1 2.1-.2 3.1 0 .4-.1.7-.2 1a14.16 14.16 0 0 1-.8 3.2c-.2.6-.4 1.2-.6 1.7-.2.4-.4.8-.5 1.2-.3.5-.5 1.1-.8 1.6-.2.4-.4.7-.7 1.1-.3.5-.7 1-1 1.5-.3.4-.5.7-.8 1-.4.4-.8.9-1.2 1.3-.3.3-.6.6-1 .9-.4.4-.9.8-1.4 1.1-.4.3-.7.6-1.1.8-.1.1-.3.2-.4.3L525.2 786c-4 2.7-8.6 4-13.2 4-4.7 0-9.3-1.4-13.3-4L244.6 616.9c-.1-.1-.3-.2-.4-.3l-1.1-.8c-.5-.4-.9-.7-1.3-1.1-.3-.3-.6-.6-1-.9-.4-.4-.8-.8-1.2-1.3a7 7 0 0 1-.8-1c-.4-.5-.7-1-1-1.5-.2-.4-.5-.7-.7-1.1-.3-.5-.6-1.1-.8-1.6-.2-.4-.4-.8-.5-1.2-.2-.6-.4-1.2-.6-1.7-.1-.4-.3-.8-.4-1.2-.2-.7-.3-1.3-.4-2-.1-.3-.1-.7-.2-1-.1-1-.2-2.1-.2-3.1V427.9c0-1 .1-2.1.2-3.1.1-.3.1-.7.2-1a14.16 14.16 0 0 1 .8-3.2c.2-.6.4-1.2.6-1.7.2-.4.4-.8.5-1.2.2-.5.5-1.1.8-1.6.2-.4.4-.7.7-1.1.6-.9 1.2-1.7 1.8-2.5.4-.4.8-.9 1.2-1.3.3-.3.6-.6 1-.9.4-.4.9-.8 1.3-1.1.4-.3.7-.6 1.1-.8.1-.1.3-.2.4-.3L498.7 239c8-5.3 18.5-5.3 26.5 0l254.1 169.1c.1.1.3.2.4.3l1.1.8 1.4 1.1c.3.3.6.6 1 .9.4.4.8.8 1.2 1.3.7.8 1.3 1.6 1.8 2.5.2.4.5.7.7 1.1.3.5.6 1 .8 1.6.2.4.4.8.5 1.2.2.6.4 1.2.6 1.7.1.4.3.8.4 1.2.2.7.3 1.3.4 2 .1.3.1.7.2 1 .1 1 .2 2.1.2 3.1V597zm-47.8-44.6v-79.8l-59.8 39.9zm-460.4-79.8v79.8l59.8-39.9zm206.3-57.9V303.4L300.9 428l83.6 55.8z'
         )
       )),
       (t.CompassFill = u(
@@ -13383,20 +13752,20 @@
           'M512 128c-212.1 0-384 171.9-384 384v360c0 13.3 10.7 24 24 24h184c35.3 0 64-28.7 64-64V624c0-35.3-28.7-64-64-64H200v-48c0-172.3 139.7-312 312-312s312 139.7 312 312v48H688c-35.3 0-64 28.7-64 64v208c0 35.3 28.7 64 64 64h184c13.3 0 24-10.7 24-24V512c0-212.1-171.9-384-384-384z'
         )
       )),
-      (t.DatabaseFill = u(
-        'database',
-        c,
-        l(
-          o,
-          'M832 64H192c-17.7 0-32 14.3-32 32v224h704V96c0-17.7-14.3-32-32-32zM288 232c-22.1 0-40-17.9-40-40s17.9-40 40-40 40 17.9 40 40-17.9 40-40 40zM160 928c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V704H160v224zm128-136c22.1 0 40 17.9 40 40s-17.9 40-40 40-40-17.9-40-40 17.9-40 40-40zM160 640h704V384H160v256zm128-168c22.1 0 40 17.9 40 40s-17.9 40-40 40-40-17.9-40-40 17.9-40 40-40z'
-        )
-      )),
       (t.DeleteFill = u(
         'delete',
         c,
         l(
           o,
           'M864 256H736v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zm-200 0H360v-72h304v72z'
+        )
+      )),
+      (t.DatabaseFill = u(
+        'database',
+        c,
+        l(
+          o,
+          'M832 64H192c-17.7 0-32 14.3-32 32v224h704V96c0-17.7-14.3-32-32-32zM288 232c-22.1 0-40-17.9-40-40s17.9-40 40-40 40 17.9 40 40-17.9 40-40 40zM160 928c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V704H160v224zm128-136c22.1 0 40 17.9 40 40s-17.9 40-40 40-40-17.9-40-40 17.9-40 40-40zM160 640h704V384H160v256zm128-168c22.1 0 40 17.9 40 40s-17.9 40-40 40-40-17.9-40-40 17.9-40 40-40z'
         )
       )),
       (t.DiffFill = u(
@@ -13407,14 +13776,6 @@
           'M854.2 306.6L611.3 72.9c-6-5.7-13.9-8.9-22.2-8.9H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h277l219 210.6V824c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V329.6c0-8.7-3.5-17-9.8-23zM553.4 201.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v704c0 17.7 14.3 32 32 32h512c17.7 0 32-14.3 32-32V397.3c0-8.5-3.4-16.6-9.4-22.6L553.4 201.4zM568 753c0 3.8-3.4 7-7.5 7h-225c-4.1 0-7.5-3.2-7.5-7v-42c0-3.8 3.4-7 7.5-7h225c4.1 0 7.5 3.2 7.5 7v42zm0-220c0 3.8-3.4 7-7.5 7H476v84.9c0 3.9-3.1 7.1-7 7.1h-42c-3.8 0-7-3.2-7-7.1V540h-84.5c-4.1 0-7.5-3.2-7.5-7v-42c0-3.9 3.4-7 7.5-7H420v-84.9c0-3.9 3.2-7.1 7-7.1h42c3.9 0 7 3.2 7 7.1V484h84.5c4.1 0 7.5 3.1 7.5 7v42z'
         )
       )),
-      (t.DingtalkSquareFill = u(
-        'dingtalk-square',
-        c,
-        l(
-          o,
-          'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zM739 449.3c-1 4.2-3.5 10.4-7 17.8h.1l-.4.7c-20.3 43.1-73.1 127.7-73.1 127.7s-.1-.2-.3-.5l-15.5 26.8h74.5L575.1 810l32.3-128h-58.6l20.4-84.7c-16.5 3.9-35.9 9.4-59 16.8 0 0-31.2 18.2-89.9-35 0 0-39.6-34.7-16.6-43.4 9.8-3.7 47.4-8.4 77-12.3 40-5.4 64.6-8.2 64.6-8.2S422 517 392.7 512.5c-29.3-4.6-66.4-53.1-74.3-95.8 0 0-12.2-23.4 26.3-12.3 38.5 11.1 197.9 43.2 197.9 43.2s-207.4-63.3-221.2-78.7c-13.8-15.4-40.6-84.2-37.1-126.5 0 0 1.5-10.5 12.4-7.7 0 0 153.3 69.7 258.1 107.9 104.8 37.9 195.9 57.3 184.2 106.7z'
-        )
-      )),
       (t.DingtalkCircleFill = u(
         'dingtalk-circle',
         c,
@@ -13423,12 +13784,12 @@
           'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm227 385.3c-1 4.2-3.5 10.4-7 17.8h.1l-.4.7c-20.3 43.1-73.1 127.7-73.1 127.7s-.1-.2-.3-.5l-15.5 26.8h74.5L575.1 810l32.3-128h-58.6l20.4-84.7c-16.5 3.9-35.9 9.4-59 16.8 0 0-31.2 18.2-89.9-35 0 0-39.6-34.7-16.6-43.4 9.8-3.7 47.4-8.4 77-12.3 40-5.4 64.6-8.2 64.6-8.2S422 517 392.7 512.5c-29.3-4.6-66.4-53.1-74.3-95.8 0 0-12.2-23.4 26.3-12.3 38.5 11.1 197.9 43.2 197.9 43.2s-207.4-63.3-221.2-78.7c-13.8-15.4-40.6-84.2-37.1-126.5 0 0 1.5-10.5 12.4-7.7 0 0 153.3 69.7 258.1 107.9 104.8 37.9 195.9 57.3 184.2 106.7z'
         )
       )),
-      (t.DollarCircleFill = u(
-        'dollar-circle',
+      (t.DingtalkSquareFill = u(
+        'dingtalk-square',
         c,
         l(
           o,
-          'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm22.3 665.2l.2 31.7c0 4.4-3.6 8.1-8 8.1h-28.4c-4.4 0-8-3.6-8-8v-31.4C401.3 723 359.5 672.4 355 617.4c-.4-4.7 3.3-8.7 8-8.7h46.2c3.9 0 7.3 2.8 7.9 6.6 5.1 31.7 29.8 55.4 74.1 61.3V533.9l-24.7-6.3c-52.3-12.5-102.1-45.1-102.1-112.7 0-72.9 55.4-112.1 126.2-119v-33c0-4.4 3.6-8 8-8h28.1c4.4 0 8 3.6 8 8v32.7c68.5 6.9 119.9 46.9 125.9 109.2.5 4.7-3.2 8.8-8 8.8h-44.9c-4 0-7.4-3-7.9-6.9-4-29.2-27.4-53-65.5-58.2v134.3l25.4 5.9c64.8 16 108.9 47 108.9 116.4 0 75.3-56 117.3-134.3 124.1zM426.6 410.3c0 25.4 15.7 45.1 49.5 57.3 4.7 1.9 9.4 3.4 15 5v-124c-36.9 4.7-64.5 25.4-64.5 61.7zm116.5 135.2c-2.8-.6-5.6-1.3-8.8-2.2V677c42.6-3.8 72-27.2 72-66.4 0-30.7-15.9-50.7-63.2-65.1z'
+          'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zM739 449.3c-1 4.2-3.5 10.4-7 17.8h.1l-.4.7c-20.3 43.1-73.1 127.7-73.1 127.7s-.1-.2-.3-.5l-15.5 26.8h74.5L575.1 810l32.3-128h-58.6l20.4-84.7c-16.5 3.9-35.9 9.4-59 16.8 0 0-31.2 18.2-89.9-35 0 0-39.6-34.7-16.6-43.4 9.8-3.7 47.4-8.4 77-12.3 40-5.4 64.6-8.2 64.6-8.2S422 517 392.7 512.5c-29.3-4.6-66.4-53.1-74.3-95.8 0 0-12.2-23.4 26.3-12.3 38.5 11.1 197.9 43.2 197.9 43.2s-207.4-63.3-221.2-78.7c-13.8-15.4-40.6-84.2-37.1-126.5 0 0 1.5-10.5 12.4-7.7 0 0 153.3 69.7 258.1 107.9 104.8 37.9 195.9 57.3 184.2 106.7z'
         )
       )),
       (t.DislikeFill = u(
@@ -13455,6 +13816,14 @@
           'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zM696.5 412.7l-178 246a7.95 7.95 0 0 1-12.9 0l-178-246c-3.8-5.3 0-12.7 6.5-12.7H381c10.2 0 19.9 4.9 25.9 13.2L512 558.6l105.2-145.4c6-8.3 15.6-13.2 25.9-13.2H690c6.5 0 10.3 7.4 6.5 12.7z'
         )
       )),
+      (t.DollarCircleFill = u(
+        'dollar-circle',
+        c,
+        l(
+          o,
+          'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm22.3 665.2l.2 31.7c0 4.4-3.6 8.1-8 8.1h-28.4c-4.4 0-8-3.6-8-8v-31.4C401.3 723 359.5 672.4 355 617.4c-.4-4.7 3.3-8.7 8-8.7h46.2c3.9 0 7.3 2.8 7.9 6.6 5.1 31.7 29.8 55.4 74.1 61.3V533.9l-24.7-6.3c-52.3-12.5-102.1-45.1-102.1-112.7 0-72.9 55.4-112.1 126.2-119v-33c0-4.4 3.6-8 8-8h28.1c4.4 0 8 3.6 8 8v32.7c68.5 6.9 119.9 46.9 125.9 109.2.5 4.7-3.2 8.8-8 8.8h-44.9c-4 0-7.4-3-7.9-6.9-4-29.2-27.4-53-65.5-58.2v134.3l25.4 5.9c64.8 16 108.9 47 108.9 116.4 0 75.3-56 117.3-134.3 124.1zM426.6 410.3c0 25.4 15.7 45.1 49.5 57.3 4.7 1.9 9.4 3.4 15 5v-124c-36.9 4.7-64.5 25.4-64.5 61.7zm116.5 135.2c-2.8-.6-5.6-1.3-8.8-2.2V677c42.6-3.8 72-27.2 72-66.4 0-30.7-15.9-50.7-63.2-65.1z'
+        )
+      )),
       (t.DribbbleCircleFill = u(
         'dribbble-circle',
         c,
@@ -13479,6 +13848,14 @@
           'M663.8 455.5zm-151.5-93.8l-151.8 93.8 151.8 93.9 151.5-93.9zM512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm151.2 595.5L512.6 750l-151-90.5v-33.1l45.4 29.4 105.6-87.7 105.6 87.7 45.1-29.4v33.1zm-45.6-22.4l-105.3-87.7L407 637.1l-151-99.2 104.5-82.4L256 371.2 407 274l105.3 87.7L617.6 274 768 372.1l-104.2 83.5L768 539l-150.4 98.1z'
         )
       )),
+      (t.DropboxSquareFill = u(
+        'dropbox-square',
+        c,
+        l(
+          o,
+          'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zM663.2 659.5L512.6 750l-151-90.5v-33.1l45.4 29.4 105.6-87.7 105.6 87.7 45.1-29.4v33.1zm-45.6-22.4l-105.3-87.7L407 637.1l-151-99.2 104.5-82.4L256 371.2 407 274l105.3 87.7L617.6 274 768 372.1l-104.2 83.5L768 539l-150.4 98.1zM512.3 361.7l-151.8 93.8 151.8 93.9 151.5-93.9zm151.5 93.8z'
+        )
+      )),
       (t.EditFill = u(
         'edit',
         c,
@@ -13487,12 +13864,12 @@
           'M880 836H144c-17.7 0-32 14.3-32 32v36c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-36c0-17.7-14.3-32-32-32zm-622.3-84c2 0 4-.2 6-.5L431.9 722c2-.4 3.9-1.3 5.3-2.8l423.9-423.9a9.96 9.96 0 0 0 0-14.1L694.9 114.9c-1.9-1.9-4.4-2.9-7.1-2.9s-5.2 1-7.1 2.9L256.8 538.8c-1.5 1.5-2.4 3.3-2.8 5.3l-29.5 168.2a33.5 33.5 0 0 0 9.4 29.8c6.6 6.4 14.9 9.9 23.8 9.9z'
         )
       )),
-      (t.DropboxSquareFill = u(
-        'dropbox-square',
+      (t.EnvironmentFill = u(
+        'environment',
         c,
         l(
           o,
-          'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zM663.2 659.5L512.6 750l-151-90.5v-33.1l45.4 29.4 105.6-87.7 105.6 87.7 45.1-29.4v33.1zm-45.6-22.4l-105.3-87.7L407 637.1l-151-99.2 104.5-82.4L256 371.2 407 274l105.3 87.7L617.6 274 768 372.1l-104.2 83.5L768 539l-150.4 98.1zM512.3 361.7l-151.8 93.8 151.8 93.9 151.5-93.9zm151.5 93.8z'
+          'M512 327c-29.9 0-58 11.6-79.2 32.8A111.6 111.6 0 0 0 400 439c0 29.9 11.7 58 32.8 79.2A111.6 111.6 0 0 0 512 551c29.9 0 58-11.7 79.2-32.8C612.4 497 624 468.9 624 439c0-29.9-11.6-58-32.8-79.2S541.9 327 512 327zm342.6-37.9a362.49 362.49 0 0 0-79.9-115.7 370.83 370.83 0 0 0-118.2-77.8C610.7 76.6 562.1 67 512 67c-50.1 0-98.7 9.6-144.5 28.5-44.3 18.3-84 44.5-118.2 77.8A363.6 363.6 0 0 0 169.4 289c-19.5 45-29.4 92.8-29.4 142 0 70.6 16.9 140.9 50.1 208.7 26.7 54.5 64 107.6 111 158.1 80.3 86.2 164.5 138.9 188.4 153a43.9 43.9 0 0 0 22.4 6.1c7.8 0 15.5-2 22.4-6.1 23.9-14.1 108.1-66.8 188.4-153 47-50.4 84.3-103.6 111-158.1C867.1 572 884 501.8 884 431.1c0-49.2-9.9-97-29.4-142zM512 615c-97.2 0-176-78.8-176-176s78.8-176 176-176 176 78.8 176 176-78.8 176-176 176z'
         )
       )),
       (t.EuroCircleFill = u(
@@ -13511,12 +13888,13 @@
           'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm-32 232c0-4.4 3.6-8 8-8h48c4.4 0 8 3.6 8 8v272c0 4.4-3.6 8-8 8h-48c-4.4 0-8-3.6-8-8V296zm32 440a48.01 48.01 0 0 1 0-96 48.01 48.01 0 0 1 0 96z'
         )
       )),
-      (t.EnvironmentFill = u(
-        'environment',
+      (t.EyeInvisibleFill = u(
+        'eye-invisible',
         c,
         l(
           o,
-          'M512 327c-29.9 0-58 11.6-79.2 32.8A111.6 111.6 0 0 0 400 439c0 29.9 11.7 58 32.8 79.2A111.6 111.6 0 0 0 512 551c29.9 0 58-11.7 79.2-32.8C612.4 497 624 468.9 624 439c0-29.9-11.6-58-32.8-79.2S541.9 327 512 327zm342.6-37.9a362.49 362.49 0 0 0-79.9-115.7 370.83 370.83 0 0 0-118.2-77.8C610.7 76.6 562.1 67 512 67c-50.1 0-98.7 9.6-144.5 28.5-44.3 18.3-84 44.5-118.2 77.8A363.6 363.6 0 0 0 169.4 289c-19.5 45-29.4 92.8-29.4 142 0 70.6 16.9 140.9 50.1 208.7 26.7 54.5 64 107.6 111 158.1 80.3 86.2 164.5 138.9 188.4 153a43.9 43.9 0 0 0 22.4 6.1c7.8 0 15.5-2 22.4-6.1 23.9-14.1 108.1-66.8 188.4-153 47-50.4 84.3-103.6 111-158.1C867.1 572 884 501.8 884 431.1c0-49.2-9.9-97-29.4-142zM512 615c-97.2 0-176-78.8-176-176s78.8-176 176-176 176 78.8 176 176-78.8 176-176 176z'
+          'M508 624a112 112 0 0 0 112-112c0-3.28-.15-6.53-.43-9.74L498.26 623.57c3.21.28 6.45.43 9.74.43zm370.72-458.44L836 122.88a8 8 0 0 0-11.31 0L715.37 232.23Q624.91 186 512 186q-288.3 0-430.2 300.3a60.3 60.3 0 0 0 0 51.5q56.7 119.43 136.55 191.45L112.56 835a8 8 0 0 0 0 11.31L155.25 889a8 8 0 0 0 11.31 0l712.16-712.12a8 8 0 0 0 0-11.32zM332 512a176 176 0 0 1 258.88-155.28l-48.62 48.62a112.08 112.08 0 0 0-140.92 140.92l-48.62 48.62A175.09 175.09 0 0 1 332 512z',
+          'M942.2 486.2Q889.4 375 816.51 304.85L672.37 449A176.08 176.08 0 0 1 445 676.37L322.74 798.63Q407.82 838 512 838q288.3 0 430.2-300.3a60.29 60.29 0 0 0 0-51.5z'
         )
       )),
       (t.ExperimentFill = u(
@@ -13551,6 +13929,14 @@
           'M517.6 273.5L230.2 499.3a16.14 16.14 0 0 0 0 25.4l287.4 225.8c10.7 8.4 26.4.8 26.4-12.7V286.2c0-13.5-15.7-21.1-26.4-12.7zm320 0L550.2 499.3a16.14 16.14 0 0 0 0 25.4l287.4 225.8c10.7 8.4 26.4.8 26.4-12.7V286.2c0-13.5-15.7-21.1-26.4-12.7zm-620-25.5h-51.2c-3.5 0-6.4 2.7-6.4 6v516c0 3.3 2.9 6 6.4 6h51.2c3.5 0 6.4-2.7 6.4-6V254c0-3.3-2.9-6-6.4-6z'
         )
       )),
+      (t.FileAddFill = u(
+        'file-add',
+        c,
+        l(
+          o,
+          'M480 580H372a8 8 0 0 0-8 8v48a8 8 0 0 0 8 8h108v108a8 8 0 0 0 8 8h48a8 8 0 0 0 8-8V644h108a8 8 0 0 0 8-8v-48a8 8 0 0 0-8-8H544V472a8 8 0 0 0-8-8h-48a8 8 0 0 0-8 8v108zm374.6-291.3c6 6 9.4 14.1 9.4 22.6V928c0 17.7-14.3 32-32 32H192c-17.7 0-32-14.3-32-32V96c0-17.7 14.3-32 32-32h424.7c8.5 0 16.7 3.4 22.7 9.4l215.2 215.3zM790.2 326L602 137.8V326h188.2z'
+        )
+      )),
       (t.FastForwardFill = u(
         'fast-forward',
         c,
@@ -13567,12 +13953,12 @@
           'M854.6 288.7c6 6 9.4 14.1 9.4 22.6V928c0 17.7-14.3 32-32 32H192c-17.7 0-32-14.3-32-32V96c0-17.7 14.3-32 32-32h424.7c8.5 0 16.7 3.4 22.7 9.4l215.2 215.3zM790.2 326L602 137.8V326h188.2zM575.34 477.84l-61.22 102.3L452.3 477.8a12 12 0 0 0-10.27-5.79h-38.44a12 12 0 0 0-6.4 1.85 12 12 0 0 0-3.75 16.56l82.34 130.42-83.45 132.78a12 12 0 0 0-1.84 6.39 12 12 0 0 0 12 12h34.46a12 12 0 0 0 10.21-5.7l62.7-101.47 62.3 101.45a12 12 0 0 0 10.23 5.72h37.48a12 12 0 0 0 6.48-1.9 12 12 0 0 0 3.62-16.58l-83.83-130.55 85.3-132.47a12 12 0 0 0 1.9-6.5 12 12 0 0 0-12-12h-35.7a12 12 0 0 0-10.29 5.84z'
         )
       )),
-      (t.FileAddFill = u(
-        'file-add',
+      (t.FileImageFill = u(
+        'file-image',
         c,
         l(
           o,
-          'M480 580H372a8 8 0 0 0-8 8v48a8 8 0 0 0 8 8h108v108a8 8 0 0 0 8 8h48a8 8 0 0 0 8-8V644h108a8 8 0 0 0 8-8v-48a8 8 0 0 0-8-8H544V472a8 8 0 0 0-8-8h-48a8 8 0 0 0-8 8v108zm374.6-291.3c6 6 9.4 14.1 9.4 22.6V928c0 17.7-14.3 32-32 32H192c-17.7 0-32-14.3-32-32V96c0-17.7 14.3-32 32-32h424.7c8.5 0 16.7 3.4 22.7 9.4l215.2 215.3zM790.2 326L602 137.8V326h188.2z'
+          'M854.6 288.7L639.4 73.4c-6-6-14.2-9.4-22.7-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.6-9.4-22.6zM400 402c22.1 0 40 17.9 40 40s-17.9 40-40 40-40-17.9-40-40 17.9-40 40-40zm296 294H328c-6.7 0-10.4-7.7-6.3-12.9l99.8-127.2a8 8 0 0 1 12.6 0l41.1 52.4 77.8-99.2a8 8 0 0 1 12.6 0l136.5 174c4.3 5.2.5 12.9-6.1 12.9zm-94-370V137.8L790.2 326H602z'
         )
       )),
       (t.FileExclamationFill = u(
@@ -13581,14 +13967,6 @@
         l(
           o,
           'M854.6 288.7c6 6 9.4 14.1 9.4 22.6V928c0 17.7-14.3 32-32 32H192c-17.7 0-32-14.3-32-32V96c0-17.7 14.3-32 32-32h424.7c8.5 0 16.7 3.4 22.7 9.4l215.2 215.3zM790.2 326L602 137.8V326h188.2zM512 784a40 40 0 1 0 0-80 40 40 0 0 0 0 80zm32-152V448a8 8 0 0 0-8-8h-48a8 8 0 0 0-8 8v184a8 8 0 0 0 8 8h48a8 8 0 0 0 8-8z'
-        )
-      )),
-      (t.FileImageFill = u(
-        'file-image',
-        c,
-        l(
-          o,
-          'M854.6 288.7L639.4 73.4c-6-6-14.2-9.4-22.7-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.6-9.4-22.6zM400 402c22.1 0 40 17.9 40 40s-17.9 40-40 40-40-17.9-40-40 17.9-40 40-40zm296 294H328c-6.7 0-10.4-7.7-6.3-12.9l99.8-127.2a8 8 0 0 1 12.6 0l41.1 52.4 77.8-99.2a8 8 0 0 1 12.6 0l136.5 174c4.3 5.2.5 12.9-6.1 12.9zm-94-370V137.8L790.2 326H602z'
         )
       )),
       (t.FileMarkdownFill = u(
@@ -13604,31 +13982,7 @@
         c,
         l(
           o,
-          'M854.6 288.7c6 6 9.4 14.1 9.4 22.6V928c0 17.7-14.3 32-32 32H192c-17.7 0-32-14.3-32-32V96c0-17.7 14.3-32 32-32h424.7c8.5 0 16.7 3.4 22.7 9.4l215.2 215.3zM790.2 326L602 137.8V326h188.2zM633.22 637.26c-15.18-.5-31.32.67-49.65 2.96-24.3-14.99-40.66-35.58-52.28-65.83l1.07-4.38 1.24-5.18c4.3-18.13 6.61-31.36 7.3-44.7.52-10.07-.04-19.36-1.83-27.97-3.3-18.59-16.45-29.46-33.02-30.13-15.45-.63-29.65 8-33.28 21.37-5.91 21.62-2.45 50.07 10.08 98.59-15.96 38.05-37.05 82.66-51.2 107.54-18.89 9.74-33.6 18.6-45.96 28.42-16.3 12.97-26.48 26.3-29.28 40.3-1.36 6.49.69 14.97 5.36 21.92 5.3 7.88 13.28 13 22.85 13.74 24.15 1.87 53.83-23.03 86.6-79.26 3.29-1.1 6.77-2.26 11.02-3.7l11.9-4.02c7.53-2.54 12.99-4.36 18.39-6.11 23.4-7.62 41.1-12.43 57.2-15.17 27.98 14.98 60.32 24.8 82.1 24.8 17.98 0 30.13-9.32 34.52-23.99 3.85-12.88.8-27.82-7.48-36.08-8.56-8.41-24.3-12.43-45.65-13.12zM385.23 765.68v-.36l.13-.34c1.27-3.42 3.15-7.01 5.6-10.76 4.28-6.58 10.17-13.5 17.47-20.87 3.92-3.95 8-7.8 12.79-12.12 1.07-.96 7.91-7.05 9.19-8.25l11.17-10.4-8.12 12.93c-12.32 19.64-23.46 33.78-33 43-3.51 3.4-6.6 5.9-9.1 7.51a16.43 16.43 0 0 1-2.61 1.42c-.41.17-.77.27-1.13.3a2.2 2.2 0 0 1-1.12-.15 2.07 2.07 0 0 1-1.27-1.91zM511.17 547.4l-2.26 4-1.4-4.38c-3.1-9.83-5.38-24.64-6.01-38-.72-15.2.49-24.32 5.29-24.32 6.74 0 9.83 10.8 10.07 27.05.22 14.28-2.03 29.14-5.7 35.65zm-5.81 58.46l1.53-4.05 2.09 3.8c11.69 21.24 26.86 38.96 43.54 51.31l3.6 2.66-4.39.9c-16.33 3.38-31.54 8.46-52.34 16.85 2.17-.88-21.62 8.86-27.64 11.17l-5.25 2.01 2.8-4.88c12.35-21.5 23.76-47.32 36.05-79.77zm157.62 76.26c-7.86 3.1-24.78.33-54.57-12.39l-7.56-3.22 8.2-.6c23.3-1.73 39.8-.45 49.42 3.07 4.1 1.5 6.83 3.39 8.04 5.55a4.64 4.64 0 0 1-1.36 6.31 6.7 6.7 0 0 1-2.17 1.28z'
-        )
-      )),
-      (t.FileTextFill = u(
-        'file-text',
-        c,
-        l(
-          o,
-          'M854.6 288.7c6 6 9.4 14.1 9.4 22.6V928c0 17.7-14.3 32-32 32H192c-17.7 0-32-14.3-32-32V96c0-17.7 14.3-32 32-32h424.7c8.5 0 16.7 3.4 22.7 9.4l215.2 215.3zM790.2 326L602 137.8V326h188.2zM320 482a8 8 0 0 0-8 8v48a8 8 0 0 0 8 8h384a8 8 0 0 0 8-8v-48a8 8 0 0 0-8-8H320zm0 136a8 8 0 0 0-8 8v48a8 8 0 0 0 8 8h184a8 8 0 0 0 8-8v-48a8 8 0 0 0-8-8H320z'
-        )
-      )),
-      (t.FilePptFill = u(
-        'file-ppt',
-        c,
-        l(
-          o,
-          'M854.6 288.7c6 6 9.4 14.1 9.4 22.6V928c0 17.7-14.3 32-32 32H192c-17.7 0-32-14.3-32-32V96c0-17.7 14.3-32 32-32h424.7c8.5 0 16.7 3.4 22.7 9.4l215.2 215.3zM790.2 326L602 137.8V326h188.2zM468.53 760v-91.54h59.27c60.57 0 100.2-39.65 100.2-98.12 0-58.22-39.58-98.34-99.98-98.34H424a12 12 0 0 0-12 12v276a12 12 0 0 0 12 12h32.53a12 12 0 0 0 12-12zm0-139.33h34.9c47.82 0 67.19-12.93 67.19-50.33 0-32.05-18.12-50.12-49.87-50.12h-52.22v100.45z'
-        )
-      )),
-      (t.FileUnknownFill = u(
-        'file-unknown',
-        c,
-        l(
-          o,
-          'M854.6 288.7c6 6 9.4 14.1 9.4 22.6V928c0 17.7-14.3 32-32 32H192c-17.7 0-32-14.3-32-32V96c0-17.7 14.3-32 32-32h424.7c8.5 0 16.7 3.4 22.7 9.4l215.2 215.3zM790.2 326L602 137.8V326h188.2zM402 549c0 5.4 4.4 9.5 9.8 9.5h32.4c5.4 0 9.8-4.2 9.8-9.4 0-28.2 25.8-51.6 58-51.6s58 23.4 58 51.5c0 25.3-21 47.2-49.3 50.9-19.3 2.8-34.5 20.3-34.7 40.1v32c0 5.5 4.5 10 10 10h32c5.5 0 10-4.5 10-10v-12.2c0-6 4-11.5 9.7-13.3 44.6-14.4 75-54 74.3-98.9-.8-55.5-49.2-100.8-108.5-101.6-61.4-.7-111.5 45.6-111.5 103zm110 227a32 32 0 1 0 0-64 32 32 0 0 0 0 64z'
+          'M854.6 288.7c6 6 9.4 14.1 9.4 22.6V928c0 17.7-14.3 32-32 32H192c-17.7 0-32-14.3-32-32V96c0-17.7 14.3-32 32-32h424.7c8.5 0 16.7 3.4 22.7 9.4l215.2 215.3zM790.2 326L602 137.8V326h188.2zM633.22 637.26c-15.18-.5-31.32.67-49.65 2.96-24.3-14.99-40.66-35.58-52.28-65.83l1.07-4.38 1.24-5.18c4.3-18.13 6.61-31.36 7.3-44.7.52-10.07-.04-19.36-1.83-27.97-3.3-18.59-16.45-29.46-33.02-30.13-15.45-.63-29.65 8-33.28 21.37-5.91 21.62-2.45 50.07 10.08 98.59-15.96 38.05-37.05 82.66-51.2 107.54-18.89 9.74-33.6 18.6-45.96 28.42-16.3 12.97-26.48 26.3-29.28 40.3-1.36 6.49.69 14.97 5.36 21.92 5.3 7.88 13.28 13 22.85 13.74 24.15 1.87 53.83-23.03 86.6-79.26 3.29-1.1 6.77-2.26 11.02-3.7l11.9-4.02c7.53-2.54 12.99-4.36 18.39-6.11 23.4-7.62 41.1-12.43 57.2-15.17 27.98 14.98 60.32 24.8 82.1 24.8 17.98 0 30.13-9.32 34.52-23.99 3.85-12.88.8-27.82-7.48-36.08-8.56-8.41-24.3-12.43-45.65-13.12zM385.23 765.68v-.36l.13-.34a54.86 54.86 0 0 1 5.6-10.76c4.28-6.58 10.17-13.5 17.47-20.87 3.92-3.95 8-7.8 12.79-12.12 1.07-.96 7.91-7.05 9.19-8.25l11.17-10.4-8.12 12.93c-12.32 19.64-23.46 33.78-33 43-3.51 3.4-6.6 5.9-9.1 7.51a16.43 16.43 0 0 1-2.61 1.42c-.41.17-.77.27-1.13.3a2.2 2.2 0 0 1-1.12-.15 2.07 2.07 0 0 1-1.27-1.91zM511.17 547.4l-2.26 4-1.4-4.38c-3.1-9.83-5.38-24.64-6.01-38-.72-15.2.49-24.32 5.29-24.32 6.74 0 9.83 10.8 10.07 27.05.22 14.28-2.03 29.14-5.7 35.65zm-5.81 58.46l1.53-4.05 2.09 3.8c11.69 21.24 26.86 38.96 43.54 51.31l3.6 2.66-4.39.9c-16.33 3.38-31.54 8.46-52.34 16.85 2.17-.88-21.62 8.86-27.64 11.17l-5.25 2.01 2.8-4.88c12.35-21.5 23.76-47.32 36.05-79.77zm157.62 76.26c-7.86 3.1-24.78.33-54.57-12.39l-7.56-3.22 8.2-.6c23.3-1.73 39.8-.45 49.42 3.07 4.1 1.5 6.83 3.39 8.04 5.55a4.64 4.64 0 0 1-1.36 6.31 6.7 6.7 0 0 1-2.17 1.28z'
         )
       )),
       (t.FileWordFill = u(
@@ -13639,6 +13993,22 @@
           'M854.6 288.7c6 6 9.4 14.1 9.4 22.6V928c0 17.7-14.3 32-32 32H192c-17.7 0-32-14.3-32-32V96c0-17.7 14.3-32 32-32h424.7c8.5 0 16.7 3.4 22.7 9.4l215.2 215.3zM790.2 326L602 137.8V326h188.2zM512 566.1l52.81 197a12 12 0 0 0 11.6 8.9h31.77a12 12 0 0 0 11.6-8.88l74.37-276a12 12 0 0 0 .4-3.12 12 12 0 0 0-12-12h-35.57a12 12 0 0 0-11.7 9.31l-45.78 199.1-49.76-199.32A12 12 0 0 0 528.1 472h-32.2a12 12 0 0 0-11.64 9.1L434.6 680.01 388.5 481.3a12 12 0 0 0-11.68-9.29h-35.39a12 12 0 0 0-3.11.41 12 12 0 0 0-8.47 14.7l74.17 276A12 12 0 0 0 415.6 772h31.99a12 12 0 0 0 11.59-8.9l52.81-197z'
         )
       )),
+      (t.FileUnknownFill = u(
+        'file-unknown',
+        c,
+        l(
+          o,
+          'M854.6 288.7c6 6 9.4 14.1 9.4 22.6V928c0 17.7-14.3 32-32 32H192c-17.7 0-32-14.3-32-32V96c0-17.7 14.3-32 32-32h424.7c8.5 0 16.7 3.4 22.7 9.4l215.2 215.3zM790.2 326L602 137.8V326h188.2zM402 549c0 5.4 4.4 9.5 9.8 9.5h32.4c5.4 0 9.8-4.2 9.8-9.4 0-28.2 25.8-51.6 58-51.6s58 23.4 58 51.5c0 25.3-21 47.2-49.3 50.9-19.3 2.8-34.5 20.3-34.7 40.1v32c0 5.5 4.5 10 10 10h32c5.5 0 10-4.5 10-10v-12.2c0-6 4-11.5 9.7-13.3 44.6-14.4 75-54 74.3-98.9-.8-55.5-49.2-100.8-108.5-101.6-61.4-.7-111.5 45.6-111.5 103zm110 227a32 32 0 1 0 0-64 32 32 0 0 0 0 64z'
+        )
+      )),
+      (t.FilePptFill = u(
+        'file-ppt',
+        c,
+        l(
+          o,
+          'M854.6 288.7c6 6 9.4 14.1 9.4 22.6V928c0 17.7-14.3 32-32 32H192c-17.7 0-32-14.3-32-32V96c0-17.7 14.3-32 32-32h424.7c8.5 0 16.7 3.4 22.7 9.4l215.2 215.3zM790.2 326L602 137.8V326h188.2zM468.53 760v-91.54h59.27c60.57 0 100.2-39.65 100.2-98.12 0-58.22-39.58-98.34-99.98-98.34H424a12 12 0 0 0-12 12v276a12 12 0 0 0 12 12h32.53a12 12 0 0 0 12-12zm0-139.33h34.9c47.82 0 67.19-12.93 67.19-50.33 0-32.05-18.12-50.12-49.87-50.12h-52.22v100.45z'
+        )
+      )),
       (t.FileZipFill = u(
         'file-zip',
         c,
@@ -13647,12 +14017,12 @@
           'M854.6 288.7c6 6 9.4 14.1 9.4 22.6V928c0 17.7-14.3 32-32 32H192c-17.7 0-32-14.3-32-32V96c0-17.7 14.3-32 32-32h424.7c8.5 0 16.7 3.4 22.7 9.4l215.2 215.3zM790.2 326L602 137.8V326h188.2zM296 136v64h64v-64h-64zm64 64v64h64v-64h-64zm-64 64v64h64v-64h-64zm64 64v64h64v-64h-64zm-64 64v64h64v-64h-64zm64 64v64h64v-64h-64zm-64 64v64h64v-64h-64zm0 64v160h128V584H296zm48 48h32v64h-32v-64z'
         )
       )),
-      (t.FileFill = u(
-        'file',
+      (t.FileTextFill = u(
+        'file-text',
         c,
         l(
           o,
-          'M854.6 288.7c6 6 9.4 14.1 9.4 22.6V928c0 17.7-14.3 32-32 32H192c-17.7 0-32-14.3-32-32V96c0-17.7 14.3-32 32-32h424.7c8.5 0 16.7 3.4 22.7 9.4l215.2 215.3zM790.2 326L602 137.8V326h188.2z'
+          'M854.6 288.7c6 6 9.4 14.1 9.4 22.6V928c0 17.7-14.3 32-32 32H192c-17.7 0-32-14.3-32-32V96c0-17.7 14.3-32 32-32h424.7c8.5 0 16.7 3.4 22.7 9.4l215.2 215.3zM790.2 326L602 137.8V326h188.2zM320 482a8 8 0 0 0-8 8v48a8 8 0 0 0 8 8h384a8 8 0 0 0 8-8v-48a8 8 0 0 0-8-8H320zm0 136a8 8 0 0 0-8 8v48a8 8 0 0 0 8 8h184a8 8 0 0 0 8-8v-48a8 8 0 0 0-8-8H320z'
         )
       )),
       (t.FilterFill = u(
@@ -13661,6 +14031,14 @@
         l(
           o,
           'M349 838c0 17.7 14.2 32 31.8 32h262.4c17.6 0 31.8-14.3 31.8-32V642H349v196zm531.1-684H143.9c-24.5 0-39.8 26.7-27.5 48l221.3 376h348.8l221.3-376c12.1-21.3-3.2-48-27.7-48z'
+        )
+      )),
+      (t.FileFill = u(
+        'file',
+        c,
+        l(
+          o,
+          'M854.6 288.7c6 6 9.4 14.1 9.4 22.6V928c0 17.7-14.3 32-32 32H192c-17.7 0-32-14.3-32-32V96c0-17.7 14.3-32 32-32h424.7c8.5 0 16.7 3.4 22.7 9.4l215.2 215.3zM790.2 326L602 137.8V326h188.2z'
         )
       )),
       (t.FireFill = u(
@@ -13679,28 +14057,20 @@
           'M880 305H624V192c0-17.7-14.3-32-32-32H184v-40c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v784c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V640h248v113c0 17.7 14.3 32 32 32h416c17.7 0 32-14.3 32-32V337c0-17.7-14.3-32-32-32z'
         )
       )),
-      (t.FolderOpenFill = u(
-        'folder-open',
-        c,
-        l(
-          o,
-          'M928 444H820V330.4c0-17.7-14.3-32-32-32H473L355.7 186.2a8.15 8.15 0 0 0-5.5-2.2H96c-17.7 0-32 14.3-32 32v592c0 17.7 14.3 32 32 32h698c13 0 24.8-7.9 29.7-20l134-332c1.5-3.8 2.3-7.9 2.3-12 0-17.7-14.3-32-32-32zm-180 0H238c-13 0-24.8 7.9-29.7 20L136 643.2V256h188.5l119.6 114.4H748V444z'
-        )
-      )),
-      (t.FolderAddFill = u(
-        'folder-add',
-        c,
-        l(
-          o,
-          'M880 298.4H521L403.7 186.2a8.15 8.15 0 0 0-5.5-2.2H144c-17.7 0-32 14.3-32 32v592c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V330.4c0-17.7-14.3-32-32-32zM632 577c0 3.8-3.4 7-7.5 7H540v84.9c0 3.9-3.2 7.1-7 7.1h-42c-3.8 0-7-3.2-7-7.1V584h-84.5c-4.1 0-7.5-3.2-7.5-7v-42c0-3.8 3.4-7 7.5-7H484v-84.9c0-3.9 3.2-7.1 7-7.1h42c3.8 0 7 3.2 7 7.1V528h84.5c4.1 0 7.5 3.2 7.5 7v42z'
-        )
-      )),
       (t.FolderFill = u(
         'folder',
         c,
         l(
           o,
           'M880 298.4H521L403.7 186.2a8.15 8.15 0 0 0-5.5-2.2H144c-17.7 0-32 14.3-32 32v592c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V330.4c0-17.7-14.3-32-32-32z'
+        )
+      )),
+      (t.FolderOpenFill = u(
+        'folder-open',
+        c,
+        l(
+          o,
+          'M928 444H820V330.4c0-17.7-14.3-32-32-32H473L355.7 186.2a8.15 8.15 0 0 0-5.5-2.2H96c-17.7 0-32 14.3-32 32v592c0 17.7 14.3 32 32 32h698c13 0 24.8-7.9 29.7-20l134-332c1.5-3.8 2.3-7.9 2.3-12 0-17.7-14.3-32-32-32zm-180 0H238c-13 0-24.8 7.9-29.7 20L136 643.2V256h188.5l119.6 114.4H748V444z'
         )
       )),
       (t.ForwardFill = u(
@@ -13711,12 +14081,12 @@
           'M825.8 498L538.4 249.9c-10.7-9.2-26.4-.9-26.4 14v496.3c0 14.9 15.7 23.2 26.4 14L825.8 526c8.3-7.2 8.3-20.8 0-28zm-320 0L218.4 249.9c-10.7-9.2-26.4-.9-26.4 14v496.3c0 14.9 15.7 23.2 26.4 14L505.8 526c4.1-3.6 6.2-8.8 6.2-14 0-5.2-2.1-10.4-6.2-14z'
         )
       )),
-      (t.FrownFill = u(
-        'frown',
+      (t.FolderAddFill = u(
+        'folder-add',
         c,
         l(
           o,
-          'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zM288 421a48.01 48.01 0 0 1 96 0 48.01 48.01 0 0 1-96 0zm376 272h-48.1c-4.2 0-7.8-3.2-8.1-7.4C604 636.1 562.5 597 512 597s-92.1 39.1-95.8 88.6c-.3 4.2-3.9 7.4-8.1 7.4H360a8 8 0 0 1-8-8.4c4.4-84.3 74.5-151.6 160-151.6s155.6 67.3 160 151.6a8 8 0 0 1-8 8.4zm24-224a48.01 48.01 0 0 1 0-96 48.01 48.01 0 0 1 0 96z'
+          'M880 298.4H521L403.7 186.2a8.15 8.15 0 0 0-5.5-2.2H144c-17.7 0-32 14.3-32 32v592c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V330.4c0-17.7-14.3-32-32-32zM632 577c0 3.8-3.4 7-7.5 7H540v84.9c0 3.9-3.2 7.1-7 7.1h-42c-3.8 0-7-3.2-7-7.1V584h-84.5c-4.1 0-7.5-3.2-7.5-7v-42c0-3.8 3.4-7 7.5-7H484v-84.9c0-3.9 3.2-7.1 7-7.1h42c3.8 0 7 3.2 7 7.1V528h84.5c4.1 0 7.5 3.2 7.5 7v42z'
         )
       )),
       (t.FundFill = u(
@@ -13725,6 +14095,14 @@
         l(
           o,
           'M926 164H94c-17.7 0-32 14.3-32 32v640c0 17.7 14.3 32 32 32h832c17.7 0 32-14.3 32-32V196c0-17.7-14.3-32-32-32zm-92.3 194.4l-297 297.2a8.03 8.03 0 0 1-11.3 0L410.9 541.1 238.4 713.7a8.03 8.03 0 0 1-11.3 0l-36.8-36.8a8.03 8.03 0 0 1 0-11.3l214.9-215c3.1-3.1 8.2-3.1 11.3 0L531 565l254.5-254.6c3.1-3.1 8.2-3.1 11.3 0l36.8 36.8c3.2 3 3.2 8.1.1 11.2z'
+        )
+      )),
+      (t.FrownFill = u(
+        'frown',
+        c,
+        l(
+          o,
+          'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zM288 421a48.01 48.01 0 0 1 96 0 48.01 48.01 0 0 1-96 0zm376 272h-48.1c-4.2 0-7.8-3.2-8.1-7.4C604 636.1 562.5 597 512 597s-92.1 39.1-95.8 88.6c-.3 4.2-3.9 7.4-8.1 7.4H360a8 8 0 0 1-8-8.4c4.4-84.3 74.5-151.6 160-151.6s155.6 67.3 160 151.6a8 8 0 0 1-8 8.4zm24-224a48.01 48.01 0 0 1 0-96 48.01 48.01 0 0 1 0 96z'
         )
       )),
       (t.FunnelPlotFill = u(
@@ -13759,6 +14137,14 @@
           'M910.5 553.2l-109-370.8c-6.8-20.4-23.1-34.1-44.9-34.1s-39.5 12.3-46.3 32.7l-72.2 215.4H386.2L314 181.1c-6.8-20.4-24.5-32.7-46.3-32.7s-39.5 13.6-44.9 34.1L113.9 553.2c-4.1 13.6 1.4 28.6 12.3 36.8l385.4 289 386.7-289c10.8-8.1 16.3-23.1 12.2-36.8z'
         )
       )),
+      (t.GooglePlusCircleFill = u(
+        'google-plus-circle',
+        c,
+        l(
+          o,
+          'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm36.5 558.8c-43.9 61.8-132.1 79.8-200.9 53.3-69-26.3-118-99.2-112.1-173.5 1.5-90.9 85.2-170.6 176.1-167.5 43.6-2 84.6 16.9 118 43.6-14.3 16.2-29 31.8-44.8 46.3-40.1-27.7-97.2-35.6-137.3-3.6-57.4 39.7-60 133.4-4.8 176.1 53.7 48.7 155.2 24.5 170.1-50.1-33.6-.5-67.4 0-101-1.1-.1-20.1-.2-40.1-.1-60.2 56.2-.2 112.5-.3 168.8.2 3.3 47.3-3 97.5-32 136.5zM791 536.5c-16.8.2-33.6.3-50.4.4-.2 16.8-.3 33.6-.3 50.4H690c-.2-16.8-.2-33.5-.3-50.3-16.8-.2-33.6-.3-50.4-.5v-50.1c16.8-.2 33.6-.3 50.4-.3.1-16.8.3-33.6.4-50.4h50.2l.3 50.4c16.8.2 33.6.2 50.4.3v50.1z'
+        )
+      )),
       (t.GoldenFill = u(
         'golden',
         c,
@@ -13775,12 +14161,12 @@
           'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm167 633.6C638.4 735 583 757 516.9 757c-95.7 0-178.5-54.9-218.8-134.9C281.5 589 272 551.6 272 512s9.5-77 26.1-110.1c40.3-80.1 123.1-135 218.8-135 66 0 121.4 24.3 163.9 63.8L610.6 401c-25.4-24.3-57.7-36.6-93.6-36.6-63.8 0-117.8 43.1-137.1 101-4.9 14.7-7.7 30.4-7.7 46.6s2.8 31.9 7.7 46.6c19.3 57.9 73.3 101 137 101 33 0 61-8.7 82.9-23.4 26-17.4 43.2-43.3 48.9-74H516.9v-94.8h230.7c2.9 16.1 4.4 32.8 4.4 50.1 0 74.7-26.7 137.4-73 180.1z'
         )
       )),
-      (t.GooglePlusCircleFill = u(
-        'google-plus-circle',
+      (t.GoogleSquareFill = u(
+        'google-square',
         c,
         l(
           o,
-          'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm36.5 558.8c-43.9 61.8-132.1 79.8-200.9 53.3-69-26.3-118-99.2-112.1-173.5 1.5-90.9 85.2-170.6 176.1-167.5 43.6-2 84.6 16.9 118 43.6-14.3 16.2-29 31.8-44.8 46.3-40.1-27.7-97.2-35.6-137.3-3.6-57.4 39.7-60 133.4-4.8 176.1 53.7 48.7 155.2 24.5 170.1-50.1-33.6-.5-67.4 0-101-1.1-.1-20.1-.2-40.1-.1-60.2 56.2-.2 112.5-.3 168.8.2 3.3 47.3-3 97.5-32 136.5zM791 536.5c-16.8.2-33.6.3-50.4.4-.2 16.8-.3 33.6-.3 50.4H690c-.2-16.8-.2-33.5-.3-50.3-16.8-.2-33.6-.3-50.4-.5v-50.1c16.8-.2 33.6-.3 50.4-.3.1-16.8.3-33.6.4-50.4h50.2l.3 50.4c16.8.2 33.6.2 50.4.3v50.1z'
+          'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zM679 697.6C638.4 735 583 757 516.9 757c-95.7 0-178.5-54.9-218.8-134.9A245.02 245.02 0 0 1 272 512c0-39.6 9.5-77 26.1-110.1 40.3-80.1 123.1-135 218.8-135 66 0 121.4 24.3 163.9 63.8L610.6 401c-25.4-24.3-57.7-36.6-93.6-36.6-63.8 0-117.8 43.1-137.1 101-4.9 14.7-7.7 30.4-7.7 46.6s2.8 31.9 7.7 46.6c19.3 57.9 73.3 101 137 101 33 0 61-8.7 82.9-23.4 26-17.4 43.2-43.3 48.9-74H516.9v-94.8h230.7c2.9 16.1 4.4 32.8 4.4 50.1 0 74.7-26.7 137.4-73 180.1z'
         )
       )),
       (t.GooglePlusSquareFill = u(
@@ -13791,12 +14177,12 @@
           'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zM548.5 622.8c-43.9 61.8-132.1 79.8-200.9 53.3-69-26.3-118-99.2-112.1-173.5 1.5-90.9 85.2-170.6 176.1-167.5 43.6-2 84.6 16.9 118 43.6-14.3 16.2-29 31.8-44.8 46.3-40.1-27.7-97.2-35.6-137.3-3.6-57.4 39.7-60 133.4-4.8 176.1 53.7 48.7 155.2 24.5 170.1-50.1-33.6-.5-67.4 0-101-1.1-.1-20.1-.2-40.1-.1-60.2 56.2-.2 112.5-.3 168.8.2 3.3 47.3-3 97.5-32 136.5zM791 536.5c-16.8.2-33.6.3-50.4.4-.2 16.8-.3 33.6-.3 50.4H690c-.2-16.8-.2-33.5-.3-50.3-16.8-.2-33.6-.3-50.4-.5v-50.1c16.8-.2 33.6-.3 50.4-.3.1-16.8.3-33.6.4-50.4h50.2l.3 50.4c16.8.2 33.6.2 50.4.3v50.1z'
         )
       )),
-      (t.GoogleSquareFill = u(
-        'google-square',
+      (t.HighlightFill = u(
+        'highlight',
         c,
         l(
           o,
-          'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zM679 697.6C638.4 735 583 757 516.9 757c-95.7 0-178.5-54.9-218.8-134.9A245.02 245.02 0 0 1 272 512c0-39.6 9.5-77 26.1-110.1 40.3-80.1 123.1-135 218.8-135 66 0 121.4 24.3 163.9 63.8L610.6 401c-25.4-24.3-57.7-36.6-93.6-36.6-63.8 0-117.8 43.1-137.1 101-4.9 14.7-7.7 30.4-7.7 46.6s2.8 31.9 7.7 46.6c19.3 57.9 73.3 101 137 101 33 0 61-8.7 82.9-23.4 26-17.4 43.2-43.3 48.9-74H516.9v-94.8h230.7c2.9 16.1 4.4 32.8 4.4 50.1 0 74.7-26.7 137.4-73 180.1z'
+          'M957.6 507.4L603.2 158.2a7.9 7.9 0 0 0-11.2 0L353.3 393.4a8.03 8.03 0 0 0-.1 11.3l.1.1 40 39.4-117.2 115.3a8.03 8.03 0 0 0-.1 11.3l.1.1 39.5 38.9-189.1 187H72.1c-4.4 0-8.1 3.6-8.1 8V860c0 4.4 3.6 8 8 8h344.9c2.1 0 4.1-.8 5.6-2.3l76.1-75.6 40.4 39.8a7.9 7.9 0 0 0 11.2 0l117.1-115.6 40.1 39.5a7.9 7.9 0 0 0 11.2 0l238.7-235.2c3.4-3 3.4-8 .3-11.2z'
         )
       )),
       (t.HddFill = u(
@@ -13815,28 +14201,12 @@
           'M923 283.6a260.04 260.04 0 0 0-56.9-82.8 264.4 264.4 0 0 0-84-55.5A265.34 265.34 0 0 0 679.7 125c-49.3 0-97.4 13.5-139.2 39-10 6.1-19.5 12.8-28.5 20.1-9-7.3-18.5-14-28.5-20.1-41.8-25.5-89.9-39-139.2-39-35.5 0-69.9 6.8-102.4 20.3-31.4 13-59.7 31.7-84 55.5a258.44 258.44 0 0 0-56.9 82.8c-13.9 32.3-21 66.6-21 101.9 0 33.3 6.8 68 20.3 103.3 11.3 29.5 27.5 60.1 48.2 91 32.8 48.9 77.9 99.9 133.9 151.6 92.8 85.7 184.7 144.9 188.6 147.3l23.7 15.2c10.5 6.7 24 6.7 34.5 0l23.7-15.2c3.9-2.5 95.7-61.6 188.6-147.3 56-51.7 101.1-102.7 133.9-151.6 20.7-30.9 37-61.5 48.2-91 13.5-35.3 20.3-70 20.3-103.3.1-35.3-7-69.6-20.9-101.9z'
         )
       )),
-      (t.HighlightFill = u(
-        'highlight',
-        c,
-        l(
-          o,
-          'M957.6 507.4L603.2 158.2a7.9 7.9 0 0 0-11.2 0L353.3 393.4a8.03 8.03 0 0 0-.1 11.3l.1.1 40 39.4-117.2 115.3a8.03 8.03 0 0 0-.1 11.3l.1.1 39.5 38.9-189.1 187H72.1c-4.4 0-8.1 3.6-8.1 8V860c0 4.4 3.6 8 8 8h344.9c2.1 0 4.1-.8 5.6-2.3l76.1-75.6 40.4 39.8a7.9 7.9 0 0 0 11.2 0l117.1-115.6 40.1 39.5a7.9 7.9 0 0 0 11.2 0l238.7-235.2c3.4-3 3.4-8 .3-11.2z'
-        )
-      )),
       (t.HomeFill = u(
         'home',
         c,
         l(
           o,
           'M946.5 505L534.6 93.4a31.93 31.93 0 0 0-45.2 0L77.5 505c-12 12-18.8 28.3-18.8 45.3 0 35.3 28.7 64 64 64h43.4V908c0 17.7 14.3 32 32 32H448V716h112v224h265.9c17.7 0 32-14.3 32-32V614.3h43.4c17 0 33.3-6.7 45.3-18.8 24.9-25 24.9-65.5-.1-90.5z'
-        )
-      )),
-      (t.HourglassFill = u(
-        'hourglass',
-        c,
-        l(
-          o,
-          'M742 318V184h86c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H196c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h86v134c0 81.5 42.4 153.2 106.4 194-64 40.8-106.4 112.5-106.4 194v134h-86c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h632c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-86V706c0-81.5-42.4-153.2-106.4-194 64-40.8 106.4-112.5 106.4-194z'
         )
       )),
       (t.Html5Fill = u(
@@ -13847,14 +14217,6 @@
           'M145.2 96l66 746.6L512 928l299.6-85.4L878.9 96H145.2zm595 177.1l-4.8 47.2-1.7 19.5H382.3l8.2 94.2h335.1l-3.3 24.3-21.2 242.2-1.7 16.2-187 51.6v.3h-1.2l-.3.1v-.1h-.1l-188.6-52L310.8 572h91.1l6.5 73.2 102.4 27.7h.4l102-27.6 11.4-118.6H510.9v-.1H306l-22.8-253.5-1.7-24.3h460.3l-1.6 24.3z'
         )
       )),
-      (t.IdcardFill = u(
-        'idcard',
-        c,
-        l(
-          o,
-          'M373 411c-28.5 0-51.7 23.3-51.7 52s23.2 52 51.7 52 51.7-23.3 51.7-52-23.2-52-51.7-52zm555-251H96c-17.7 0-32 14.3-32 32v640c0 17.7 14.3 32 32 32h832c17.7 0 32-14.3 32-32V192c0-17.7-14.3-32-32-32zM608 420c0-4.4 1-8 2.3-8h123.4c1.3 0 2.3 3.6 2.3 8v48c0 4.4-1 8-2.3 8H610.3c-1.3 0-2.3-3.6-2.3-8v-48zm-86 253h-43.9c-4.2 0-7.6-3.3-7.9-7.5-3.8-50.5-46-90.5-97.2-90.5s-93.4 40-97.2 90.5c-.3 4.2-3.7 7.5-7.9 7.5H224a8 8 0 0 1-8-8.4c2.8-53.3 32-99.7 74.6-126.1a111.8 111.8 0 0 1-29.1-75.5c0-61.9 49.9-112 111.4-112s111.4 50.1 111.4 112c0 29.1-11 55.5-29.1 75.5 42.7 26.5 71.8 72.8 74.6 126.1.4 4.6-3.2 8.4-7.8 8.4zm278.9-53H615.1c-3.9 0-7.1-3.6-7.1-8v-48c0-4.4 3.2-8 7.1-8h185.7c3.9 0 7.1 3.6 7.1 8v48h.1c0 4.4-3.2 8-7.1 8z'
-        )
-      )),
       (t.IeCircleFill = u(
         'ie-circle',
         c,
@@ -13863,12 +14225,28 @@
           'M693.6 284.4c-24 0-51.1 11.7-72.6 22 46.3 18 86 57.3 112.3 99.6 7.1-18.9 14.6-47.9 14.6-67.9 0-32-22.8-53.7-54.3-53.7zM512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm253.9 492.9H437.1c0 100.4 144.3 136 196.8 47.4h120.8c-32.6 91.7-119.7 146-216.8 146-35.1 0-70.3-.1-101.7-15.6-87.4 44.5-180.3 56.6-180.3-42 0-45.8 23.2-107.1 44-145C335 484 381.3 422.8 435.6 374.5c-43.7 18.9-91.1 66.3-122 101.2 25.9-112.8 129.5-193.6 237.1-186.5 130-59.8 209.7-34.1 209.7 38.6 0 27.4-10.6 63.3-21.4 87.9 25.2 45.5 33.3 97.6 26.9 141.2zM540.5 399.1c-53.7 0-102 39.7-104 94.9h208c-2-55.1-50.6-94.9-104-94.9zM320.6 602.9c-73 152.4 11.5 172.2 100.3 123.3-46.6-27.5-82.6-72.2-100.3-123.3z'
         )
       )),
+      (t.IdcardFill = u(
+        'idcard',
+        c,
+        l(
+          o,
+          'M373 411c-28.5 0-51.7 23.3-51.7 52s23.2 52 51.7 52 51.7-23.3 51.7-52-23.2-52-51.7-52zm555-251H96c-17.7 0-32 14.3-32 32v640c0 17.7 14.3 32 32 32h832c17.7 0 32-14.3 32-32V192c0-17.7-14.3-32-32-32zM608 420c0-4.4 1-8 2.3-8h123.4c1.3 0 2.3 3.6 2.3 8v48c0 4.4-1 8-2.3 8H610.3c-1.3 0-2.3-3.6-2.3-8v-48zm-86 253h-43.9c-4.2 0-7.6-3.3-7.9-7.5-3.8-50.5-46-90.5-97.2-90.5s-93.4 40-97.2 90.5c-.3 4.2-3.7 7.5-7.9 7.5H224a8 8 0 0 1-8-8.4c2.8-53.3 32-99.7 74.6-126.1a111.8 111.8 0 0 1-29.1-75.5c0-61.9 49.9-112 111.4-112s111.4 50.1 111.4 112c0 29.1-11 55.5-29.1 75.5 42.7 26.5 71.8 72.8 74.6 126.1.4 4.6-3.2 8.4-7.8 8.4zm278.9-53H615.1c-3.9 0-7.1-3.6-7.1-8v-48c0-4.4 3.2-8 7.1-8h185.7c3.9 0 7.1 3.6 7.1 8v48h.1c0 4.4-3.2 8-7.1 8z'
+        )
+      )),
       (t.IeSquareFill = u(
         'ie-square',
         c,
         l(
           o,
           'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zM765.9 556.9H437.1c0 100.4 144.3 136 196.8 47.4h120.8c-32.6 91.7-119.7 146-216.8 146-35.1 0-70.3-.1-101.7-15.6-87.4 44.5-180.3 56.6-180.3-42 0-45.8 23.2-107.1 44-145C335 484 381.3 422.8 435.6 374.5c-43.7 18.9-91.1 66.3-122 101.2 25.9-112.8 129.5-193.6 237.1-186.5 130-59.8 209.7-34.1 209.7 38.6 0 27.4-10.6 63.3-21.4 87.9 25.2 45.5 33.3 97.6 26.9 141.2zm-72.3-272.5c-24 0-51.1 11.7-72.6 22 46.3 18 86 57.3 112.3 99.6 7.1-18.9 14.6-47.9 14.6-67.9 0-32-22.8-53.7-54.3-53.7zM540.5 399.1c-53.7 0-102 39.7-104 94.9h208c-2-55.1-50.6-94.9-104-94.9zM320.6 602.9c-73 152.4 11.5 172.2 100.3 123.3-46.6-27.5-82.6-72.2-100.3-123.3z'
+        )
+      )),
+      (t.HourglassFill = u(
+        'hourglass',
+        c,
+        l(
+          o,
+          'M742 318V184h86c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H196c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h86v134c0 81.5 42.4 153.2 106.4 194-64 40.8-106.4 112.5-106.4 194v134h-86c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h632c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-86V706c0-81.5-42.4-153.2-106.4-194 64-40.8 106.4-112.5 106.4-194z'
         )
       )),
       (t.InfoCircleFill = u(
@@ -13943,14 +14321,6 @@
           'M885.9 533.7c16.8-22.2 26.1-49.4 26.1-77.7 0-44.9-25.1-87.4-65.5-111.1a67.67 67.67 0 0 0-34.3-9.3H572.4l6-122.9c1.4-29.7-9.1-57.9-29.5-79.4A106.62 106.62 0 0 0 471 99.9c-52 0-98 35-111.8 85.1l-85.9 311h-.3v428h472.3c9.2 0 18.2-1.8 26.5-5.4 47.6-20.3 78.3-66.8 78.3-118.4 0-12.6-1.8-25-5.4-37 16.8-22.2 26.1-49.4 26.1-77.7 0-12.6-1.8-25-5.4-37 16.8-22.2 26.1-49.4 26.1-77.7-.2-12.6-2-25.1-5.6-37.1zM112 528v364c0 17.7 14.3 32 32 32h65V496h-65c-17.7 0-32 14.3-32 32z'
         )
       )),
-      (t.LockFill = u(
-        'lock',
-        c,
-        l(
-          o,
-          'M832 464h-68V240c0-70.7-57.3-128-128-128H388c-70.7 0-128 57.3-128 128v224h-68c-17.7 0-32 14.3-32 32v384c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V496c0-17.7-14.3-32-32-32zM540 701v53c0 4.4-3.6 8-8 8h-40c-4.4 0-8-3.6-8-8v-53a48.01 48.01 0 1 1 56 0zm152-237H332V240c0-30.9 25.1-56 56-56h248c30.9 0 56 25.1 56 56v224z'
-        )
-      )),
       (t.MailFill = u(
         'mail',
         c,
@@ -13967,12 +14337,28 @@
           'M839.2 278.1a32 32 0 0 0-30.4-22.1H736V144c0-17.7-14.3-32-32-32H320c-17.7 0-32 14.3-32 32v112h-72.8a31.9 31.9 0 0 0-30.4 22.1L112 502v378c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V502l-72.8-223.9zM660 628c0 4.4-3.6 8-8 8H544v108c0 4.4-3.6 8-8 8h-48c-4.4 0-8-3.6-8-8V636H372c-4.4 0-8-3.6-8-8v-48c0-4.4 3.6-8 8-8h108V464c0-4.4 3.6-8 8-8h48c4.4 0 8 3.6 8 8v108h108c4.4 0 8 3.6 8 8v48zm4-372H360v-72h304v72z'
         )
       )),
+      (t.MehFill = u(
+        'meh',
+        c,
+        l(
+          o,
+          'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zM288 421a48.01 48.01 0 0 1 96 0 48.01 48.01 0 0 1-96 0zm384 200c0 4.4-3.6 8-8 8H360c-4.4 0-8-3.6-8-8v-48c0-4.4 3.6-8 8-8h304c4.4 0 8 3.6 8 8v48zm16-152a48.01 48.01 0 0 1 0-96 48.01 48.01 0 0 1 0 96z'
+        )
+      )),
       (t.MediumCircleFill = u(
         'medium-circle',
         c,
         l(
           o,
           'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm256 253.7l-40.8 39.1c-3.6 2.7-5.3 7.1-4.6 11.4v287.7c-.7 4.4 1 8.8 4.6 11.4l40 39.1v8.7H566.4v-8.3l41.3-40.1c4.1-4.1 4.1-5.3 4.1-11.4V422.5l-115 291.6h-15.5L347.5 422.5V618c-1.2 8.2 1.7 16.5 7.5 22.4l53.8 65.1v8.7H256v-8.7l53.8-65.1a26.1 26.1 0 0 0 7-22.4V392c.7-6.3-1.7-12.4-6.5-16.7l-47.8-57.6V309H411l114.6 251.5 100.9-251.3H768v8.5z'
+        )
+      )),
+      (t.LockFill = u(
+        'lock',
+        c,
+        l(
+          o,
+          'M832 464h-68V240c0-70.7-57.3-128-128-128H388c-70.7 0-128 57.3-128 128v224h-68c-17.7 0-32 14.3-32 32v384c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V496c0-17.7-14.3-32-32-32zM540 701v53c0 4.4-3.6 8-8 8h-40c-4.4 0-8-3.6-8-8v-53a48.01 48.01 0 1 1 56 0zm152-237H332V240c0-30.9 25.1-56 56-56h248c30.9 0 56 25.1 56 56v224z'
         )
       )),
       (t.MediumSquareFill = u(
@@ -13983,14 +14369,6 @@
           'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zM768 317.7l-40.8 39.1c-3.6 2.7-5.3 7.1-4.6 11.4v287.7c-.7 4.4 1 8.8 4.6 11.4l40 39.1v8.7H566.4v-8.3l41.3-40.1c4.1-4.1 4.1-5.3 4.1-11.4V422.5l-115 291.6h-15.5L347.5 422.5V618c-1.2 8.2 1.7 16.5 7.5 22.4l53.8 65.1v8.7H256v-8.7l53.8-65.1a26.1 26.1 0 0 0 7-22.4V392c.7-6.3-1.7-12.4-6.5-16.7l-47.8-57.6V309H411l114.6 251.5 100.9-251.3H768v8.5z'
         )
       )),
-      (t.MehFill = u(
-        'meh',
-        c,
-        l(
-          o,
-          'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zM288 421a48.01 48.01 0 0 1 96 0 48.01 48.01 0 0 1-96 0zm384 200c0 4.4-3.6 8-8 8H360c-4.4 0-8-3.6-8-8v-48c0-4.4 3.6-8 8-8h304c4.4 0 8 3.6 8 8v48zm16-152a48.01 48.01 0 0 1 0-96 48.01 48.01 0 0 1 0 96z'
-        )
-      )),
       (t.MessageFill = u(
         'message',
         c,
@@ -13999,20 +14377,20 @@
           'M924.3 338.4a447.57 447.57 0 0 0-96.1-143.3 443.09 443.09 0 0 0-143-96.3A443.91 443.91 0 0 0 512 64h-2c-60.5.3-119 12.3-174.1 35.9a444.08 444.08 0 0 0-141.7 96.5 445 445 0 0 0-95 142.8A449.89 449.89 0 0 0 65 514.1c.3 69.4 16.9 138.3 47.9 199.9v152c0 25.4 20.6 46 45.9 46h151.8a447.72 447.72 0 0 0 199.5 48h2.1c59.8 0 117.7-11.6 172.3-34.3A443.2 443.2 0 0 0 827 830.5c41.2-40.9 73.6-88.7 96.3-142 23.5-55.2 35.5-113.9 35.8-174.5.2-60.9-11.6-120-34.8-175.6zM312.4 560c-26.4 0-47.9-21.5-47.9-48s21.5-48 47.9-48 47.9 21.5 47.9 48-21.4 48-47.9 48zm199.6 0c-26.4 0-47.9-21.5-47.9-48s21.5-48 47.9-48 47.9 21.5 47.9 48-21.5 48-47.9 48zm199.6 0c-26.4 0-47.9-21.5-47.9-48s21.5-48 47.9-48 47.9 21.5 47.9 48-21.5 48-47.9 48z'
         )
       )),
-      (t.MinusCircleFill = u(
-        'minus-circle',
-        c,
-        l(
-          o,
-          'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm192 472c0 4.4-3.6 8-8 8H328c-4.4 0-8-3.6-8-8v-48c0-4.4 3.6-8 8-8h368c4.4 0 8 3.6 8 8v48z'
-        )
-      )),
       (t.MinusSquareFill = u(
         'minus-square',
         c,
         l(
           o,
           'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zM704 536c0 4.4-3.6 8-8 8H328c-4.4 0-8-3.6-8-8v-48c0-4.4 3.6-8 8-8h368c4.4 0 8 3.6 8 8v48z'
+        )
+      )),
+      (t.MinusCircleFill = u(
+        'minus-circle',
+        c,
+        l(
+          o,
+          'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm192 472c0 4.4-3.6 8-8 8H328c-4.4 0-8-3.6-8-8v-48c0-4.4 3.6-8 8-8h368c4.4 0 8 3.6 8 8v48z'
         )
       )),
       (t.MobileFill = u(
@@ -14031,6 +14409,22 @@
           'M911.5 699.7a8 8 0 0 0-10.3-4.8L840 717.2V179c0-37.6-30.4-68-68-68H252c-37.6 0-68 30.4-68 68v538.2l-61.3-22.3c-.9-.3-1.8-.5-2.7-.5-4.4 0-8 3.6-8 8V762c0 3.3 2.1 6.3 5.3 7.5L501 909.1c7.1 2.6 14.8 2.6 21.9 0l383.8-139.5c3.2-1.2 5.3-4.2 5.3-7.5v-59.6c0-1-.2-1.9-.5-2.8zm-243.8-377L564 514.3h57.6c4.4 0 8 3.6 8 8v27.1c0 4.4-3.6 8-8 8h-76.3v39h76.3c4.4 0 8 3.6 8 8v27.1c0 4.4-3.6 8-8 8h-76.3V703c0 4.4-3.6 8-8 8h-49.9c-4.4 0-8-3.6-8-8v-63.4h-76c-4.4 0-8-3.6-8-8v-27.1c0-4.4 3.6-8 8-8h76v-39h-76c-4.4 0-8-3.6-8-8v-27.1c0-4.4 3.6-8 8-8h57L356.5 322.8c-2.1-3.8-.7-8.7 3.2-10.8 1.2-.7 2.5-1 3.8-1h55.7a8 8 0 0 1 7.1 4.4L511 484.2h3.3L599 315.4c1.3-2.7 4.1-4.4 7.1-4.4h54.5c4.4 0 8 3.6 8.1 7.9 0 1.3-.4 2.6-1 3.8z'
         )
       )),
+      (t.PictureFill = u(
+        'picture',
+        c,
+        l(
+          o,
+          'M928 160H96c-17.7 0-32 14.3-32 32v640c0 17.7 14.3 32 32 32h832c17.7 0 32-14.3 32-32V192c0-17.7-14.3-32-32-32zM338 304c35.3 0 64 28.7 64 64s-28.7 64-64 64-64-28.7-64-64 28.7-64 64-64zm513.9 437.1a8.11 8.11 0 0 1-5.2 1.9H177.2c-4.4 0-8-3.6-8-8 0-1.9.7-3.7 1.9-5.2l170.3-202c2.8-3.4 7.9-3.8 11.3-1 .3.3.7.6 1 1l99.4 118 158.1-187.5c2.8-3.4 7.9-3.8 11.3-1 .3.3.7.6 1 1l229.6 271.6c2.6 3.3 2.2 8.4-1.2 11.2z'
+        )
+      )),
+      (t.PayCircleFill = u(
+        'pay-circle',
+        c,
+        l(
+          o,
+          'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm166.6 246.8L567.5 515.6h62c4.4 0 8 3.6 8 8v29.9c0 4.4-3.6 8-8 8h-82V603h82c4.4 0 8 3.6 8 8v29.9c0 4.4-3.6 8-8 8h-82V717c0 4.4-3.6 8-8 8h-54.3c-4.4 0-8-3.6-8-8v-68.1h-81.7c-4.4 0-8-3.6-8-8V611c0-4.4 3.6-8 8-8h81.7v-41.5h-81.7c-4.4 0-8-3.6-8-8v-29.9c0-4.4 3.6-8 8-8h61.4L345.4 310.8a8.07 8.07 0 0 1 7-11.9h60.7c3 0 5.8 1.7 7.1 4.4l90.6 180h3.4l90.6-180a8 8 0 0 1 7.1-4.4h59.5c4.4 0 8 3.6 8 8 .2 1.4-.2 2.7-.8 3.9z'
+        )
+      )),
       (t.NotificationFill = u(
         'notification',
         c,
@@ -14047,30 +14441,6 @@
           'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm-80 600c0 4.4-3.6 8-8 8h-48c-4.4 0-8-3.6-8-8V360c0-4.4 3.6-8 8-8h48c4.4 0 8 3.6 8 8v304zm224 0c0 4.4-3.6 8-8 8h-48c-4.4 0-8-3.6-8-8V360c0-4.4 3.6-8 8-8h48c4.4 0 8 3.6 8 8v304z'
         )
       )),
-      (t.PayCircleFill = u(
-        'pay-circle',
-        c,
-        l(
-          o,
-          'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm166.6 246.8L567.5 515.6h62c4.4 0 8 3.6 8 8v29.9c0 4.4-3.6 8-8 8h-82V603h82c4.4 0 8 3.6 8 8v29.9c0 4.4-3.6 8-8 8h-82V717c0 4.4-3.6 8-8 8h-54.3c-4.4 0-8-3.6-8-8v-68.1h-81.7c-4.4 0-8-3.6-8-8V611c0-4.4 3.6-8 8-8h81.7v-41.5h-81.7c-4.4 0-8-3.6-8-8v-29.9c0-4.4 3.6-8 8-8h61.4L345.4 310.8a8.07 8.07 0 0 1 7-11.9h60.7c3 0 5.8 1.7 7.1 4.4l90.6 180h3.4l90.6-180a8 8 0 0 1 7.1-4.4h59.5c4.4 0 8 3.6 8 8 .2 1.4-.2 2.7-.8 3.9z'
-        )
-      )),
-      (t.PhoneFill = u(
-        'phone',
-        c,
-        l(
-          o,
-          'M885.6 230.2L779.1 123.8a80.83 80.83 0 0 0-57.3-23.8c-21.7 0-42.1 8.5-57.4 23.8L549.8 238.4a80.83 80.83 0 0 0-23.8 57.3c0 21.7 8.5 42.1 23.8 57.4l83.8 83.8A393.82 393.82 0 0 1 553.1 553 395.34 395.34 0 0 1 437 633.8L353.2 550a80.83 80.83 0 0 0-57.3-23.8c-21.7 0-42.1 8.5-57.4 23.8L123.8 664.5a80.89 80.89 0 0 0-23.8 57.4c0 21.7 8.5 42.1 23.8 57.4l106.3 106.3c24.4 24.5 58.1 38.4 92.7 38.4 7.3 0 14.3-.6 21.2-1.8 134.8-22.2 268.5-93.9 376.4-201.7C828.2 612.8 899.8 479.2 922.3 344c6.8-41.3-6.9-83.8-36.7-113.8z'
-        )
-      )),
-      (t.PictureFill = u(
-        'picture',
-        c,
-        l(
-          o,
-          'M928 160H96c-17.7 0-32 14.3-32 32v640c0 17.7 14.3 32 32 32h832c17.7 0 32-14.3 32-32V192c0-17.7-14.3-32-32-32zM338 304c35.3 0 64 28.7 64 64s-28.7 64-64 64-64-28.7-64-64 28.7-64 64-64zm513.9 437.1a8.11 8.11 0 0 1-5.2 1.9H177.2c-4.4 0-8-3.6-8-8 0-1.9.7-3.7 1.9-5.2l170.3-202c2.8-3.4 7.9-3.8 11.3-1 .3.3.7.6 1 1l99.4 118 158.1-187.5c2.8-3.4 7.9-3.8 11.3-1 .3.3.7.6 1 1l229.6 271.6c2.6 3.3 2.2 8.4-1.2 11.2z'
-        )
-      )),
       (t.PieChartFill = u(
         'pie-chart',
         c,
@@ -14085,6 +14455,14 @@
         l(
           o,
           'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm144.1 454.9L437.7 677.8a8.02 8.02 0 0 1-12.7-6.5V353.7a8 8 0 0 1 12.7-6.5L656.1 506a7.9 7.9 0 0 1 0 12.9z'
+        )
+      )),
+      (t.PhoneFill = u(
+        'phone',
+        c,
+        l(
+          o,
+          'M885.6 230.2L779.1 123.8a80.83 80.83 0 0 0-57.3-23.8c-21.7 0-42.1 8.5-57.4 23.8L549.8 238.4a80.83 80.83 0 0 0-23.8 57.3c0 21.7 8.5 42.1 23.8 57.4l83.8 83.8A393.82 393.82 0 0 1 553.1 553 395.34 395.34 0 0 1 437 633.8L353.2 550a80.83 80.83 0 0 0-57.3-23.8c-21.7 0-42.1 8.5-57.4 23.8L123.8 664.5a80.89 80.89 0 0 0-23.8 57.4c0 21.7 8.5 42.1 23.8 57.4l106.3 106.3c24.4 24.5 58.1 38.4 92.7 38.4 7.3 0 14.3-.6 21.2-1.8 134.8-22.2 268.5-93.9 376.4-201.7C828.2 612.8 899.8 479.2 922.3 344c6.8-41.3-6.9-83.8-36.7-113.8z'
         )
       )),
       (t.PlaySquareFill = u(
@@ -14111,22 +14489,6 @@
           'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zM704 536c0 4.4-3.6 8-8 8H544v152c0 4.4-3.6 8-8 8h-48c-4.4 0-8-3.6-8-8V544H328c-4.4 0-8-3.6-8-8v-48c0-4.4 3.6-8 8-8h152V328c0-4.4 3.6-8 8-8h48c4.4 0 8 3.6 8 8v152h152c4.4 0 8 3.6 8 8v48z'
         )
       )),
-      (t.PoundCircleFill = u(
-        'pound-circle',
-        c,
-        l(
-          o,
-          'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm146 658c0 4.4-3.6 8-8 8H376.2c-4.4 0-8-3.6-8-8v-38.5c0-3.7 2.5-6.9 6.1-7.8 44-10.9 72.8-49 72.8-94.2 0-14.7-2.5-29.4-5.9-44.2H374c-4.4 0-8-3.6-8-8v-30c0-4.4 3.6-8 8-8h53.7c-7.8-25.1-14.6-50.7-14.6-77.1 0-75.8 58.6-120.3 151.5-120.3 26.5 0 51.4 5.5 70.3 12.7 3.1 1.2 5.2 4.2 5.2 7.5v39.5a8 8 0 0 1-10.6 7.6c-17.9-6.4-39-10.5-60.4-10.5-53.3 0-87.3 26.6-87.3 70.2 0 24.7 6.2 47.9 13.4 70.5h112c4.4 0 8 3.6 8 8v30c0 4.4-3.6 8-8 8h-98.6c3.1 13.2 5.3 26.9 5.3 41 0 40.7-16.5 73.9-43.9 91.1v4.7h180c4.4 0 8 3.6 8 8V722z'
-        )
-      )),
-      (t.PrinterFill = u(
-        'printer',
-        c,
-        l(
-          o,
-          'M732 120c0-4.4-3.6-8-8-8H300c-4.4 0-8 3.6-8 8v148h440V120zm120 212H172c-44.2 0-80 35.8-80 80v328c0 17.7 14.3 32 32 32h168v132c0 4.4 3.6 8 8 8h424c4.4 0 8-3.6 8-8V772h168c17.7 0 32-14.3 32-32V412c0-44.2-35.8-80-80-80zM664 844H360V568h304v276zm164-360c0 4.4-3.6 8-8 8h-40c-4.4 0-8-3.6-8-8v-40c0-4.4 3.6-8 8-8h40c4.4 0 8 3.6 8 8v40z'
-        )
-      )),
       (t.ProfileFill = u(
         'profile',
         c,
@@ -14143,12 +14505,36 @@
           'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zM368 744c0 4.4-3.6 8-8 8h-80c-4.4 0-8-3.6-8-8V280c0-4.4 3.6-8 8-8h80c4.4 0 8 3.6 8 8v464zm192-280c0 4.4-3.6 8-8 8h-80c-4.4 0-8-3.6-8-8V280c0-4.4 3.6-8 8-8h80c4.4 0 8 3.6 8 8v184zm192 72c0 4.4-3.6 8-8 8h-80c-4.4 0-8-3.6-8-8V280c0-4.4 3.6-8 8-8h80c4.4 0 8 3.6 8 8v256z'
         )
       )),
+      (t.PoundCircleFill = u(
+        'pound-circle',
+        c,
+        l(
+          o,
+          'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm146 658c0 4.4-3.6 8-8 8H376.2c-4.4 0-8-3.6-8-8v-38.5c0-3.7 2.5-6.9 6.1-7.8 44-10.9 72.8-49 72.8-94.2 0-14.7-2.5-29.4-5.9-44.2H374c-4.4 0-8-3.6-8-8v-30c0-4.4 3.6-8 8-8h53.7c-7.8-25.1-14.6-50.7-14.6-77.1 0-75.8 58.6-120.3 151.5-120.3 26.5 0 51.4 5.5 70.3 12.7 3.1 1.2 5.2 4.2 5.2 7.5v39.5a8 8 0 0 1-10.6 7.6c-17.9-6.4-39-10.5-60.4-10.5-53.3 0-87.3 26.6-87.3 70.2 0 24.7 6.2 47.9 13.4 70.5h112c4.4 0 8 3.6 8 8v30c0 4.4-3.6 8-8 8h-98.6c3.1 13.2 5.3 26.9 5.3 41 0 40.7-16.5 73.9-43.9 91.1v4.7h180c4.4 0 8 3.6 8 8V722z'
+        )
+      )),
+      (t.PrinterFill = u(
+        'printer',
+        c,
+        l(
+          o,
+          'M732 120c0-4.4-3.6-8-8-8H300c-4.4 0-8 3.6-8 8v148h440V120zm120 212H172c-44.2 0-80 35.8-80 80v328c0 17.7 14.3 32 32 32h168v132c0 4.4 3.6 8 8 8h424c4.4 0 8-3.6 8-8V772h168c17.7 0 32-14.3 32-32V412c0-44.2-35.8-80-80-80zM664 844H360V568h304v276zm164-360c0 4.4-3.6 8-8 8h-40c-4.4 0-8-3.6-8-8v-40c0-4.4 3.6-8 8-8h40c4.4 0 8 3.6 8 8v40z'
+        )
+      )),
       (t.PropertySafetyFill = u(
         'property-safety',
         c,
         l(
           o,
           'M866.9 169.9L527.1 54.1C523 52.7 517.5 52 512 52s-11 .7-15.1 2.1L157.1 169.9c-8.3 2.8-15.1 12.4-15.1 21.2v482.4c0 8.8 5.7 20.4 12.6 25.9L499.3 968c3.5 2.7 8 4.1 12.6 4.1s9.2-1.4 12.6-4.1l344.7-268.6c6.9-5.4 12.6-17 12.6-25.9V191.1c.2-8.8-6.6-18.3-14.9-21.2zM648.3 332.8l-87.7 161.1h45.7c5.5 0 10 4.5 10 10v21.3c0 5.5-4.5 10-10 10h-63.4v29.7h63.4c5.5 0 10 4.5 10 10v21.3c0 5.5-4.5 10-10 10h-63.4V658c0 5.5-4.5 10-10 10h-41.3c-5.5 0-10-4.5-10-10v-51.8h-63.1c-5.5 0-10-4.5-10-10v-21.3c0-5.5 4.5-10 10-10h63.1v-29.7h-63.1c-5.5 0-10-4.5-10-10v-21.3c0-5.5 4.5-10 10-10h45.2l-88-161.1c-2.6-4.8-.9-10.9 4-13.6 1.5-.8 3.1-1.2 4.8-1.2h46c3.8 0 7.2 2.1 8.9 5.5l72.9 144.3 73.2-144.3a10 10 0 0 1 8.9-5.5h45c5.5 0 10 4.5 10 10 .1 1.7-.3 3.3-1.1 4.8z'
+        )
+      )),
+      (t.QqSquareFill = u(
+        'qq-square',
+        c,
+        l(
+          o,
+          'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zM722.5 676.4c-11.5 1.4-44.9-52.7-44.9-52.7 0 31.3-16.2 72.2-51.1 101.8 16.9 5.2 54.9 19.2 45.9 34.4-7.3 12.3-125.6 7.9-159.8 4-34.2 3.8-152.5 8.3-159.8-4-9.1-15.2 28.9-29.2 45.8-34.4-35-29.5-51.1-70.4-51.1-101.8 0 0-33.4 54.1-44.9 52.7-5.4-.7-12.4-29.6 9.4-99.7 10.3-33 22-60.5 40.2-105.8-3.1-116.9 45.3-215 160.4-215 113.9 0 163.3 96.1 160.4 215 18.1 45.2 29.9 72.8 40.2 105.8 21.7 70.1 14.6 99.1 9.3 99.7z'
         )
       )),
       (t.PushpinFill = u(
@@ -14165,14 +14551,6 @@
         l(
           o,
           'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm210.5 612.4c-11.5 1.4-44.9-52.7-44.9-52.7 0 31.3-16.2 72.2-51.1 101.8 16.9 5.2 54.9 19.2 45.9 34.4-7.3 12.3-125.6 7.9-159.8 4-34.2 3.8-152.5 8.3-159.8-4-9.1-15.2 28.9-29.2 45.8-34.4-35-29.5-51.1-70.4-51.1-101.8 0 0-33.4 54.1-44.9 52.7-5.4-.7-12.4-29.6 9.4-99.7 10.3-33 22-60.5 40.2-105.8-3.1-116.9 45.3-215 160.4-215 113.9 0 163.3 96.1 160.4 215 18.1 45.2 29.9 72.8 40.2 105.8 21.7 70.1 14.6 99.1 9.3 99.7z'
-        )
-      )),
-      (t.QqSquareFill = u(
-        'qq-square',
-        c,
-        l(
-          o,
-          'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zM722.5 676.4c-11.5 1.4-44.9-52.7-44.9-52.7 0 31.3-16.2 72.2-51.1 101.8 16.9 5.2 54.9 19.2 45.9 34.4-7.3 12.3-125.6 7.9-159.8 4-34.2 3.8-152.5 8.3-159.8-4-9.1-15.2 28.9-29.2 45.8-34.4-35-29.5-51.1-70.4-51.1-101.8 0 0-33.4 54.1-44.9 52.7-5.4-.7-12.4-29.6 9.4-99.7 10.3-33 22-60.5 40.2-105.8-3.1-116.9 45.3-215 160.4-215 113.9 0 163.3 96.1 160.4 215 18.1 45.2 29.9 72.8 40.2 105.8 21.7 70.1 14.6 99.1 9.3 99.7z'
         )
       )),
       (t.QuestionCircleFill = u(
@@ -14223,14 +14601,6 @@
           'M296 440a35.98 35.98 0 0 0-13.4 69.4c11.5-18.1 27.1-34.5 45.9-48.8A35.9 35.9 0 0 0 296 440zm289.7 184.9c-14.9 11.7-44.3 24.3-73.7 24.3s-58.9-12.6-73.7-24.3c-9.3-7.3-22.7-5.7-30 3.6-7.3 9.3-5.7 22.7 3.6 30 25.7 20.4 65 33.5 100.1 33.5 35.1 0 74.4-13.1 100.2-33.5 9.3-7.3 10.9-20.8 3.6-30a21.46 21.46 0 0 0-30.1-3.6zM880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zM757 541.9c4.6 13.5 7 27.6 7 42.1 0 99.4-112.8 180-252 180s-252-80.6-252-180c0-14.5 2.4-28.6 7-42.1A72.01 72.01 0 0 1 296 404c27.1 0 50.6 14.9 62.9 37 36.2-19.8 80.2-32.8 128.1-36.1l58.4-131.1c4.3-9.8 15.2-14.8 25.5-11.8l91.6 26.5a54.03 54.03 0 0 1 101.6 25.6c0 29.8-24.2 54-54 54-23.5 0-43.5-15.1-50.9-36.1L577 308.3l-43 96.5c49.1 3 94.2 16.1 131.2 36.3 12.3-22.1 35.8-37 62.9-37 39.8 0 72 32.2 72 72-.1 29.3-17.8 54.6-43.1 65.8zM584 548a36 36 0 1 0 72 0 36 36 0 1 0-72 0zm144-108a35.9 35.9 0 0 0-32.5 20.6c18.8 14.3 34.4 30.7 45.9 48.8A35.98 35.98 0 0 0 728 440zM368 548a36 36 0 1 0 72 0 36 36 0 1 0-72 0z'
         )
       )),
-      (t.RestFill = u(
-        'rest',
-        c,
-        l(
-          o,
-          'M832 256h-28.1l-35.7-120.9c-4-13.7-16.5-23.1-30.7-23.1h-451c-14.3 0-26.8 9.4-30.7 23.1L220.1 256H192c-17.7 0-32 14.3-32 32v28c0 4.4 3.6 8 8 8h45.8l47.7 558.7a32 32 0 0 0 31.9 29.3h429.2a32 32 0 0 0 31.9-29.3L802.2 324H856c4.4 0 8-3.6 8-8v-28c0-17.7-14.3-32-32-32zM508 704c-79.5 0-144-64.5-144-144s64.5-144 144-144 144 64.5 144 144-64.5 144-144 144zM291 256l22.4-76h397.2l22.4 76H291zm137 304a80 80 0 1 0 160 0 80 80 0 1 0-160 0z'
-        )
-      )),
       (t.RightSquareFill = u(
         'right-square',
         c,
@@ -14239,20 +14609,28 @@
           'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zM658.7 518.5l-246 178c-5.3 3.8-12.7 0-12.7-6.5v-46.9c0-10.2 4.9-19.9 13.2-25.9L558.6 512 413.2 406.8c-8.3-6-13.2-15.6-13.2-25.9V334c0-6.5 7.4-10.3 12.7-6.5l246 178c4.4 3.2 4.4 9.8 0 13z'
         )
       )),
-      (t.RightCircleFill = u(
-        'right-circle',
-        c,
-        l(
-          o,
-          'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm154.7 454.5l-246 178c-5.3 3.8-12.7 0-12.7-6.5v-46.9c0-10.2 4.9-19.9 13.2-25.9L566.6 512 421.2 406.8c-8.3-6-13.2-15.6-13.2-25.9V334c0-6.5 7.4-10.3 12.7-6.5l246 178c4.4 3.2 4.4 9.8 0 13z'
-        )
-      )),
       (t.RocketFill = u(
         'rocket',
         c,
         l(
           o,
           'M864 736c0-111.6-65.4-208-160-252.9V317.3c0-15.1-5.3-29.7-15.1-41.2L536.5 95.4C530.1 87.8 521 84 512 84s-18.1 3.8-24.5 11.4L335.1 276.1a63.97 63.97 0 0 0-15.1 41.2v165.8C225.4 528 160 624.4 160 736h156.5c-2.3 7.2-3.5 15-3.5 23.8 0 22.1 7.6 43.7 21.4 60.8a97.2 97.2 0 0 0 43.1 30.6c23.1 54 75.6 88.8 134.5 88.8 29.1 0 57.3-8.6 81.4-24.8 23.6-15.8 41.9-37.9 53-64a97 97 0 0 0 43.1-30.5 97.52 97.52 0 0 0 21.4-60.8c0-8.4-1.1-16.4-3.1-23.8L864 736zM512 352a48.01 48.01 0 0 1 0 96 48.01 48.01 0 0 1 0-96zm116.1 432.2c-5.2 3-11.2 4.2-17.1 3.4l-19.5-2.4-2.8 19.4c-5.4 37.9-38.4 66.5-76.7 66.5s-71.3-28.6-76.7-66.5l-2.8-19.5-19.5 2.5a27.7 27.7 0 0 1-17.1-3.5c-8.7-5-14.1-14.3-14.1-24.4 0-10.6 5.9-19.4 14.6-23.8h231.3c8.8 4.5 14.6 13.3 14.6 23.8-.1 10.2-5.5 19.6-14.2 24.5z'
+        )
+      )),
+      (t.RestFill = u(
+        'rest',
+        c,
+        l(
+          o,
+          'M832 256h-28.1l-35.7-120.9c-4-13.7-16.5-23.1-30.7-23.1h-451c-14.3 0-26.8 9.4-30.7 23.1L220.1 256H192c-17.7 0-32 14.3-32 32v28c0 4.4 3.6 8 8 8h45.8l47.7 558.7a32 32 0 0 0 31.9 29.3h429.2a32 32 0 0 0 31.9-29.3L802.2 324H856c4.4 0 8-3.6 8-8v-28c0-17.7-14.3-32-32-32zM508 704c-79.5 0-144-64.5-144-144s64.5-144 144-144 144 64.5 144 144-64.5 144-144 144zM291 256l22.4-76h397.2l22.4 76H291zm137 304a80 80 0 1 0 160 0 80 80 0 1 0-160 0z'
+        )
+      )),
+      (t.RightCircleFill = u(
+        'right-circle',
+        c,
+        l(
+          o,
+          'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm154.7 454.5l-246 178c-5.3 3.8-12.7 0-12.7-6.5v-46.9c0-10.2 4.9-19.9 13.2-25.9L566.6 512 421.2 406.8c-8.3-6-13.2-15.6-13.2-25.9V334c0-6.5 7.4-10.3 12.7-6.5l246 178c4.4 3.2 4.4 9.8 0 13z'
         )
       )),
       (t.SafetyCertificateFill = u(
@@ -14287,20 +14665,20 @@
           'M866.9 169.9L527.1 54.1C523 52.7 517.5 52 512 52s-11 .7-15.1 2.1L157.1 169.9c-8.3 2.8-15.1 12.4-15.1 21.2v482.4c0 8.8 5.7 20.4 12.6 25.9L499.3 968c3.5 2.7 8 4.1 12.6 4.1s9.2-1.4 12.6-4.1l344.7-268.6c6.9-5.4 12.6-17 12.6-25.9V191.1c.2-8.8-6.6-18.3-14.9-21.2zM626.8 554c-48.5 48.5-123 55.2-178.6 20.1l-77.5 77.5a8.03 8.03 0 0 1-11.3 0l-34-34a8.03 8.03 0 0 1 0-11.3l77.5-77.5c-35.1-55.7-28.4-130.1 20.1-178.6 56.3-56.3 147.5-56.3 203.8 0 56.3 56.3 56.3 147.5 0 203.8zm-158.54-45.27a80.1 80.1 0 1 0 113.27-113.28 80.1 80.1 0 1 0-113.27 113.28z'
         )
       )),
-      (t.SettingFill = u(
-        'setting',
-        c,
-        l(
-          o,
-          'M512.5 390.6c-29.9 0-57.9 11.6-79.1 32.8-21.1 21.2-32.8 49.2-32.8 79.1 0 29.9 11.7 57.9 32.8 79.1 21.2 21.1 49.2 32.8 79.1 32.8 29.9 0 57.9-11.7 79.1-32.8 21.1-21.2 32.8-49.2 32.8-79.1 0-29.9-11.7-57.9-32.8-79.1a110.96 110.96 0 0 0-79.1-32.8zm412.3 235.5l-65.4-55.9c3.1-19 4.7-38.4 4.7-57.7s-1.6-38.8-4.7-57.7l65.4-55.9a32.03 32.03 0 0 0 9.3-35.2l-.9-2.6a442.5 442.5 0 0 0-79.6-137.7l-1.8-2.1a32.12 32.12 0 0 0-35.1-9.5l-81.2 28.9c-30-24.6-63.4-44-99.6-57.5l-15.7-84.9a32.05 32.05 0 0 0-25.8-25.7l-2.7-.5c-52-9.4-106.8-9.4-158.8 0l-2.7.5a32.05 32.05 0 0 0-25.8 25.7l-15.8 85.3a353.44 353.44 0 0 0-98.9 57.3l-81.8-29.1a32 32 0 0 0-35.1 9.5l-1.8 2.1a445.93 445.93 0 0 0-79.6 137.7l-.9 2.6c-4.5 12.5-.8 26.5 9.3 35.2l66.2 56.5c-3.1 18.8-4.6 38-4.6 57 0 19.2 1.5 38.4 4.6 57l-66 56.5a32.03 32.03 0 0 0-9.3 35.2l.9 2.6c18.1 50.3 44.8 96.8 79.6 137.7l1.8 2.1a32.12 32.12 0 0 0 35.1 9.5l81.8-29.1c29.8 24.5 63 43.9 98.9 57.3l15.8 85.3a32.05 32.05 0 0 0 25.8 25.7l2.7.5a448.27 448.27 0 0 0 158.8 0l2.7-.5a32.05 32.05 0 0 0 25.8-25.7l15.7-84.9c36.2-13.6 69.6-32.9 99.6-57.5l81.2 28.9a32 32 0 0 0 35.1-9.5l1.8-2.1c34.8-41.1 61.5-87.4 79.6-137.7l.9-2.6c4.3-12.4.6-26.3-9.5-35zm-412.3 52.2c-97.1 0-175.8-78.7-175.8-175.8s78.7-175.8 175.8-175.8 175.8 78.7 175.8 175.8-78.7 175.8-175.8 175.8z'
-        )
-      )),
       (t.ShopFill = u(
         'shop',
         c,
         l(
           o,
           'M882 272.1V144c0-17.7-14.3-32-32-32H174c-17.7 0-32 14.3-32 32v128.1c-16.7 1-30 14.9-30 31.9v131.7a177 177 0 0 0 14.4 70.4c4.3 10.2 9.6 19.8 15.6 28.9v345c0 17.6 14.3 32 32 32h274V736h128v176h274c17.7 0 32-14.3 32-32V535a175 175 0 0 0 15.6-28.9c9.5-22.3 14.4-46 14.4-70.4V304c0-17-13.3-30.9-30-31.9zm-72 568H640V704c0-17.7-14.3-32-32-32H416c-17.7 0-32 14.3-32 32v136.1H214V597.9c2.9 1.4 5.9 2.8 9 4 22.3 9.4 46 14.1 70.4 14.1s48-4.7 70.4-14.1c13.8-5.8 26.8-13.2 38.7-22.1.2-.1.4-.1.6 0a180.4 180.4 0 0 0 38.7 22.1c22.3 9.4 46 14.1 70.4 14.1 24.4 0 48-4.7 70.4-14.1 13.8-5.8 26.8-13.2 38.7-22.1.2-.1.4-.1.6 0a180.4 180.4 0 0 0 38.7 22.1c22.3 9.4 46 14.1 70.4 14.1 24.4 0 48-4.7 70.4-14.1 3-1.3 6-2.6 9-4v242.2zm0-568.1H214v-88h596v88z'
+        )
+      )),
+      (t.SettingFill = u(
+        'setting',
+        c,
+        l(
+          o,
+          'M512.5 390.6c-29.9 0-57.9 11.6-79.1 32.8-21.1 21.2-32.8 49.2-32.8 79.1 0 29.9 11.7 57.9 32.8 79.1 21.2 21.1 49.2 32.8 79.1 32.8 29.9 0 57.9-11.7 79.1-32.8 21.1-21.2 32.8-49.2 32.8-79.1 0-29.9-11.7-57.9-32.8-79.1a110.96 110.96 0 0 0-79.1-32.8zm412.3 235.5l-65.4-55.9c3.1-19 4.7-38.4 4.7-57.7s-1.6-38.8-4.7-57.7l65.4-55.9a32.03 32.03 0 0 0 9.3-35.2l-.9-2.6a442.5 442.5 0 0 0-79.6-137.7l-1.8-2.1a32.12 32.12 0 0 0-35.1-9.5l-81.2 28.9c-30-24.6-63.4-44-99.6-57.5l-15.7-84.9a32.05 32.05 0 0 0-25.8-25.7l-2.7-.5c-52-9.4-106.8-9.4-158.8 0l-2.7.5a32.05 32.05 0 0 0-25.8 25.7l-15.8 85.3a353.44 353.44 0 0 0-98.9 57.3l-81.8-29.1a32 32 0 0 0-35.1 9.5l-1.8 2.1a445.93 445.93 0 0 0-79.6 137.7l-.9 2.6c-4.5 12.5-.8 26.5 9.3 35.2l66.2 56.5c-3.1 18.8-4.6 38-4.6 57 0 19.2 1.5 38.4 4.6 57l-66 56.5a32.03 32.03 0 0 0-9.3 35.2l.9 2.6c18.1 50.3 44.8 96.8 79.6 137.7l1.8 2.1a32.12 32.12 0 0 0 35.1 9.5l81.8-29.1c29.8 24.5 63 43.9 98.9 57.3l15.8 85.3a32.05 32.05 0 0 0 25.8 25.7l2.7.5a448.27 448.27 0 0 0 158.8 0l2.7-.5a32.05 32.05 0 0 0 25.8-25.7l15.7-84.9c36.2-13.6 69.6-32.9 99.6-57.5l81.2 28.9a32 32 0 0 0 35.1-9.5l1.8-2.1c34.8-41.1 61.5-87.4 79.6-137.7l.9-2.6c4.3-12.4.6-26.3-9.5-35zm-412.3 52.2c-97.1 0-175.8-78.7-175.8-175.8s78.7-175.8 175.8-175.8 175.8 78.7 175.8 175.8-78.7 175.8-175.8 175.8z'
         )
       )),
       (t.ShoppingFill = u(
@@ -14319,14 +14697,6 @@
           'M582.3 625.6l147.9-166.3h-63.4zm90-202.3h62.5l-92.1-115.1zm-274.7 36L512 684.5l114.4-225.2zM512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm286.7 380.2L515.8 762.3c-1 1.1-2.4 1.7-3.8 1.7s-2.8-.6-3.8-1.7L225.3 444.2a5.14 5.14 0 0 1-.2-6.6L365.6 262c1-1.2 2.4-1.9 4-1.9h284.6c1.6 0 3 .7 4 1.9l140.5 175.6a4.9 4.9 0 0 1 0 6.6zm-190.5-20.9L512 326.1l-96.2 97.2zM420.3 301.1l-23.1 89.8 88.8-89.8zm183.4 0H538l88.8 89.8zm-222.4 7.1l-92.1 115.1h62.5zm-87.5 151.1l147.9 166.3-84.5-166.3z'
         )
       )),
-      (t.SketchSquareFill = u(
-        'sketch-square',
-        c,
-        l(
-          o,
-          'M608.2 423.3L512 326.1l-96.2 97.2zm-25.9 202.3l147.9-166.3h-63.4zm90-202.3h62.5l-92.1-115.1zM880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-81.3 332.2L515.8 762.3c-1 1.1-2.4 1.7-3.8 1.7s-2.8-.6-3.8-1.7L225.3 444.2a5.14 5.14 0 0 1-.2-6.6L365.6 262c1-1.2 2.4-1.9 4-1.9h284.6c1.6 0 3 .7 4 1.9l140.5 175.6a4.9 4.9 0 0 1 0 6.6zm-401.1 15.1L512 684.5l114.4-225.2zm-16.3-151.1l-92.1 115.1h62.5zm-87.5 151.1l147.9 166.3-84.5-166.3zm126.5-158.2l-23.1 89.8 88.8-89.8zm183.4 0H538l88.8 89.8z'
-        )
-      )),
       (t.SkinFill = u(
         'skin',
         c,
@@ -14335,20 +14705,12 @@
           'M870 126H663.8c-17.4 0-32.9 11.9-37 29.3C614.3 208.1 567 246 512 246s-102.3-37.9-114.8-90.7a37.93 37.93 0 0 0-37-29.3H154a44 44 0 0 0-44 44v252a44 44 0 0 0 44 44h75v388a44 44 0 0 0 44 44h478a44 44 0 0 0 44-44V466h75a44 44 0 0 0 44-44V170a44 44 0 0 0-44-44z'
         )
       )),
-      (t.SkypeFill = u(
-        'skype',
+      (t.SketchSquareFill = u(
+        'sketch-square',
         c,
         l(
           o,
-          'M883.7 578.6c4.1-22.5 6.3-45.5 6.3-68.5 0-51-10-100.5-29.7-147-19-45-46.3-85.4-81-120.1a375.79 375.79 0 0 0-120.1-80.9c-46.6-19.7-96-29.7-147-29.7-24 0-48.1 2.3-71.5 6.8A225.1 225.1 0 0 0 335.6 113c-59.7 0-115.9 23.3-158.1 65.5A222.25 222.25 0 0 0 112 336.6c0 38 9.8 75.4 28.1 108.4-3.7 21.4-5.7 43.3-5.7 65.1 0 51 10 100.5 29.7 147 19 45 46.2 85.4 80.9 120.1 34.7 34.7 75.1 61.9 120.1 80.9 46.6 19.7 96 29.7 147 29.7 22.2 0 44.4-2 66.2-5.9 33.5 18.9 71.3 29 110 29 59.7 0 115.9-23.2 158.1-65.5 42.3-42.2 65.5-98.4 65.5-158.1.1-38-9.7-75.5-28.2-108.7zm-370 162.9c-134.2 0-194.2-66-194.2-115.4 0-25.4 18.7-43.1 44.5-43.1 57.4 0 42.6 82.5 149.7 82.5 54.9 0 85.2-29.8 85.2-60.3 0-18.3-9-38.7-45.2-47.6l-119.4-29.8c-96.1-24.1-113.6-76.1-113.6-124.9 0-101.4 95.5-139.5 185.2-139.5 82.6 0 180 45.7 180 106.5 0 26.1-22.6 41.2-48.4 41.2-49 0-40-67.8-138.7-67.8-49 0-76.1 22.2-76.1 53.9s38.7 41.8 72.3 49.5l88.4 19.6c96.8 21.6 121.3 78.1 121.3 131.3 0 82.3-63.3 143.9-191 143.9z'
-        )
-      )),
-      (t.SlackSquareFill = u(
-        'slack-square',
-        c,
-        l(
-          o,
-          'M893.1 397.6c-85.8-286-209.5-352.5-495.5-266.7S45.1 340.4 130.9 626.4s209.5 352.5 495.5 266.7 352.5-209.5 266.7-495.5zm-150 189.9l-50.3 16.3 16.5 50.6c7.7 23.6-5.3 49-28.9 56.7-23.6 7.7-49-5.3-56.7-28.9l-16.5-50.6L506 664.5l16.5 50.6c7.7 23.6-5.3 49-28.9 56.7-23.6 7.7-49-5.3-56.7-28.9l-16.5-50.6-51 16.6c-23.6 7.7-49-5.3-56.7-28.9s5.3-49 28.9-56.7l51-16.6-32.9-101.3-51 16.6c-23.6 7.7-49-5.3-56.7-28.9-7.7-23.6 5.3-49 28.9-56.7l51-16.6-16.5-50.6c-7.7-23.6 5.3-49 28.9-56.7 23.6-7.7 49 5.3 56.7 28.9l16.5 50.6 101.3-32.9-16.5-50.6c-7.7-23.6 5.3-49 28.9-56.7s49 5.3 56.7 28.9l16.5 50.6 50.3-16.3c23.6-7.7 49 5.3 56.7 28.9 7.7 23.6-5.3 49-28.9 56.7L632.1 417 665 518.3l50.3-16.3c23.6-7.7 49 5.3 56.7 28.9 7.7 23.6-5.3 48.9-28.9 56.6zM445.26 477.67l101.3-32.9 32.9 101.29-101.29 32.9z'
+          'M608.2 423.3L512 326.1l-96.2 97.2zm-25.9 202.3l147.9-166.3h-63.4zm90-202.3h62.5l-92.1-115.1zM880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-81.3 332.2L515.8 762.3c-1 1.1-2.4 1.7-3.8 1.7s-2.8-.6-3.8-1.7L225.3 444.2a5.14 5.14 0 0 1-.2-6.6L365.6 262c1-1.2 2.4-1.9 4-1.9h284.6c1.6 0 3 .7 4 1.9l140.5 175.6a4.9 4.9 0 0 1 0 6.6zm-401.1 15.1L512 684.5l114.4-225.2zm-16.3-151.1l-92.1 115.1h62.5zm-87.5 151.1l147.9 166.3-84.5-166.3zm126.5-158.2l-23.1 89.8 88.8-89.8zm183.4 0H538l88.8 89.8z'
         )
       )),
       (t.SlackCircleFill = u(
@@ -14367,6 +14729,22 @@
           'M904 296h-66v-96c0-4.4-3.6-8-8-8h-52c-4.4 0-8 3.6-8 8v96h-66c-4.4 0-8 3.6-8 8v416c0 4.4 3.6 8 8 8h66v96c0 4.4 3.6 8 8 8h52c4.4 0 8-3.6 8-8v-96h66c4.4 0 8-3.6 8-8V304c0-4.4-3.6-8-8-8zm-584-72h-66v-56c0-4.4-3.6-8-8-8h-52c-4.4 0-8 3.6-8 8v56h-66c-4.4 0-8 3.6-8 8v560c0 4.4 3.6 8 8 8h66v56c0 4.4 3.6 8 8 8h52c4.4 0 8-3.6 8-8v-56h66c4.4 0 8-3.6 8-8V232c0-4.4-3.6-8-8-8zm292 180h-66V232c0-4.4-3.6-8-8-8h-52c-4.4 0-8 3.6-8 8v172h-66c-4.4 0-8 3.6-8 8v200c0 4.4 3.6 8 8 8h66v172c0 4.4 3.6 8 8 8h52c4.4 0 8-3.6 8-8V620h66c4.4 0 8-3.6 8-8V412c0-4.4-3.6-8-8-8z'
         )
       )),
+      (t.SkypeFill = u(
+        'skype',
+        c,
+        l(
+          o,
+          'M883.7 578.6c4.1-22.5 6.3-45.5 6.3-68.5 0-51-10-100.5-29.7-147-19-45-46.3-85.4-81-120.1a375.79 375.79 0 0 0-120.1-80.9c-46.6-19.7-96-29.7-147-29.7-24 0-48.1 2.3-71.5 6.8A225.1 225.1 0 0 0 335.6 113c-59.7 0-115.9 23.3-158.1 65.5A222.25 222.25 0 0 0 112 336.6c0 38 9.8 75.4 28.1 108.4-3.7 21.4-5.7 43.3-5.7 65.1 0 51 10 100.5 29.7 147 19 45 46.2 85.4 80.9 120.1 34.7 34.7 75.1 61.9 120.1 80.9 46.6 19.7 96 29.7 147 29.7 22.2 0 44.4-2 66.2-5.9 33.5 18.9 71.3 29 110 29 59.7 0 115.9-23.2 158.1-65.5 42.3-42.2 65.5-98.4 65.5-158.1.1-38-9.7-75.5-28.2-108.7zm-370 162.9c-134.2 0-194.2-66-194.2-115.4 0-25.4 18.7-43.1 44.5-43.1 57.4 0 42.6 82.5 149.7 82.5 54.9 0 85.2-29.8 85.2-60.3 0-18.3-9-38.7-45.2-47.6l-119.4-29.8c-96.1-24.1-113.6-76.1-113.6-124.9 0-101.4 95.5-139.5 185.2-139.5 82.6 0 180 45.7 180 106.5 0 26.1-22.6 41.2-48.4 41.2-49 0-40-67.8-138.7-67.8-49 0-76.1 22.2-76.1 53.9s38.7 41.8 72.3 49.5l88.4 19.6c96.8 21.6 121.3 78.1 121.3 131.3 0 82.3-63.3 143.9-191 143.9z'
+        )
+      )),
+      (t.SlackSquareFill = u(
+        'slack-square',
+        c,
+        l(
+          o,
+          'M893.1 397.6c-85.8-286-209.5-352.5-495.5-266.7S45.1 340.4 130.9 626.4s209.5 352.5 495.5 266.7 352.5-209.5 266.7-495.5zm-150 189.9l-50.3 16.3 16.5 50.6c7.7 23.6-5.3 49-28.9 56.7-23.6 7.7-49-5.3-56.7-28.9l-16.5-50.6L506 664.5l16.5 50.6c7.7 23.6-5.3 49-28.9 56.7-23.6 7.7-49-5.3-56.7-28.9l-16.5-50.6-51 16.6c-23.6 7.7-49-5.3-56.7-28.9s5.3-49 28.9-56.7l51-16.6-32.9-101.3-51 16.6c-23.6 7.7-49-5.3-56.7-28.9-7.7-23.6 5.3-49 28.9-56.7l51-16.6-16.5-50.6c-7.7-23.6 5.3-49 28.9-56.7 23.6-7.7 49 5.3 56.7 28.9l16.5 50.6 101.3-32.9-16.5-50.6c-7.7-23.6 5.3-49 28.9-56.7s49 5.3 56.7 28.9l16.5 50.6 50.3-16.3c23.6-7.7 49 5.3 56.7 28.9 7.7 23.6-5.3 49-28.9 56.7L632.1 417 665 518.3l50.3-16.3c23.6-7.7 49 5.3 56.7 28.9 7.7 23.6-5.3 48.9-28.9 56.6zM445.26 477.67l101.3-32.9 32.9 101.29-101.29 32.9z'
+        )
+      )),
       (t.SmileFill = u(
         'smile',
         c,
@@ -14383,20 +14761,20 @@
           'M832 112H724V72c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v40H500V72c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v40H320c-17.7 0-32 14.3-32 32v120h-96c-17.7 0-32 14.3-32 32v632c0 17.7 14.3 32 32 32h512c17.7 0 32-14.3 32-32v-96h96c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zM664 486H514V336h.2L664 485.8v.2zm128 274h-56V456L544 264H360v-80h68v32c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-32h152v32c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-32h68v576z'
         )
       )),
-      (t.SoundFill = u(
-        'sound',
-        c,
-        l(
-          o,
-          'M892.1 737.8l-110.3-63.7a15.9 15.9 0 0 0-21.7 5.9l-19.9 34.5c-4.4 7.6-1.8 17.4 5.8 21.8L856.3 800a15.9 15.9 0 0 0 21.7-5.9l19.9-34.5c4.4-7.6 1.7-17.4-5.8-21.8zM760 344a15.9 15.9 0 0 0 21.7 5.9L892 286.2c7.6-4.4 10.2-14.2 5.8-21.8L878 230a15.9 15.9 0 0 0-21.7-5.9L746 287.8a15.99 15.99 0 0 0-5.8 21.8L760 344zm174 132H806c-8.8 0-16 7.2-16 16v40c0 8.8 7.2 16 16 16h128c8.8 0 16-7.2 16-16v-40c0-8.8-7.2-16-16-16zM625.9 115c-5.9 0-11.9 1.6-17.4 5.3L254 352H90c-8.8 0-16 7.2-16 16v288c0 8.8 7.2 16 16 16h164l354.5 231.7c5.5 3.6 11.6 5.3 17.4 5.3 16.7 0 32.1-13.3 32.1-32.1V147.1c0-18.8-15.4-32.1-32.1-32.1z'
-        )
-      )),
       (t.StarFill = u(
         'star',
         c,
         l(
           o,
           'M908.1 353.1l-253.9-36.9L540.7 86.1c-3.1-6.3-8.2-11.4-14.5-14.5-15.8-7.8-35-1.3-42.9 14.5L369.8 316.2l-253.9 36.9c-7 1-13.4 4.3-18.3 9.3a32.05 32.05 0 0 0 .6 45.3l183.7 179.1-43.4 252.9a31.95 31.95 0 0 0 46.4 33.7L512 754l227.1 119.4c6.2 3.3 13.4 4.4 20.3 3.2 17.4-3 29.1-19.5 26.1-36.9l-43.4-252.9 183.7-179.1c5-4.9 8.3-11.3 9.3-18.3 2.7-17.5-9.5-33.7-27-36.3z'
+        )
+      )),
+      (t.SoundFill = u(
+        'sound',
+        c,
+        l(
+          o,
+          'M892.1 737.8l-110.3-63.7a15.9 15.9 0 0 0-21.7 5.9l-19.9 34.5c-4.4 7.6-1.8 17.4 5.8 21.8L856.3 800a15.9 15.9 0 0 0 21.7-5.9l19.9-34.5c4.4-7.6 1.7-17.4-5.8-21.8zM760 344a15.9 15.9 0 0 0 21.7 5.9L892 286.2c7.6-4.4 10.2-14.2 5.8-21.8L878 230a15.9 15.9 0 0 0-21.7-5.9L746 287.8a15.99 15.99 0 0 0-5.8 21.8L760 344zm174 132H806c-8.8 0-16 7.2-16 16v40c0 8.8 7.2 16 16 16h128c8.8 0 16-7.2 16-16v-40c0-8.8-7.2-16-16-16zM625.9 115c-5.9 0-11.9 1.6-17.4 5.3L254 352H90c-8.8 0-16 7.2-16 16v288c0 8.8 7.2 16 16 16h164l354.5 231.7c5.5 3.6 11.6 5.3 17.4 5.3 16.7 0 32.1-13.3 32.1-32.1V147.1c0-18.8-15.4-32.1-32.1-32.1z'
         )
       )),
       (t.StepBackwardFill = u(
@@ -14413,14 +14791,6 @@
         l(
           r,
           'M676.4 528.95L293.2 829.97c-14.25 11.2-35.2 1.1-35.2-16.95V210.97c0-18.05 20.95-28.14 35.2-16.94l383.2 301.02a21.53 21.53 0 0 1 0 33.9M694 864h64a8 8 0 0 0 8-8V168a8 8 0 0 0-8-8h-64a8 8 0 0 0-8 8v688a8 8 0 0 0 8 8'
-        )
-      )),
-      (t.StopFill = u(
-        'stop',
-        c,
-        l(
-          o,
-          'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm234.8 736.5L223.5 277.2c16-19.7 34-37.7 53.7-53.7l523.3 523.3c-16 19.6-34 37.7-53.7 53.7z'
         )
       )),
       (t.TabletFill = u(
@@ -14447,12 +14817,12 @@
           'M938 458.8l-29.6-312.6c-1.5-16.2-14.4-29-30.6-30.6L565.2 86h-.4c-3.2 0-5.7 1-7.6 2.9L88.9 557.2a9.96 9.96 0 0 0 0 14.1l363.8 363.8c1.9 1.9 4.4 2.9 7.1 2.9s5.2-1 7.1-2.9l468.3-468.3c2-2.1 3-5 2.8-8zM699 387c-35.3 0-64-28.7-64-64s28.7-64 64-64 64 28.7 64 64-28.7 64-64 64z'
         )
       )),
-      (t.TagsFill = u(
-        'tags',
+      (t.StopFill = u(
+        'stop',
         c,
         l(
           o,
-          'M483.2 790.3L861.4 412c1.7-1.7 2.5-4 2.3-6.3l-25.5-301.4c-.7-7.8-6.8-13.9-14.6-14.6L522.2 64.3c-2.3-.2-4.7.6-6.3 2.3L137.7 444.8a8.03 8.03 0 0 0 0 11.3l334.2 334.2c3.1 3.2 8.2 3.2 11.3 0zm122.7-533.4c18.7-18.7 49.1-18.7 67.9 0 18.7 18.7 18.7 49.1 0 67.9-18.7 18.7-49.1 18.7-67.9 0-18.7-18.7-18.7-49.1 0-67.9zm283.8 282.9l-39.6-39.5a8.03 8.03 0 0 0-11.3 0l-362 361.3-237.6-237a8.03 8.03 0 0 0-11.3 0l-39.6 39.5a8.03 8.03 0 0 0 0 11.3l243.2 242.8 39.6 39.5c3.1 3.1 8.2 3.1 11.3 0l407.3-406.6c3.1-3.1 3.1-8.2 0-11.3z'
+          'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm234.8 736.5L223.5 277.2c16-19.7 34-37.7 53.7-53.7l523.3 523.3c-16 19.6-34 37.7-53.7 53.7z'
         )
       )),
       (t.TaobaoCircleFill = u(
@@ -14471,12 +14841,12 @@
           'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zM315.7 291.5c27.3 0 49.5 22.1 49.5 49.4s-22.1 49.4-49.5 49.4a49.4 49.4 0 1 1 0-98.8zM366.9 578c-13.6 42.3-10.2 26.7-64.4 144.5l-78.5-49s87.7-79.8 105.6-116.2c19.2-38.4-21.1-58.9-21.1-58.9l-60.2-37.5 32.7-50.2c45.4 33.7 48.7 36.6 79.2 67.2 23.8 23.9 20.7 56.8 6.7 100.1zm427.2 55c-15.3 143.8-202.4 90.3-202.4 90.3l10.2-41.1 43.3 9.3c80 5 72.3-64.9 72.3-64.9V423c.6-77.3-72.6-85.4-204.2-38.3l30.6 8.3c-2.5 9-12.5 23.2-25.2 38.6h176v35.6h-99.1v44.5h98.7v35.7h-98.7V622c14.9-4.8 28.6-11.5 40.5-20.5l-8.7-32.5 46.5-14.4 38.8 94.9-57.3 23.9-10.2-37.8c-25.6 19.5-78.8 48-171.8 45.4-99.2 2.6-73.7-112-73.7-112l2.5-1.3H472c-.5 14.7-6.6 38.7 1.7 51.8 6.8 10.8 24.2 12.6 35.3 13.1 1.3.1 2.6.1 3.9.1v-85.3h-101v-35.7h101v-44.5H487c-22.7 24.1-43.5 44.1-43.5 44.1l-30.6-26.7c21.7-22.9 43.3-59.1 56.8-83.2-10.9 4.4-22 9.2-33.6 14.2-11.2 14.3-24.2 29-38.7 43.5.5.8-50-28.4-50-28.4 52.2-44.4 81.4-139.9 81.4-139.9l72.5 20.4s-5.9 14-18.4 35.6c290.3-82.3 307.4 50.5 307.4 50.5s19.1 91.8 3.8 235.7z'
         )
       )),
-      (t.ThunderboltFill = u(
-        'thunderbolt',
+      (t.TagsFill = u(
+        'tags',
         c,
         l(
           o,
-          'M848 359.3H627.7L825.8 109c4.1-5.3.4-13-6.3-13H436c-2.8 0-5.5 1.5-6.9 4L170 547.5c-3.1 5.3.7 12 6.9 12h174.4l-89.4 357.6c-1.9 7.8 7.5 13.3 13.3 7.7L853.5 373c5.2-4.9 1.7-13.7-5.5-13.7z'
+          'M483.2 790.3L861.4 412c1.7-1.7 2.5-4 2.3-6.3l-25.5-301.4c-.7-7.8-6.8-13.9-14.6-14.6L522.2 64.3c-2.3-.2-4.7.6-6.3 2.3L137.7 444.8a8.03 8.03 0 0 0 0 11.3l334.2 334.2c3.1 3.2 8.2 3.2 11.3 0zm122.7-533.4c18.7-18.7 49.1-18.7 67.9 0 18.7 18.7 18.7 49.1 0 67.9-18.7 18.7-49.1 18.7-67.9 0-18.7-18.7-18.7-49.1 0-67.9zm283.8 282.9l-39.6-39.5a8.03 8.03 0 0 0-11.3 0l-362 361.3-237.6-237a8.03 8.03 0 0 0-11.3 0l-39.6 39.5a8.03 8.03 0 0 0 0 11.3l243.2 242.8 39.6 39.5c3.1 3.1 8.2 3.1 11.3 0l407.3-406.6c3.1-3.1 3.1-8.2 0-11.3z'
         )
       )),
       (t.ToolFill = u(
@@ -14487,20 +14857,20 @@
           'M865.3 244.7c-.3-.3-61.1 59.8-182.1 180.6l-84.9-84.9 180.9-180.9c-95.2-57.3-217.5-42.6-296.8 36.7A244.42 244.42 0 0 0 419 432l1.8 6.7-283.5 283.4c-6.2 6.2-6.2 16.4 0 22.6l141.4 141.4c6.2 6.2 16.4 6.2 22.6 0l283.3-283.3 6.7 1.8c83.7 22.3 173.6-.9 236-63.3 79.4-79.3 94.1-201.6 38-296.6z'
         )
       )),
+      (t.ThunderboltFill = u(
+        'thunderbolt',
+        c,
+        l(
+          o,
+          'M848 359.3H627.7L825.8 109c4.1-5.3.4-13-6.3-13H436c-2.8 0-5.5 1.5-6.9 4L170 547.5c-3.1 5.3.7 12 6.9 12h174.4l-89.4 357.6c-1.9 7.8 7.5 13.3 13.3 7.7L853.5 373c5.2-4.9 1.7-13.7-5.5-13.7z'
+        )
+      )),
       (t.TrademarkCircleFill = u(
         'trademark-circle',
         c,
         l(
           o,
           'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm164.7 660.2c-1.1.5-2.3.8-3.5.8h-62c-3.1 0-5.9-1.8-7.2-4.6l-74.6-159.2h-88.7V717c0 4.4-3.6 8-8 8H378c-4.4 0-8-3.6-8-8V307c0-4.4 3.6-8 8-8h155.6c98.8 0 144.2 59.9 144.2 131.1 0 70.2-43.6 106.4-78.4 119.2l80.8 164.2c2.1 3.9.4 8.7-3.5 10.7zM523.9 357h-83.4v148H522c53 0 82.8-25.6 82.8-72.4 0-50.3-32.9-75.6-80.9-75.6z'
-        )
-      )),
-      (t.TrophyFill = u(
-        'trophy',
-        c,
-        l(
-          o,
-          'M868 160h-92v-40c0-4.4-3.6-8-8-8H256c-4.4 0-8 3.6-8 8v40h-92a44 44 0 0 0-44 44v148c0 81.7 60 149.6 138.2 162C265.6 630.2 359 721.8 476 734.5v105.2H280c-17.7 0-32 14.3-32 32V904c0 4.4 3.6 8 8 8h512c4.4 0 8-3.6 8-8v-32.3c0-17.7-14.3-32-32-32H548V734.5C665 721.8 758.4 630.2 773.8 514 852 501.6 912 433.7 912 352V204a44 44 0 0 0-44-44zM248 439.6c-37.1-11.9-64-46.7-64-87.6V232h64v207.6zM840 352c0 41-26.9 75.8-64 87.6V232h64v120z'
         )
       )),
       (t.TwitterCircleFill = u(
@@ -14511,20 +14881,20 @@
           'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm215.3 337.7c.3 4.7.3 9.6.3 14.4 0 146.8-111.8 315.9-316.1 315.9-63 0-121.4-18.3-170.6-49.8 9 1 17.6 1.4 26.8 1.4 52 0 99.8-17.6 137.9-47.4-48.8-1-89.8-33-103.8-77 17.1 2.5 32.5 2.5 50.1-2a111 111 0 0 1-88.9-109v-1.4c14.7 8.3 32 13.4 50.1 14.1a111.13 111.13 0 0 1-49.5-92.4c0-20.7 5.4-39.6 15.1-56a315.28 315.28 0 0 0 229 116.1C492 353.1 548.4 292 616.2 292c32 0 60.8 13.4 81.1 35 25.1-4.7 49.1-14.1 70.5-26.7-8.3 25.7-25.7 47.4-48.8 61.1 22.4-2.4 44-8.6 64-17.3-15.1 22.2-34 41.9-55.7 57.6z'
         )
       )),
+      (t.TrophyFill = u(
+        'trophy',
+        c,
+        l(
+          o,
+          'M868 160h-92v-40c0-4.4-3.6-8-8-8H256c-4.4 0-8 3.6-8 8v40h-92a44 44 0 0 0-44 44v148c0 81.7 60 149.6 138.2 162C265.6 630.2 359 721.8 476 734.5v105.2H280c-17.7 0-32 14.3-32 32V904c0 4.4 3.6 8 8 8h512c4.4 0 8-3.6 8-8v-32.3c0-17.7-14.3-32-32-32H548V734.5C665 721.8 758.4 630.2 773.8 514 852 501.6 912 433.7 912 352V204a44 44 0 0 0-44-44zM248 439.6c-37.1-11.9-64-46.7-64-87.6V232h64v207.6zM840 352c0 41-26.9 75.8-64 87.6V232h64v120z'
+        )
+      )),
       (t.TwitterSquareFill = u(
         'twitter-square',
         c,
         l(
           o,
           'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zM727.3 401.7c.3 4.7.3 9.6.3 14.4 0 146.8-111.8 315.9-316.1 315.9-63 0-121.4-18.3-170.6-49.8 9 1 17.6 1.4 26.8 1.4 52 0 99.8-17.6 137.9-47.4-48.8-1-89.8-33-103.8-77 17.1 2.5 32.5 2.5 50.1-2a111 111 0 0 1-88.9-109v-1.4c14.7 8.3 32 13.4 50.1 14.1a111.13 111.13 0 0 1-49.5-92.4c0-20.7 5.4-39.6 15.1-56a315.28 315.28 0 0 0 229 116.1C492 353.1 548.4 292 616.2 292c32 0 60.8 13.4 81.1 35 25.1-4.7 49.1-14.1 70.5-26.7-8.3 25.7-25.7 47.4-48.8 61.1 22.4-2.4 44-8.6 64-17.3-15.1 22.2-34 41.9-55.7 57.6z'
-        )
-      )),
-      (t.UnlockFill = u(
-        'unlock',
-        c,
-        l(
-          o,
-          'M832 464H332V240c0-30.9 25.1-56 56-56h248c30.9 0 56 25.1 56 56v68c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-68c0-70.7-57.3-128-128-128H388c-70.7 0-128 57.3-128 128v224h-68c-17.7 0-32 14.3-32 32v384c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V496c0-17.7-14.3-32-32-32zM540 701v53c0 4.4-3.6 8-8 8h-40c-4.4 0-8-3.6-8-8v-53a48.01 48.01 0 1 1 56 0z'
         )
       )),
       (t.UpCircleFill = u(
@@ -14535,12 +14905,12 @@
           'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm178 555h-46.9c-10.2 0-19.9-4.9-25.9-13.2L512 460.4 406.8 605.8c-6 8.3-15.6 13.2-25.9 13.2H334c-6.5 0-10.3-7.4-6.5-12.7l178-246c3.2-4.4 9.7-4.4 12.9 0l178 246c3.9 5.3.1 12.7-6.4 12.7z'
         )
       )),
-      (t.UpSquareFill = u(
-        'up-square',
+      (t.UnlockFill = u(
+        'unlock',
         c,
         l(
           o,
-          'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zM690 624h-46.9c-10.2 0-19.9-4.9-25.9-13.2L512 465.4 406.8 610.8c-6 8.3-15.6 13.2-25.9 13.2H334c-6.5 0-10.3-7.4-6.5-12.7l178-246c3.2-4.4 9.7-4.4 12.9 0l178 246c3.9 5.3.1 12.7-6.4 12.7z'
+          'M832 464H332V240c0-30.9 25.1-56 56-56h248c30.9 0 56 25.1 56 56v68c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-68c0-70.7-57.3-128-128-128H388c-70.7 0-128 57.3-128 128v224h-68c-17.7 0-32 14.3-32 32v384c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V496c0-17.7-14.3-32-32-32zM540 701v53c0 4.4-3.6 8-8 8h-40c-4.4 0-8-3.6-8-8v-53a48.01 48.01 0 1 1 56 0z'
         )
       )),
       (t.UsbFill = u(
@@ -14551,6 +14921,14 @@
           'M408 312h48c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8zm352 120V144c0-17.7-14.3-32-32-32H296c-17.7 0-32 14.3-32 32v288c-66.2 0-120 52.1-120 116v356c0 4.4 3.6 8 8 8h720c4.4 0 8-3.6 8-8V548c0-63.9-53.8-116-120-116zm-72 0H336V184h352v248zM568 312h48c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8z'
         )
       )),
+      (t.UpSquareFill = u(
+        'up-square',
+        c,
+        l(
+          o,
+          'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zM690 624h-46.9c-10.2 0-19.9-4.9-25.9-13.2L512 465.4 406.8 610.8c-6 8.3-15.6 13.2-25.9 13.2H334c-6.5 0-10.3-7.4-6.5-12.7l178-246c3.2-4.4 9.7-4.4 12.9 0l178 246c3.9 5.3.1 12.7-6.4 12.7z'
+        )
+      )),
       (t.VideoCameraFill = u(
         'video-camera',
         c,
@@ -14559,20 +14937,20 @@
           'M912 302.3L784 376V224c0-35.3-28.7-64-64-64H128c-35.3 0-64 28.7-64 64v576c0 35.3 28.7 64 64 64h592c35.3 0 64-28.7 64-64V648l128 73.7c21.3 12.3 48-3.1 48-27.6V330c0-24.6-26.7-40-48-27.7zM328 352c0 4.4-3.6 8-8 8H208c-4.4 0-8-3.6-8-8v-48c0-4.4 3.6-8 8-8h112c4.4 0 8 3.6 8 8v48zm560 273l-104-59.8V458.9L888 399v226z'
         )
       )),
-      (t.WalletFill = u(
-        'wallet',
-        c,
-        l(
-          o,
-          'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-32 464H528V448h320v128zm-268-64a40 40 0 1 0 80 0 40 40 0 1 0-80 0z'
-        )
-      )),
       (t.WarningFill = u(
         'warning',
         c,
         l(
           o,
           'M955.7 856l-416-720c-6.2-10.7-16.9-16-27.7-16s-21.6 5.3-27.7 16l-416 720C56 877.4 71.4 904 96 904h832c24.6 0 40-26.6 27.7-48zM480 416c0-4.4 3.6-8 8-8h48c4.4 0 8 3.6 8 8v184c0 4.4-3.6 8-8 8h-48c-4.4 0-8-3.6-8-8V416zm32 352a48.01 48.01 0 0 1 0-96 48.01 48.01 0 0 1 0 96z'
+        )
+      )),
+      (t.WalletFill = u(
+        'wallet',
+        c,
+        l(
+          o,
+          'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-32 464H528V448h320v128zm-268-64a40 40 0 1 0 80 0 40 40 0 1 0-80 0z'
         )
       )),
       (t.WechatFill = u(
@@ -14615,28 +14993,20 @@
           'M941.3 296.1a112.3 112.3 0 0 0-79.2-79.3C792.2 198 512 198 512 198s-280.2 0-350.1 18.7A112.12 112.12 0 0 0 82.7 296C64 366 64 512 64 512s0 146 18.7 215.9c10.3 38.6 40.7 69 79.2 79.3C231.8 826 512 826 512 826s280.2 0 350.1-18.8c38.6-10.3 68.9-40.7 79.2-79.3C960 658 960 512 960 512s0-146-18.7-215.9zM423 646V378l232 133-232 135z'
         )
       )),
-      (t.YahooFill = u(
-        'yahoo',
-        c,
-        l(
-          o,
-          'M937.3 231H824.7c-15.5 0-27.7 12.6-27.1 28.1l13.1 366h84.4l65.4-366.4c2.7-15.2-7.8-27.7-23.2-27.7zm-77.4 450.4h-14.1c-27.1 0-49.2 22.2-49.2 49.3v14.1c0 27.1 22.2 49.3 49.2 49.3h14.1c27.1 0 49.2-22.2 49.2-49.3v-14.1c0-27.1-22.2-49.3-49.2-49.3zM402.6 231C216.2 231 65 357 65 512.5S216.2 794 402.6 794s337.6-126 337.6-281.5S589.1 231 402.6 231zm225.2 225.2h-65.3L458.9 559.8v65.3h84.4v56.3H318.2v-56.3h84.4v-65.3L242.9 399.9h-37v-56.3h168.5v56.3h-37l93.4 93.5 28.1-28.1V400h168.8v56.2z'
-        )
-      )),
-      (t.YuqueFill = u(
-        'yuque',
-        c,
-        l(
-          o,
-          'M854.6 370.6c-9.9-39.4 9.9-102.2 73.4-124.4l-67.9-3.6s-25.7-90-143.6-98c-117.9-8.1-195-3-195-3s87.4 55.6 52.4 154.7c-25.6 52.5-65.8 95.6-108.8 144.7-1.3 1.3-2.5 2.6-3.5 3.7C319.4 605 96 860 96 860c245.9 64.4 410.7-6.3 508.2-91.1 20.5-.2 35.9-.3 46.3-.3 135.8 0 250.6-117.6 245.9-248.4-3.2-89.9-31.9-110.2-41.8-149.6z'
-        )
-      )),
       (t.ZhihuCircleFill = u(
         'zhihu-circle',
         c,
         l(
           o,
           'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm-90.7 477.8l-.1 1.5c-1.5 20.4-6.3 43.9-12.9 67.6l24-18.1 71 80.7c9.2 33-3.3 63.1-3.3 63.1l-95.7-111.9v-.1c-8.9 29-20.1 57.3-33.3 84.7-22.6 45.7-55.2 54.7-89.5 57.7-34.4 3-23.3-5.3-23.3-5.3 68-55.5 78-87.8 96.8-123.1 11.9-22.3 20.4-64.3 25.3-96.8H264.1s4.8-31.2 19.2-41.7h101.6c.6-15.3-1.3-102.8-2-131.4h-49.4c-9.2 45-41 56.7-48.1 60.1-7 3.4-23.6 7.1-21.1 0 2.6-7.1 27-46.2 43.2-110.7 16.3-64.6 63.9-62 63.9-62-12.8 22.5-22.4 73.6-22.4 73.6h159.7c10.1 0 10.6 39 10.6 39h-90.8c-.7 22.7-2.8 83.8-5 131.4H519s12.2 15.4 12.2 41.7H421.3zm346.5 167h-87.6l-69.5 46.6-16.4-46.6h-40.1V321.5h213.6v387.3zM408.2 611s0-.1 0 0zm216 94.3l56.8-38.1h45.6-.1V364.7H596.7v302.5h14.1z'
+        )
+      )),
+      (t.YahooFill = u(
+        'yahoo',
+        c,
+        l(
+          o,
+          'M937.3 231H824.7c-15.5 0-27.7 12.6-27.1 28.1l13.1 366h84.4l65.4-366.4c2.7-15.2-7.8-27.7-23.2-27.7zm-77.4 450.4h-14.1c-27.1 0-49.2 22.2-49.2 49.3v14.1c0 27.1 22.2 49.3 49.2 49.3h14.1c27.1 0 49.2-22.2 49.2-49.3v-14.1c0-27.1-22.2-49.3-49.2-49.3zM402.6 231C216.2 231 65 357 65 512.5S216.2 794 402.6 794s337.6-126 337.6-281.5S589.1 231 402.6 231zm225.2 225.2h-65.3L458.9 559.8v65.3h84.4v56.3H318.2v-56.3h84.4v-65.3L242.9 399.9h-37v-56.3h168.5v56.3h-37l93.4 93.5 28.1-28.1V400h168.8v56.2z'
         )
       )),
       (t.ZhihuSquareFill = u(
@@ -14655,6 +15025,14 @@
           'M880 184H712v-64c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v64H384v-64c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v64H144c-17.7 0-32 14.3-32 32v664c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V216c0-17.7-14.3-32-32-32zm-40 656H184V256h128v48c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-48h256v48c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-48h128v584zM639.5 414h-45c-3 0-5.8 1.7-7.1 4.4L514 563.8h-2.8l-73.4-145.4a8 8 0 0 0-7.1-4.4h-46c-1.3 0-2.7.3-3.8 1-3.9 2.1-5.3 7-3.2 10.9l89.3 164h-48.6c-4.4 0-8 3.6-8 8v21.3c0 4.4 3.6 8 8 8h65.1v33.7h-65.1c-4.4 0-8 3.6-8 8v21.3c0 4.4 3.6 8 8 8h65.1V752c0 4.4 3.6 8 8 8h41.3c4.4 0 8-3.6 8-8v-53.8h65.4c4.4 0 8-3.6 8-8v-21.3c0-4.4-3.6-8-8-8h-65.4v-33.7h65.4c4.4 0 8-3.6 8-8v-21.3c0-4.4-3.6-8-8-8h-49.1l89.3-164.1c.6-1.2 1-2.5 1-3.8.1-4.4-3.4-8-7.9-8z'
         )
       )),
+      (t.YuqueFill = u(
+        'yuque',
+        c,
+        l(
+          o,
+          'M854.6 370.6c-9.9-39.4 9.9-102.2 73.4-124.4l-67.9-3.6s-25.7-90-143.6-98c-117.9-8.1-195-3-195-3s87.4 55.6 52.4 154.7c-25.6 52.5-65.8 95.6-108.8 144.7-1.3 1.3-2.5 2.6-3.5 3.7C319.4 605 96 860 96 860c245.9 64.4 410.7-6.3 508.2-91.1 20.5-.2 35.9-.3 46.3-.3 135.8 0 250.6-117.6 245.9-248.4-3.2-89.9-31.9-110.2-41.8-149.6z'
+        )
+      )),
       (t.AlertOutline = u(
         'alert',
         i,
@@ -14671,14 +15049,6 @@
           'M868.2 377.4c-18.9-45.1-46.3-85.6-81.2-120.6a377.26 377.26 0 0 0-120.5-81.2A375.65 375.65 0 0 0 519 145.8c-41.9 0-82.9 6.7-121.9 20C306 123.3 200.8 120 170.6 120c-2.2 0-7.4 0-9.4.2-11.9.4-22.8 6.5-29.2 16.4-6.5 9.9-7.7 22.4-3.4 33.5l64.3 161.6a378.59 378.59 0 0 0-52.8 193.2c0 51.4 10 101 29.8 147.6 18.9 45 46.2 85.6 81.2 120.5 34.7 34.8 75.4 62.1 120.5 81.2C418.3 894 467.9 904 519 904c51.3 0 100.9-10.1 147.7-29.8 44.9-18.9 85.5-46.3 120.4-81.2 34.7-34.8 62.1-75.4 81.2-120.6a376.5 376.5 0 0 0 29.8-147.6c-.2-51.2-10.1-100.8-29.9-147.4zm-66.4 266.5a307.08 307.08 0 0 1-65.9 98c-28.4 28.5-61.3 50.7-97.7 65.9h-.1c-38 16-78.3 24.2-119.9 24.2a306.51 306.51 0 0 1-217.5-90.2c-28.4-28.5-50.6-61.4-65.8-97.8v-.1c-16-37.8-24.1-78.2-24.1-119.9 0-55.4 14.8-109.7 42.8-157l13.2-22.1-9.5-23.9L206 192c14.9.6 35.9 2.1 59.7 5.6 43.8 6.5 82.5 17.5 114.9 32.6l19 8.9 19.9-6.8c31.5-10.8 64.8-16.2 98.9-16.2a306.51 306.51 0 0 1 217.5 90.2c28.4 28.5 50.6 61.4 65.8 97.8l.1.1.1.1c16 37.6 24.1 78 24.2 119.8-.1 41.7-8.3 82-24.3 119.8zM681.1 364.2c-20.4 0-37.1 16.7-37.1 37.1v55.1c0 20.4 16.6 37.1 37.1 37.1s37.1-16.7 37.1-37.1v-55.1c0-20.5-16.7-37.1-37.1-37.1zm-175.2 0c-20.5 0-37.1 16.7-37.1 37.1v55.1c0 20.4 16.7 37.1 37.1 37.1 20.5 0 37.1-16.7 37.1-37.1v-55.1c0-20.5-16.7-37.1-37.1-37.1z'
         )
       )),
-      (t.AndroidOutline = u(
-        'android',
-        i,
-        l(
-          o,
-          'M448.3 225.2c-18.6 0-32 13.4-32 31.9s13.5 31.9 32 31.9c18.6 0 32-13.4 32-31.9.1-18.4-13.4-31.9-32-31.9zm393.9 96.4c-13.8-13.8-32.7-21.5-53.2-21.5-3.9 0-7.4.4-10.7 1v-1h-3.6c-5.5-30.6-18.6-60.5-38.1-87.4-18.7-25.7-43-47.9-70.8-64.9l25.1-35.8v-3.3c0-.8.4-2.3.7-3.8.6-2.4 1.4-5.5 1.4-8.9 0-18.5-13.5-31.9-32-31.9-9.8 0-19.5 5.7-25.9 15.4l-29.3 42.1c-30-9.8-62.4-15-93.8-15-31.3 0-63.7 5.2-93.8 15L389 79.4c-6.6-9.6-16.1-15.4-26-15.4-18.6 0-32 13.4-32 31.9 0 6.2 2.5 12.8 6.7 17.4l22.6 32.3c-28.7 17-53.5 39.4-72.2 65.1-19.4 26.9-32 56.8-36.7 87.4h-5.5v1c-3.2-.6-6.7-1-10.7-1-20.3 0-39.2 7.5-53.1 21.3-13.8 13.8-21.5 32.6-21.5 53v235c0 20.3 7.5 39.1 21.4 52.9 13.8 13.8 32.8 21.5 53.2 21.5 3.9 0 7.4-.4 10.7-1v93.5c0 29.2 23.9 53.1 53.2 53.1H331v58.3c0 20.3 7.5 39.1 21.4 52.9 13.8 13.8 32.8 21.5 53.2 21.5 20.3 0 39.2-7.5 53.1-21.3 13.8-13.8 21.5-32.6 21.5-53v-58.2H544v58.1c0 20.3 7.5 39.1 21.4 52.9 13.8 13.8 32.8 21.5 53.2 21.5 20.4 0 39.2-7.5 53.1-21.6 13.8-13.8 21.5-32.6 21.5-53v-58.2h31.9c29.3 0 53.2-23.8 53.2-53.1v-91.4c3.2.6 6.7 1 10.7 1 20.3 0 39.2-7.5 53.1-21.3 13.8-13.8 21.5-32.6 21.5-53v-235c-.1-20.3-7.6-39-21.4-52.9zM246 609.6c0 6.8-3.9 10.6-10.7 10.6-6.8 0-10.7-3.8-10.7-10.6V374.5c0-6.8 3.9-10.6 10.7-10.6 6.8 0 10.7 3.8 10.7 10.6v235.1zm131.1-396.8c37.5-27.3 85.3-42.3 135-42.3s97.5 15.1 135 42.5c32.4 23.7 54.2 54.2 62.7 87.5H314.4c8.5-33.4 30.5-64 62.7-87.7zm39.3 674.7c-.6 5.6-4.4 8.7-10.5 8.7-6.8 0-10.7-3.8-10.7-10.6v-58.2h21.2v60.1zm202.3 8.7c-6.8 0-10.7-3.8-10.7-10.6v-58.2h21.2v60.1c-.6 5.6-4.3 8.7-10.5 8.7zm95.8-132.6H309.9V364h404.6v399.6zm85.2-154c0 6.8-3.9 10.6-10.7 10.6-6.8 0-10.7-3.8-10.7-10.6V374.5c0-6.8 3.9-10.6 10.7-10.6 6.8 0 10.7 3.8 10.7 10.6v235.1zM576.1 225.2c-18.6 0-32 13.4-32 31.9s13.5 31.9 32 31.9c18.6 0 32.1-13.4 32.1-32-.1-18.6-13.4-31.8-32.1-31.8z'
-        )
-      )),
       (t.AlipayCircleOutline = u(
         'alipay-circle',
         i,
@@ -14687,20 +15057,12 @@
           'M308.6 545.7c-19.8 2-57.1 10.7-77.4 28.6-61 53-24.5 150 99 150 71.8 0 143.5-45.7 199.8-119-80.2-38.9-148.1-66.8-221.4-59.6zm460.5 67c100.1 33.4 154.7 43 166.7 44.8A445.9 445.9 0 0 0 960 512c0-247.4-200.6-448-448-448S64 264.6 64 512s200.6 448 448 448c155.9 0 293.2-79.7 373.5-200.5-75.6-29.8-213.6-85-286.8-120.1-69.9 85.7-160.1 137.8-253.7 137.8-158.4 0-212.1-138.1-137.2-229 16.3-19.8 44.2-38.7 87.3-49.4 67.5-16.5 175 10.3 275.7 43.4 18.1-33.3 33.4-69.9 44.7-108.9H305.1V402h160v-56.2H271.3v-31.3h193.8v-80.1s0-13.5 13.7-13.5H557v93.6h191.7v31.3H557.1V402h156.4c-15 61.1-37.7 117.4-66.2 166.8 47.5 17.1 90.1 33.3 121.8 43.9z'
         )
       )),
-      (t.ApiOutline = u(
-        'api',
+      (t.AndroidOutline = u(
+        'android',
         i,
         l(
           o,
-          'M917.7 148.8l-42.4-42.4c-1.6-1.6-3.6-2.3-5.7-2.3s-4.1.8-5.7 2.3l-76.1 76.1a199.27 199.27 0 0 0-112.1-34.3c-51.2 0-102.4 19.5-141.5 58.6L432.3 308.7a8.03 8.03 0 0 0 0 11.3L704 591.7c1.6 1.6 3.6 2.3 5.7 2.3 2 0 4.1-.8 5.7-2.3l101.9-101.9c68.9-69 77-175.7 24.3-253.5l76.1-76.1c3.1-3.2 3.1-8.3 0-11.4zM769.1 441.7l-59.4 59.4-186.8-186.8 59.4-59.4c24.9-24.9 58.1-38.7 93.4-38.7 35.3 0 68.4 13.7 93.4 38.7 24.9 24.9 38.7 58.1 38.7 93.4 0 35.3-13.8 68.4-38.7 93.4zm-190.2 105a8.03 8.03 0 0 0-11.3 0L501 613.3 410.7 523l66.7-66.7c3.1-3.1 3.1-8.2 0-11.3L441 408.6a8.03 8.03 0 0 0-11.3 0L363 475.3l-43-43a7.85 7.85 0 0 0-5.7-2.3c-2 0-4.1.8-5.7 2.3L206.8 534.2c-68.9 69-77 175.7-24.3 253.5l-76.1 76.1a8.03 8.03 0 0 0 0 11.3l42.4 42.4c1.6 1.6 3.6 2.3 5.7 2.3s4.1-.8 5.7-2.3l76.1-76.1c33.7 22.9 72.9 34.3 112.1 34.3 51.2 0 102.4-19.5 141.5-58.6l101.9-101.9c3.1-3.1 3.1-8.2 0-11.3l-43-43 66.7-66.7c3.1-3.1 3.1-8.2 0-11.3l-36.6-36.2zM441.7 769.1a131.32 131.32 0 0 1-93.4 38.7c-35.3 0-68.4-13.7-93.4-38.7a131.32 131.32 0 0 1-38.7-93.4c0-35.3 13.7-68.4 38.7-93.4l59.4-59.4 186.8 186.8-59.4 59.4z'
-        )
-      )),
-      (t.AppleOutline = u(
-        'apple',
-        i,
-        l(
-          o,
-          'M747.4 535.7c-.4-68.2 30.5-119.6 92.9-157.5-34.9-50-87.7-77.5-157.3-82.8-65.9-5.2-138 38.4-164.4 38.4-27.9 0-91.7-36.6-141.9-36.6C273.1 298.8 163 379.8 163 544.6c0 48.7 8.9 99 26.7 150.8 23.8 68.2 109.6 235.3 199.1 232.6 46.8-1.1 79.9-33.2 140.8-33.2 59.1 0 89.7 33.2 141.9 33.2 90.3-1.3 167.9-153.2 190.5-221.6-121.1-57.1-114.6-167.2-114.6-170.7zm-10.6 267c-14.3 19.9-28.7 35.6-41.9 45.7-10.5 8-18.6 11.4-24 11.6-9-.1-17.7-2.3-34.7-8.8-1.2-.5-2.5-1-4.2-1.6l-4.4-1.7c-17.4-6.7-27.8-10.3-41.1-13.8-18.6-4.8-37.1-7.4-56.9-7.4-20.2 0-39.2 2.5-58.1 7.2-13.9 3.5-25.6 7.4-42.7 13.8-.7.3-8.1 3.1-10.2 3.9-3.5 1.3-6.2 2.3-8.7 3.2-10.4 3.6-17 5.1-22.9 5.2-.7 0-1.3-.1-1.8-.2-1.1-.2-2.5-.6-4.1-1.3-4.5-1.8-9.9-5.1-16-9.8-14-10.9-29.4-28-45.1-49.9-27.5-38.6-53.5-89.8-66-125.7-15.4-44.8-23-87.7-23-128.6 0-60.2 17.8-106 48.4-137.1 26.3-26.6 61.7-41.5 97.8-42.3 5.9.1 14.5 1.5 25.4 4.5 8.6 2.3 18 5.4 30.7 9.9 3.8 1.4 16.9 6.1 18.5 6.7 7.7 2.8 13.5 4.8 19.2 6.6 18.2 5.8 32.3 9 47.6 9 15.5 0 28.8-3.3 47.7-9.8 7.1-2.4 32.9-12 37.5-13.6 25.6-9.1 44.5-14 60.8-15.2 4.8-.4 9.1-.4 13.2-.1 22.7 1.8 42.1 6.3 58.6 13.8-37.6 43.4-57 96.5-56.9 158.4-.3 14.7.9 31.7 5.1 51.8 6.4 30.5 18.6 60.7 37.9 89 14.7 21.5 32.9 40.9 54.7 57.8-11.5 23.7-25.6 48.2-40.4 68.8zm-94.5-572c50.7-60.2 46.1-115 44.6-134.7-44.8 2.6-96.6 30.5-126.1 64.8-32.5 36.8-51.6 82.3-47.5 133.6 48.4 3.7 92.6-21.2 129-63.7z'
+          'M448.3 225.2c-18.6 0-32 13.4-32 31.9s13.5 31.9 32 31.9c18.6 0 32-13.4 32-31.9.1-18.4-13.4-31.9-32-31.9zm393.9 96.4c-13.8-13.8-32.7-21.5-53.2-21.5-3.9 0-7.4.4-10.7 1v-1h-3.6c-5.5-30.6-18.6-60.5-38.1-87.4-18.7-25.7-43-47.9-70.8-64.9l25.1-35.8v-3.3c0-.8.4-2.3.7-3.8.6-2.4 1.4-5.5 1.4-8.9 0-18.5-13.5-31.9-32-31.9-9.8 0-19.5 5.7-25.9 15.4l-29.3 42.1c-30-9.8-62.4-15-93.8-15-31.3 0-63.7 5.2-93.8 15L389 79.4c-6.6-9.6-16.1-15.4-26-15.4-18.6 0-32 13.4-32 31.9 0 6.2 2.5 12.8 6.7 17.4l22.6 32.3c-28.7 17-53.5 39.4-72.2 65.1-19.4 26.9-32 56.8-36.7 87.4h-5.5v1c-3.2-.6-6.7-1-10.7-1-20.3 0-39.2 7.5-53.1 21.3-13.8 13.8-21.5 32.6-21.5 53v235c0 20.3 7.5 39.1 21.4 52.9 13.8 13.8 32.8 21.5 53.2 21.5 3.9 0 7.4-.4 10.7-1v93.5c0 29.2 23.9 53.1 53.2 53.1H331v58.3c0 20.3 7.5 39.1 21.4 52.9 13.8 13.8 32.8 21.5 53.2 21.5 20.3 0 39.2-7.5 53.1-21.3 13.8-13.8 21.5-32.6 21.5-53v-58.2H544v58.1c0 20.3 7.5 39.1 21.4 52.9 13.8 13.8 32.8 21.5 53.2 21.5 20.4 0 39.2-7.5 53.1-21.6 13.8-13.8 21.5-32.6 21.5-53v-58.2h31.9c29.3 0 53.2-23.8 53.2-53.1v-91.4c3.2.6 6.7 1 10.7 1 20.3 0 39.2-7.5 53.1-21.3 13.8-13.8 21.5-32.6 21.5-53v-235c-.1-20.3-7.6-39-21.4-52.9zM246 609.6c0 6.8-3.9 10.6-10.7 10.6-6.8 0-10.7-3.8-10.7-10.6V374.5c0-6.8 3.9-10.6 10.7-10.6 6.8 0 10.7 3.8 10.7 10.6v235.1zm131.1-396.8c37.5-27.3 85.3-42.3 135-42.3s97.5 15.1 135 42.5c32.4 23.7 54.2 54.2 62.7 87.5H314.4c8.5-33.4 30.5-64 62.7-87.7zm39.3 674.7c-.6 5.6-4.4 8.7-10.5 8.7-6.8 0-10.7-3.8-10.7-10.6v-58.2h21.2v60.1zm202.3 8.7c-6.8 0-10.7-3.8-10.7-10.6v-58.2h21.2v60.1c-.6 5.6-4.3 8.7-10.5 8.7zm95.8-132.6H309.9V364h404.6v399.6zm85.2-154c0 6.8-3.9 10.6-10.7 10.6-6.8 0-10.7-3.8-10.7-10.6V374.5c0-6.8 3.9-10.6 10.7-10.6 6.8 0 10.7 3.8 10.7 10.6v235.1zM576.1 225.2c-18.6 0-32 13.4-32 31.9s13.5 31.9 32 31.9c18.6 0 32.1-13.4 32.1-32-.1-18.6-13.4-31.8-32.1-31.8z'
         )
       )),
       (t.AppstoreOutline = u(
@@ -14711,6 +15073,30 @@
           'M464 144H160c-8.8 0-16 7.2-16 16v304c0 8.8 7.2 16 16 16h304c8.8 0 16-7.2 16-16V160c0-8.8-7.2-16-16-16zm-52 268H212V212h200v200zm452-268H560c-8.8 0-16 7.2-16 16v304c0 8.8 7.2 16 16 16h304c8.8 0 16-7.2 16-16V160c0-8.8-7.2-16-16-16zm-52 268H612V212h200v200zM464 544H160c-8.8 0-16 7.2-16 16v304c0 8.8 7.2 16 16 16h304c8.8 0 16-7.2 16-16V560c0-8.8-7.2-16-16-16zm-52 268H212V612h200v200zm452-268H560c-8.8 0-16 7.2-16 16v304c0 8.8 7.2 16 16 16h304c8.8 0 16-7.2 16-16V560c0-8.8-7.2-16-16-16zm-52 268H612V612h200v200z'
         )
       )),
+      (t.AppleOutline = u(
+        'apple',
+        i,
+        l(
+          o,
+          'M747.4 535.7c-.4-68.2 30.5-119.6 92.9-157.5-34.9-50-87.7-77.5-157.3-82.8-65.9-5.2-138 38.4-164.4 38.4-27.9 0-91.7-36.6-141.9-36.6C273.1 298.8 163 379.8 163 544.6c0 48.7 8.9 99 26.7 150.8 23.8 68.2 109.6 235.3 199.1 232.6 46.8-1.1 79.9-33.2 140.8-33.2 59.1 0 89.7 33.2 141.9 33.2 90.3-1.3 167.9-153.2 190.5-221.6-121.1-57.1-114.6-167.2-114.6-170.7zm-10.6 267c-14.3 19.9-28.7 35.6-41.9 45.7-10.5 8-18.6 11.4-24 11.6-9-.1-17.7-2.3-34.7-8.8-1.2-.5-2.5-1-4.2-1.6l-4.4-1.7c-17.4-6.7-27.8-10.3-41.1-13.8-18.6-4.8-37.1-7.4-56.9-7.4-20.2 0-39.2 2.5-58.1 7.2-13.9 3.5-25.6 7.4-42.7 13.8-.7.3-8.1 3.1-10.2 3.9-3.5 1.3-6.2 2.3-8.7 3.2-10.4 3.6-17 5.1-22.9 5.2-.7 0-1.3-.1-1.8-.2-1.1-.2-2.5-.6-4.1-1.3-4.5-1.8-9.9-5.1-16-9.8-14-10.9-29.4-28-45.1-49.9-27.5-38.6-53.5-89.8-66-125.7-15.4-44.8-23-87.7-23-128.6 0-60.2 17.8-106 48.4-137.1 26.3-26.6 61.7-41.5 97.8-42.3 5.9.1 14.5 1.5 25.4 4.5 8.6 2.3 18 5.4 30.7 9.9 3.8 1.4 16.9 6.1 18.5 6.7 7.7 2.8 13.5 4.8 19.2 6.6 18.2 5.8 32.3 9 47.6 9 15.5 0 28.8-3.3 47.7-9.8 7.1-2.4 32.9-12 37.5-13.6 25.6-9.1 44.5-14 60.8-15.2 4.8-.4 9.1-.4 13.2-.1 22.7 1.8 42.1 6.3 58.6 13.8-37.6 43.4-57 96.5-56.9 158.4-.3 14.7.9 31.7 5.1 51.8 6.4 30.5 18.6 60.7 37.9 89 14.7 21.5 32.9 40.9 54.7 57.8-11.5 23.7-25.6 48.2-40.4 68.8zm-94.5-572c50.7-60.2 46.1-115 44.6-134.7-44.8 2.6-96.6 30.5-126.1 64.8-32.5 36.8-51.6 82.3-47.5 133.6 48.4 3.7 92.6-21.2 129-63.7z'
+        )
+      )),
+      (t.ApiOutline = u(
+        'api',
+        i,
+        l(
+          o,
+          'M917.7 148.8l-42.4-42.4c-1.6-1.6-3.6-2.3-5.7-2.3s-4.1.8-5.7 2.3l-76.1 76.1a199.27 199.27 0 0 0-112.1-34.3c-51.2 0-102.4 19.5-141.5 58.6L432.3 308.7a8.03 8.03 0 0 0 0 11.3L704 591.7c1.6 1.6 3.6 2.3 5.7 2.3 2 0 4.1-.8 5.7-2.3l101.9-101.9c68.9-69 77-175.7 24.3-253.5l76.1-76.1c3.1-3.2 3.1-8.3 0-11.4zM769.1 441.7l-59.4 59.4-186.8-186.8 59.4-59.4c24.9-24.9 58.1-38.7 93.4-38.7 35.3 0 68.4 13.7 93.4 38.7 24.9 24.9 38.7 58.1 38.7 93.4 0 35.3-13.8 68.4-38.7 93.4zm-190.2 105a8.03 8.03 0 0 0-11.3 0L501 613.3 410.7 523l66.7-66.7c3.1-3.1 3.1-8.2 0-11.3L441 408.6a8.03 8.03 0 0 0-11.3 0L363 475.3l-43-43a7.85 7.85 0 0 0-5.7-2.3c-2 0-4.1.8-5.7 2.3L206.8 534.2c-68.9 69-77 175.7-24.3 253.5l-76.1 76.1a8.03 8.03 0 0 0 0 11.3l42.4 42.4c1.6 1.6 3.6 2.3 5.7 2.3s4.1-.8 5.7-2.3l76.1-76.1c33.7 22.9 72.9 34.3 112.1 34.3 51.2 0 102.4-19.5 141.5-58.6l101.9-101.9c3.1-3.1 3.1-8.2 0-11.3l-43-43 66.7-66.7c3.1-3.1 3.1-8.2 0-11.3l-36.6-36.2zM441.7 769.1a131.32 131.32 0 0 1-93.4 38.7c-35.3 0-68.4-13.7-93.4-38.7a131.32 131.32 0 0 1-38.7-93.4c0-35.3 13.7-68.4 38.7-93.4l59.4-59.4 186.8 186.8-59.4 59.4z'
+        )
+      )),
+      (t.BackwardOutline = u(
+        'backward',
+        i,
+        l(
+          r,
+          'M485.6 249.9L198.2 498c-8.3 7.1-8.3 20.8 0 27.9l287.4 248.2c10.7 9.2 26.4.9 26.4-14V263.8c0-14.8-15.7-23.2-26.4-13.9zm320 0L518.2 498a18.6 18.6 0 0 0-6.2 14c0 5.2 2.1 10.4 6.2 14l287.4 248.2c10.7 9.2 26.4.9 26.4-14V263.8c0-14.8-15.7-23.2-26.4-13.9z'
+        )
+      )),
       (t.AudioOutline = u(
         'audio',
         i,
@@ -14719,12 +15105,12 @@
           'M842 454c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8 0 140.3-113.7 254-254 254S258 594.3 258 454c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8 0 168.7 126.6 307.9 290 327.6V884H326.7c-13.7 0-24.7 14.3-24.7 32v36c0 4.4 2.8 8 6.2 8h407.6c3.4 0 6.2-3.6 6.2-8v-36c0-17.7-11-32-24.7-32H548V782.1c165.3-18 294-158 294-328.1zM512 624c93.9 0 170-75.2 170-168V232c0-92.8-76.1-168-170-168s-170 75.2-170 168v224c0 92.8 76.1 168 170 168zm-94-392c0-50.6 41.9-92 94-92s94 41.4 94 92v224c0 50.6-41.9 92-94 92s-94-41.4-94-92V232z'
         )
       )),
-      (t.BellOutline = u(
-        'bell',
+      (t.BankOutline = u(
+        'bank',
         i,
         l(
           o,
-          'M816 768h-24V428c0-141.1-104.3-257.7-240-277.1V112c0-22.1-17.9-40-40-40s-40 17.9-40 40v38.9c-135.7 19.4-240 136-240 277.1v340h-24c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h216c0 61.8 50.2 112 112 112s112-50.2 112-112h216c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zM512 888c-26.5 0-48-21.5-48-48h96c0 26.5-21.5 48-48 48zM304 768V428c0-55.6 21.6-107.8 60.9-147.1S456.4 220 512 220c55.6 0 107.8 21.6 147.1 60.9S720 372.4 720 428v340H304z'
+          'M894 462c30.9 0 43.8-39.7 18.7-58L530.8 126.2a31.81 31.81 0 0 0-37.6 0L111.3 404c-25.1 18.2-12.2 58 18.8 58H192v374h-72c-4.4 0-8 3.6-8 8v52c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-52c0-4.4-3.6-8-8-8h-72V462h62zM512 196.7l271.1 197.2H240.9L512 196.7zM264 462h117v374H264V462zm189 0h117v374H453V462zm307 374H642V462h118v374z'
         )
       )),
       (t.BehanceSquareOutline = u(
@@ -14751,12 +15137,12 @@
           'M952 224h-52c-4.4 0-8 3.6-8 8v248h-92V304c0-4.4-3.6-8-8-8H232c-4.4 0-8 3.6-8 8v176h-92V232c0-4.4-3.6-8-8-8H72c-4.4 0-8 3.6-8 8v560c0 4.4 3.6 8 8 8h52c4.4 0 8-3.6 8-8V548h92v172c0 4.4 3.6 8 8 8h560c4.4 0 8-3.6 8-8V548h92v244c0 4.4 3.6 8 8 8h52c4.4 0 8-3.6 8-8V232c0-4.4-3.6-8-8-8zM296 368h88v288h-88V368zm432 288H448V368h280v288z'
         )
       )),
-      (t.BuildOutline = u(
-        'build',
+      (t.BellOutline = u(
+        'bell',
         i,
         l(
           o,
-          'M916 210H376c-17.7 0-32 14.3-32 32v236H108c-17.7 0-32 14.3-32 32v272c0 17.7 14.3 32 32 32h540c17.7 0 32-14.3 32-32V546h236c17.7 0 32-14.3 32-32V242c0-17.7-14.3-32-32-32zm-504 68h200v200H412V278zm-68 468H144V546h200v200zm268 0H412V546h200v200zm268-268H680V278h200v200z'
+          'M816 768h-24V428c0-141.1-104.3-257.7-240-277.1V112c0-22.1-17.9-40-40-40s-40 17.9-40 40v38.9c-135.7 19.4-240 136-240 277.1v340h-24c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h216c0 61.8 50.2 112 112 112s112-50.2 112-112h216c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zM512 888c-26.5 0-48-21.5-48-48h96c0 26.5-21.5 48-48 48zM304 768V428c0-55.6 21.6-107.8 60.9-147.1S456.4 220 512 220c55.6 0 107.8 21.6 147.1 60.9S720 372.4 720 428v340H304z'
         )
       )),
       (t.BulbOutline = u(
@@ -14767,20 +15153,12 @@
           'M632 888H392c-4.4 0-8 3.6-8 8v32c0 17.7 14.3 32 32 32h192c17.7 0 32-14.3 32-32v-32c0-4.4-3.6-8-8-8zM512 64c-181.1 0-328 146.9-328 328 0 121.4 66 227.4 164 284.1V792c0 17.7 14.3 32 32 32h264c17.7 0 32-14.3 32-32V676.1c98-56.7 164-162.7 164-284.1 0-181.1-146.9-328-328-328zm127.9 549.8L604 634.6V752H420V634.6l-35.9-20.8C305.4 568.3 256 484.5 256 392c0-141.4 114.6-256 256-256s256 114.6 256 256c0 92.5-49.4 176.3-128.1 221.8z'
         )
       )),
-      (t.CalendarOutline = u(
-        'calendar',
+      (t.BuildOutline = u(
+        'build',
         i,
         l(
           o,
-          'M880 184H712v-64c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v64H384v-64c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v64H144c-17.7 0-32 14.3-32 32v664c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V216c0-17.7-14.3-32-32-32zm-40 656H184V460h656v380zM184 392V256h128v48c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-48h256v48c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-48h128v136H184z'
-        )
-      )),
-      (t.CalculatorOutline = u(
-        'calculator',
-        i,
-        l(
-          o,
-          'M251.2 387H320v68.8c0 1.8 1.8 3.2 4 3.2h48c2.2 0 4-1.4 4-3.3V387h68.8c1.8 0 3.2-1.8 3.2-4v-48c0-2.2-1.4-4-3.3-4H376v-68.8c0-1.8-1.8-3.2-4-3.2h-48c-2.2 0-4 1.4-4 3.2V331h-68.8c-1.8 0-3.2 1.8-3.2 4v48c0 2.2 1.4 4 3.2 4zm328 0h193.6c1.8 0 3.2-1.8 3.2-4v-48c0-2.2-1.4-4-3.3-4H579.2c-1.8 0-3.2 1.8-3.2 4v48c0 2.2 1.4 4 3.2 4zm0 265h193.6c1.8 0 3.2-1.8 3.2-4v-48c0-2.2-1.4-4-3.3-4H579.2c-1.8 0-3.2 1.8-3.2 4v48c0 2.2 1.4 4 3.2 4zm0 104h193.6c1.8 0 3.2-1.8 3.2-4v-48c0-2.2-1.4-4-3.3-4H579.2c-1.8 0-3.2 1.8-3.2 4v48c0 2.2 1.4 4 3.2 4zm-195.7-81l61.2-74.9c4.3-5.2.7-13.1-5.9-13.1H388c-2.3 0-4.5 1-5.9 2.9l-34 41.6-34-41.6a7.85 7.85 0 0 0-5.9-2.9h-50.9c-6.6 0-10.2 7.9-5.9 13.1l61.2 74.9-62.7 76.8c-4.4 5.2-.8 13.1 5.8 13.1h50.8c2.3 0 4.5-1 5.9-2.9l35.5-43.5 35.5 43.5c1.5 1.8 3.7 2.9 5.9 2.9h50.8c6.6 0 10.2-7.9 5.9-13.1L383.5 675zM880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-36 732H180V180h664v664z'
+          'M916 210H376c-17.7 0-32 14.3-32 32v236H108c-17.7 0-32 14.3-32 32v272c0 17.7 14.3 32 32 32h540c17.7 0 32-14.3 32-32V546h236c17.7 0 32-14.3 32-32V242c0-17.7-14.3-32-32-32zm-504 68h200v200H412V278zm-68 468H144V546h200v200zm268 0H412V546h200v200zm268-268H680V278h200v200z'
         )
       )),
       (t.CameraOutline = u(
@@ -14791,12 +15169,20 @@
           'M864 248H728l-32.4-90.8a32.07 32.07 0 0 0-30.2-21.2H358.6c-13.5 0-25.6 8.5-30.1 21.2L296 248H160c-44.2 0-80 35.8-80 80v456c0 44.2 35.8 80 80 80h704c44.2 0 80-35.8 80-80V328c0-44.2-35.8-80-80-80zm8 536c0 4.4-3.6 8-8 8H160c-4.4 0-8-3.6-8-8V328c0-4.4 3.6-8 8-8h186.7l17.1-47.8 22.9-64.2h250.5l22.9 64.2 17.1 47.8H864c4.4 0 8 3.6 8 8v456zM512 384c-88.4 0-160 71.6-160 160s71.6 160 160 160 160-71.6 160-160-71.6-160-160-160zm0 256c-53 0-96-43-96-96s43-96 96-96 96 43 96 96-43 96-96 96z'
         )
       )),
-      (t.CarOutline = u(
-        'car',
+      (t.CalculatorOutline = u(
+        'calculator',
         i,
         l(
           o,
-          'M380 704h264c4.4 0 8-3.6 8-8v-84c0-4.4-3.6-8-8-8h-40c-4.4 0-8 3.6-8 8v36H428v-36c0-4.4-3.6-8-8-8h-40c-4.4 0-8 3.6-8 8v84c0 4.4 3.6 8 8 8zm340-123a40 40 0 1 0 80 0 40 40 0 1 0-80 0zm239-167.6L935.3 372a8 8 0 0 0-10.9-2.9l-50.7 29.6-78.3-216.2a63.9 63.9 0 0 0-60.9-44.4H301.2c-34.7 0-65.5 22.4-76.2 55.5l-74.6 205.2-50.8-29.6a8 8 0 0 0-10.9 2.9L65 413.4c-2.2 3.8-.9 8.6 2.9 10.8l60.4 35.2-14.5 40c-1.2 3.2-1.8 6.6-1.8 10v348.2c0 15.7 11.8 28.4 26.3 28.4h67.6c12.3 0 23-9.3 25.6-22.3l7.7-37.7h545.6l7.7 37.7c2.7 13 13.3 22.3 25.6 22.3h67.6c14.5 0 26.3-12.7 26.3-28.4V509.4c0-3.4-.6-6.8-1.8-10l-14.5-40 60.3-35.2a8 8 0 0 0 3-10.8zM840 517v237H184V517l15.6-43h624.8l15.6 43zM292.7 218.1l.5-1.3.4-1.3c1.1-3.3 4.1-5.5 7.6-5.5h427.6l75.4 208H220l72.7-199.9zM224 581a40 40 0 1 0 80 0 40 40 0 1 0-80 0z'
+          'M251.2 387H320v68.8c0 1.8 1.8 3.2 4 3.2h48c2.2 0 4-1.4 4-3.3V387h68.8c1.8 0 3.2-1.8 3.2-4v-48c0-2.2-1.4-4-3.3-4H376v-68.8c0-1.8-1.8-3.2-4-3.2h-48c-2.2 0-4 1.4-4 3.2V331h-68.8c-1.8 0-3.2 1.8-3.2 4v48c0 2.2 1.4 4 3.2 4zm328 0h193.6c1.8 0 3.2-1.8 3.2-4v-48c0-2.2-1.4-4-3.3-4H579.2c-1.8 0-3.2 1.8-3.2 4v48c0 2.2 1.4 4 3.2 4zm0 265h193.6c1.8 0 3.2-1.8 3.2-4v-48c0-2.2-1.4-4-3.3-4H579.2c-1.8 0-3.2 1.8-3.2 4v48c0 2.2 1.4 4 3.2 4zm0 104h193.6c1.8 0 3.2-1.8 3.2-4v-48c0-2.2-1.4-4-3.3-4H579.2c-1.8 0-3.2 1.8-3.2 4v48c0 2.2 1.4 4 3.2 4zm-195.7-81l61.2-74.9c4.3-5.2.7-13.1-5.9-13.1H388c-2.3 0-4.5 1-5.9 2.9l-34 41.6-34-41.6a7.85 7.85 0 0 0-5.9-2.9h-50.9c-6.6 0-10.2 7.9-5.9 13.1l61.2 74.9-62.7 76.8c-4.4 5.2-.8 13.1 5.8 13.1h50.8c2.3 0 4.5-1 5.9-2.9l35.5-43.5 35.5 43.5c1.5 1.8 3.7 2.9 5.9 2.9h50.8c6.6 0 10.2-7.9 5.9-13.1L383.5 675zM880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-36 732H180V180h664v664z'
+        )
+      )),
+      (t.CalendarOutline = u(
+        'calendar',
+        i,
+        l(
+          o,
+          'M880 184H712v-64c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v64H384v-64c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v64H144c-17.7 0-32 14.3-32 32v664c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V216c0-17.7-14.3-32-32-32zm-40 656H184V460h656v380zM184 392V256h128v48c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-48h256v48c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-48h128v136H184z'
         )
       )),
       (t.CaretDownOutline = u(
@@ -14807,12 +15193,12 @@
           'M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z'
         )
       )),
-      (t.CaretLeftOutline = u(
-        'caret-left',
+      (t.CarOutline = u(
+        'car',
         i,
         l(
-          r,
-          'M689 165.1L308.2 493.5c-10.9 9.4-10.9 27.5 0 37L689 858.9c14.2 12.2 35 1.2 35-18.5V183.6c0-19.7-20.8-30.7-35-18.5z'
+          o,
+          'M380 704h264c4.4 0 8-3.6 8-8v-84c0-4.4-3.6-8-8-8h-40c-4.4 0-8 3.6-8 8v36H428v-36c0-4.4-3.6-8-8-8h-40c-4.4 0-8 3.6-8 8v84c0 4.4 3.6 8 8 8zm340-123a40 40 0 1 0 80 0 40 40 0 1 0-80 0zm239-167.6L935.3 372a8 8 0 0 0-10.9-2.9l-50.7 29.6-78.3-216.2a63.9 63.9 0 0 0-60.9-44.4H301.2c-34.7 0-65.5 22.4-76.2 55.5l-74.6 205.2-50.8-29.6a8 8 0 0 0-10.9 2.9L65 413.4c-2.2 3.8-.9 8.6 2.9 10.8l60.4 35.2-14.5 40c-1.2 3.2-1.8 6.6-1.8 10v348.2c0 15.7 11.8 28.4 26.3 28.4h67.6c12.3 0 23-9.3 25.6-22.3l7.7-37.7h545.6l7.7 37.7c2.7 13 13.3 22.3 25.6 22.3h67.6c14.5 0 26.3-12.7 26.3-28.4V509.4c0-3.4-.6-6.8-1.8-10l-14.5-40 60.3-35.2a8 8 0 0 0 3-10.8zM840 517v237H184V517l15.6-43h624.8l15.6 43zM292.7 218.1l.5-1.3.4-1.3c1.1-3.3 4.1-5.5 7.6-5.5h427.6l75.4 208H220l72.7-199.9zM224 581a40 40 0 1 0 80 0 40 40 0 1 0-80 0z'
         )
       )),
       (t.CaretRightOutline = u(
@@ -14831,6 +15217,22 @@
           'M858.9 689L530.5 308.2c-9.4-10.9-27.5-10.9-37 0L165.1 689c-12.2 14.2-1.2 35 18.5 35h656.8c19.7 0 30.7-20.8 18.5-35z'
         )
       )),
+      (t.CaretLeftOutline = u(
+        'caret-left',
+        i,
+        l(
+          r,
+          'M689 165.1L308.2 493.5c-10.9 9.4-10.9 27.5 0 37L689 858.9c14.2 12.2 35 1.2 35-18.5V183.6c0-19.7-20.8-30.7-35-18.5z'
+        )
+      )),
+      (t.CarryOutOutline = u(
+        'carry-out',
+        i,
+        l(
+          o,
+          'M880 184H712v-64c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v64H384v-64c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v64H144c-17.7 0-32 14.3-32 32v664c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V216c0-17.7-14.3-32-32-32zm-40 656H184V256h128v48c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-48h256v48c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-48h128v584zM688 420h-55.2c-5.1 0-10 2.5-13 6.6L468.9 634.4l-64.7-89c-3-4.1-7.8-6.6-13-6.6H336c-6.5 0-10.3 7.4-6.5 12.7l126.4 174a16.1 16.1 0 0 0 26 0l212.6-292.7c3.8-5.4 0-12.8-6.5-12.8z'
+        )
+      )),
       (t.CheckCircleOutline = u(
         'check-circle',
         i,
@@ -14840,12 +15242,12 @@
           'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z'
         )
       )),
-      (t.CarryOutOutline = u(
-        'carry-out',
+      (t.ChromeOutline = u(
+        'chrome',
         i,
         l(
           o,
-          'M880 184H712v-64c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v64H384v-64c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v64H144c-17.7 0-32 14.3-32 32v664c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V216c0-17.7-14.3-32-32-32zm-40 656H184V256h128v48c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-48h256v48c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-48h128v584zM688 420h-55.2c-5.1 0-10 2.5-13 6.6L468.9 634.4l-64.7-89c-3-4.1-7.8-6.6-13-6.6H336c-6.5 0-10.3 7.4-6.5 12.7l126.4 174a16.1 16.1 0 0 0 26 0l212.6-292.7c3.8-5.4 0-12.8-6.5-12.8z'
+          'M928 512.3v-.3c0-229.8-186.2-416-416-416S96 282.2 96 512v.4c0 229.8 186.2 416 416 416s416-186.2 416-416v-.3.2zm-6.7-74.6l.6 3.3-.6-3.3zM676.7 638.2c53.5-82.2 52.5-189.4-11.1-263.7l162.4-8.4c20.5 44.4 32 93.8 32 145.9 0 185.2-144.6 336.6-327.1 347.4l143.8-221.2zM512 652.3c-77.5 0-140.2-62.7-140.2-140.2 0-77.7 62.7-140.2 140.2-140.2S652.2 434.5 652.2 512 589.5 652.3 512 652.3zm369.2-331.7l-3-5.7 3 5.7zM512 164c121.3 0 228.2 62.1 290.4 156.2l-263.6-13.9c-97.5-5.7-190.2 49.2-222.3 141.1L227.8 311c63.1-88.9 166.9-147 284.2-147zM102.5 585.8c26 145 127.1 264 261.6 315.1C229.6 850 128.5 731 102.5 585.8zM164 512c0-55.9 13.2-108.7 36.6-155.5l119.7 235.4c44.1 86.7 137.4 139.7 234 121.6l-74 145.1C302.9 842.5 164 693.5 164 512zm324.7 415.4c4 .2 8 .4 12 .5-4-.2-8-.3-12-.5z'
         )
       )),
       (t.CheckSquareOutline = u(
@@ -14857,14 +15259,6 @@
           'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-40 728H184V184h656v656z'
         )
       )),
-      (t.ChromeOutline = u(
-        'chrome',
-        i,
-        l(
-          o,
-          'M928 512.3v-.3c0-229.8-186.2-416-416-416S96 282.2 96 512v.4c0 229.8 186.2 416 416 416s416-186.2 416-416v-.3.2zm-6.7-74.6l.6 3.3-.6-3.3zM676.7 638.2c53.5-82.2 52.5-189.4-11.1-263.7l162.4-8.4c20.5 44.4 32 93.8 32 145.9 0 185.2-144.6 336.6-327.1 347.4l143.8-221.2zM512 652.3c-77.5 0-140.2-62.7-140.2-140.2 0-77.7 62.7-140.2 140.2-140.2S652.2 434.5 652.2 512 589.5 652.3 512 652.3zm369.2-331.7l-3-5.7 3 5.7zM512 164c121.3 0 228.2 62.1 290.4 156.2l-263.6-13.9c-97.5-5.7-190.2 49.2-222.3 141.1L227.8 311c63.1-88.9 166.9-147 284.2-147zM102.5 585.8c26 145 127.1 264 261.6 315.1C229.6 850 128.5 731 102.5 585.8zM164 512c0-55.9 13.2-108.7 36.6-155.5l119.7 235.4c44.1 86.7 137.4 139.7 234 121.6l-74 145.1C302.9 842.5 164 693.5 164 512zm324.7 415.4c4 .2 8 .4 12 .5-4-.2-8-.3-12-.5z'
-        )
-      )),
       (t.ClockCircleOutline = u(
         'clock-circle',
         i,
@@ -14874,6 +15268,14 @@
           'M686.7 638.6L544.1 535.5V288c0-4.4-3.6-8-8-8H488c-4.4 0-8 3.6-8 8v275.4c0 2.6 1.2 5 3.3 6.5l165.4 120.6c3.6 2.6 8.6 1.8 11.2-1.7l28.6-39c2.6-3.7 1.8-8.7-1.8-11.2z'
         )
       )),
+      (t.CloudOutline = u(
+        'cloud',
+        i,
+        l(
+          o,
+          'M811.4 418.7C765.6 297.9 648.9 212 512.2 212S258.8 297.8 213 418.6C127.3 441.1 64 519.1 64 612c0 110.5 89.5 200 199.9 200h496.2C870.5 812 960 722.5 960 612c0-92.7-63.1-170.7-148.6-193.3zm36.3 281a123.07 123.07 0 0 1-87.6 36.3H263.9c-33.1 0-64.2-12.9-87.6-36.3A123.3 123.3 0 0 1 140 612c0-28 9.1-54.3 26.2-76.3a125.7 125.7 0 0 1 66.1-43.7l37.9-9.9 13.9-36.6c8.6-22.8 20.6-44.1 35.7-63.4a245.6 245.6 0 0 1 52.4-49.9c41.1-28.9 89.5-44.2 140-44.2s98.9 15.3 140 44.2c19.9 14 37.5 30.8 52.4 49.9 15.1 19.3 27.1 40.7 35.7 63.4l13.8 36.5 37.8 10c54.3 14.5 92.1 63.8 92.1 120 0 33.1-12.9 64.3-36.3 87.7z'
+        )
+      )),
       (t.CloseCircleOutline = u(
         'close-circle',
         i,
@@ -14881,23 +15283,6 @@
           o,
           'M685.4 354.8c0-4.4-3.6-8-8-8l-66 .3L512 465.6l-99.3-118.4-66.1-.3c-4.4 0-8 3.5-8 8 0 1.9.7 3.7 1.9 5.2l130.1 155L340.5 670a8.32 8.32 0 0 0-1.9 5.2c0 4.4 3.6 8 8 8l66.1-.3L512 564.4l99.3 118.4 66 .3c4.4 0 8-3.5 8-8 0-1.9-.7-3.7-1.9-5.2L553.5 515l130.1-155c1.2-1.4 1.8-3.3 1.8-5.2z',
           'M512 65C264.6 65 64 265.6 64 513s200.6 448 448 448 448-200.6 448-448S759.4 65 512 65zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z'
-        )
-      )),
-      (t.CloseSquareOutline = u(
-        'close-square',
-        i,
-        l(
-          o,
-          'M354 671h58.9c4.7 0 9.2-2.1 12.3-5.7L512 561.8l86.8 103.5c3 3.6 7.5 5.7 12.3 5.7H670c6.8 0 10.5-7.9 6.1-13.1L553.8 512l122.4-145.9c4.4-5.2.7-13.1-6.1-13.1h-58.9c-4.7 0-9.2 2.1-12.3 5.7L512 462.2l-86.8-103.5c-3-3.6-7.5-5.7-12.3-5.7H354c-6.8 0-10.5 7.9-6.1 13.1L470.2 512 347.9 657.9A7.95 7.95 0 0 0 354 671z',
-          'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-40 728H184V184h656v656z'
-        )
-      )),
-      (t.CloudOutline = u(
-        'cloud',
-        i,
-        l(
-          o,
-          'M811.4 418.7C765.6 297.9 648.9 212 512.2 212S258.8 297.8 213 418.6C127.3 441.1 64 519.1 64 612c0 110.5 89.5 200 199.9 200h496.2C870.5 812 960 722.5 960 612c0-92.7-63.1-170.7-148.6-193.3zm36.3 281a123.07 123.07 0 0 1-87.6 36.3H263.9c-33.1 0-64.2-12.9-87.6-36.3A123.3 123.3 0 0 1 140 612c0-28 9.1-54.3 26.2-76.3a125.7 125.7 0 0 1 66.1-43.7l37.9-9.9 13.9-36.6c8.6-22.8 20.6-44.1 35.7-63.4a245.6 245.6 0 0 1 52.4-49.9c41.1-28.9 89.5-44.2 140-44.2s98.9 15.3 140 44.2c19.9 14 37.5 30.8 52.4 49.9 15.1 19.3 27.1 40.7 35.7 63.4l13.8 36.5 37.8 10c54.3 14.5 92.1 63.8 92.1 120 0 33.1-12.9 64.3-36.3 87.7z'
         )
       )),
       (t.CodeOutline = u(
@@ -14916,20 +15301,13 @@
           'M488.1 414.7V303.4L300.9 428l83.6 55.8zm254.1 137.7v-79.8l-59.8 39.9zM512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm278 533c0 1.1-.1 2.1-.2 3.1 0 .4-.1.7-.2 1a14.16 14.16 0 0 1-.8 3.2c-.2.6-.4 1.2-.6 1.7-.2.4-.4.8-.5 1.2-.3.5-.5 1.1-.8 1.6-.2.4-.4.7-.7 1.1-.3.5-.7 1-1 1.5-.3.4-.5.7-.8 1-.4.4-.8.9-1.2 1.3-.3.3-.6.6-1 .9-.4.4-.9.8-1.4 1.1-.4.3-.7.6-1.1.8-.1.1-.3.2-.4.3L525.2 786c-4 2.7-8.6 4-13.2 4-4.7 0-9.3-1.4-13.3-4L244.6 616.9c-.1-.1-.3-.2-.4-.3l-1.1-.8c-.5-.4-.9-.7-1.3-1.1-.3-.3-.6-.6-1-.9-.4-.4-.8-.8-1.2-1.3a7 7 0 0 1-.8-1c-.4-.5-.7-1-1-1.5-.2-.4-.5-.7-.7-1.1-.3-.5-.6-1.1-.8-1.6-.2-.4-.4-.8-.5-1.2-.2-.6-.4-1.2-.6-1.7-.1-.4-.3-.8-.4-1.2-.2-.7-.3-1.3-.4-2-.1-.3-.1-.7-.2-1-.1-1-.2-2.1-.2-3.1V427.9c0-1 .1-2.1.2-3.1.1-.3.1-.7.2-1a14.16 14.16 0 0 1 .8-3.2c.2-.6.4-1.2.6-1.7.2-.4.4-.8.5-1.2.2-.5.5-1.1.8-1.6.2-.4.4-.7.7-1.1.6-.9 1.2-1.7 1.8-2.5.4-.4.8-.9 1.2-1.3.3-.3.6-.6 1-.9.4-.4.9-.8 1.3-1.1.4-.3.7-.6 1.1-.8.1-.1.3-.2.4-.3L498.7 239c8-5.3 18.5-5.3 26.5 0l254.1 169.1c.1.1.3.2.4.3l1.1.8 1.4 1.1c.3.3.6.6 1 .9.4.4.8.8 1.2 1.3.7.8 1.3 1.6 1.8 2.5.2.4.5.7.7 1.1.3.5.6 1 .8 1.6.2.4.4.8.5 1.2.2.6.4 1.2.6 1.7.1.4.3.8.4 1.2.2.7.3 1.3.4 2 .1.3.1.7.2 1 .1 1 .2 2.1.2 3.1V597zm-254.1 13.3v111.3L723.1 597l-83.6-55.8zM281.8 472.6v79.8l59.8-39.9zM512 456.1l-84.5 56.4 84.5 56.4 84.5-56.4zM723.1 428L535.9 303.4v111.3l103.6 69.1zM384.5 541.2L300.9 597l187.2 124.6V610.3l-103.6-69.1z'
         )
       )),
-      (t.ContactsOutline = u(
-        'contacts',
+      (t.CloseSquareOutline = u(
+        'close-square',
         i,
         l(
           o,
-          'M594.3 601.5a111.8 111.8 0 0 0 29.1-75.5c0-61.9-49.9-112-111.4-112s-111.4 50.1-111.4 112c0 29.1 11 55.5 29.1 75.5a158.09 158.09 0 0 0-74.6 126.1 8 8 0 0 0 8 8.4H407c4.2 0 7.6-3.3 7.9-7.5 3.8-50.6 46-90.5 97.2-90.5s93.4 40 97.2 90.5c.3 4.2 3.7 7.5 7.9 7.5H661a8 8 0 0 0 8-8.4c-2.8-53.3-32-99.7-74.7-126.1zM512 578c-28.5 0-51.7-23.3-51.7-52s23.2-52 51.7-52 51.7 23.3 51.7 52-23.2 52-51.7 52zm416-354H768v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56H548v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56H328v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56H96c-17.7 0-32 14.3-32 32v576c0 17.7 14.3 32 32 32h832c17.7 0 32-14.3 32-32V256c0-17.7-14.3-32-32-32zm-40 568H136V296h120v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56h148v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56h148v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56h120v496z'
-        )
-      )),
-      (t.ContainerOutline = u(
-        'container',
-        i,
-        l(
-          o,
-          'M832 64H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V96c0-17.7-14.3-32-32-32zm-40 824H232V687h97.9c11.6 32.8 32 62.3 59.1 84.7 34.5 28.5 78.2 44.3 123 44.3s88.5-15.7 123-44.3c27.1-22.4 47.5-51.9 59.1-84.7H792v-63H643.6l-5.2 24.7C626.4 708.5 573.2 752 512 752s-114.4-43.5-126.5-103.3l-5.2-24.7H232V136h560v752zM320 341h384c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H320c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8zm0 160h384c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H320c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8z'
+          'M354 671h58.9c4.7 0 9.2-2.1 12.3-5.7L512 561.8l86.8 103.5c3 3.6 7.5 5.7 12.3 5.7H670c6.8 0 10.5-7.9 6.1-13.1L553.8 512l122.4-145.9c4.4-5.2.7-13.1-6.1-13.1h-58.9c-4.7 0-9.2 2.1-12.3 5.7L512 462.2l-86.8-103.5c-3-3.6-7.5-5.7-12.3-5.7H354c-6.8 0-10.5 7.9-6.1 13.1L470.2 512 347.9 657.9A7.95 7.95 0 0 0 354 671z',
+          'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-40 728H184V184h656v656z'
         )
       )),
       (t.CompassOutline = u(
@@ -14940,6 +15318,14 @@
           'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372zm198.4-588.1a32 32 0 0 0-24.5.5L414.9 415 296.4 686c-3.6 8.2-3.6 17.5 0 25.7 3.4 7.8 9.7 13.9 17.7 17 3.8 1.5 7.7 2.2 11.7 2.2 4.4 0 8.7-.9 12.8-2.7l271-118.6 118.5-271a32.06 32.06 0 0 0-17.7-42.7zM576.8 534.4l26.2 26.2-42.4 42.4-26.2-26.2L380 644.4 447.5 490 422 464.4l42.4-42.4 25.5 25.5L644.4 380l-67.6 154.4zM464.4 422L422 464.4l25.5 25.6 86.9 86.8 26.2 26.2 42.4-42.4-26.2-26.2-86.8-86.9z'
         )
       )),
+      (t.ContactsOutline = u(
+        'contacts',
+        i,
+        l(
+          o,
+          'M594.3 601.5a111.8 111.8 0 0 0 29.1-75.5c0-61.9-49.9-112-111.4-112s-111.4 50.1-111.4 112c0 29.1 11 55.5 29.1 75.5a158.09 158.09 0 0 0-74.6 126.1 8 8 0 0 0 8 8.4H407c4.2 0 7.6-3.3 7.9-7.5 3.8-50.6 46-90.5 97.2-90.5s93.4 40 97.2 90.5c.3 4.2 3.7 7.5 7.9 7.5H661a8 8 0 0 0 8-8.4c-2.8-53.3-32-99.7-74.7-126.1zM512 578c-28.5 0-51.7-23.3-51.7-52s23.2-52 51.7-52 51.7 23.3 51.7 52-23.2 52-51.7 52zm416-354H768v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56H548v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56H328v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56H96c-17.7 0-32 14.3-32 32v576c0 17.7 14.3 32 32 32h832c17.7 0 32-14.3 32-32V256c0-17.7-14.3-32-32-32zm-40 568H136V296h120v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56h148v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56h148v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56h120v496z'
+        )
+      )),
       (t.ControlOutline = u(
         'control',
         i,
@@ -14948,20 +15334,12 @@
           'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-40 728H184V184h656v656zM340 683v77c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8v-77c-10.1 3.3-20.8 5-32 5s-21.9-1.8-32-5zm64-198V264c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v221c10.1-3.3 20.8-5 32-5s21.9 1.8 32 5zm-64 198c10.1 3.3 20.8 5 32 5s21.9-1.8 32-5c41.8-13.5 72-52.7 72-99s-30.2-85.5-72-99c-10.1-3.3-20.8-5-32-5s-21.9 1.8-32 5c-41.8 13.5-72 52.7-72 99s30.2 85.5 72 99zm.1-115.7c.3-.6.7-1.2 1-1.8v-.1l1.2-1.8c.1-.2.2-.3.3-.5.3-.5.7-.9 1-1.4.1-.1.2-.3.3-.4.5-.6.9-1.1 1.4-1.6l.3-.3 1.2-1.2.4-.4c.5-.5 1-.9 1.6-1.4.6-.5 1.1-.9 1.7-1.3.2-.1.3-.2.5-.3.5-.3.9-.7 1.4-1 .1-.1.3-.2.4-.3.6-.4 1.2-.7 1.9-1.1.1-.1.3-.1.4-.2.5-.3 1-.5 1.6-.8l.6-.3c.7-.3 1.3-.6 2-.8.7-.3 1.4-.5 2.1-.7.2-.1.4-.1.6-.2.6-.2 1.1-.3 1.7-.4.2 0 .3-.1.5-.1.7-.2 1.5-.3 2.2-.4.2 0 .3 0 .5-.1.6-.1 1.2-.1 1.8-.2h.6c.8 0 1.5-.1 2.3-.1s1.5 0 2.3.1h.6c.6 0 1.2.1 1.8.2.2 0 .3 0 .5.1.7.1 1.5.2 2.2.4.2 0 .3.1.5.1.6.1 1.2.3 1.7.4.2.1.4.1.6.2.7.2 1.4.4 2.1.7.7.2 1.3.5 2 .8l.6.3c.5.2 1.1.5 1.6.8.1.1.3.1.4.2.6.3 1.3.7 1.9 1.1.1.1.3.2.4.3.5.3 1 .6 1.4 1 .2.1.3.2.5.3.6.4 1.2.9 1.7 1.3s1.1.9 1.6 1.4l.4.4 1.2 1.2.3.3c.5.5 1 1.1 1.4 1.6.1.1.2.3.3.4.4.4.7.9 1 1.4.1.2.2.3.3.5l1.2 1.8s0 .1.1.1a36.18 36.18 0 0 1 5.1 18.5c0 6-1.5 11.7-4.1 16.7-.3.6-.7 1.2-1 1.8 0 0 0 .1-.1.1l-1.2 1.8c-.1.2-.2.3-.3.5-.3.5-.7.9-1 1.4-.1.1-.2.3-.3.4-.5.6-.9 1.1-1.4 1.6l-.3.3-1.2 1.2-.4.4c-.5.5-1 .9-1.6 1.4-.6.5-1.1.9-1.7 1.3-.2.1-.3.2-.5.3-.5.3-.9.7-1.4 1-.1.1-.3.2-.4.3-.6.4-1.2.7-1.9 1.1-.1.1-.3.1-.4.2-.5.3-1 .5-1.6.8l-.6.3c-.7.3-1.3.6-2 .8-.7.3-1.4.5-2.1.7-.2.1-.4.1-.6.2-.6.2-1.1.3-1.7.4-.2 0-.3.1-.5.1-.7.2-1.5.3-2.2.4-.2 0-.3 0-.5.1-.6.1-1.2.1-1.8.2h-.6c-.8 0-1.5.1-2.3.1s-1.5 0-2.3-.1h-.6c-.6 0-1.2-.1-1.8-.2-.2 0-.3 0-.5-.1-.7-.1-1.5-.2-2.2-.4-.2 0-.3-.1-.5-.1-.6-.1-1.2-.3-1.7-.4-.2-.1-.4-.1-.6-.2-.7-.2-1.4-.4-2.1-.7-.7-.2-1.3-.5-2-.8l-.6-.3c-.5-.2-1.1-.5-1.6-.8-.1-.1-.3-.1-.4-.2-.6-.3-1.3-.7-1.9-1.1-.1-.1-.3-.2-.4-.3-.5-.3-1-.6-1.4-1-.2-.1-.3-.2-.5-.3-.6-.4-1.2-.9-1.7-1.3s-1.1-.9-1.6-1.4l-.4-.4-1.2-1.2-.3-.3c-.5-.5-1-1.1-1.4-1.6-.1-.1-.2-.3-.3-.4-.4-.4-.7-.9-1-1.4-.1-.2-.2-.3-.3-.5l-1.2-1.8v-.1c-.4-.6-.7-1.2-1-1.8-2.6-5-4.1-10.7-4.1-16.7s1.5-11.7 4.1-16.7zM620 539v221c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V539c-10.1 3.3-20.8 5-32 5s-21.9-1.8-32-5zm64-198v-77c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v77c10.1-3.3 20.8-5 32-5s21.9 1.8 32 5zm-64 198c10.1 3.3 20.8 5 32 5s21.9-1.8 32-5c41.8-13.5 72-52.7 72-99s-30.2-85.5-72-99c-10.1-3.3-20.8-5-32-5s-21.9 1.8-32 5c-41.8 13.5-72 52.7-72 99s30.2 85.5 72 99zm.1-115.7c.3-.6.7-1.2 1-1.8v-.1l1.2-1.8c.1-.2.2-.3.3-.5.3-.5.7-.9 1-1.4.1-.1.2-.3.3-.4.5-.6.9-1.1 1.4-1.6l.3-.3 1.2-1.2.4-.4c.5-.5 1-.9 1.6-1.4.6-.5 1.1-.9 1.7-1.3.2-.1.3-.2.5-.3.5-.3.9-.7 1.4-1 .1-.1.3-.2.4-.3.6-.4 1.2-.7 1.9-1.1.1-.1.3-.1.4-.2.5-.3 1-.5 1.6-.8l.6-.3c.7-.3 1.3-.6 2-.8.7-.3 1.4-.5 2.1-.7.2-.1.4-.1.6-.2.6-.2 1.1-.3 1.7-.4.2 0 .3-.1.5-.1.7-.2 1.5-.3 2.2-.4.2 0 .3 0 .5-.1.6-.1 1.2-.1 1.8-.2h.6c.8 0 1.5-.1 2.3-.1s1.5 0 2.3.1h.6c.6 0 1.2.1 1.8.2.2 0 .3 0 .5.1.7.1 1.5.2 2.2.4.2 0 .3.1.5.1.6.1 1.2.3 1.7.4.2.1.4.1.6.2.7.2 1.4.4 2.1.7.7.2 1.3.5 2 .8l.6.3c.5.2 1.1.5 1.6.8.1.1.3.1.4.2.6.3 1.3.7 1.9 1.1.1.1.3.2.4.3.5.3 1 .6 1.4 1 .2.1.3.2.5.3.6.4 1.2.9 1.7 1.3s1.1.9 1.6 1.4l.4.4 1.2 1.2.3.3c.5.5 1 1.1 1.4 1.6.1.1.2.3.3.4.4.4.7.9 1 1.4.1.2.2.3.3.5l1.2 1.8v.1a36.18 36.18 0 0 1 5.1 18.5c0 6-1.5 11.7-4.1 16.7-.3.6-.7 1.2-1 1.8v.1l-1.2 1.8c-.1.2-.2.3-.3.5-.3.5-.7.9-1 1.4-.1.1-.2.3-.3.4-.5.6-.9 1.1-1.4 1.6l-.3.3-1.2 1.2-.4.4c-.5.5-1 .9-1.6 1.4-.6.5-1.1.9-1.7 1.3-.2.1-.3.2-.5.3-.5.3-.9.7-1.4 1-.1.1-.3.2-.4.3-.6.4-1.2.7-1.9 1.1-.1.1-.3.1-.4.2-.5.3-1 .5-1.6.8l-.6.3c-.7.3-1.3.6-2 .8-.7.3-1.4.5-2.1.7-.2.1-.4.1-.6.2-.6.2-1.1.3-1.7.4-.2 0-.3.1-.5.1-.7.2-1.5.3-2.2.4-.2 0-.3 0-.5.1-.6.1-1.2.1-1.8.2h-.6c-.8 0-1.5.1-2.3.1s-1.5 0-2.3-.1h-.6c-.6 0-1.2-.1-1.8-.2-.2 0-.3 0-.5-.1-.7-.1-1.5-.2-2.2-.4-.2 0-.3-.1-.5-.1-.6-.1-1.2-.3-1.7-.4-.2-.1-.4-.1-.6-.2-.7-.2-1.4-.4-2.1-.7-.7-.2-1.3-.5-2-.8l-.6-.3c-.5-.2-1.1-.5-1.6-.8-.1-.1-.3-.1-.4-.2-.6-.3-1.3-.7-1.9-1.1-.1-.1-.3-.2-.4-.3-.5-.3-1-.6-1.4-1-.2-.1-.3-.2-.5-.3-.6-.4-1.2-.9-1.7-1.3s-1.1-.9-1.6-1.4l-.4-.4-1.2-1.2-.3-.3c-.5-.5-1-1.1-1.4-1.6-.1-.1-.2-.3-.3-.4-.4-.4-.7-.9-1-1.4-.1-.2-.2-.3-.3-.5l-1.2-1.8v-.1c-.4-.6-.7-1.2-1-1.8-2.6-5-4.1-10.7-4.1-16.7s1.5-11.7 4.1-16.7z'
         )
       )),
-      (t.CopyOutline = u(
-        'copy',
+      (t.ContainerOutline = u(
+        'container',
         i,
         l(
           o,
-          'M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z'
-        )
-      )),
-      (t.CreditCardOutline = u(
-        'credit-card',
-        i,
-        l(
-          o,
-          'M928 160H96c-17.7 0-32 14.3-32 32v640c0 17.7 14.3 32 32 32h832c17.7 0 32-14.3 32-32V192c0-17.7-14.3-32-32-32zm-792 72h752v120H136V232zm752 560H136V440h752v352zm-237-64h165c4.4 0 8-3.6 8-8v-72c0-4.4-3.6-8-8-8H651c-4.4 0-8 3.6-8 8v72c0 4.4 3.6 8 8 8z'
+          'M832 64H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V96c0-17.7-14.3-32-32-32zm-40 824H232V687h97.9c11.6 32.8 32 62.3 59.1 84.7 34.5 28.5 78.2 44.3 123 44.3s88.5-15.7 123-44.3c27.1-22.4 47.5-51.9 59.1-84.7H792v-63H643.6l-5.2 24.7C626.4 708.5 573.2 752 512 752s-114.4-43.5-126.5-103.3l-5.2-24.7H232V136h560v752zM320 341h384c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H320c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8zm0 160h384c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H320c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8z'
         )
       )),
       (t.CrownOutline = u(
@@ -14980,6 +15358,22 @@
           'M512 128c-212.1 0-384 171.9-384 384v360c0 13.3 10.7 24 24 24h184c35.3 0 64-28.7 64-64V624c0-35.3-28.7-64-64-64H200v-48c0-172.3 139.7-312 312-312s312 139.7 312 312v48H688c-35.3 0-64 28.7-64 64v208c0 35.3 28.7 64 64 64h184c13.3 0 24-10.7 24-24V512c0-212.1-171.9-384-384-384zM328 632v192H200V632h128zm496 192H696V632h128v192z'
         )
       )),
+      (t.CopyOutline = u(
+        'copy',
+        i,
+        l(
+          o,
+          'M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z'
+        )
+      )),
+      (t.CreditCardOutline = u(
+        'credit-card',
+        i,
+        l(
+          o,
+          'M928 160H96c-17.7 0-32 14.3-32 32v640c0 17.7 14.3 32 32 32h832c17.7 0 32-14.3 32-32V192c0-17.7-14.3-32-32-32zm-792 72h752v120H136V232zm752 560H136V440h752v352zm-237-64h165c4.4 0 8-3.6 8-8v-72c0-4.4-3.6-8-8-8H651c-4.4 0-8 3.6-8 8v72c0 4.4 3.6 8 8 8z'
+        )
+      )),
       (t.DashboardOutline = u(
         'dashboard',
         i,
@@ -14988,36 +15382,12 @@
           'M924.8 385.6a446.7 446.7 0 0 0-96-142.4 446.7 446.7 0 0 0-142.4-96C631.1 123.8 572.5 112 512 112s-119.1 11.8-174.4 35.2a446.7 446.7 0 0 0-142.4 96 446.7 446.7 0 0 0-96 142.4C75.8 440.9 64 499.5 64 560c0 132.7 58.3 257.7 159.9 343.1l1.7 1.4c5.8 4.8 13.1 7.5 20.6 7.5h531.7c7.5 0 14.8-2.7 20.6-7.5l1.7-1.4C901.7 817.7 960 692.7 960 560c0-60.5-11.9-119.1-35.2-174.4zM761.4 836H262.6A371.12 371.12 0 0 1 140 560c0-99.4 38.7-192.8 109-263 70.3-70.3 163.7-109 263-109 99.4 0 192.8 38.7 263 109 70.3 70.3 109 163.7 109 263 0 105.6-44.5 205.5-122.6 276zM623.5 421.5a8.03 8.03 0 0 0-11.3 0L527.7 506c-18.7-5-39.4-.2-54.1 14.5a55.95 55.95 0 0 0 0 79.2 55.95 55.95 0 0 0 79.2 0 55.87 55.87 0 0 0 14.5-54.1l84.5-84.5c3.1-3.1 3.1-8.2 0-11.3l-28.3-28.3zM490 320h44c4.4 0 8-3.6 8-8v-80c0-4.4-3.6-8-8-8h-44c-4.4 0-8 3.6-8 8v80c0 4.4 3.6 8 8 8zm260 218v44c0 4.4 3.6 8 8 8h80c4.4 0 8-3.6 8-8v-44c0-4.4-3.6-8-8-8h-80c-4.4 0-8 3.6-8 8zm12.7-197.2l-31.1-31.1a8.03 8.03 0 0 0-11.3 0l-56.6 56.6a8.03 8.03 0 0 0 0 11.3l31.1 31.1c3.1 3.1 8.2 3.1 11.3 0l56.6-56.6c3.1-3.1 3.1-8.2 0-11.3zm-458.6-31.1a8.03 8.03 0 0 0-11.3 0l-31.1 31.1a8.03 8.03 0 0 0 0 11.3l56.6 56.6c3.1 3.1 8.2 3.1 11.3 0l31.1-31.1c3.1-3.1 3.1-8.2 0-11.3l-56.6-56.6zM262 530h-80c-4.4 0-8 3.6-8 8v44c0 4.4 3.6 8 8 8h80c4.4 0 8-3.6 8-8v-44c0-4.4-3.6-8-8-8z'
         )
       )),
-      (t.BackwardOutline = u(
-        'backward',
-        i,
-        l(
-          r,
-          'M485.6 249.9L198.2 498c-8.3 7.1-8.3 20.8 0 27.9l287.4 248.2c10.7 9.2 26.4.9 26.4-14V263.8c0-14.8-15.7-23.2-26.4-13.9zm320 0L518.2 498a18.6 18.6 0 0 0-6.2 14c0 5.2 2.1 10.4 6.2 14l287.4 248.2c10.7 9.2 26.4.9 26.4-14V263.8c0-14.8-15.7-23.2-26.4-13.9z'
-        )
-      )),
       (t.DatabaseOutline = u(
         'database',
         i,
         l(
           o,
           'M832 64H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V96c0-17.7-14.3-32-32-32zm-600 72h560v208H232V136zm560 480H232V408h560v208zm0 272H232V680h560v208zM304 240a40 40 0 1 0 80 0 40 40 0 1 0-80 0zm0 272a40 40 0 1 0 80 0 40 40 0 1 0-80 0zm0 272a40 40 0 1 0 80 0 40 40 0 1 0-80 0z'
-        )
-      )),
-      (t.DeleteOutline = u(
-        'delete',
-        i,
-        l(
-          o,
-          'M360 184h-8c4.4 0 8-3.6 8-8v8h304v-8c0 4.4 3.6 8 8 8h-8v72h72v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80h72v-72zm504 72H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zM731.3 840H292.7l-24.2-512h487l-24.2 512z'
-        )
-      )),
-      (t.DislikeOutline = u(
-        'dislike',
-        i,
-        l(
-          o,
-          'M885.9 490.3c3.6-12 5.4-24.4 5.4-37 0-28.3-9.3-55.5-26.1-77.7 3.6-12 5.4-24.4 5.4-37 0-28.3-9.3-55.5-26.1-77.7 3.6-12 5.4-24.4 5.4-37 0-51.6-30.7-98.1-78.3-118.4a66.1 66.1 0 0 0-26.5-5.4H144c-17.7 0-32 14.3-32 32v364c0 17.7 14.3 32 32 32h129.3l85.8 310.8C372.9 889 418.9 924 470.9 924c29.7 0 57.4-11.8 77.9-33.4 20.5-21.5 31-49.7 29.5-79.4l-6-122.9h239.9c12.1 0 23.9-3.2 34.3-9.3 40.4-23.5 65.5-66.1 65.5-111 0-28.3-9.3-55.5-26.1-77.7zM184 456V172h81v284h-81zm627.2 160.4H496.8l9.6 198.4c.6 11.9-4.7 23.1-14.6 30.5-6.1 4.5-13.6 6.8-21.1 6.7a44.28 44.28 0 0 1-42.2-32.3L329 459.2V172h415.4a56.85 56.85 0 0 1 33.6 51.8c0 9.7-2.3 18.9-6.9 27.3l-13.9 25.4 21.9 19a56.76 56.76 0 0 1 19.6 43c0 9.7-2.3 18.9-6.9 27.3l-13.9 25.4 21.9 19a56.76 56.76 0 0 1 19.6 43c0 9.7-2.3 18.9-6.9 27.3l-14 25.5 21.9 19a56.76 56.76 0 0 1 19.6 43c0 19.1-11 37.5-28.8 48.4z'
         )
       )),
       (t.DiffOutline = u(
@@ -15046,29 +15416,20 @@
           'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-40 728H184V184h656v656z'
         )
       )),
-      (t.EnvironmentOutline = u(
-        'environment',
+      (t.DeleteOutline = u(
+        'delete',
         i,
         l(
           o,
-          'M854.6 289.1a362.49 362.49 0 0 0-79.9-115.7 370.83 370.83 0 0 0-118.2-77.8C610.7 76.6 562.1 67 512 67c-50.1 0-98.7 9.6-144.5 28.5-44.3 18.3-84 44.5-118.2 77.8A363.6 363.6 0 0 0 169.4 289c-19.5 45-29.4 92.8-29.4 142 0 70.6 16.9 140.9 50.1 208.7 26.7 54.5 64 107.6 111 158.1 80.3 86.2 164.5 138.9 188.4 153a43.9 43.9 0 0 0 22.4 6.1c7.8 0 15.5-2 22.4-6.1 23.9-14.1 108.1-66.8 188.4-153 47-50.4 84.3-103.6 111-158.1C867.1 572 884 501.8 884 431.1c0-49.2-9.9-97-29.4-142zM512 880.2c-65.9-41.9-300-207.8-300-449.1 0-77.9 31.1-151.1 87.6-206.3C356.3 169.5 431.7 139 512 139s155.7 30.5 212.4 85.9C780.9 280 812 353.2 812 431.1c0 241.3-234.1 407.2-300 449.1zm0-617.2c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176zm79.2 255.2A111.6 111.6 0 0 1 512 551c-29.9 0-58-11.7-79.2-32.8A111.6 111.6 0 0 1 400 439c0-29.9 11.7-58 32.8-79.2C454 338.6 482.1 327 512 327c29.9 0 58 11.6 79.2 32.8C612.4 381 624 409.1 624 439c0 29.9-11.6 58-32.8 79.2z'
+          'M360 184h-8c4.4 0 8-3.6 8-8v8h304v-8c0 4.4 3.6 8 8 8h-8v72h72v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80h72v-72zm504 72H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zM731.3 840H292.7l-24.2-512h487l-24.2 512z'
         )
       )),
-      (t.EditOutline = u(
-        'edit',
+      (t.DislikeOutline = u(
+        'dislike',
         i,
         l(
           o,
-          'M257.7 752c2 0 4-.2 6-.5L431.9 722c2-.4 3.9-1.3 5.3-2.8l423.9-423.9a9.96 9.96 0 0 0 0-14.1L694.9 114.9c-1.9-1.9-4.4-2.9-7.1-2.9s-5.2 1-7.1 2.9L256.8 538.8c-1.5 1.5-2.4 3.3-2.8 5.3l-29.5 168.2a33.5 33.5 0 0 0 9.4 29.8c6.6 6.4 14.9 9.9 23.8 9.9zm67.4-174.4L687.8 215l73.3 73.3-362.7 362.6-88.9 15.7 15.6-89zM880 836H144c-17.7 0-32 14.3-32 32v36c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-36c0-17.7-14.3-32-32-32z'
-        )
-      )),
-      (t.ExclamationCircleOutline = u(
-        'exclamation-circle',
-        i,
-        l(
-          o,
-          'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z',
-          'M464 688a48 48 0 1 0 96 0 48 48 0 1 0-96 0zM488 576h48c4.4 0 8-3.6 8-8V296c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v272c0 4.4 3.6 8 8 8z'
+          'M885.9 490.3c3.6-12 5.4-24.4 5.4-37 0-28.3-9.3-55.5-26.1-77.7 3.6-12 5.4-24.4 5.4-37 0-28.3-9.3-55.5-26.1-77.7 3.6-12 5.4-24.4 5.4-37 0-51.6-30.7-98.1-78.3-118.4a66.1 66.1 0 0 0-26.5-5.4H144c-17.7 0-32 14.3-32 32v364c0 17.7 14.3 32 32 32h129.3l85.8 310.8C372.9 889 418.9 924 470.9 924c29.7 0 57.4-11.8 77.9-33.4 20.5-21.5 31-49.7 29.5-79.4l-6-122.9h239.9c12.1 0 23.9-3.2 34.3-9.3 40.4-23.5 65.5-66.1 65.5-111 0-28.3-9.3-55.5-26.1-77.7zM184 456V172h81v284h-81zm627.2 160.4H496.8l9.6 198.4c.6 11.9-4.7 23.1-14.6 30.5-6.1 4.5-13.6 6.8-21.1 6.7a44.28 44.28 0 0 1-42.2-32.3L329 459.2V172h415.4a56.85 56.85 0 0 1 33.6 51.8c0 9.7-2.3 18.9-6.9 27.3l-13.9 25.4 21.9 19a56.76 56.76 0 0 1 19.6 43c0 9.7-2.3 18.9-6.9 27.3l-13.9 25.4 21.9 19a56.76 56.76 0 0 1 19.6 43c0 9.7-2.3 18.9-6.9 27.3l-14 25.5 21.9 19a56.76 56.76 0 0 1 19.6 43c0 19.1-11 37.5-28.8 48.4z'
         )
       )),
       (t.DribbbleSquareOutline = u(
@@ -15079,12 +15440,46 @@
           'M498.6 432c-40.8-72.5-84.7-133.4-91.2-142.3-68.8 32.5-120.3 95.9-136.2 172.2 11 .2 112.4.7 227.4-29.9zm66.5 21.8c5.7 11.7 11.2 23.6 16.3 35.6 1.8 4.2 3.6 8.4 5.3 12.7 81.8-10.3 163.2 6.2 171.3 7.9-.5-58.1-21.3-111.4-55.5-153.3-5.3 7.1-46.5 60-137.4 97.1zM880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zM512 800c-158.8 0-288-129.2-288-288s129.2-288 288-288 288 129.2 288 288-129.2 288-288 288zm89.7-259.1c32.2 88.4 45.3 160.4 47.8 175.4 55.2-37.3 94.5-96.4 105.4-164.9-8.4-2.6-76.1-22.8-153.2-10.5zm-72.5-26.4c3.2-1 6.4-2 9.7-2.9-6.2-14-12.9-28-19.9-41.7-122.8 36.8-242.1 35.2-252.8 35-.1 2.5-.1 5-.1 7.5 0 63.2 23.9 120.9 63.2 164.5 5.5-9.6 73-121.4 199.9-162.4zm145.9-186.2a245.2 245.2 0 0 0-220.8-55.1c6.8 9.1 51.5 69.9 91.8 144 87.5-32.8 124.5-82.6 129-88.9zM554 552.8c-138.7 48.3-188.6 144.6-193 153.6 41.7 32.5 94.1 51.9 151 51.9 34.1 0 66.6-6.9 96.1-19.5-3.7-21.6-17.9-96.8-52.5-186.6l-1.6.6z'
         )
       )),
+      (t.EditOutline = u(
+        'edit',
+        i,
+        l(
+          o,
+          'M257.7 752c2 0 4-.2 6-.5L431.9 722c2-.4 3.9-1.3 5.3-2.8l423.9-423.9a9.96 9.96 0 0 0 0-14.1L694.9 114.9c-1.9-1.9-4.4-2.9-7.1-2.9s-5.2 1-7.1 2.9L256.8 538.8c-1.5 1.5-2.4 3.3-2.8 5.3l-29.5 168.2a33.5 33.5 0 0 0 9.4 29.8c6.6 6.4 14.9 9.9 23.8 9.9zm67.4-174.4L687.8 215l73.3 73.3-362.7 362.6-88.9 15.7 15.6-89zM880 836H144c-17.7 0-32 14.3-32 32v36c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-36c0-17.7-14.3-32-32-32z'
+        )
+      )),
+      (t.EnvironmentOutline = u(
+        'environment',
+        i,
+        l(
+          o,
+          'M854.6 289.1a362.49 362.49 0 0 0-79.9-115.7 370.83 370.83 0 0 0-118.2-77.8C610.7 76.6 562.1 67 512 67c-50.1 0-98.7 9.6-144.5 28.5-44.3 18.3-84 44.5-118.2 77.8A363.6 363.6 0 0 0 169.4 289c-19.5 45-29.4 92.8-29.4 142 0 70.6 16.9 140.9 50.1 208.7 26.7 54.5 64 107.6 111 158.1 80.3 86.2 164.5 138.9 188.4 153a43.9 43.9 0 0 0 22.4 6.1c7.8 0 15.5-2 22.4-6.1 23.9-14.1 108.1-66.8 188.4-153 47-50.4 84.3-103.6 111-158.1C867.1 572 884 501.8 884 431.1c0-49.2-9.9-97-29.4-142zM512 880.2c-65.9-41.9-300-207.8-300-449.1 0-77.9 31.1-151.1 87.6-206.3C356.3 169.5 431.7 139 512 139s155.7 30.5 212.4 85.9C780.9 280 812 353.2 812 431.1c0 241.3-234.1 407.2-300 449.1zm0-617.2c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176zm79.2 255.2A111.6 111.6 0 0 1 512 551c-29.9 0-58-11.7-79.2-32.8A111.6 111.6 0 0 1 400 439c0-29.9 11.7-58 32.8-79.2C454 338.6 482.1 327 512 327c29.9 0 58 11.6 79.2 32.8C612.4 381 624 409.1 624 439c0 29.9-11.6 58-32.8 79.2z'
+        )
+      )),
+      (t.EyeInvisibleOutline = u(
+        'eye-invisible',
+        i,
+        l(
+          o,
+          'M942.2 486.2Q889.47 375.11 816.7 305l-50.88 50.88C807.31 395.53 843.45 447.4 874.7 512 791.5 684.2 673.4 766 512 766q-72.67 0-133.87-22.38L323 798.75Q408 838 512 838q288.3 0 430.2-300.3a60.29 60.29 0 0 0 0-51.5zm-63.57-320.64L836 122.88a8 8 0 0 0-11.32 0L715.31 232.2Q624.86 186 512 186q-288.3 0-430.2 300.3a60.3 60.3 0 0 0 0 51.5q56.69 119.4 136.5 191.41L112.48 835a8 8 0 0 0 0 11.31L155.17 889a8 8 0 0 0 11.31 0l712.15-712.12a8 8 0 0 0 0-11.32zM149.3 512C232.6 339.8 350.7 258 512 258c54.54 0 104.13 9.36 149.12 28.39l-70.3 70.3a176 176 0 0 0-238.13 238.13l-83.42 83.42C223.1 637.49 183.3 582.28 149.3 512zm246.7 0a112.11 112.11 0 0 1 146.2-106.69L401.31 546.2A112 112 0 0 1 396 512z',
+          'M508 624c-3.46 0-6.87-.16-10.25-.47l-52.82 52.82a176.09 176.09 0 0 0 227.42-227.42l-52.82 52.82c.31 3.38.47 6.79.47 10.25a111.94 111.94 0 0 1-112 112z'
+        )
+      )),
       (t.ExperimentOutline = u(
         'experiment',
         i,
         l(
           o,
           'M512 472a40 40 0 1 0 80 0 40 40 0 1 0-80 0zm367 352.9L696.3 352V178H768v-68H256v68h71.7v174L145 824.9c-2.8 7.4-4.3 15.2-4.3 23.1 0 35.3 28.7 64 64 64h614.6c7.9 0 15.7-1.5 23.1-4.3 33-12.7 49.4-49.8 36.6-82.8zM395.7 364.7V180h232.6v184.7L719.2 600c-20.7-5.3-42.1-8-63.9-8-61.2 0-119.2 21.5-165.3 60a188.78 188.78 0 0 1-121.3 43.9c-32.7 0-64.1-8.3-91.8-23.7l118.8-307.5zM210.5 844l41.7-107.8c35.7 18.1 75.4 27.8 116.6 27.8 61.2 0 119.2-21.5 165.3-60 33.9-28.2 76.3-43.9 121.3-43.9 35 0 68.4 9.5 97.6 27.1L813.5 844h-603z'
+        )
+      )),
+      (t.ExclamationCircleOutline = u(
+        'exclamation-circle',
+        i,
+        l(
+          o,
+          'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z',
+          'M464 688a48 48 0 1 0 96 0 48 48 0 1 0-96 0zm24-112h48c4.4 0 8-3.6 8-8V296c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v272c0 4.4 3.6 8 8 8z'
         )
       )),
       (t.EyeOutline = u(
@@ -15103,22 +15498,6 @@
           'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-32 736H663.9V602.2h104l15.6-120.7H663.9v-77.1c0-35 9.7-58.8 59.8-58.8h63.9v-108c-11.1-1.5-49-4.8-93.2-4.8-92.2 0-155.3 56.3-155.3 159.6v89H434.9v120.7h104.3V848H176V176h672v672z'
         )
       )),
-      (t.BankOutline = u(
-        'bank',
-        i,
-        l(
-          o,
-          'M894 462c30.9 0 43.8-39.7 18.7-58L530.8 126.2a31.81 31.81 0 0 0-37.6 0L111.3 404c-25.1 18.2-12.2 58 18.8 58H192v374h-72c-4.4 0-8 3.6-8 8v52c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-52c0-4.4-3.6-8-8-8h-72V462h62zM512 196.7l271.1 197.2H240.9L512 196.7zM264 462h117v374H264V462zm189 0h117v374H453V462zm307 374H642V462h118v374z'
-        )
-      )),
-      (t.FastBackwardOutline = u(
-        'fast-backward',
-        i,
-        l(
-          r,
-          'M517.6 273.5L230.2 499.3a16.14 16.14 0 0 0 0 25.4l287.4 225.8c10.7 8.4 26.4.8 26.4-12.7V286.2c0-13.5-15.7-21.1-26.4-12.7zm320 0L550.2 499.3a16.14 16.14 0 0 0 0 25.4l287.4 225.8c10.7 8.4 26.4.8 26.4-12.7V286.2c0-13.5-15.7-21.1-26.4-12.7zm-620-25.5h-51.2c-3.5 0-6.4 2.7-6.4 6v516c0 3.3 2.9 6 6.4 6h51.2c3.5 0 6.4-2.7 6.4-6V254c0-3.3-2.9-6-6.4-6z'
-        )
-      )),
       (t.FastForwardOutline = u(
         'fast-forward',
         i,
@@ -15127,12 +15506,12 @@
           'M793.8 499.3L506.4 273.5c-10.7-8.4-26.4-.8-26.4 12.7v451.6c0 13.5 15.7 21.1 26.4 12.7l287.4-225.8a16.14 16.14 0 0 0 0-25.4zm-320 0L186.4 273.5c-10.7-8.4-26.4-.8-26.4 12.7v451.5c0 13.5 15.7 21.1 26.4 12.7l287.4-225.8c4.1-3.2 6.2-8 6.2-12.7 0-4.6-2.1-9.4-6.2-12.6zM857.6 248h-51.2c-3.5 0-6.4 2.7-6.4 6v516c0 3.3 2.9 6 6.4 6h51.2c3.5 0 6.4-2.7 6.4-6V254c0-3.3-2.9-6-6.4-6z'
         )
       )),
-      (t.FileAddOutline = u(
-        'file-add',
+      (t.FastBackwardOutline = u(
+        'fast-backward',
         i,
         l(
-          o,
-          'M854.6 288.6L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0 0 42 42h216v494zM544 472c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v108H372c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h108v108c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V644h108c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H544V472z'
+          r,
+          'M517.6 273.5L230.2 499.3a16.14 16.14 0 0 0 0 25.4l287.4 225.8c10.7 8.4 26.4.8 26.4-12.7V286.2c0-13.5-15.7-21.1-26.4-12.7zm320 0L550.2 499.3a16.14 16.14 0 0 0 0 25.4l287.4 225.8c10.7 8.4 26.4.8 26.4-12.7V286.2c0-13.5-15.7-21.1-26.4-12.7zm-620-25.5h-51.2c-3.5 0-6.4 2.7-6.4 6v516c0 3.3 2.9 6 6.4 6h51.2c3.5 0 6.4-2.7 6.4-6V254c0-3.3-2.9-6-6.4-6z'
         )
       )),
       (t.FileExcelOutline = u(
@@ -15151,12 +15530,20 @@
           'M854.6 288.6L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0 0 42 42h216v494zM472 744a40 40 0 1 0 80 0 40 40 0 1 0-80 0zm16-104h48c4.4 0 8-3.6 8-8V448c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v184c0 4.4 3.6 8 8 8z'
         )
       )),
-      (t.FileImageOutline = u(
-        'file-image',
+      (t.FileAddOutline = u(
+        'file-add',
         i,
         l(
           o,
-          'M553.1 509.1l-77.8 99.2-41.1-52.4a8 8 0 0 0-12.6 0l-99.8 127.2a7.98 7.98 0 0 0 6.3 12.9H696c6.7 0 10.4-7.7 6.3-12.9l-136.5-174a8.1 8.1 0 0 0-12.7 0zM360 442a40 40 0 1 0 80 0 40 40 0 1 0-80 0zm494.6-153.4L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0 0 42 42h216v494z'
+          'M854.6 288.6L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0 0 42 42h216v494zM544 472c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v108H372c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h108v108c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V644h108c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H544V472z'
+        )
+      )),
+      (t.FilePdfOutline = u(
+        'file-pdf',
+        i,
+        l(
+          o,
+          'M531.3 574.4l.3-1.4c5.8-23.9 13.1-53.7 7.4-80.7-3.8-21.3-19.5-29.6-32.9-30.2-15.8-.7-29.9 8.3-33.4 21.4-6.6 24-.7 56.8 10.1 98.6-13.6 32.4-35.3 79.5-51.2 107.5-29.6 15.3-69.3 38.9-75.2 68.7-1.2 5.5.2 12.5 3.5 18.8 3.7 7 9.6 12.4 16.5 15 3 1.1 6.6 2 10.8 2 17.6 0 46.1-14.2 84.1-79.4 5.8-1.9 11.8-3.9 17.6-5.9 27.2-9.2 55.4-18.8 80.9-23.1 28.2 15.1 60.3 24.8 82.1 24.8 21.6 0 30.1-12.8 33.3-20.5 5.6-13.5 2.9-30.5-6.2-39.6-13.2-13-45.3-16.4-95.3-10.2-24.6-15-40.7-35.4-52.4-65.8zM421.6 726.3c-13.9 20.2-24.4 30.3-30.1 34.7 6.7-12.3 19.8-25.3 30.1-34.7zm87.6-235.5c5.2 8.9 4.5 35.8.5 49.4-4.9-19.9-5.6-48.1-2.7-51.4.8.1 1.5.7 2.2 2zm-1.6 120.5c10.7 18.5 24.2 34.4 39.1 46.2-21.6 4.9-41.3 13-58.9 20.2-4.2 1.7-8.3 3.4-12.3 5 13.3-24.1 24.4-51.4 32.1-71.4zm155.6 65.5c.1.2.2.5-.4.9h-.2l-.2.3c-.8.5-9 5.3-44.3-8.6 40.6-1.9 45 7.3 45.1 7.4zm191.4-388.2L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0 0 42 42h216v494z'
         )
       )),
       (t.FileMarkdownOutline = u(
@@ -15167,12 +15554,20 @@
           'M854.6 288.6L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0 0 42 42h216v494zM429 481.2c-1.9-4.4-6.2-7.2-11-7.2h-35c-6.6 0-12 5.4-12 12v272c0 6.6 5.4 12 12 12h27.1c6.6 0 12-5.4 12-12V582.1l66.8 150.2a12 12 0 0 0 11 7.1H524c4.7 0 9-2.8 11-7.1l66.8-150.6V758c0 6.6 5.4 12 12 12H641c6.6 0 12-5.4 12-12V486c0-6.6-5.4-12-12-12h-34.7c-4.8 0-9.1 2.8-11 7.2l-83.1 191-83.2-191z'
         )
       )),
-      (t.FilePdfOutline = u(
-        'file-pdf',
+      (t.FilePptOutline = u(
+        'file-ppt',
         i,
         l(
           o,
-          'M531.3 574.4l.3-1.4c5.8-23.9 13.1-53.7 7.4-80.7-3.8-21.3-19.5-29.6-32.9-30.2-15.8-.7-29.9 8.3-33.4 21.4-6.6 24-.7 56.8 10.1 98.6-13.6 32.4-35.3 79.5-51.2 107.5-29.6 15.3-69.3 38.9-75.2 68.7-1.2 5.5.2 12.5 3.5 18.8 3.7 7 9.6 12.4 16.5 15 3 1.1 6.6 2 10.8 2 17.6 0 46.1-14.2 84.1-79.4 5.8-1.9 11.8-3.9 17.6-5.9 27.2-9.2 55.4-18.8 80.9-23.1 28.2 15.1 60.3 24.8 82.1 24.8 21.6 0 30.1-12.8 33.3-20.5 5.6-13.5 2.9-30.5-6.2-39.6-13.2-13-45.3-16.4-95.3-10.2-24.6-15-40.7-35.4-52.4-65.8zM421.6 726.3c-13.9 20.2-24.4 30.3-30.1 34.7 6.7-12.3 19.8-25.3 30.1-34.7zm87.6-235.5c5.2 8.9 4.5 35.8.5 49.4-4.9-19.9-5.6-48.1-2.7-51.4.8.1 1.5.7 2.2 2zm-1.6 120.5c10.7 18.5 24.2 34.4 39.1 46.2-21.6 4.9-41.3 13-58.9 20.2-4.2 1.7-8.3 3.4-12.3 5 13.3-24.1 24.4-51.4 32.1-71.4zm155.6 65.5c.1.2.2.5-.4.9h-.2l-.2.3c-.8.5-9 5.3-44.3-8.6 40.6-1.9 45 7.3 45.1 7.4zm191.4-388.2L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0 0 42 42h216v494z'
+          'M424 476c-4.4 0-8 3.6-8 8v276c0 4.4 3.6 8 8 8h32.5c4.4 0 8-3.6 8-8v-95.5h63.3c59.4 0 96.2-38.9 96.2-94.1 0-54.5-36.3-94.3-96-94.3H424zm150.6 94.3c0 43.4-26.5 54.3-71.2 54.3h-38.9V516.2h56.2c33.8 0 53.9 19.7 53.9 54.1zm280-281.7L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0 0 42 42h216v494z'
+        )
+      )),
+      (t.FileImageOutline = u(
+        'file-image',
+        i,
+        l(
+          o,
+          'M553.1 509.1l-77.8 99.2-41.1-52.4a8 8 0 0 0-12.6 0l-99.8 127.2a7.98 7.98 0 0 0 6.3 12.9H696c6.7 0 10.4-7.7 6.3-12.9l-136.5-174a8.1 8.1 0 0 0-12.7 0zM360 442a40 40 0 1 0 80 0 40 40 0 1 0-80 0zm494.6-153.4L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0 0 42 42h216v494z'
         )
       )),
       (t.FileUnknownOutline = u(
@@ -15191,36 +15586,12 @@
           'M854.6 288.6L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0 0 42 42h216v494zM504 618H320c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8zM312 490v48c0 4.4 3.6 8 8 8h384c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H320c-4.4 0-8 3.6-8 8z'
         )
       )),
-      (t.FilePptOutline = u(
-        'file-ppt',
-        i,
-        l(
-          o,
-          'M424 476c-4.4 0-8 3.6-8 8v276c0 4.4 3.6 8 8 8h32.5c4.4 0 8-3.6 8-8v-95.5h63.3c59.4 0 96.2-38.9 96.2-94.1 0-54.5-36.3-94.3-96-94.3H424zm150.6 94.3c0 43.4-26.5 54.3-71.2 54.3h-38.9V516.2h56.2c33.8 0 53.9 19.7 53.9 54.1zm280-281.7L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0 0 42 42h216v494z'
-        )
-      )),
       (t.FileWordOutline = u(
         'file-word',
         i,
         l(
           o,
           'M854.6 288.6L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0 0 42 42h216v494zM528.1 472h-32.2c-5.5 0-10.3 3.7-11.6 9.1L434.6 680l-46.1-198.7c-1.3-5.4-6.1-9.3-11.7-9.3h-35.4a12.02 12.02 0 0 0-11.6 15.1l74.2 276c1.4 5.2 6.2 8.9 11.6 8.9h32c5.4 0 10.2-3.6 11.6-8.9l52.8-197 52.8 197c1.4 5.2 6.2 8.9 11.6 8.9h31.8c5.4 0 10.2-3.6 11.6-8.9l74.4-276a12.04 12.04 0 0 0-11.6-15.1H647c-5.6 0-10.4 3.9-11.7 9.3l-45.8 199.1-49.8-199.3c-1.3-5.4-6.1-9.1-11.6-9.1z'
-        )
-      )),
-      (t.FileZipOutline = u(
-        'file-zip',
-        i,
-        l(
-          o,
-          'M296 392h64v64h-64zm0 190v160h128V582h-64v-62h-64v62zm80 48v64h-32v-64h32zm-16-302h64v64h-64zm-64-64h64v64h-64zm64 192h64v64h-64zm0-256h64v64h-64zm494.6 88.6L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h64v64h64v-64h174v216a42 42 0 0 0 42 42h216v494z'
-        )
-      )),
-      (t.FileOutline = u(
-        'file',
-        i,
-        l(
-          o,
-          'M854.6 288.6L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0 0 42 42h216v494z'
         )
       )),
       (t.FilterOutline = u(
@@ -15231,6 +15602,22 @@
           'M880.1 154H143.9c-24.5 0-39.8 26.7-27.5 48L349 597.4V838c0 17.7 14.2 32 31.8 32h262.4c17.6 0 31.8-14.3 31.8-32V597.4L907.7 202c12.2-21.3-3.1-48-27.6-48zM603.4 798H420.6V642h182.9v156zm9.6-236.6l-9.5 16.6h-183l-9.5-16.6L212.7 226h598.6L613 561.4z'
         )
       )),
+      (t.FileOutline = u(
+        'file',
+        i,
+        l(
+          o,
+          'M854.6 288.6L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0 0 42 42h216v494z'
+        )
+      )),
+      (t.FileZipOutline = u(
+        'file-zip',
+        i,
+        l(
+          o,
+          'M296 392h64v64h-64zm0 190v160h128V582h-64v-62h-64v62zm80 48v64h-32v-64h32zm-16-302h64v64h-64zm-64-64h64v64h-64zm64 192h64v64h-64zm0-256h64v64h-64zm494.6 88.6L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h64v64h64v-64h174v216a42 42 0 0 0 42 42h216v494z'
+        )
+      )),
       (t.FireOutline = u(
         'fire',
         i,
@@ -15239,20 +15626,20 @@
           'M834.1 469.2A347.49 347.49 0 0 0 751.2 354l-29.1-26.7a8.09 8.09 0 0 0-13 3.3l-13 37.3c-8.1 23.4-23 47.3-44.1 70.8-1.4 1.5-3 1.9-4.1 2-1.1.1-2.8-.1-4.3-1.5-1.4-1.2-2.1-3-2-4.8 3.7-60.2-14.3-128.1-53.7-202C555.3 171 510 123.1 453.4 89.7l-41.3-24.3c-5.4-3.2-12.3 1-12 7.3l2.2 48c1.5 32.8-2.3 61.8-11.3 85.9-11 29.5-26.8 56.9-47 81.5a295.64 295.64 0 0 1-47.5 46.1 352.6 352.6 0 0 0-100.3 121.5A347.75 347.75 0 0 0 160 610c0 47.2 9.3 92.9 27.7 136a349.4 349.4 0 0 0 75.5 110.9c32.4 32 70 57.2 111.9 74.7C418.5 949.8 464.5 959 512 959s93.5-9.2 136.9-27.3A348.6 348.6 0 0 0 760.8 857c32.4-32 57.8-69.4 75.5-110.9a344.2 344.2 0 0 0 27.7-136c0-48.8-10-96.2-29.9-140.9zM713 808.5c-53.7 53.2-125 82.4-201 82.4s-147.3-29.2-201-82.4c-53.5-53.1-83-123.5-83-198.4 0-43.5 9.8-85.2 29.1-124 18.8-37.9 46.8-71.8 80.8-97.9a349.6 349.6 0 0 0 58.6-56.8c25-30.5 44.6-64.5 58.2-101a240 240 0 0 0 12.1-46.5c24.1 22.2 44.3 49 61.2 80.4 33.4 62.6 48.8 118.3 45.8 165.7a74.01 74.01 0 0 0 24.4 59.8 73.36 73.36 0 0 0 53.4 18.8c19.7-1 37.8-9.7 51-24.4 13.3-14.9 24.8-30.1 34.4-45.6 14 17.9 25.7 37.4 35 58.4 15.9 35.8 24 73.9 24 113.1 0 74.9-29.5 145.4-83 198.4z'
         )
       )),
-      (t.FlagOutline = u(
-        'flag',
-        i,
-        l(
-          o,
-          'M880 305H624V192c0-17.7-14.3-32-32-32H184v-40c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v784c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V640h248v113c0 17.7 14.3 32 32 32h416c17.7 0 32-14.3 32-32V337c0-17.7-14.3-32-32-32zM184 568V232h368v336H184zm656 145H504v-73h112c4.4 0 8-3.6 8-8V377h216v336z'
-        )
-      )),
       (t.FolderAddOutline = u(
         'folder-add',
         i,
         l(
           o,
           'M484 443.1V528h-84.5c-4.1 0-7.5 3.1-7.5 7v42c0 3.8 3.4 7 7.5 7H484v84.9c0 3.9 3.2 7.1 7 7.1h42c3.9 0 7-3.2 7-7.1V584h84.5c4.1 0 7.5-3.2 7.5-7v-42c0-3.9-3.4-7-7.5-7H540v-84.9c0-3.9-3.1-7.1-7-7.1h-42c-3.8 0-7 3.2-7 7.1zm396-144.7H521L403.7 186.2a8.15 8.15 0 0 0-5.5-2.2H144c-17.7 0-32 14.3-32 32v592c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V330.4c0-17.7-14.3-32-32-32zM840 768H184V256h188.5l119.6 114.4H840V768z'
+        )
+      )),
+      (t.FlagOutline = u(
+        'flag',
+        i,
+        l(
+          o,
+          'M880 305H624V192c0-17.7-14.3-32-32-32H184v-40c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v784c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V640h248v113c0 17.7 14.3 32 32 32h416c17.7 0 32-14.3 32-32V337c0-17.7-14.3-32-32-32zM184 568V232h368v336H184zm656 145H504v-73h112c4.4 0 8-3.6 8-8V377h216v336z'
         )
       )),
       (t.FolderOutline = u(
@@ -15279,14 +15666,6 @@
           'M825.8 498L538.4 249.9c-10.7-9.2-26.4-.9-26.4 14v496.3c0 14.9 15.7 23.2 26.4 14L825.8 526c8.3-7.2 8.3-20.8 0-28zm-320 0L218.4 249.9c-10.7-9.2-26.4-.9-26.4 14v496.3c0 14.9 15.7 23.2 26.4 14L505.8 526c4.1-3.6 6.2-8.8 6.2-14 0-5.2-2.1-10.4-6.2-14z'
         )
       )),
-      (t.FrownOutline = u(
-        'frown',
-        i,
-        l(
-          o,
-          'M288 421a48 48 0 1 0 96 0 48 48 0 1 0-96 0zm352 0a48 48 0 1 0 96 0 48 48 0 1 0-96 0zM512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm263 711c-34.2 34.2-74 61-118.3 79.8C611 874.2 562.3 884 512 884c-50.3 0-99-9.8-144.8-29.2A370.4 370.4 0 0 1 248.9 775c-34.2-34.2-61-74-79.8-118.3C149.8 611 140 562.3 140 512s9.8-99 29.2-144.8A370.4 370.4 0 0 1 249 248.9c34.2-34.2 74-61 118.3-79.8C413 149.8 461.7 140 512 140c50.3 0 99 9.8 144.8 29.2A370.4 370.4 0 0 1 775.1 249c34.2 34.2 61 74 79.8 118.3C874.2 413 884 461.7 884 512s-9.8 99-29.2 144.8A368.89 368.89 0 0 1 775 775zM512 533c-85.5 0-155.6 67.3-160 151.6a8 8 0 0 0 8 8.4h48.1c4.2 0 7.8-3.2 8.1-7.4C420 636.1 461.5 597 512 597s92.1 39.1 95.8 88.6c.3 4.2 3.9 7.4 8.1 7.4H664a8 8 0 0 0 8-8.4C667.6 600.3 597.5 533 512 533z'
-        )
-      )),
       (t.FundOutline = u(
         'fund',
         i,
@@ -15295,20 +15674,28 @@
           'M926 164H94c-17.7 0-32 14.3-32 32v640c0 17.7 14.3 32 32 32h832c17.7 0 32-14.3 32-32V196c0-17.7-14.3-32-32-32zm-40 632H134V236h752v560zm-658.9-82.3c3.1 3.1 8.2 3.1 11.3 0l172.5-172.5 114.4 114.5c3.1 3.1 8.2 3.1 11.3 0l297-297.2c3.1-3.1 3.1-8.2 0-11.3l-36.8-36.8a8.03 8.03 0 0 0-11.3 0L531 565 416.6 450.5a8.03 8.03 0 0 0-11.3 0l-214.9 215a8.03 8.03 0 0 0 0 11.3l36.7 36.9z'
         )
       )),
-      (t.FunnelPlotOutline = u(
-        'funnel-plot',
-        i,
-        l(
-          o,
-          'M880.1 154H143.9c-24.5 0-39.8 26.7-27.5 48L349 607.4V838c0 17.7 14.2 32 31.8 32h262.4c17.6 0 31.8-14.3 31.8-32V607.4L907.7 202c12.2-21.3-3.1-48-27.6-48zM603.4 798H420.6V650h182.9v148zm9.6-226.6l-8.4 14.6H419.3l-8.4-14.6L334.4 438h355.2L613 571.4zM726.3 374H297.7l-85-148h598.6l-85 148z'
-        )
-      )),
       (t.GiftOutline = u(
         'gift',
         i,
         l(
           o,
           'M880 310H732.4c13.6-21.4 21.6-46.8 21.6-74 0-76.1-61.9-138-138-138-41.4 0-78.7 18.4-104 47.4-25.3-29-62.6-47.4-104-47.4-76.1 0-138 61.9-138 138 0 27.2 7.9 52.6 21.6 74H144c-17.7 0-32 14.3-32 32v200c0 4.4 3.6 8 8 8h40v344c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V550h40c4.4 0 8-3.6 8-8V342c0-17.7-14.3-32-32-32zm-334-74c0-38.6 31.4-70 70-70s70 31.4 70 70-31.4 70-70 70h-70v-70zm-138-70c38.6 0 70 31.4 70 70v70h-70c-38.6 0-70-31.4-70-70s31.4-70 70-70zM180 482V378h298v104H180zm48 68h250v308H228V550zm568 308H546V550h250v308zm48-376H546V378h298v104z'
+        )
+      )),
+      (t.FrownOutline = u(
+        'frown',
+        i,
+        l(
+          o,
+          'M288 421a48 48 0 1 0 96 0 48 48 0 1 0-96 0zm352 0a48 48 0 1 0 96 0 48 48 0 1 0-96 0zM512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm263 711c-34.2 34.2-74 61-118.3 79.8C611 874.2 562.3 884 512 884c-50.3 0-99-9.8-144.8-29.2A370.4 370.4 0 0 1 248.9 775c-34.2-34.2-61-74-79.8-118.3C149.8 611 140 562.3 140 512s9.8-99 29.2-144.8A370.4 370.4 0 0 1 249 248.9c34.2-34.2 74-61 118.3-79.8C413 149.8 461.7 140 512 140c50.3 0 99 9.8 144.8 29.2A370.4 370.4 0 0 1 775.1 249c34.2 34.2 61 74 79.8 118.3C874.2 413 884 461.7 884 512s-9.8 99-29.2 144.8A368.89 368.89 0 0 1 775 775zM512 533c-85.5 0-155.6 67.3-160 151.6a8 8 0 0 0 8 8.4h48.1c4.2 0 7.8-3.2 8.1-7.4C420 636.1 461.5 597 512 597s92.1 39.1 95.8 88.6c.3 4.2 3.9 7.4 8.1 7.4H664a8 8 0 0 0 8-8.4C667.6 600.3 597.5 533 512 533z'
+        )
+      )),
+      (t.FunnelPlotOutline = u(
+        'funnel-plot',
+        i,
+        l(
+          o,
+          'M880.1 154H143.9c-24.5 0-39.8 26.7-27.5 48L349 607.4V838c0 17.7 14.2 32 31.8 32h262.4c17.6 0 31.8-14.3 31.8-32V607.4L907.7 202c12.2-21.3-3.1-48-27.6-48zM603.4 798H420.6V650h182.9v148zm9.6-226.6l-8.4 14.6H419.3l-8.4-14.6L334.4 438h355.2L613 571.4zM726.3 374H297.7l-85-148h598.6l-85 148z'
         )
       )),
       (t.GithubOutline = u(
@@ -15327,12 +15714,12 @@
           'M913.9 552.2L805 181.4v-.1c-7.6-22.9-25.7-36.5-48.3-36.5-23.4 0-42.5 13.5-49.7 35.2l-71.4 213H388.8l-71.4-213c-7.2-21.7-26.3-35.2-49.7-35.2-23.1 0-42.5 14.8-48.4 36.6L110.5 552.2c-4.4 14.7 1.2 31.4 13.5 40.7l368.5 276.4c2.6 3.6 6.2 6.3 10.4 7.8l8.6 6.4 8.5-6.4c4.9-1.7 9-4.7 11.9-8.9l368.4-275.4c12.4-9.2 18-25.9 13.6-40.6zM751.7 193.4c1-1.8 2.9-1.9 3.5-1.9 1.1 0 2.5.3 3.4 3L818 394.3H684.5l67.2-200.9zm-487.4 1c.9-2.6 2.3-2.9 3.4-2.9 2.7 0 2.9.1 3.4 1.7l67.3 201.2H206.5l57.8-200zM158.8 558.7l28.2-97.3 202.4 270.2-230.6-172.9zm73.9-116.4h122.1l90.8 284.3-212.9-284.3zM512.9 776L405.7 442.3H620L512.9 776zm157.9-333.7h119.5L580 723.1l90.8-280.8zm-40.7 293.9l207.3-276.7 29.5 99.2-236.8 177.5z'
         )
       )),
-      (t.HddOutline = u(
-        'hdd',
+      (t.HomeOutline = u(
+        'home',
         i,
         l(
           o,
-          'M832 64H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V96c0-17.7-14.3-32-32-32zm-600 72h560v208H232V136zm560 480H232V408h560v208zm0 272H232V680h560v208zM496 208H312c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8zM312 544h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H312c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8zm328 244a40 40 0 1 0 80 0 40 40 0 1 0-80 0z'
+          'M946.5 505L560.1 118.8l-25.9-25.9a31.5 31.5 0 0 0-44.4 0L77.5 505a63.9 63.9 0 0 0-18.8 46c.4 35.2 29.7 63.3 64.9 63.3h42.5V940h691.8V614.3h43.4c17.1 0 33.2-6.7 45.3-18.8a63.6 63.6 0 0 0 18.7-45.3c0-17-6.7-33.1-18.8-45.2zM568 868H456V664h112v204zm217.9-325.7V868H632V640c0-22.1-17.9-40-40-40H432c-22.1 0-40 17.9-40 40v228H238.1V542.3h-96l370-369.7 23.1 23.1L882 542.3h-96.1z'
         )
       )),
       (t.HeartOutline = u(
@@ -15343,20 +15730,12 @@
           'M923 283.6a260.04 260.04 0 0 0-56.9-82.8 264.4 264.4 0 0 0-84-55.5A265.34 265.34 0 0 0 679.7 125c-49.3 0-97.4 13.5-139.2 39-10 6.1-19.5 12.8-28.5 20.1-9-7.3-18.5-14-28.5-20.1-41.8-25.5-89.9-39-139.2-39-35.5 0-69.9 6.8-102.4 20.3-31.4 13-59.7 31.7-84 55.5a258.44 258.44 0 0 0-56.9 82.8c-13.9 32.3-21 66.6-21 101.9 0 33.3 6.8 68 20.3 103.3 11.3 29.5 27.5 60.1 48.2 91 32.8 48.9 77.9 99.9 133.9 151.6 92.8 85.7 184.7 144.9 188.6 147.3l23.7 15.2c10.5 6.7 24 6.7 34.5 0l23.7-15.2c3.9-2.5 95.7-61.6 188.6-147.3 56-51.7 101.1-102.7 133.9-151.6 20.7-30.9 37-61.5 48.2-91 13.5-35.3 20.3-70 20.3-103.3.1-35.3-7-69.6-20.9-101.9zM512 814.8S156 586.7 156 385.5C156 283.6 240.3 201 344.3 201c73.1 0 136.5 40.8 167.7 100.4C543.2 241.8 606.6 201 679.7 201c104 0 188.3 82.6 188.3 184.5 0 201.2-356 429.3-356 429.3z'
         )
       )),
-      (t.HighlightOutline = u(
-        'highlight',
+      (t.HddOutline = u(
+        'hdd',
         i,
         l(
           o,
-          'M957.6 507.4L603.2 158.2a7.9 7.9 0 0 0-11.2 0L353.3 393.4a8.03 8.03 0 0 0-.1 11.3l.1.1 40 39.4-117.2 115.3a8.03 8.03 0 0 0-.1 11.3l.1.1 39.5 38.9-189.1 187H72.1c-4.4 0-8.1 3.6-8.1 8V860c0 4.4 3.6 8 8 8h344.9c2.1 0 4.1-.8 5.6-2.3l76.1-75.6 40.4 39.8a7.9 7.9 0 0 0 11.2 0l117.1-115.6 40.1 39.5a7.9 7.9 0 0 0 11.2 0l238.7-235.2c3.4-3 3.4-8 .3-11.2zM389.8 796.2H229.6l134.4-133 80.1 78.9-54.3 54.1zm154.8-62.1L373.2 565.2l68.6-67.6 171.4 168.9-68.6 67.6zM713.1 658L450.3 399.1 597.6 254l262.8 259-147.3 145z'
-        )
-      )),
-      (t.HomeOutline = u(
-        'home',
-        i,
-        l(
-          o,
-          'M946.5 505L560.1 118.8l-25.9-25.9a31.5 31.5 0 0 0-44.4 0L77.5 505a63.9 63.9 0 0 0-18.8 46c.4 35.2 29.7 63.3 64.9 63.3h42.5V940h691.8V614.3h43.4c17.1 0 33.2-6.7 45.3-18.8a63.6 63.6 0 0 0 18.7-45.3c0-17-6.7-33.1-18.8-45.2zM568 868H456V664h112v204zm217.9-325.7V868H632V640c0-22.1-17.9-40-40-40H432c-22.1 0-40 17.9-40 40v228H238.1V542.3h-96l370-369.7 23.1 23.1L882 542.3h-96.1z'
+          'M832 64H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V96c0-17.7-14.3-32-32-32zm-600 72h560v208H232V136zm560 480H232V408h560v208zm0 272H232V680h560v208zM496 208H312c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8zM312 544h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H312c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8zm328 244a40 40 0 1 0 80 0 40 40 0 1 0-80 0z'
         )
       )),
       (t.HourglassOutline = u(
@@ -15367,6 +15746,22 @@
           'M742 318V184h86c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H196c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h86v134c0 81.5 42.4 153.2 106.4 194-64 40.8-106.4 112.5-106.4 194v134h-86c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h632c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-86V706c0-81.5-42.4-153.2-106.4-194 64-40.8 106.4-112.5 106.4-194zm-72 388v134H354V706c0-42.2 16.4-81.9 46.3-111.7C430.1 564.4 469.8 548 512 548s81.9 16.4 111.7 46.3C653.6 624.1 670 663.8 670 706zm0-388c0 42.2-16.4 81.9-46.3 111.7C593.9 459.6 554.2 476 512 476s-81.9-16.4-111.7-46.3A156.63 156.63 0 0 1 354 318V184h316v134z'
         )
       )),
+      (t.HighlightOutline = u(
+        'highlight',
+        i,
+        l(
+          o,
+          'M957.6 507.4L603.2 158.2a7.9 7.9 0 0 0-11.2 0L353.3 393.4a8.03 8.03 0 0 0-.1 11.3l.1.1 40 39.4-117.2 115.3a8.03 8.03 0 0 0-.1 11.3l.1.1 39.5 38.9-189.1 187H72.1c-4.4 0-8.1 3.6-8.1 8V860c0 4.4 3.6 8 8 8h344.9c2.1 0 4.1-.8 5.6-2.3l76.1-75.6 40.4 39.8a7.9 7.9 0 0 0 11.2 0l117.1-115.6 40.1 39.5a7.9 7.9 0 0 0 11.2 0l238.7-235.2c3.4-3 3.4-8 .3-11.2zM389.8 796.2H229.6l134.4-133 80.1 78.9-54.3 54.1zm154.8-62.1L373.2 565.2l68.6-67.6 171.4 168.9-68.6 67.6zM713.1 658L450.3 399.1 597.6 254l262.8 259-147.3 145z'
+        )
+      )),
+      (t.IdcardOutline = u(
+        'idcard',
+        i,
+        l(
+          o,
+          'M928 160H96c-17.7 0-32 14.3-32 32v640c0 17.7 14.3 32 32 32h832c17.7 0 32-14.3 32-32V192c0-17.7-14.3-32-32-32zm-40 632H136V232h752v560zM610.3 476h123.4c1.3 0 2.3-3.6 2.3-8v-48c0-4.4-1-8-2.3-8H610.3c-1.3 0-2.3 3.6-2.3 8v48c0 4.4 1 8 2.3 8zm4.8 144h185.7c3.9 0 7.1-3.6 7.1-8v-48c0-4.4-3.2-8-7.1-8H615.1c-3.9 0-7.1 3.6-7.1 8v48c0 4.4 3.2 8 7.1 8zM224 673h43.9c4.2 0 7.6-3.3 7.9-7.5 3.8-50.5 46-90.5 97.2-90.5s93.4 40 97.2 90.5c.3 4.2 3.7 7.5 7.9 7.5H522a8 8 0 0 0 8-8.4c-2.8-53.3-32-99.7-74.6-126.1a111.8 111.8 0 0 0 29.1-75.5c0-61.9-49.9-112-111.4-112s-111.4 50.1-111.4 112c0 29.1 11 55.5 29.1 75.5a158.09 158.09 0 0 0-74.6 126.1c-.4 4.6 3.2 8.4 7.8 8.4zm149-262c28.5 0 51.7 23.3 51.7 52s-23.2 52-51.7 52-51.7-23.3-51.7-52 23.2-52 51.7-52z'
+        )
+      )),
       (t.Html5Outline = u(
         'html5',
         i,
@@ -15375,13 +15770,12 @@
           'M145 96l66 746.6L511.8 928l299.6-85.4L878.7 96H145zm610.9 700.6l-244.1 69.6-245.2-69.6-56.7-641.2h603.8l-57.8 641.2zM281 249l1.7 24.3 22.7 253.5h206.5v-.1h112.9l-11.4 118.5L511 672.9v.2h-.8l-102.4-27.7-6.5-73.2h-91l11.3 144.7 188.6 52h1.7v-.4l187.7-51.7 1.7-16.3 21.2-242.2 3.2-24.3H511v.2H389.9l-8.2-94.2h352.1l1.7-19.5 4.8-47.2L742 249H511z'
         )
       )),
-      (t.InfoCircleOutline = u(
-        'info-circle',
+      (t.InsuranceOutline = u(
+        'insurance',
         i,
         l(
           o,
-          'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z',
-          'M464 336a48 48 0 1 0 96 0 48 48 0 1 0-96 0zM536 448h-48c-4.4 0-8 3.6-8 8v272c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V456c0-4.4-3.6-8-8-8z'
+          'M441.6 306.8L403 288.6a6.1 6.1 0 0 0-8.4 3.7c-17.5 58.5-45.2 110.1-82.2 153.6a6.05 6.05 0 0 0-1.2 5.6l13.2 43.5c1.3 4.4 7 5.7 10.2 2.4 7.7-8.1 15.4-16.9 23.1-26V656c0 4.4 3.6 8 8 8H403c4.4 0 8-3.6 8-8V393.1a429.2 429.2 0 0 0 33.6-79c1-2.9-.3-6-3-7.3zm26.8 9.2v127.2c0 4.4 3.6 8 8 8h65.9v18.6h-94.9c-4.4 0-8 3.6-8 8v35.6c0 4.4 3.6 8 8 8h55.1c-19.1 30.8-42.4 55.7-71 76a6 6 0 0 0-1.6 8.1l22.8 36.5c1.9 3.1 6.2 3.8 8.9 1.4 31.6-26.8 58.7-62.9 80.6-107.6v120c0 4.4 3.6 8 8 8h36.2c4.4 0 8-3.6 8-8V536c21.3 41.7 47.5 77.5 78.1 106.9 2.6 2.5 6.8 2.1 8.9-.7l26.3-35.3c2-2.7 1.4-6.5-1.2-8.4-30.5-22.6-54.2-47.8-72.3-76.9h59c4.4 0 8-3.6 8-8V478c0-4.4-3.6-8-8-8h-98.8v-18.6h66.7c4.4 0 8-3.6 8-8V316c0-4.4-3.6-8-8-8H476.4c-4.4 0-8 3.6-8 8zm51.5 42.8h97.9v41.6h-97.9v-41.6zm347-188.9L527.1 54.1C523 52.7 517.5 52 512 52s-11 .7-15.1 2.1L157.1 169.9c-8.3 2.8-15.1 12.4-15.1 21.2v482.4c0 8.8 5.7 20.4 12.6 25.9L499.3 968c3.5 2.7 8 4.1 12.6 4.1s9.2-1.4 12.6-4.1l344.7-268.6c6.9-5.4 12.6-17 12.6-25.9V191.1c.2-8.8-6.6-18.3-14.9-21.2zM810 654.3L512 886.5 214 654.3V226.7l298-101.6 298 101.6v427.6z'
         )
       )),
       (t.InstagramOutline = u(
@@ -15390,14 +15784,6 @@
         l(
           o,
           'M512 306.9c-113.5 0-205.1 91.6-205.1 205.1S398.5 717.1 512 717.1 717.1 625.5 717.1 512 625.5 306.9 512 306.9zm0 338.4c-73.4 0-133.3-59.9-133.3-133.3S438.6 378.7 512 378.7 645.3 438.6 645.3 512 585.4 645.3 512 645.3zm213.5-394.6c-26.5 0-47.9 21.4-47.9 47.9s21.4 47.9 47.9 47.9 47.9-21.3 47.9-47.9a47.84 47.84 0 0 0-47.9-47.9zM911.8 512c0-55.2.5-109.9-2.6-165-3.1-64-17.7-120.8-64.5-167.6-46.9-46.9-103.6-61.4-167.6-64.5-55.2-3.1-109.9-2.6-165-2.6-55.2 0-109.9-.5-165 2.6-64 3.1-120.8 17.7-167.6 64.5C132.6 226.3 118.1 283 115 347c-3.1 55.2-2.6 109.9-2.6 165s-.5 109.9 2.6 165c3.1 64 17.7 120.8 64.5 167.6 46.9 46.9 103.6 61.4 167.6 64.5 55.2 3.1 109.9 2.6 165 2.6 55.2 0 109.9.5 165-2.6 64-3.1 120.8-17.7 167.6-64.5 46.9-46.9 61.4-103.6 64.5-167.6 3.2-55.1 2.6-109.8 2.6-165zm-88 235.8c-7.3 18.2-16.1 31.8-30.2 45.8-14.1 14.1-27.6 22.9-45.8 30.2C695.2 844.7 570.3 840 512 840c-58.3 0-183.3 4.7-235.9-16.1-18.2-7.3-31.8-16.1-45.8-30.2-14.1-14.1-22.9-27.6-30.2-45.8C179.3 695.2 184 570.3 184 512c0-58.3-4.7-183.3 16.1-235.9 7.3-18.2 16.1-31.8 30.2-45.8s27.6-22.9 45.8-30.2C328.7 179.3 453.7 184 512 184s183.3-4.7 235.9 16.1c18.2 7.3 31.8 16.1 45.8 30.2 14.1 14.1 22.9 27.6 30.2 45.8C844.7 328.7 840 453.7 840 512c0 58.3 4.7 183.2-16.2 235.8z'
-        )
-      )),
-      (t.InsuranceOutline = u(
-        'insurance',
-        i,
-        l(
-          o,
-          'M441.6 306.8L403 288.6a6.1 6.1 0 0 0-8.4 3.7c-17.5 58.5-45.2 110.1-82.2 153.6a6.05 6.05 0 0 0-1.2 5.6l13.2 43.5c1.3 4.4 7 5.7 10.2 2.4 7.7-8.1 15.4-16.9 23.1-26V656c0 4.4 3.6 8 8 8H403c4.4 0 8-3.6 8-8V393.1a429.2 429.2 0 0 0 33.6-79c1-2.9-.3-6-3-7.3zm26.8 9.2v127.2c0 4.4 3.6 8 8 8h65.9v18.6h-94.9c-4.4 0-8 3.6-8 8v35.6c0 4.4 3.6 8 8 8h55.1c-19.1 30.8-42.4 55.7-71 76a6 6 0 0 0-1.6 8.1l22.8 36.5c1.9 3.1 6.2 3.8 8.9 1.4 31.6-26.8 58.7-62.9 80.6-107.6v120c0 4.4 3.6 8 8 8h36.2c4.4 0 8-3.6 8-8V536c21.3 41.7 47.5 77.5 78.1 106.9 2.6 2.5 6.8 2.1 8.9-.7l26.3-35.3c2-2.7 1.4-6.5-1.2-8.4-30.5-22.6-54.2-47.8-72.3-76.9h59c4.4 0 8-3.6 8-8V478c0-4.4-3.6-8-8-8h-98.8v-18.6h66.7c4.4 0 8-3.6 8-8V316c0-4.4-3.6-8-8-8H476.4c-4.4 0-8 3.6-8 8zm51.5 42.8h97.9v41.6h-97.9v-41.6zm347-188.9L527.1 54.1C523 52.7 517.5 52 512 52s-11 .7-15.1 2.1L157.1 169.9c-8.3 2.8-15.1 12.4-15.1 21.2v482.4c0 8.8 5.7 20.4 12.6 25.9L499.3 968c3.5 2.7 8 4.1 12.6 4.1s9.2-1.4 12.6-4.1l344.7-268.6c6.9-5.4 12.6-17 12.6-25.9V191.1c.2-8.8-6.6-18.3-14.9-21.2zM810 654.3L512 886.5 214 654.3V226.7l298-101.6 298 101.6v427.6z'
         )
       )),
       (t.InterationOutline = u(
@@ -15416,15 +15802,6 @@
           'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-696 72h136v656H184V184zm656 656H384V384h456v456zM384 320V184h456v136H384z'
         )
       )),
-      (t.LeftCircleOutline = u(
-        'left-circle',
-        i,
-        l(
-          o,
-          'M603.3 327.5l-246 178a7.95 7.95 0 0 0 0 12.9l246 178c5.3 3.8 12.7 0 12.7-6.5V643c0-10.2-4.9-19.9-13.2-25.9L457.4 512l145.4-105.2c8.3-6 13.2-15.6 13.2-25.9V334c0-6.5-7.4-10.3-12.7-6.5z',
-          'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z'
-        )
-      )),
       (t.LeftSquareOutline = u(
         'left-square',
         i,
@@ -15432,6 +15809,24 @@
           o,
           'M365.3 518.5l246 178c5.3 3.8 12.7 0 12.7-6.5v-46.9c0-10.2-4.9-19.9-13.2-25.9L465.4 512l145.4-105.2c8.3-6 13.2-15.6 13.2-25.9V334c0-6.5-7.4-10.3-12.7-6.5l-246 178a8.05 8.05 0 0 0 0 13z',
           'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-40 728H184V184h656v656z'
+        )
+      )),
+      (t.InfoCircleOutline = u(
+        'info-circle',
+        i,
+        l(
+          o,
+          'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z',
+          'M464 336a48 48 0 1 0 96 0 48 48 0 1 0-96 0zm72 112h-48c-4.4 0-8 3.6-8 8v272c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V456c0-4.4-3.6-8-8-8z'
+        )
+      )),
+      (t.LeftCircleOutline = u(
+        'left-circle',
+        i,
+        l(
+          o,
+          'M603.3 327.5l-246 178a7.95 7.95 0 0 0 0 12.9l246 178c5.3 3.8 12.7 0 12.7-6.5V643c0-10.2-4.9-19.9-13.2-25.9L457.4 512l145.4-105.2c8.3-6 13.2-15.6 13.2-25.9V334c0-6.5-7.4-10.3-12.7-6.5z',
+          'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z'
         )
       )),
       (t.LikeOutline = u(
@@ -15450,12 +15845,12 @@
           'M847.7 112H176.3c-35.5 0-64.3 28.8-64.3 64.3v671.4c0 35.5 28.8 64.3 64.3 64.3h671.4c35.5 0 64.3-28.8 64.3-64.3V176.3c0-35.5-28.8-64.3-64.3-64.3zm0 736c-447.8-.1-671.7-.2-671.7-.3.1-447.8.2-671.7.3-671.7 447.8.1 671.7.2 671.7.3-.1 447.8-.2 671.7-.3 671.7zM230.6 411.9h118.7v381.8H230.6zm59.4-52.2c37.9 0 68.8-30.8 68.8-68.8a68.8 68.8 0 1 0-137.6 0c-.1 38 30.7 68.8 68.8 68.8zm252.3 245.1c0-49.8 9.5-98 71.2-98 60.8 0 61.7 56.9 61.7 101.2v185.7h118.6V584.3c0-102.8-22.2-181.9-142.3-181.9-57.7 0-96.4 31.7-112.3 61.7h-1.6v-52.2H423.7v381.8h118.6V604.8z'
         )
       )),
-      (t.LockOutline = u(
-        'lock',
+      (t.MedicineBoxOutline = u(
+        'medicine-box',
         i,
         l(
           o,
-          'M832 464h-68V240c0-70.7-57.3-128-128-128H388c-70.7 0-128 57.3-128 128v224h-68c-17.7 0-32 14.3-32 32v384c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V496c0-17.7-14.3-32-32-32zM332 240c0-30.9 25.1-56 56-56h248c30.9 0 56 25.1 56 56v224H332V240zm460 600H232V536h560v304zM484 701v53c0 4.4 3.6 8 8 8h40c4.4 0 8-3.6 8-8v-53a48.01 48.01 0 1 0-56 0z'
+          'M839.2 278.1a32 32 0 0 0-30.4-22.1H736V144c0-17.7-14.3-32-32-32H320c-17.7 0-32 14.3-32 32v112h-72.8a31.9 31.9 0 0 0-30.4 22.1L112 502v378c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V502l-72.8-223.9zM360 184h304v72H360v-72zm480 656H184V513.4L244.3 328h535.4L840 513.4V840zM652 572H544V464c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v108H372c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h108v108c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V636h108c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8z'
         )
       )),
       (t.MailOutline = u(
@@ -15466,12 +15861,12 @@
           'M928 160H96c-17.7 0-32 14.3-32 32v640c0 17.7 14.3 32 32 32h832c17.7 0 32-14.3 32-32V192c0-17.7-14.3-32-32-32zm-40 110.8V792H136V270.8l-27.6-21.5 39.3-50.5 42.8 33.3h643.1l42.8-33.3 39.3 50.5-27.7 21.5zM833.6 232L512 482 190.4 232l-42.8-33.3-39.3 50.5 27.6 21.5 341.6 265.6a55.99 55.99 0 0 0 68.7 0L888 270.8l27.6-21.5-39.3-50.5-42.7 33.2z'
         )
       )),
-      (t.MedicineBoxOutline = u(
-        'medicine-box',
+      (t.LockOutline = u(
+        'lock',
         i,
         l(
           o,
-          'M839.2 278.1a32 32 0 0 0-30.4-22.1H736V144c0-17.7-14.3-32-32-32H320c-17.7 0-32 14.3-32 32v112h-72.8a31.9 31.9 0 0 0-30.4 22.1L112 502v378c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V502l-72.8-223.9zM360 184h304v72H360v-72zm480 656H184V513.4L244.3 328h535.4L840 513.4V840zM652 572H544V464c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v108H372c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h108v108c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V636h108c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8z'
+          'M832 464h-68V240c0-70.7-57.3-128-128-128H388c-70.7 0-128 57.3-128 128v224h-68c-17.7 0-32 14.3-32 32v384c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V496c0-17.7-14.3-32-32-32zM332 240c0-30.9 25.1-56 56-56h248c30.9 0 56 25.1 56 56v224H332V240zm460 600H232V536h560v304zM484 701v53c0 4.4 3.6 8 8 8h40c4.4 0 8-3.6 8-8v-53a48.01 48.01 0 1 0-56 0z'
         )
       )),
       (t.MehOutline = u(
@@ -15490,24 +15885,6 @@
           'M464 512a48 48 0 1 0 96 0 48 48 0 1 0-96 0zm200 0a48 48 0 1 0 96 0 48 48 0 1 0-96 0zm-400 0a48 48 0 1 0 96 0 48 48 0 1 0-96 0zm661.2-173.6c-22.6-53.7-55-101.9-96.3-143.3a444.35 444.35 0 0 0-143.3-96.3C630.6 75.7 572.2 64 512 64h-2c-60.6.3-119.3 12.3-174.5 35.9a445.35 445.35 0 0 0-142 96.5c-40.9 41.3-73 89.3-95.2 142.8-23 55.4-34.6 114.3-34.3 174.9A449.4 449.4 0 0 0 112 714v152a46 46 0 0 0 46 46h152.1A449.4 449.4 0 0 0 510 960h2.1c59.9 0 118-11.6 172.7-34.3a444.48 444.48 0 0 0 142.8-95.2c41.3-40.9 73.8-88.7 96.5-142 23.6-55.2 35.6-113.9 35.9-174.5.3-60.9-11.5-120-34.8-175.6zm-151.1 438C704 845.8 611 884 512 884h-1.7c-60.3-.3-120.2-15.3-173.1-43.5l-8.4-4.5H188V695.2l-4.5-8.4C155.3 633.9 140.3 574 140 513.7c-.4-99.7 37.7-193.3 107.6-263.8 69.8-70.5 163.1-109.5 262.8-109.9h1.7c50 0 98.5 9.7 144.2 28.9 44.6 18.7 84.6 45.6 119 80 34.3 34.3 61.3 74.4 80 119 19.4 46.2 29.1 95.2 28.9 145.8-.6 99.6-39.7 192.9-110.1 262.7z'
         )
       )),
-      (t.MinusSquareOutline = u(
-        'minus-square',
-        i,
-        l(
-          o,
-          'M328 544h368c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H328c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8z',
-          'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-40 728H184V184h656v656z'
-        )
-      )),
-      (t.MinusCircleOutline = u(
-        'minus-circle',
-        i,
-        l(
-          o,
-          'M696 480H328c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h368c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8z',
-          'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z'
-        )
-      )),
       (t.MobileOutline = u(
         'mobile',
         i,
@@ -15524,12 +15901,22 @@
           'M911.5 700.7a8 8 0 0 0-10.3-4.8L840 718.2V180c0-37.6-30.4-68-68-68H252c-37.6 0-68 30.4-68 68v538.2l-61.3-22.3c-.9-.3-1.8-.5-2.7-.5-4.4 0-8 3.6-8 8V763c0 3.3 2.1 6.3 5.3 7.5L501 910.1c7.1 2.6 14.8 2.6 21.9 0l383.8-139.5c3.2-1.2 5.3-4.2 5.3-7.5v-59.6c0-1-.2-1.9-.5-2.8zM512 837.5l-256-93.1V184h512v560.4l-256 93.1zM660.6 312h-54.5c-3 0-5.8 1.7-7.1 4.4l-84.7 168.8H511l-84.7-168.8a8 8 0 0 0-7.1-4.4h-55.7c-1.3 0-2.6.3-3.8 1-3.9 2.1-5.3 7-3.2 10.8l103.9 191.6h-57c-4.4 0-8 3.6-8 8v27.1c0 4.4 3.6 8 8 8h76v39h-76c-4.4 0-8 3.6-8 8v27.1c0 4.4 3.6 8 8 8h76V704c0 4.4 3.6 8 8 8h49.9c4.4 0 8-3.6 8-8v-63.5h76.3c4.4 0 8-3.6 8-8v-27.1c0-4.4-3.6-8-8-8h-76.3v-39h76.3c4.4 0 8-3.6 8-8v-27.1c0-4.4-3.6-8-8-8H564l103.7-191.6c.6-1.2 1-2.5 1-3.8-.1-4.3-3.7-7.9-8.1-7.9z'
         )
       )),
-      (t.PauseCircleOutline = u(
-        'pause-circle',
+      (t.MinusCircleOutline = u(
+        'minus-circle',
         i,
         l(
           o,
-          'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372zm-88-532h-48c-4.4 0-8 3.6-8 8v304c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V360c0-4.4-3.6-8-8-8zm224 0h-48c-4.4 0-8 3.6-8 8v304c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V360c0-4.4-3.6-8-8-8z'
+          'M696 480H328c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h368c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8z',
+          'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z'
+        )
+      )),
+      (t.MinusSquareOutline = u(
+        'minus-square',
+        i,
+        l(
+          o,
+          'M328 544h368c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H328c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8z',
+          'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-40 728H184V184h656v656z'
         )
       )),
       (t.NotificationOutline = u(
@@ -15540,28 +15927,20 @@
           'M880 112c-3.8 0-7.7.7-11.6 2.3L292 345.9H128c-8.8 0-16 7.4-16 16.6v299c0 9.2 7.2 16.6 16 16.6h101.7c-3.7 11.6-5.7 23.9-5.7 36.4 0 65.9 53.8 119.5 120 119.5 55.4 0 102.1-37.6 115.9-88.4l408.6 164.2c3.9 1.5 7.8 2.3 11.6 2.3 16.9 0 32-14.2 32-33.2V145.2C912 126.2 897 112 880 112zM344 762.3c-26.5 0-48-21.4-48-47.8 0-11.2 3.9-21.9 11-30.4l84.9 34.1c-2 24.6-22.7 44.1-47.9 44.1zm496 58.4L318.8 611.3l-12.9-5.2H184V417.9h121.9l12.9-5.2L840 203.3v617.4z'
         )
       )),
+      (t.PauseCircleOutline = u(
+        'pause-circle',
+        i,
+        l(
+          o,
+          'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372zm-88-532h-48c-4.4 0-8 3.6-8 8v304c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V360c0-4.4-3.6-8-8-8zm224 0h-48c-4.4 0-8 3.6-8 8v304c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V360c0-4.4-3.6-8-8-8z'
+        )
+      )),
       (t.PayCircleOutline = u(
         'pay-circle',
         i,
         l(
           o,
           'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372zm159.6-585h-59.5c-3 0-5.8 1.7-7.1 4.4l-90.6 180H511l-90.6-180a8 8 0 0 0-7.1-4.4h-60.7c-1.3 0-2.6.3-3.8 1-3.9 2.1-5.3 7-3.2 10.9L457 515.7h-61.4c-4.4 0-8 3.6-8 8v29.9c0 4.4 3.6 8 8 8h81.7V603h-81.7c-4.4 0-8 3.6-8 8v29.9c0 4.4 3.6 8 8 8h81.7V717c0 4.4 3.6 8 8 8h54.3c4.4 0 8-3.6 8-8v-68.1h82c4.4 0 8-3.6 8-8V611c0-4.4-3.6-8-8-8h-82v-41.5h82c4.4 0 8-3.6 8-8v-29.9c0-4.4-3.6-8-8-8h-62l111.1-204.8c.6-1.2 1-2.5 1-3.8-.1-4.4-3.7-8-8.1-8z'
-        )
-      )),
-      (t.PhoneOutline = u(
-        'phone',
-        i,
-        l(
-          o,
-          'M877.1 238.7L770.6 132.3c-13-13-30.4-20.3-48.8-20.3s-35.8 7.2-48.8 20.3L558.3 246.8c-13 13-20.3 30.5-20.3 48.9 0 18.5 7.2 35.8 20.3 48.9l89.6 89.7a405.46 405.46 0 0 1-86.4 127.3c-36.7 36.9-79.6 66-127.2 86.6l-89.6-89.7c-13-13-30.4-20.3-48.8-20.3a68.2 68.2 0 0 0-48.8 20.3L132.3 673c-13 13-20.3 30.5-20.3 48.9 0 18.5 7.2 35.8 20.3 48.9l106.4 106.4c22.2 22.2 52.8 34.9 84.2 34.9 6.5 0 12.8-.5 19.2-1.6 132.4-21.8 263.8-92.3 369.9-198.3C818 606 888.4 474.6 910.4 342.1c6.3-37.6-6.3-76.3-33.3-103.4zm-37.6 91.5c-19.5 117.9-82.9 235.5-178.4 331s-213 158.9-330.9 178.4c-14.8 2.5-30-2.5-40.8-13.2L184.9 721.9 295.7 611l119.8 120 .9.9 21.6-8a481.29 481.29 0 0 0 285.7-285.8l8-21.6-120.8-120.7 110.8-110.9 104.5 104.5c10.8 10.8 15.8 26 13.3 40.8z'
-        )
-      )),
-      (t.IdcardOutline = u(
-        'idcard',
-        i,
-        l(
-          o,
-          'M928 160H96c-17.7 0-32 14.3-32 32v640c0 17.7 14.3 32 32 32h832c17.7 0 32-14.3 32-32V192c0-17.7-14.3-32-32-32zm-40 632H136V232h752v560zM610.3 476h123.4c1.3 0 2.3-3.6 2.3-8v-48c0-4.4-1-8-2.3-8H610.3c-1.3 0-2.3 3.6-2.3 8v48c0 4.4 1 8 2.3 8zm4.8 144h185.7c3.9 0 7.1-3.6 7.1-8v-48c0-4.4-3.2-8-7.1-8H615.1c-3.9 0-7.1 3.6-7.1 8v48c0 4.4 3.2 8 7.1 8zM224 673h43.9c4.2 0 7.6-3.3 7.9-7.5 3.8-50.5 46-90.5 97.2-90.5s93.4 40 97.2 90.5c.3 4.2 3.7 7.5 7.9 7.5H522a8 8 0 0 0 8-8.4c-2.8-53.3-32-99.7-74.6-126.1a111.8 111.8 0 0 0 29.1-75.5c0-61.9-49.9-112-111.4-112s-111.4 50.1-111.4 112c0 29.1 11 55.5 29.1 75.5a158.09 158.09 0 0 0-74.6 126.1c-.4 4.6 3.2 8.4 7.8 8.4zm149-262c28.5 0 51.7 23.3 51.7 52s-23.2 52-51.7 52-51.7-23.3-51.7-52 23.2-52 51.7-52z'
         )
       )),
       (t.PictureOutline = u(
@@ -15580,13 +15959,12 @@
           'M864 518H506V160c0-4.4-3.6-8-8-8h-26a398.46 398.46 0 0 0-282.8 117.1 398.19 398.19 0 0 0-85.7 127.1A397.61 397.61 0 0 0 72 552a398.46 398.46 0 0 0 117.1 282.8c36.7 36.7 79.5 65.6 127.1 85.7A397.61 397.61 0 0 0 472 952a398.46 398.46 0 0 0 282.8-117.1c36.7-36.7 65.6-79.5 85.7-127.1A397.61 397.61 0 0 0 872 552v-26c0-4.4-3.6-8-8-8zM705.7 787.8A331.59 331.59 0 0 1 470.4 884c-88.1-.4-170.9-34.9-233.2-97.2C174.5 724.1 140 640.7 140 552c0-88.7 34.5-172.1 97.2-234.8 54.6-54.6 124.9-87.9 200.8-95.5V586h364.3c-7.7 76.3-41.3 147-96.6 201.8zM952 462.4l-2.6-28.2c-8.5-92.1-49.4-179-115.2-244.6A399.4 399.4 0 0 0 589 74.6L560.7 72c-4.7-.4-8.7 3.2-8.7 7.9V464c0 4.4 3.6 8 8 8l384-1c4.7 0 8.4-4 8-8.6zm-332.2-58.2V147.6a332.24 332.24 0 0 1 166.4 89.8c45.7 45.6 77 103.6 90 166.1l-256.4.7z'
         )
       )),
-      (t.PlayCircleOutline = u(
-        'play-circle',
+      (t.PhoneOutline = u(
+        'phone',
         i,
         l(
           o,
-          'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z',
-          'M719.4 499.1l-296.1-215A15.9 15.9 0 0 0 398 297v430c0 13.1 14.8 20.5 25.3 12.9l296.1-215a15.9 15.9 0 0 0 0-25.8zm-257.6 134V390.9L628.5 512 461.8 633.1z'
+          'M877.1 238.7L770.6 132.3c-13-13-30.4-20.3-48.8-20.3s-35.8 7.2-48.8 20.3L558.3 246.8c-13 13-20.3 30.5-20.3 48.9 0 18.5 7.2 35.8 20.3 48.9l89.6 89.7a405.46 405.46 0 0 1-86.4 127.3c-36.7 36.9-79.6 66-127.2 86.6l-89.6-89.7c-13-13-30.4-20.3-48.8-20.3a68.2 68.2 0 0 0-48.8 20.3L132.3 673c-13 13-20.3 30.5-20.3 48.9 0 18.5 7.2 35.8 20.3 48.9l106.4 106.4c22.2 22.2 52.8 34.9 84.2 34.9 6.5 0 12.8-.5 19.2-1.6 132.4-21.8 263.8-92.3 369.9-198.3C818 606 888.4 474.6 910.4 342.1c6.3-37.6-6.3-76.3-33.3-103.4zm-37.6 91.5c-19.5 117.9-82.9 235.5-178.4 331s-213 158.9-330.9 178.4c-14.8 2.5-30-2.5-40.8-13.2L184.9 721.9 295.7 611l119.8 120 .9.9 21.6-8a481.29 481.29 0 0 0 285.7-285.8l8-21.6-120.8-120.7 110.8-110.9 104.5 104.5c10.8 10.8 15.8 26 13.3 40.8z'
         )
       )),
       (t.PlaySquareOutline = u(
@@ -15607,13 +15985,13 @@
           'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z'
         )
       )),
-      (t.PlusSquareOutline = u(
-        'plus-square',
+      (t.PlayCircleOutline = u(
+        'play-circle',
         i,
         l(
           o,
-          'M328 544h152v152c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V544h152c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H544V328c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v152H328c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8z',
-          'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-40 728H184V184h656v656z'
+          'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z',
+          'M719.4 499.1l-296.1-215A15.9 15.9 0 0 0 398 297v430c0 13.1 14.8 20.5 25.3 12.9l296.1-215a15.9 15.9 0 0 0 0-25.8zm-257.6 134V390.9L628.5 512 461.8 633.1z'
         )
       )),
       (t.PrinterOutline = u(
@@ -15624,12 +16002,13 @@
           'M820 436h-40c-4.4 0-8 3.6-8 8v40c0 4.4 3.6 8 8 8h40c4.4 0 8-3.6 8-8v-40c0-4.4-3.6-8-8-8zm32-104H732V120c0-4.4-3.6-8-8-8H300c-4.4 0-8 3.6-8 8v212H172c-44.2 0-80 35.8-80 80v328c0 17.7 14.3 32 32 32h168v132c0 4.4 3.6 8 8 8h424c4.4 0 8-3.6 8-8V772h168c17.7 0 32-14.3 32-32V412c0-44.2-35.8-80-80-80zM360 180h304v152H360V180zm304 664H360V568h304v276zm200-140H732V500H292v204H160V412c0-6.6 5.4-12 12-12h680c6.6 0 12 5.4 12 12v292z'
         )
       )),
-      (t.ProjectOutline = u(
-        'project',
+      (t.PlusSquareOutline = u(
+        'plus-square',
         i,
         l(
           o,
-          'M280 752h80c4.4 0 8-3.6 8-8V280c0-4.4-3.6-8-8-8h-80c-4.4 0-8 3.6-8 8v464c0 4.4 3.6 8 8 8zm192-280h80c4.4 0 8-3.6 8-8V280c0-4.4-3.6-8-8-8h-80c-4.4 0-8 3.6-8 8v184c0 4.4 3.6 8 8 8zm192 72h80c4.4 0 8-3.6 8-8V280c0-4.4-3.6-8-8-8h-80c-4.4 0-8 3.6-8 8v256c0 4.4 3.6 8 8 8zm216-432H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-40 728H184V184h656v656z'
+          'M328 544h152v152c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V544h152c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H544V328c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v152H328c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8z',
+          'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-40 728H184V184h656v656z'
         )
       )),
       (t.ProfileOutline = u(
@@ -15640,6 +16019,14 @@
           'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-40 728H184V184h656v656zM492 400h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H492c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8zm0 144h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H492c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8zm0 144h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H492c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8zM340 368a40 40 0 1 0 80 0 40 40 0 1 0-80 0zm0 144a40 40 0 1 0 80 0 40 40 0 1 0-80 0zm0 144a40 40 0 1 0 80 0 40 40 0 1 0-80 0z'
         )
       )),
+      (t.ProjectOutline = u(
+        'project',
+        i,
+        l(
+          o,
+          'M280 752h80c4.4 0 8-3.6 8-8V280c0-4.4-3.6-8-8-8h-80c-4.4 0-8 3.6-8 8v464c0 4.4 3.6 8 8 8zm192-280h80c4.4 0 8-3.6 8-8V280c0-4.4-3.6-8-8-8h-80c-4.4 0-8 3.6-8 8v184c0 4.4 3.6 8 8 8zm192 72h80c4.4 0 8-3.6 8-8V280c0-4.4-3.6-8-8-8h-80c-4.4 0-8 3.6-8 8v256c0 4.4 3.6 8 8 8zm216-432H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-40 728H184V184h656v656z'
+        )
+      )),
       (t.PropertySafetyOutline = u(
         'property-safety',
         i,
@@ -15648,21 +16035,20 @@
           'M866.9 169.9L527.1 54.1C523 52.7 517.5 52 512 52s-11 .7-15.1 2.1L157.1 169.9c-8.3 2.8-15.1 12.4-15.1 21.2v482.4c0 8.8 5.7 20.4 12.6 25.9L499.3 968c3.5 2.7 8 4.1 12.6 4.1s9.2-1.4 12.6-4.1l344.7-268.6c6.9-5.4 12.6-17 12.6-25.9V191.1c.2-8.8-6.6-18.3-14.9-21.2zM810 654.3L512 886.5 214 654.3V226.7l298-101.6 298 101.6v427.6zM430.5 318h-46c-1.7 0-3.3.4-4.8 1.2a10.1 10.1 0 0 0-4 13.6l88 161.1h-45.2c-5.5 0-10 4.5-10 10v21.3c0 5.5 4.5 10 10 10h63.1v29.7h-63.1c-5.5 0-10 4.5-10 10v21.3c0 5.5 4.5 10 10 10h63.1V658c0 5.5 4.5 10 10 10h41.3c5.5 0 10-4.5 10-10v-51.8h63.4c5.5 0 10-4.5 10-10v-21.3c0-5.5-4.5-10-10-10h-63.4v-29.7h63.4c5.5 0 10-4.5 10-10v-21.3c0-5.5-4.5-10-10-10h-45.7l87.7-161.1a10.05 10.05 0 0 0-8.8-14.8h-45c-3.8 0-7.2 2.1-8.9 5.5l-73.2 144.3-72.9-144.3c-1.7-3.4-5.2-5.5-9-5.5z'
         )
       )),
+      (t.ReadOutline = u(
+        'read',
+        i,
+        l(
+          o,
+          'M928 161H699.2c-49.1 0-97.1 14.1-138.4 40.7L512 233l-48.8-31.3A255.2 255.2 0 0 0 324.8 161H96c-17.7 0-32 14.3-32 32v568c0 17.7 14.3 32 32 32h228.8c49.1 0 97.1 14.1 138.4 40.7l44.4 28.6c1.3.8 2.8 1.3 4.3 1.3s3-.4 4.3-1.3l44.4-28.6C602 807.1 650.1 793 699.2 793H928c17.7 0 32-14.3 32-32V193c0-17.7-14.3-32-32-32zM324.8 721H136V233h188.8c35.4 0 69.8 10.1 99.5 29.2l48.8 31.3 6.9 4.5v462c-47.6-25.6-100.8-39-155.2-39zm563.2 0H699.2c-54.4 0-107.6 13.4-155.2 39V298l6.9-4.5 48.8-31.3c29.7-19.1 64.1-29.2 99.5-29.2H888v488zM396.9 361H211.1c-3.9 0-7.1 3.4-7.1 7.5v45c0 4.1 3.2 7.5 7.1 7.5h185.7c3.9 0 7.1-3.4 7.1-7.5v-45c.1-4.1-3.1-7.5-7-7.5zm223.1 7.5v45c0 4.1 3.2 7.5 7.1 7.5h185.7c3.9 0 7.1-3.4 7.1-7.5v-45c0-4.1-3.2-7.5-7.1-7.5H627.1c-3.9 0-7.1 3.4-7.1 7.5zM396.9 501H211.1c-3.9 0-7.1 3.4-7.1 7.5v45c0 4.1 3.2 7.5 7.1 7.5h185.7c3.9 0 7.1-3.4 7.1-7.5v-45c.1-4.1-3.1-7.5-7-7.5zm416 0H627.1c-3.9 0-7.1 3.4-7.1 7.5v45c0 4.1 3.2 7.5 7.1 7.5h185.7c3.9 0 7.1-3.4 7.1-7.5v-45c.1-4.1-3.1-7.5-7-7.5z'
+        )
+      )),
       (t.PushpinOutline = u(
         'pushpin',
         i,
         l(
           o,
           'M878.3 392.1L631.9 145.7c-6.5-6.5-15-9.7-23.5-9.7s-17 3.2-23.5 9.7L423.8 306.9c-12.2-1.4-24.5-2-36.8-2-73.2 0-146.4 24.1-206.5 72.3a33.23 33.23 0 0 0-2.7 49.4l181.7 181.7-215.4 215.2a15.8 15.8 0 0 0-4.6 9.8l-3.4 37.2c-.9 9.4 6.6 17.4 15.9 17.4.5 0 1 0 1.5-.1l37.2-3.4c3.7-.3 7.2-2 9.8-4.6l215.4-215.4 181.7 181.7c6.5 6.5 15 9.7 23.5 9.7 9.7 0 19.3-4.2 25.9-12.4 56.3-70.3 79.7-158.3 70.2-243.4l161.1-161.1c12.9-12.8 12.9-33.8 0-46.8zM666.2 549.3l-24.5 24.5 3.8 34.4a259.92 259.92 0 0 1-30.4 153.9L262 408.8c12.9-7.1 26.3-13.1 40.3-17.9 27.2-9.4 55.7-14.1 84.7-14.1 9.6 0 19.3.5 28.9 1.6l34.4 3.8 24.5-24.5L608.5 224 800 415.5 666.2 549.3z'
-        )
-      )),
-      (t.QuestionCircleOutline = u(
-        'question-circle',
-        i,
-        l(
-          o,
-          'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z',
-          'M623.6 316.7C593.6 290.4 554 276 512 276s-81.6 14.5-111.6 40.7C369.2 344 352 380.7 352 420v7.6c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V420c0-44.1 43.1-80 96-80s96 35.9 96 80c0 31.1-22 59.6-56.1 72.7-21.2 8.1-39.2 22.3-52.1 40.9-13.1 19-19.9 41.8-19.9 64.9V620c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8v-22.7a48.3 48.3 0 0 1 30.9-44.8c59-22.7 97.1-74.7 97.1-132.5.1-39.3-17.1-76-48.3-103.3zM472 732a40 40 0 1 0 80 0 40 40 0 1 0-80 0z'
         )
       )),
       (t.ReconciliationOutline = u(
@@ -15681,21 +16067,13 @@
           'M440.6 462.6a8.38 8.38 0 0 0-7.5-4.6h-48.8c-1.3 0-2.6.4-3.9 1a8.4 8.4 0 0 0-3.4 11.4l87.4 161.1H419c-4.6 0-8.4 3.8-8.4 8.4V665c0 4.6 3.8 8.4 8.4 8.4h63V702h-63c-4.6 0-8.4 3.8-8.4 8.4v25.1c0 4.6 3.8 8.4 8.4 8.4h63v49.9c0 4.6 3.8 8.4 8.4 8.4h43.7c4.6 0 8.4-3.8 8.4-8.4v-49.9h63.3c4.7 0 8.4-3.8 8.2-8.5v-25c0-4.6-3.8-8.4-8.4-8.4h-63.3v-28.6h63.3c4.6 0 8.4-3.8 8.4-8.4v-25.1c0-4.6-3.8-8.4-8.4-8.4h-45.9l87.2-161a8.45 8.45 0 0 0-7.4-12.4h-47.8c-3.1 0-6 1.8-7.5 4.6l-71.9 141.9-71.7-142zM832 64H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V96c0-17.7-14.3-32-32-32zm-40 824H232V193.1l260.3 204.1c11.6 9.1 27.9 9.1 39.5 0L792 193.1V888zm0-751.3h-31.7L512 331.3 263.7 136.7H232v-.7h560v.7z'
         )
       )),
-      (t.RestOutline = u(
-        'rest',
+      (t.QuestionCircleOutline = u(
+        'question-circle',
         i,
         l(
           o,
-          'M508 704c79.5 0 144-64.5 144-144s-64.5-144-144-144-144 64.5-144 144 64.5 144 144 144zm0-224c44.2 0 80 35.8 80 80s-35.8 80-80 80-80-35.8-80-80 35.8-80 80-80z',
-          'M832 256h-28.1l-35.7-120.9c-4-13.7-16.5-23.1-30.7-23.1h-451c-14.3 0-26.8 9.4-30.7 23.1L220.1 256H192c-17.7 0-32 14.3-32 32v28c0 4.4 3.6 8 8 8h45.8l47.7 558.7a32 32 0 0 0 31.9 29.3h429.2a32 32 0 0 0 31.9-29.3L802.2 324H856c4.4 0 8-3.6 8-8v-28c0-17.7-14.3-32-32-32zm-518.6-76h397.2l22.4 76H291l22.4-76zm376.2 664H326.4L282 324h451.9l-44.3 520z'
-        )
-      )),
-      (t.ReadOutline = u(
-        'read',
-        i,
-        l(
-          o,
-          'M928 161H699.2c-49.1 0-97.1 14.1-138.4 40.7L512 233l-48.8-31.3A255.2 255.2 0 0 0 324.8 161H96c-17.7 0-32 14.3-32 32v568c0 17.7 14.3 32 32 32h228.8c49.1 0 97.1 14.1 138.4 40.7l44.4 28.6c1.3.8 2.8 1.3 4.3 1.3s3-.4 4.3-1.3l44.4-28.6C602 807.1 650.1 793 699.2 793H928c17.7 0 32-14.3 32-32V193c0-17.7-14.3-32-32-32zM324.8 721H136V233h188.8c35.4 0 69.8 10.1 99.5 29.2l48.8 31.3 6.9 4.5v462c-47.6-25.6-100.8-39-155.2-39zm563.2 0H699.2c-54.4 0-107.6 13.4-155.2 39V298l6.9-4.5 48.8-31.3c29.7-19.1 64.1-29.2 99.5-29.2H888v488zM396.9 361H211.1c-3.9 0-7.1 3.4-7.1 7.5v45c0 4.1 3.2 7.5 7.1 7.5h185.7c3.9 0 7.1-3.4 7.1-7.5v-45c.1-4.1-3.1-7.5-7-7.5zm223.1 7.5v45c0 4.1 3.2 7.5 7.1 7.5h185.7c3.9 0 7.1-3.4 7.1-7.5v-45c0-4.1-3.2-7.5-7.1-7.5H627.1c-3.9 0-7.1 3.4-7.1 7.5zM396.9 501H211.1c-3.9 0-7.1 3.4-7.1 7.5v45c0 4.1 3.2 7.5 7.1 7.5h185.7c3.9 0 7.1-3.4 7.1-7.5v-45c.1-4.1-3.1-7.5-7-7.5zm416 0H627.1c-3.9 0-7.1 3.4-7.1 7.5v45c0 4.1 3.2 7.5 7.1 7.5h185.7c3.9 0 7.1-3.4 7.1-7.5v-45c.1-4.1-3.1-7.5-7-7.5z'
+          'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z',
+          'M623.6 316.7C593.6 290.4 554 276 512 276s-81.6 14.5-111.6 40.7C369.2 344 352 380.7 352 420v7.6c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V420c0-44.1 43.1-80 96-80s96 35.9 96 80c0 31.1-22 59.6-56.1 72.7-21.2 8.1-39.2 22.3-52.1 40.9-13.1 19-19.9 41.8-19.9 64.9V620c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8v-22.7a48.3 48.3 0 0 1 30.9-44.8c59-22.7 97.1-74.7 97.1-132.5.1-39.3-17.1-76-48.3-103.3zM472 732a40 40 0 1 0 80 0 40 40 0 1 0-80 0z'
         )
       )),
       (t.RightCircleOutline = u(
@@ -15707,21 +16085,13 @@
           'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z'
         )
       )),
-      (t.RightSquareOutline = u(
-        'right-square',
+      (t.RestOutline = u(
+        'rest',
         i,
         l(
           o,
-          'M412.7 696.5l246-178c4.4-3.2 4.4-9.7 0-12.9l-246-178c-5.3-3.8-12.7 0-12.7 6.5V381c0 10.2 4.9 19.9 13.2 25.9L558.6 512 413.2 617.2c-8.3 6-13.2 15.6-13.2 25.9V690c0 6.5 7.4 10.3 12.7 6.5z',
-          'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-40 728H184V184h656v656z'
-        )
-      )),
-      (t.SafetyCertificateOutline = u(
-        'safety-certificate',
-        i,
-        l(
-          o,
-          'M866.9 169.9L527.1 54.1C523 52.7 517.5 52 512 52s-11 .7-15.1 2.1L157.1 169.9c-8.3 2.8-15.1 12.4-15.1 21.2v482.4c0 8.8 5.7 20.4 12.6 25.9L499.3 968c3.5 2.7 8 4.1 12.6 4.1s9.2-1.4 12.6-4.1l344.7-268.6c6.9-5.4 12.6-17 12.6-25.9V191.1c.2-8.8-6.6-18.3-14.9-21.2zM810 654.3L512 886.5 214 654.3V226.7l298-101.6 298 101.6v427.6zm-405.8-201c-3-4.1-7.8-6.6-13-6.6H336c-6.5 0-10.3 7.4-6.5 12.7l126.4 174a16.1 16.1 0 0 0 26 0l212.6-292.7c3.8-5.3 0-12.7-6.5-12.7h-55.2c-5.1 0-10 2.5-13 6.6L468.9 542.4l-64.7-89.1z'
+          'M508 704c79.5 0 144-64.5 144-144s-64.5-144-144-144-144 64.5-144 144 64.5 144 144 144zm0-224c44.2 0 80 35.8 80 80s-35.8 80-80 80-80-35.8-80-80 35.8-80 80-80z',
+          'M832 256h-28.1l-35.7-120.9c-4-13.7-16.5-23.1-30.7-23.1h-451c-14.3 0-26.8 9.4-30.7 23.1L220.1 256H192c-17.7 0-32 14.3-32 32v28c0 4.4 3.6 8 8 8h45.8l47.7 558.7a32 32 0 0 0 31.9 29.3h429.2a32 32 0 0 0 31.9-29.3L802.2 324H856c4.4 0 8-3.6 8-8v-28c0-17.7-14.3-32-32-32zm-518.6-76h397.2l22.4 76H291l22.4-76zm376.2 664H326.4L282 324h451.9l-44.3 520z'
         )
       )),
       (t.RocketOutline = u(
@@ -15732,12 +16102,21 @@
           'M864 736c0-111.6-65.4-208-160-252.9V317.3c0-15.1-5.3-29.7-15.1-41.2L536.5 95.4C530.1 87.8 521 84 512 84s-18.1 3.8-24.5 11.4L335.1 276.1a63.97 63.97 0 0 0-15.1 41.2v165.8C225.4 528 160 624.4 160 736h156.5c-2.3 7.2-3.5 15-3.5 23.8 0 22.1 7.6 43.7 21.4 60.8a97.2 97.2 0 0 0 43.1 30.6c23.1 54 75.6 88.8 134.5 88.8 29.1 0 57.3-8.6 81.4-24.8 23.6-15.8 41.9-37.9 53-64a97 97 0 0 0 43.1-30.5 97.52 97.52 0 0 0 21.4-60.8c0-8.4-1.1-16.4-3.1-23.8H864zM762.3 621.4c9.4 14.6 17 30.3 22.5 46.6H700V558.7a211.6 211.6 0 0 1 62.3 62.7zM388 483.1V318.8l124-147 124 147V668H388V483.1zM239.2 668c5.5-16.3 13.1-32 22.5-46.6 16.3-25.2 37.5-46.5 62.3-62.7V668h-84.8zm388.9 116.2c-5.2 3-11.2 4.2-17.1 3.4l-19.5-2.4-2.8 19.4c-5.4 37.9-38.4 66.5-76.7 66.5-38.3 0-71.3-28.6-76.7-66.5l-2.8-19.5-19.5 2.5a27.7 27.7 0 0 1-17.1-3.5c-8.7-5-14.1-14.3-14.1-24.4 0-10.6 5.9-19.4 14.6-23.8h231.3c8.8 4.5 14.6 13.3 14.6 23.8-.1 10.2-5.5 19.6-14.2 24.5zM464 400a48 48 0 1 0 96 0 48 48 0 1 0-96 0z'
         )
       )),
-      (t.SaveOutline = u(
-        'save',
+      (t.SafetyCertificateOutline = u(
+        'safety-certificate',
         i,
         l(
           o,
-          'M893.3 293.3L730.7 130.7c-7.5-7.5-16.7-13-26.7-16V112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V338.5c0-17-6.7-33.2-18.7-45.2zM384 184h256v104H384V184zm456 656H184V184h136v136c0 17.7 14.3 32 32 32h320c17.7 0 32-14.3 32-32V205.8l136 136V840zM512 442c-79.5 0-144 64.5-144 144s64.5 144 144 144 144-64.5 144-144-64.5-144-144-144zm0 224c-44.2 0-80-35.8-80-80s35.8-80 80-80 80 35.8 80 80-35.8 80-80 80z'
+          'M866.9 169.9L527.1 54.1C523 52.7 517.5 52 512 52s-11 .7-15.1 2.1L157.1 169.9c-8.3 2.8-15.1 12.4-15.1 21.2v482.4c0 8.8 5.7 20.4 12.6 25.9L499.3 968c3.5 2.7 8 4.1 12.6 4.1s9.2-1.4 12.6-4.1l344.7-268.6c6.9-5.4 12.6-17 12.6-25.9V191.1c.2-8.8-6.6-18.3-14.9-21.2zM810 654.3L512 886.5 214 654.3V226.7l298-101.6 298 101.6v427.6zm-405.8-201c-3-4.1-7.8-6.6-13-6.6H336c-6.5 0-10.3 7.4-6.5 12.7l126.4 174a16.1 16.1 0 0 0 26 0l212.6-292.7c3.8-5.3 0-12.7-6.5-12.7h-55.2c-5.1 0-10 2.5-13 6.6L468.9 542.4l-64.7-89.1z'
+        )
+      )),
+      (t.RightSquareOutline = u(
+        'right-square',
+        i,
+        l(
+          o,
+          'M412.7 696.5l246-178c4.4-3.2 4.4-9.7 0-12.9l-246-178c-5.3-3.8-12.7 0-12.7 6.5V381c0 10.2 4.9 19.9 13.2 25.9L558.6 512 413.2 617.2c-8.3 6-13.2 15.6-13.2 25.9V690c0 6.5 7.4 10.3 12.7 6.5z',
+          'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-40 728H184V184h656v656z'
         )
       )),
       (t.ScheduleOutline = u(
@@ -15756,12 +16135,12 @@
           'M866.9 169.9L527.1 54.1C523 52.7 517.5 52 512 52s-11 .7-15.1 2.1L157.1 169.9c-8.3 2.8-15.1 12.4-15.1 21.2v482.4c0 8.8 5.7 20.4 12.6 25.9L499.3 968c3.5 2.7 8 4.1 12.6 4.1s9.2-1.4 12.6-4.1l344.7-268.6c6.9-5.4 12.6-17 12.6-25.9V191.1c.2-8.8-6.6-18.3-14.9-21.2zM810 654.3L512 886.5 214 654.3V226.7l298-101.6 298 101.6v427.6zM402.9 528.8l-77.5 77.5a8.03 8.03 0 0 0 0 11.3l34 34c3.1 3.1 8.2 3.1 11.3 0l77.5-77.5c55.7 35.1 130.1 28.4 178.6-20.1 56.3-56.3 56.3-147.5 0-203.8-56.3-56.3-147.5-56.3-203.8 0-48.5 48.5-55.2 123-20.1 178.6zm65.4-133.3c31.3-31.3 82-31.3 113.2 0 31.3 31.3 31.3 82 0 113.2-31.3 31.3-82 31.3-113.2 0s-31.3-81.9 0-113.2z'
         )
       )),
-      (t.SettingOutline = u(
-        'setting',
+      (t.SaveOutline = u(
+        'save',
         i,
         l(
           o,
-          'M924.8 625.7l-65.5-56c3.1-19 4.7-38.4 4.7-57.8s-1.6-38.8-4.7-57.8l65.5-56a32.03 32.03 0 0 0 9.3-35.2l-.9-2.6a443.74 443.74 0 0 0-79.7-137.9l-1.8-2.1a32.12 32.12 0 0 0-35.1-9.5l-81.3 28.9c-30-24.6-63.5-44-99.7-57.6l-15.7-85a32.05 32.05 0 0 0-25.8-25.7l-2.7-.5c-52.1-9.4-106.9-9.4-159 0l-2.7.5a32.05 32.05 0 0 0-25.8 25.7l-15.8 85.4a351.86 351.86 0 0 0-99 57.4l-81.9-29.1a32 32 0 0 0-35.1 9.5l-1.8 2.1a446.02 446.02 0 0 0-79.7 137.9l-.9 2.6c-4.5 12.5-.8 26.5 9.3 35.2l66.3 56.6c-3.1 18.8-4.6 38-4.6 57.1 0 19.2 1.5 38.4 4.6 57.1L99 625.5a32.03 32.03 0 0 0-9.3 35.2l.9 2.6c18.1 50.4 44.9 96.9 79.7 137.9l1.8 2.1a32.12 32.12 0 0 0 35.1 9.5l81.9-29.1c29.8 24.5 63.1 43.9 99 57.4l15.8 85.4a32.05 32.05 0 0 0 25.8 25.7l2.7.5a449.4 449.4 0 0 0 159 0l2.7-.5a32.05 32.05 0 0 0 25.8-25.7l15.7-85a350 350 0 0 0 99.7-57.6l81.3 28.9a32 32 0 0 0 35.1-9.5l1.8-2.1c34.8-41.1 61.6-87.5 79.7-137.9l.9-2.6c4.5-12.3.8-26.3-9.3-35zM788.3 465.9c2.5 15.1 3.8 30.6 3.8 46.1s-1.3 31-3.8 46.1l-6.6 40.1 74.7 63.9a370.03 370.03 0 0 1-42.6 73.6L721 702.8l-31.4 25.8c-23.9 19.6-50.5 35-79.3 45.8l-38.1 14.3-17.9 97a377.5 377.5 0 0 1-85 0l-17.9-97.2-37.8-14.5c-28.5-10.8-55-26.2-78.7-45.7l-31.4-25.9-93.4 33.2c-17-22.9-31.2-47.6-42.6-73.6l75.5-64.5-6.5-40c-2.4-14.9-3.7-30.3-3.7-45.5 0-15.3 1.2-30.6 3.7-45.5l6.5-40-75.5-64.5c11.3-26.1 25.6-50.7 42.6-73.6l93.4 33.2 31.4-25.9c23.7-19.5 50.2-34.9 78.7-45.7l37.9-14.3 17.9-97.2c28.1-3.2 56.8-3.2 85 0l17.9 97 38.1 14.3c28.7 10.8 55.4 26.2 79.3 45.8l31.4 25.8 92.8-32.9c17 22.9 31.2 47.6 42.6 73.6L781.8 426l6.5 39.9zM512 326c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176zm79.2 255.2A111.6 111.6 0 0 1 512 614c-29.9 0-58-11.7-79.2-32.8A111.6 111.6 0 0 1 400 502c0-29.9 11.7-58 32.8-79.2C454 401.6 482.1 390 512 390c29.9 0 58 11.6 79.2 32.8A111.6 111.6 0 0 1 624 502c0 29.9-11.7 58-32.8 79.2z'
+          'M893.3 293.3L730.7 130.7c-7.5-7.5-16.7-13-26.7-16V112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V338.5c0-17-6.7-33.2-18.7-45.2zM384 184h256v104H384V184zm456 656H184V184h136v136c0 17.7 14.3 32 32 32h320c17.7 0 32-14.3 32-32V205.8l136 136V840zM512 442c-79.5 0-144 64.5-144 144s64.5 144 144 144 144-64.5 144-144-64.5-144-144-144zm0 224c-44.2 0-80-35.8-80-80s35.8-80 80-80 80 35.8 80 80-35.8 80-80 80z'
         )
       )),
       (t.ShopOutline = u(
@@ -15772,20 +16151,20 @@
           'M882 272.1V144c0-17.7-14.3-32-32-32H174c-17.7 0-32 14.3-32 32v128.1c-16.7 1-30 14.9-30 31.9v131.7a177 177 0 0 0 14.4 70.4c4.3 10.2 9.6 19.8 15.6 28.9v345c0 17.6 14.3 32 32 32h676c17.7 0 32-14.3 32-32V535a175 175 0 0 0 15.6-28.9c9.5-22.3 14.4-46 14.4-70.4V304c0-17-13.3-30.9-30-31.9zM214 184h596v88H214v-88zm362 656.1H448V736h128v104.1zm234 0H640V704c0-17.7-14.3-32-32-32H416c-17.7 0-32 14.3-32 32v136.1H214V597.9c2.9 1.4 5.9 2.8 9 4 22.3 9.4 46 14.1 70.4 14.1s48-4.7 70.4-14.1c13.8-5.8 26.8-13.2 38.7-22.1.2-.1.4-.1.6 0a180.4 180.4 0 0 0 38.7 22.1c22.3 9.4 46 14.1 70.4 14.1 24.4 0 48-4.7 70.4-14.1 13.8-5.8 26.8-13.2 38.7-22.1.2-.1.4-.1.6 0a180.4 180.4 0 0 0 38.7 22.1c22.3 9.4 46 14.1 70.4 14.1 24.4 0 48-4.7 70.4-14.1 3-1.3 6-2.6 9-4v242.2zm30-404.4c0 59.8-49 108.3-109.3 108.3-40.8 0-76.4-22.1-95.2-54.9-2.9-5-8.1-8.1-13.9-8.1h-.6c-5.7 0-11 3.1-13.9 8.1A109.24 109.24 0 0 1 512 544c-40.7 0-76.2-22-95-54.7-3-5.1-8.4-8.3-14.3-8.3s-11.4 3.2-14.3 8.3a109.63 109.63 0 0 1-95.1 54.7C233 544 184 495.5 184 435.7v-91.2c0-.3.2-.5.5-.5h655c.3 0 .5.2.5.5v91.2z'
         )
       )),
+      (t.SettingOutline = u(
+        'setting',
+        i,
+        l(
+          o,
+          'M924.8 625.7l-65.5-56c3.1-19 4.7-38.4 4.7-57.8s-1.6-38.8-4.7-57.8l65.5-56a32.03 32.03 0 0 0 9.3-35.2l-.9-2.6a443.74 443.74 0 0 0-79.7-137.9l-1.8-2.1a32.12 32.12 0 0 0-35.1-9.5l-81.3 28.9c-30-24.6-63.5-44-99.7-57.6l-15.7-85a32.05 32.05 0 0 0-25.8-25.7l-2.7-.5c-52.1-9.4-106.9-9.4-159 0l-2.7.5a32.05 32.05 0 0 0-25.8 25.7l-15.8 85.4a351.86 351.86 0 0 0-99 57.4l-81.9-29.1a32 32 0 0 0-35.1 9.5l-1.8 2.1a446.02 446.02 0 0 0-79.7 137.9l-.9 2.6c-4.5 12.5-.8 26.5 9.3 35.2l66.3 56.6c-3.1 18.8-4.6 38-4.6 57.1 0 19.2 1.5 38.4 4.6 57.1L99 625.5a32.03 32.03 0 0 0-9.3 35.2l.9 2.6c18.1 50.4 44.9 96.9 79.7 137.9l1.8 2.1a32.12 32.12 0 0 0 35.1 9.5l81.9-29.1c29.8 24.5 63.1 43.9 99 57.4l15.8 85.4a32.05 32.05 0 0 0 25.8 25.7l2.7.5a449.4 449.4 0 0 0 159 0l2.7-.5a32.05 32.05 0 0 0 25.8-25.7l15.7-85a350 350 0 0 0 99.7-57.6l81.3 28.9a32 32 0 0 0 35.1-9.5l1.8-2.1c34.8-41.1 61.6-87.5 79.7-137.9l.9-2.6c4.5-12.3.8-26.3-9.3-35zM788.3 465.9c2.5 15.1 3.8 30.6 3.8 46.1s-1.3 31-3.8 46.1l-6.6 40.1 74.7 63.9a370.03 370.03 0 0 1-42.6 73.6L721 702.8l-31.4 25.8c-23.9 19.6-50.5 35-79.3 45.8l-38.1 14.3-17.9 97a377.5 377.5 0 0 1-85 0l-17.9-97.2-37.8-14.5c-28.5-10.8-55-26.2-78.7-45.7l-31.4-25.9-93.4 33.2c-17-22.9-31.2-47.6-42.6-73.6l75.5-64.5-6.5-40c-2.4-14.9-3.7-30.3-3.7-45.5 0-15.3 1.2-30.6 3.7-45.5l6.5-40-75.5-64.5c11.3-26.1 25.6-50.7 42.6-73.6l93.4 33.2 31.4-25.9c23.7-19.5 50.2-34.9 78.7-45.7l37.9-14.3 17.9-97.2c28.1-3.2 56.8-3.2 85 0l17.9 97 38.1 14.3c28.7 10.8 55.4 26.2 79.3 45.8l31.4 25.8 92.8-32.9c17 22.9 31.2 47.6 42.6 73.6L781.8 426l6.5 39.9zM512 326c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176zm79.2 255.2A111.6 111.6 0 0 1 512 614c-29.9 0-58-11.7-79.2-32.8A111.6 111.6 0 0 1 400 502c0-29.9 11.7-58 32.8-79.2C454 401.6 482.1 390 512 390c29.9 0 58 11.6 79.2 32.8A111.6 111.6 0 0 1 624 502c0 29.9-11.7 58-32.8 79.2z'
+        )
+      )),
       (t.ShoppingOutline = u(
         'shopping',
         i,
         l(
           o,
           'M832 312H696v-16c0-101.6-82.4-184-184-184s-184 82.4-184 184v16H192c-17.7 0-32 14.3-32 32v536c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V344c0-17.7-14.3-32-32-32zm-432-16c0-61.9 50.1-112 112-112s112 50.1 112 112v16H400v-16zm392 544H232V384h96v88c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-88h224v88c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-88h96v456z'
-        )
-      )),
-      (t.SkinOutline = u(
-        'skin',
-        i,
-        l(
-          o,
-          'M870 126H663.8c-17.4 0-32.9 11.9-37 29.3C614.3 208.1 567 246 512 246s-102.3-37.9-114.8-90.7a37.93 37.93 0 0 0-37-29.3H154a44 44 0 0 0-44 44v252a44 44 0 0 0 44 44h75v388a44 44 0 0 0 44 44h478a44 44 0 0 0 44-44V466h75a44 44 0 0 0 44-44V170a44 44 0 0 0-44-44zm-28 268H723v432H301V394H182V198h153.3c28.2 71.2 97.5 120 176.7 120s148.5-48.8 176.7-120H842v196z'
         )
       )),
       (t.SkypeOutline = u(
@@ -15796,14 +16175,6 @@
           'M883.7 578.6c4.1-22.5 6.3-45.5 6.3-68.5 0-51-10-100.5-29.7-147-19-45-46.3-85.4-81-120.1a375.79 375.79 0 0 0-120.1-80.9c-46.6-19.7-96-29.7-147-29.7-24 0-48.1 2.3-71.5 6.8A225.1 225.1 0 0 0 335.6 113c-59.7 0-115.9 23.3-158.1 65.5A222.25 222.25 0 0 0 112 336.6c0 38 9.8 75.4 28.1 108.4-3.7 21.4-5.7 43.3-5.7 65.1 0 51 10 100.5 29.7 147 19 45 46.2 85.4 80.9 120.1 34.7 34.7 75.1 61.9 120.1 80.9 46.6 19.7 96 29.7 147 29.7 22.2 0 44.4-2 66.2-5.9 33.5 18.9 71.3 29 110 29 59.7 0 115.9-23.2 158.1-65.5 42.3-42.2 65.5-98.4 65.5-158.1.1-38-9.7-75.5-28.2-108.7zm-88.1 216C766.9 823.4 729 839 688.4 839c-26.1 0-51.8-6.8-74.6-19.7l-22.5-12.7-25.5 4.5c-17.8 3.2-35.8 4.8-53.6 4.8-41.4 0-81.3-8.1-119.1-24.1-36.3-15.3-69-37.3-97.2-65.5a304.29 304.29 0 0 1-65.5-97.1c-16-37.7-24-77.6-24-119 0-17.4 1.6-35.2 4.6-52.8l4.4-25.1L203 410a151.02 151.02 0 0 1-19.1-73.4c0-40.6 15.7-78.5 44.4-107.2C257.1 200.7 295 185 335.6 185a153 153 0 0 1 71.4 17.9l22.4 11.8 24.8-4.8c18.9-3.6 38.4-5.5 58-5.5 41.4 0 81.3 8.1 119 24 36.5 15.4 69.1 37.4 97.2 65.5 28.2 28.1 50.2 60.8 65.6 97.2 16 37.7 24 77.6 24 119 0 18.4-1.7 37-5.1 55.5l-4.7 25.5 12.6 22.6c12.6 22.5 19.2 48 19.2 73.7 0 40.7-15.7 78.5-44.4 107.2zM583.4 466.2L495 446.6c-33.6-7.7-72.3-17.8-72.3-49.5s27.1-53.9 76.1-53.9c98.7 0 89.7 67.8 138.7 67.8 25.8 0 48.4-15.2 48.4-41.2 0-60.8-97.4-106.5-180-106.5-89.7 0-185.2 38.1-185.2 139.5 0 48.8 17.4 100.8 113.6 124.9l119.4 29.8c36.1 8.9 45.2 29.2 45.2 47.6 0 30.5-30.3 60.3-85.2 60.3-107.2 0-92.3-82.5-149.7-82.5-25.8 0-44.5 17.8-44.5 43.1 0 49.4 60 115.4 194.2 115.4 127.7 0 191-61.5 191-144 0-53.1-24.5-109.6-121.3-131.2z'
         )
       )),
-      (t.SlackSquareOutline = u(
-        'slack-square',
-        i,
-        l(
-          o,
-          'M893.1 397.6c-85.8-286-209.5-352.5-495.5-266.7S45.1 340.4 130.9 626.4s209.5 352.5 495.5 266.7 352.5-209.5 266.7-495.5zm-150 189.9l-50.3 16.3 16.5 50.6c7.7 23.6-5.3 49-28.9 56.7-23.6 7.7-49-5.3-56.7-28.9l-16.5-50.6L506 664.5l16.5 50.6c7.7 23.6-5.3 49-28.9 56.7-23.6 7.7-49-5.3-56.7-28.9l-16.5-50.6-51 16.6c-23.6 7.7-49-5.3-56.7-28.9s5.3-49 28.9-56.7l51-16.6-32.9-101.3-51 16.6c-23.6 7.7-49-5.3-56.7-28.9-7.7-23.6 5.3-49 28.9-56.7l51-16.6-16.5-50.6c-7.7-23.6 5.3-49 28.9-56.7 23.6-7.7 49 5.3 56.7 28.9l16.5 50.6 101.3-32.9-16.5-50.6c-7.7-23.6 5.3-49 28.9-56.7s49 5.3 56.7 28.9l16.5 50.6 50.3-16.3c23.6-7.7 49 5.3 56.7 28.9 7.7 23.6-5.3 49-28.9 56.7L632.1 417 665 518.3l50.3-16.3c23.6-7.7 49 5.3 56.7 28.9 7.7 23.6-5.3 48.9-28.9 56.6zM445.26 477.67l101.3-32.9 32.9 101.29-101.29 32.9z'
-        )
-      )),
       (t.SlidersOutline = u(
         'sliders',
         i,
@@ -15812,12 +16183,20 @@
           'M320 224h-66v-56c0-4.4-3.6-8-8-8h-52c-4.4 0-8 3.6-8 8v56h-66c-4.4 0-8 3.6-8 8v560c0 4.4 3.6 8 8 8h66v56c0 4.4 3.6 8 8 8h52c4.4 0 8-3.6 8-8v-56h66c4.4 0 8-3.6 8-8V232c0-4.4-3.6-8-8-8zm-60 508h-80V292h80v440zm644-436h-66v-96c0-4.4-3.6-8-8-8h-52c-4.4 0-8 3.6-8 8v96h-66c-4.4 0-8 3.6-8 8v416c0 4.4 3.6 8 8 8h66v96c0 4.4 3.6 8 8 8h52c4.4 0 8-3.6 8-8v-96h66c4.4 0 8-3.6 8-8V304c0-4.4-3.6-8-8-8zm-60 364h-80V364h80v296zM612 404h-66V232c0-4.4-3.6-8-8-8h-52c-4.4 0-8 3.6-8 8v172h-66c-4.4 0-8 3.6-8 8v200c0 4.4 3.6 8 8 8h66v172c0 4.4 3.6 8 8 8h52c4.4 0 8-3.6 8-8V620h66c4.4 0 8-3.6 8-8V412c0-4.4-3.6-8-8-8zm-60 145a3 3 0 0 1-3 3h-74a3 3 0 0 1-3-3v-74a3 3 0 0 1 3-3h74a3 3 0 0 1 3 3v74z'
         )
       )),
-      (t.SmileOutline = u(
-        'smile',
+      (t.SkinOutline = u(
+        'skin',
         i,
         l(
           o,
-          'M288 421a48 48 0 1 0 96 0 48 48 0 1 0-96 0zm352 0a48 48 0 1 0 96 0 48 48 0 1 0-96 0zM512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm263 711c-34.2 34.2-74 61-118.3 79.8C611 874.2 562.3 884 512 884c-50.3 0-99-9.8-144.8-29.2A370.4 370.4 0 0 1 248.9 775c-34.2-34.2-61-74-79.8-118.3C149.8 611 140 562.3 140 512s9.8-99 29.2-144.8A370.4 370.4 0 0 1 249 248.9c34.2-34.2 74-61 118.3-79.8C413 149.8 461.7 140 512 140c50.3 0 99 9.8 144.8 29.2A370.4 370.4 0 0 1 775.1 249c34.2 34.2 61 74 79.8 118.3C874.2 413 884 461.7 884 512s-9.8 99-29.2 144.8A368.89 368.89 0 0 1 775 775zM664 533h-48.1c-4.2 0-7.8 3.2-8.1 7.4C604 589.9 562.5 629 512 629s-92.1-39.1-95.8-88.6c-.3-4.2-3.9-7.4-8.1-7.4H360a8 8 0 0 0-8 8.4c4.4 84.3 74.5 151.6 160 151.6s155.6-67.3 160-151.6a8 8 0 0 0-8-8.4z'
+          'M870 126H663.8c-17.4 0-32.9 11.9-37 29.3C614.3 208.1 567 246 512 246s-102.3-37.9-114.8-90.7a37.93 37.93 0 0 0-37-29.3H154a44 44 0 0 0-44 44v252a44 44 0 0 0 44 44h75v388a44 44 0 0 0 44 44h478a44 44 0 0 0 44-44V466h75a44 44 0 0 0 44-44V170a44 44 0 0 0-44-44zm-28 268H723v432H301V394H182V198h153.3c28.2 71.2 97.5 120 176.7 120s148.5-48.8 176.7-120H842v196z'
+        )
+      )),
+      (t.SlackSquareOutline = u(
+        'slack-square',
+        i,
+        l(
+          o,
+          'M893.1 397.6c-85.8-286-209.5-352.5-495.5-266.7S45.1 340.4 130.9 626.4s209.5 352.5 495.5 266.7 352.5-209.5 266.7-495.5zm-150 189.9l-50.3 16.3 16.5 50.6c7.7 23.6-5.3 49-28.9 56.7-23.6 7.7-49-5.3-56.7-28.9l-16.5-50.6L506 664.5l16.5 50.6c7.7 23.6-5.3 49-28.9 56.7-23.6 7.7-49-5.3-56.7-28.9l-16.5-50.6-51 16.6c-23.6 7.7-49-5.3-56.7-28.9s5.3-49 28.9-56.7l51-16.6-32.9-101.3-51 16.6c-23.6 7.7-49-5.3-56.7-28.9-7.7-23.6 5.3-49 28.9-56.7l51-16.6-16.5-50.6c-7.7-23.6 5.3-49 28.9-56.7 23.6-7.7 49 5.3 56.7 28.9l16.5 50.6 101.3-32.9-16.5-50.6c-7.7-23.6 5.3-49 28.9-56.7s49 5.3 56.7 28.9l16.5 50.6 50.3-16.3c23.6-7.7 49 5.3 56.7 28.9 7.7 23.6-5.3 49-28.9 56.7L632.1 417 665 518.3l50.3-16.3c23.6-7.7 49 5.3 56.7 28.9 7.7 23.6-5.3 48.9-28.9 56.6zM445.26 477.67l101.3-32.9 32.9 101.29-101.29 32.9z'
         )
       )),
       (t.SnippetsOutline = u(
@@ -15828,12 +16207,12 @@
           'M832 112H724V72c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v40H500V72c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v40H320c-17.7 0-32 14.3-32 32v120h-96c-17.7 0-32 14.3-32 32v632c0 17.7 14.3 32 32 32h512c17.7 0 32-14.3 32-32v-96h96c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zM664 888H232V336h218v174c0 22.1 17.9 40 40 40h174v338zm0-402H514V336h.2L664 485.8v.2zm128 274h-56V456L544 264H360v-80h68v32c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-32h152v32c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-32h68v576z'
         )
       )),
-      (t.SoundOutline = u(
-        'sound',
+      (t.SmileOutline = u(
+        'smile',
         i,
         l(
           o,
-          'M625.9 115c-5.9 0-11.9 1.6-17.4 5.3L254 352H90c-8.8 0-16 7.2-16 16v288c0 8.8 7.2 16 16 16h164l354.5 231.7c5.5 3.6 11.6 5.3 17.4 5.3 16.7 0 32.1-13.3 32.1-32.1V147.1c0-18.8-15.4-32.1-32.1-32.1zM586 803L293.4 611.7l-18-11.7H146V424h129.4l17.9-11.7L586 221v582zm348-327H806c-8.8 0-16 7.2-16 16v40c0 8.8 7.2 16 16 16h128c8.8 0 16-7.2 16-16v-40c0-8.8-7.2-16-16-16zm-41.9 261.8l-110.3-63.7a15.9 15.9 0 0 0-21.7 5.9l-19.9 34.5c-4.4 7.6-1.8 17.4 5.8 21.8L856.3 800a15.9 15.9 0 0 0 21.7-5.9l19.9-34.5c4.4-7.6 1.7-17.4-5.8-21.8zM760 344a15.9 15.9 0 0 0 21.7 5.9L892 286.2c7.6-4.4 10.2-14.2 5.8-21.8L878 230a15.9 15.9 0 0 0-21.7-5.9L746 287.8a15.99 15.99 0 0 0-5.8 21.8L760 344z'
+          'M288 421a48 48 0 1 0 96 0 48 48 0 1 0-96 0zm352 0a48 48 0 1 0 96 0 48 48 0 1 0-96 0zM512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm263 711c-34.2 34.2-74 61-118.3 79.8C611 874.2 562.3 884 512 884c-50.3 0-99-9.8-144.8-29.2A370.4 370.4 0 0 1 248.9 775c-34.2-34.2-61-74-79.8-118.3C149.8 611 140 562.3 140 512s9.8-99 29.2-144.8A370.4 370.4 0 0 1 249 248.9c34.2-34.2 74-61 118.3-79.8C413 149.8 461.7 140 512 140c50.3 0 99 9.8 144.8 29.2A370.4 370.4 0 0 1 775.1 249c34.2 34.2 61 74 79.8 118.3C874.2 413 884 461.7 884 512s-9.8 99-29.2 144.8A368.89 368.89 0 0 1 775 775zM664 533h-48.1c-4.2 0-7.8 3.2-8.1 7.4C604 589.9 562.5 629 512 629s-92.1-39.1-95.8-88.6c-.3-4.2-3.9-7.4-8.1-7.4H360a8 8 0 0 0-8 8.4c4.4 84.3 74.5 151.6 160 151.6s155.6-67.3 160-151.6a8 8 0 0 0-8-8.4z'
         )
       )),
       (t.StarOutline = u(
@@ -15860,12 +16239,12 @@
           'M676.4 528.95L293.2 829.97c-14.25 11.2-35.2 1.1-35.2-16.95V210.97c0-18.05 20.95-28.14 35.2-16.94l383.2 301.02a21.53 21.53 0 0 1 0 33.9M694 864h64a8 8 0 0 0 8-8V168a8 8 0 0 0-8-8h-64a8 8 0 0 0-8 8v688a8 8 0 0 0 8 8'
         )
       )),
-      (t.StopOutline = u(
-        'stop',
+      (t.SoundOutline = u(
+        'sound',
         i,
         l(
           o,
-          'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372 0-89 31.3-170.8 83.5-234.8l523.3 523.3C682.8 852.7 601 884 512 884zm288.5-137.2L277.2 223.5C341.2 171.3 423 140 512 140c205.4 0 372 166.6 372 372 0 89-31.3 170.8-83.5 234.8z'
+          'M625.9 115c-5.9 0-11.9 1.6-17.4 5.3L254 352H90c-8.8 0-16 7.2-16 16v288c0 8.8 7.2 16 16 16h164l354.5 231.7c5.5 3.6 11.6 5.3 17.4 5.3 16.7 0 32.1-13.3 32.1-32.1V147.1c0-18.8-15.4-32.1-32.1-32.1zM586 803L293.4 611.7l-18-11.7H146V424h129.4l17.9-11.7L586 221v582zm348-327H806c-8.8 0-16 7.2-16 16v40c0 8.8 7.2 16 16 16h128c8.8 0 16-7.2 16-16v-40c0-8.8-7.2-16-16-16zm-41.9 261.8l-110.3-63.7a15.9 15.9 0 0 0-21.7 5.9l-19.9 34.5c-4.4 7.6-1.8 17.4 5.8 21.8L856.3 800a15.9 15.9 0 0 0 21.7-5.9l19.9-34.5c4.4-7.6 1.7-17.4-5.8-21.8zM760 344a15.9 15.9 0 0 0 21.7 5.9L892 286.2c7.6-4.4 10.2-14.2 5.8-21.8L878 230a15.9 15.9 0 0 0-21.7-5.9L746 287.8a15.99 15.99 0 0 0-5.8 21.8L760 344z'
         )
       )),
       (t.SwitcherOutline = u(
@@ -15884,20 +16263,20 @@
           'M800 64H224c-35.3 0-64 28.7-64 64v768c0 35.3 28.7 64 64 64h576c35.3 0 64-28.7 64-64V128c0-35.3-28.7-64-64-64zm-8 824H232V136h560v752zM472 784a40 40 0 1 0 80 0 40 40 0 1 0-80 0z'
         )
       )),
+      (t.StopOutline = u(
+        'stop',
+        i,
+        l(
+          o,
+          'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372 0-89 31.3-170.8 83.5-234.8l523.3 523.3C682.8 852.7 601 884 512 884zm288.5-137.2L277.2 223.5C341.2 171.3 423 140 512 140c205.4 0 372 166.6 372 372 0 89-31.3 170.8-83.5 234.8z'
+        )
+      )),
       (t.TagOutline = u(
         'tag',
         i,
         l(
           o,
           'M938 458.8l-29.6-312.6c-1.5-16.2-14.4-29-30.6-30.6L565.2 86h-.4c-3.2 0-5.7 1-7.6 2.9L88.9 557.2a9.96 9.96 0 0 0 0 14.1l363.8 363.8c1.9 1.9 4.4 2.9 7.1 2.9s5.2-1 7.1-2.9l468.3-468.3c2-2.1 3-5 2.8-8zM459.7 834.7L189.3 564.3 589 164.6 836 188l23.4 247-399.7 399.7zM680 256c-48.5 0-88 39.5-88 88s39.5 88 88 88 88-39.5 88-88-39.5-88-88-88zm0 120c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32z'
-        )
-      )),
-      (t.TagsOutline = u(
-        'tags',
-        i,
-        l(
-          o,
-          'M483.2 790.3L861.4 412c1.7-1.7 2.5-4 2.3-6.3l-25.5-301.4c-.7-7.8-6.8-13.9-14.6-14.6L522.2 64.3c-2.3-.2-4.7.6-6.3 2.3L137.7 444.8a8.03 8.03 0 0 0 0 11.3l334.2 334.2c3.1 3.2 8.2 3.2 11.3 0zm62.6-651.7l224.6 19 19 224.6L477.5 694 233.9 450.5l311.9-311.9zm60.16 186.23a48 48 0 1 0 67.88-67.89 48 48 0 1 0-67.88 67.89zM889.7 539.8l-39.6-39.5a8.03 8.03 0 0 0-11.3 0l-362 361.3-237.6-237a8.03 8.03 0 0 0-11.3 0l-39.6 39.5a8.03 8.03 0 0 0 0 11.3l243.2 242.8 39.6 39.5c3.1 3.1 8.2 3.1 11.3 0l407.3-406.6c3.1-3.1 3.1-8.2 0-11.3z'
         )
       )),
       (t.TaobaoCircleOutline = u(
@@ -15908,12 +16287,12 @@
           'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zM315.7 291.5c27.3 0 49.5 22.1 49.5 49.4s-22.1 49.4-49.5 49.4a49.4 49.4 0 1 1 0-98.8zM366.9 578c-13.6 42.3-10.2 26.7-64.4 144.5l-78.5-49s87.7-79.8 105.6-116.2c19.2-38.4-21.1-58.9-21.1-58.9l-60.2-37.5 32.7-50.2c45.4 33.7 48.7 36.6 79.2 67.2 23.8 23.9 20.7 56.8 6.7 100.1zm427.2 55c-15.3 143.8-202.4 90.3-202.4 90.3l10.2-41.1 43.3 9.3c80 5 72.3-64.9 72.3-64.9V423c.6-77.3-72.6-85.4-204.2-38.3l30.6 8.3c-2.5 9-12.5 23.2-25.2 38.6h176v35.6h-99.1v44.5h98.7v35.7h-98.7V622c14.9-4.8 28.6-11.5 40.5-20.5l-8.7-32.5 46.5-14.4 38.8 94.9-57.3 23.9-10.2-37.8c-25.6 19.5-78.8 48-171.8 45.4-99.2 2.6-73.7-112-73.7-112l2.5-1.3H472c-.5 14.7-6.6 38.7 1.7 51.8 6.8 10.8 24.2 12.6 35.3 13.1 1.3.1 2.6.1 3.9.1v-85.3h-101v-35.7h101v-44.5H487c-22.7 24.1-43.5 44.1-43.5 44.1l-30.6-26.7c21.7-22.9 43.3-59.1 56.8-83.2-10.9 4.4-22 9.2-33.6 14.2-11.2 14.3-24.2 29-38.7 43.5.5.8-50-28.4-50-28.4 52.2-44.4 81.4-139.9 81.4-139.9l72.5 20.4s-5.9 14-18.4 35.6c290.3-82.3 307.4 50.5 307.4 50.5s19.1 91.8 3.8 235.7z'
         )
       )),
-      (t.ThunderboltOutline = u(
-        'thunderbolt',
+      (t.TagsOutline = u(
+        'tags',
         i,
         l(
           o,
-          'M848 359.3H627.7L825.8 109c4.1-5.3.4-13-6.3-13H436c-2.8 0-5.5 1.5-6.9 4L170 547.5c-3.1 5.3.7 12 6.9 12h174.4l-89.4 357.6c-1.9 7.8 7.5 13.3 13.3 7.7L853.5 373c5.2-4.9 1.7-13.7-5.5-13.7zM378.2 732.5l60.3-241H281.1l189.6-327.4h224.6L487 427.4h211L378.2 732.5z'
+          'M483.2 790.3L861.4 412c1.7-1.7 2.5-4 2.3-6.3l-25.5-301.4c-.7-7.8-6.8-13.9-14.6-14.6L522.2 64.3c-2.3-.2-4.7.6-6.3 2.3L137.7 444.8a8.03 8.03 0 0 0 0 11.3l334.2 334.2c3.1 3.2 8.2 3.2 11.3 0zm62.6-651.7l224.6 19 19 224.6L477.5 694 233.9 450.5l311.9-311.9zm60.16 186.23a48 48 0 1 0 67.88-67.89 48 48 0 1 0-67.88 67.89zM889.7 539.8l-39.6-39.5a8.03 8.03 0 0 0-11.3 0l-362 361.3-237.6-237a8.03 8.03 0 0 0-11.3 0l-39.6 39.5a8.03 8.03 0 0 0 0 11.3l243.2 242.8 39.6 39.5c3.1 3.1 8.2 3.1 11.3 0l407.3-406.6c3.1-3.1 3.1-8.2 0-11.3z'
         )
       )),
       (t.ToolOutline = u(
@@ -15932,21 +16311,20 @@
           'M868 160h-92v-40c0-4.4-3.6-8-8-8H256c-4.4 0-8 3.6-8 8v40h-92a44 44 0 0 0-44 44v148c0 81.7 60 149.6 138.2 162C265.7 630.2 359 721.7 476 734.5v105.2H280c-17.7 0-32 14.3-32 32V904c0 4.4 3.6 8 8 8h512c4.4 0 8-3.6 8-8v-32.3c0-17.7-14.3-32-32-32H548V734.5C665 721.7 758.3 630.2 773.8 514 852 501.6 912 433.7 912 352V204a44 44 0 0 0-44-44zM184 352V232h64v207.6a91.99 91.99 0 0 1-64-87.6zm520 128c0 49.1-19.1 95.4-53.9 130.1-34.8 34.8-81 53.9-130.1 53.9h-16c-49.1 0-95.4-19.1-130.1-53.9-34.8-34.8-53.9-81-53.9-130.1V184h384v296zm136-128c0 41-26.9 75.8-64 87.6V232h64v120z'
         )
       )),
+      (t.ThunderboltOutline = u(
+        'thunderbolt',
+        i,
+        l(
+          o,
+          'M848 359.3H627.7L825.8 109c4.1-5.3.4-13-6.3-13H436c-2.8 0-5.5 1.5-6.9 4L170 547.5c-3.1 5.3.7 12 6.9 12h174.4l-89.4 357.6c-1.9 7.8 7.5 13.3 13.3 7.7L853.5 373c5.2-4.9 1.7-13.7-5.5-13.7zM378.2 732.5l60.3-241H281.1l189.6-327.4h224.6L487 427.4h211L378.2 732.5z'
+        )
+      )),
       (t.UnlockOutline = u(
         'unlock',
         i,
         l(
           o,
           'M832 464H332V240c0-30.9 25.1-56 56-56h248c30.9 0 56 25.1 56 56v68c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-68c0-70.7-57.3-128-128-128H388c-70.7 0-128 57.3-128 128v224h-68c-17.7 0-32 14.3-32 32v384c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V496c0-17.7-14.3-32-32-32zm-40 376H232V536h560v304zM484 701v53c0 4.4 3.6 8 8 8h40c4.4 0 8-3.6 8-8v-53a48.01 48.01 0 1 0-56 0z'
-        )
-      )),
-      (t.UpCircleOutline = u(
-        'up-circle',
-        i,
-        l(
-          o,
-          'M518.5 360.3a7.95 7.95 0 0 0-12.9 0l-178 246c-3.8 5.3 0 12.7 6.5 12.7H381c10.2 0 19.9-4.9 25.9-13.2L512 460.4l105.2 145.4c6 8.3 15.6 13.2 25.9 13.2H690c6.5 0 10.3-7.4 6.5-12.7l-178-246z',
-          'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z'
         )
       )),
       (t.UpSquareOutline = u(
@@ -15958,14 +16336,6 @@
           'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-40 728H184V184h656v656z'
         )
       )),
-      (t.UsbOutline = u(
-        'usb',
-        i,
-        l(
-          o,
-          'M760 432V144c0-17.7-14.3-32-32-32H296c-17.7 0-32 14.3-32 32v288c-66.2 0-120 52.1-120 116v356c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V548c0-24.3 21.6-44 48.1-44h495.8c26.5 0 48.1 19.7 48.1 44v356c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V548c0-63.9-53.8-116-120-116zm-424 0V184h352v248H336zm120-184h-48c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8zm160 0h-48c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8z'
-        )
-      )),
       (t.VideoCameraOutline = u(
         'video-camera',
         i,
@@ -15974,12 +16344,29 @@
           'M912 302.3L784 376V224c0-35.3-28.7-64-64-64H128c-35.3 0-64 28.7-64 64v576c0 35.3 28.7 64 64 64h592c35.3 0 64-28.7 64-64V648l128 73.7c21.3 12.3 48-3.1 48-27.6V330c0-24.6-26.7-40-48-27.7zM712 792H136V232h576v560zm176-167l-104-59.8V458.9L888 399v226zM208 360h112c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H208c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8z'
         )
       )),
+      (t.UpCircleOutline = u(
+        'up-circle',
+        i,
+        l(
+          o,
+          'M518.5 360.3a7.95 7.95 0 0 0-12.9 0l-178 246c-3.8 5.3 0 12.7 6.5 12.7H381c10.2 0 19.9-4.9 25.9-13.2L512 460.4l105.2 145.4c6 8.3 15.6 13.2 25.9 13.2H690c6.5 0 10.3-7.4 6.5-12.7l-178-246z',
+          'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z'
+        )
+      )),
       (t.WalletOutline = u(
         'wallet',
         i,
         l(
           o,
           'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-40 464H528V448h312v128zm0 264H184V184h656v200H496c-17.7 0-32 14.3-32 32v192c0 17.7 14.3 32 32 32h344v200zM580 512a40 40 0 1 0 80 0 40 40 0 1 0-80 0z'
+        )
+      )),
+      (t.UsbOutline = u(
+        'usb',
+        i,
+        l(
+          o,
+          'M760 432V144c0-17.7-14.3-32-32-32H296c-17.7 0-32 14.3-32 32v288c-66.2 0-120 52.1-120 116v356c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V548c0-24.3 21.6-44 48.1-44h495.8c26.5 0 48.1 19.7 48.1 44v356c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V548c0-63.9-53.8-116-120-116zm-424 0V184h352v248H336zm120-184h-48c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8zm160 0h-48c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8z'
         )
       )),
       (t.WarningOutline = u(
@@ -16006,14 +16393,6 @@
           'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm-44.4 672C353.1 736 236 680.4 236 588.9c0-47.8 30.2-103.1 82.3-155.3 69.5-69.6 150.6-101.4 181.1-70.8 13.5 13.5 14.8 36.8 6.1 64.6-4.5 14 13.1 6.3 13.1 6.3 56.2-23.6 105.2-25 123.1.7 9.6 13.7 8.6 32.8-.2 55.1-4.1 10.2 1.3 11.8 9 14.1 31.7 9.8 66.9 33.6 66.9 75.5.2 69.5-99.7 156.9-249.8 156.9zm207.3-290.8a34.9 34.9 0 0 0-7.2-34.1 34.68 34.68 0 0 0-33.1-10.7 18.24 18.24 0 0 1-7.6-35.7c24.1-5.1 50.1 2.3 67.7 21.9 17.7 19.6 22.4 46.3 14.9 69.8a18.13 18.13 0 0 1-22.9 11.7 18.18 18.18 0 0 1-11.8-22.9zm106 34.3s0 .1 0 0a21.1 21.1 0 0 1-26.6 13.7 21.19 21.19 0 0 1-13.6-26.7c11-34.2 4-73.2-21.7-101.8a104.04 104.04 0 0 0-98.9-32.1 21.14 21.14 0 0 1-25.1-16.3 21.07 21.07 0 0 1 16.2-25.1c49.4-10.5 102.8 4.8 139.1 45.1 36.3 40.2 46.1 95.1 30.6 143.2zm-334.5 6.1c-91.4 9-160.7 65.1-154.7 125.2 5.9 60.1 84.8 101.5 176.2 92.5 91.4-9.1 160.7-65.1 154.7-125.3-5.9-60.1-84.8-101.5-176.2-92.4zm80.2 141.7c-18.7 42.3-72.3 64.8-117.8 50.1-43.9-14.2-62.5-57.7-43.3-96.8 18.9-38.4 68-60.1 111.5-48.8 45 11.7 68 54.2 49.6 95.5zm-93-32.2c-14.2-5.9-32.4.2-41.2 13.9-8.8 13.8-4.7 30.2 9.3 36.6 14.3 6.5 33.2.3 42-13.8 8.8-14.3 4.2-30.6-10.1-36.7zm34.9-14.5c-5.4-2.2-12.2.5-15.4 5.8-3.1 5.4-1.4 11.5 4.1 13.8 5.5 2.3 12.6-.3 15.8-5.8 3-5.6 1-11.8-4.5-13.8z'
         )
       )),
-      (t.WeiboSquareOutline = u(
-        'weibo-square',
-        i,
-        l(
-          o,
-          'M433.6 595.1c-14.2-5.9-32.4.2-41.2 13.9-8.8 13.8-4.7 30.2 9.3 36.6 14.3 6.5 33.2.3 42-13.8 8.8-14.3 4.2-30.6-10.1-36.7zM880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zM467.6 736C353.1 736 236 680.4 236 588.9c0-47.8 30.2-103.1 82.3-155.3 69.5-69.6 150.6-101.4 181.1-70.8 13.5 13.5 14.8 36.8 6.1 64.6-4.5 14 13.1 6.3 13.1 6.3 56.2-23.6 105.2-25 123.1.7 9.6 13.7 8.6 32.8-.2 55.1-4.1 10.2 1.3 11.8 9 14.1 31.7 9.8 66.9 33.6 66.9 75.5.2 69.5-99.7 156.9-249.8 156.9zm207.3-290.8a34.9 34.9 0 0 0-7.2-34.1 34.68 34.68 0 0 0-33.1-10.7 18.24 18.24 0 0 1-7.6-35.7c24.1-5.1 50.1 2.3 67.7 21.9 17.7 19.6 22.4 46.3 14.9 69.8a18.13 18.13 0 0 1-22.9 11.7 18.18 18.18 0 0 1-11.8-22.9zm106 34.3s0 .1 0 0a21.1 21.1 0 0 1-26.6 13.7 21.19 21.19 0 0 1-13.6-26.7c11-34.2 4-73.2-21.7-101.8a104.04 104.04 0 0 0-98.9-32.1 21.14 21.14 0 0 1-25.1-16.3 21.07 21.07 0 0 1 16.2-25.1c49.4-10.5 102.8 4.8 139.1 45.1 36.3 40.2 46.1 95.1 30.6 143.2zm-334.5 6.1c-91.4 9-160.7 65.1-154.7 125.2 5.9 60.1 84.8 101.5 176.2 92.5 91.4-9.1 160.7-65.1 154.7-125.3-5.9-60.1-84.8-101.5-176.2-92.4zm80.2 141.7c-18.7 42.3-72.3 64.8-117.8 50.1-43.9-14.2-62.5-57.7-43.3-96.8 18.9-38.4 68-60.1 111.5-48.8 45 11.7 68 54.2 49.6 95.5zm-58.1-46.7c-5.4-2.2-12.2.5-15.4 5.8-3.1 5.4-1.4 11.5 4.1 13.8 5.5 2.3 12.6-.3 15.8-5.8 3-5.6 1-11.8-4.5-13.8z'
-        )
-      )),
       (t.WindowsOutline = u(
         'windows',
         i,
@@ -16022,20 +16401,12 @@
           'M120.1 770.6L443 823.2V543.8H120.1v226.8zm63.4-163.5h196.2v141.6l-196.2-31.9V607.1zm340.3 226.5l382 62.2v-352h-382v289.8zm63.4-226.5h255.3v214.4l-255.3-41.6V607.1zm-63.4-415.7v288.8h382V128.1l-382 63.3zm318.7 225.5H587.3V245l255.3-42.3v214.2zm-722.4 63.3H443V201.9l-322.9 53.5v224.8zM183.5 309l196.2-32.5v140.4H183.5V309z'
         )
       )),
-      (t.YahooOutline = u(
-        'yahoo',
+      (t.WeiboSquareOutline = u(
+        'weibo-square',
         i,
         l(
           o,
-          'M859.9 681.4h-14.1c-27.1 0-49.2 22.2-49.2 49.3v14.1c0 27.1 22.2 49.3 49.2 49.3h14.1c27.1 0 49.2-22.2 49.2-49.3v-14.1c0-27.1-22.2-49.3-49.2-49.3zM402.6 231C216.2 231 65 357 65 512.5S216.2 794 402.6 794s337.6-126 337.6-281.5S589.1 231 402.6 231zm0 507C245.1 738 121 634.6 121 512.5c0-62.3 32.3-119.7 84.9-161v48.4h37l159.8 159.9v65.3h-84.4v56.3h225.1v-56.3H459v-65.3l103.5-103.6h65.3v-56.3H459v65.3l-28.1 28.1-93.4-93.5h37v-56.3H216.4c49.4-35 114.3-56.6 186.2-56.6 157.6 0 281.6 103.4 281.6 225.5S560.2 738 402.6 738zm534.7-507H824.7c-15.5 0-27.7 12.6-27.1 28.1l13.1 366h84.4l65.4-366.4c2.7-15.2-7.8-27.7-23.2-27.7z'
-        )
-      )),
-      (t.YuqueOutline = u(
-        'yuque',
-        i,
-        l(
-          o,
-          'M854.6 370.6c-9.9-39.4 9.9-102.2 73.4-124.4l-67.9-3.6s-25.7-90-143.6-98c-117.8-8.1-194.9-3-195-3 .1 0 87.4 55.6 52.4 154.7-25.6 52.5-65.8 95.6-108.8 144.7-1.3 1.3-2.5 2.6-3.5 3.7C319.4 605 96 860 96 860c245.9 64.4 410.7-6.3 508.2-91.1 20.5-.2 35.9-.3 46.3-.3 135.8 0 250.6-117.6 245.9-248.4-3.2-89.9-31.9-110.2-41.8-149.6zm-204.1 334c-10.6 0-26.2.1-46.8.3l-23.6.2-17.8 15.5c-47.1 41-104.4 71.5-171.4 87.6-52.5 12.6-110 16.2-172.7 9.6 18-20.5 36.5-41.6 55.4-63.1 92-104.6 173.8-197.5 236.9-268.5l1.4-1.4 1.3-1.5c4.1-4.6 20.6-23.3 24.7-28.1 9.7-11.1 17.3-19.9 24.5-28.6 30.7-36.7 52.2-67.8 69-102.2l1.6-3.3 1.2-3.4c13.7-38.8 15.4-76.9 6.2-112.8 22.5.7 46.5 1.9 71.7 3.6 33.3 2.3 55.5 12.9 71.1 29.2 5.8 6 10.2 12.5 13.4 18.7 1 2 1.7 3.6 2.3 5l5 17.7c-15.7 34.5-19.9 73.3-11.4 107.2 3 11.8 6.9 22.4 12.3 34.4 2.1 4.7 9.5 20.1 11 23.3 10.3 22.7 15.4 43 16.7 78.7 3.3 94.6-82.7 181.9-182 181.9z'
+          'M433.6 595.1c-14.2-5.9-32.4.2-41.2 13.9-8.8 13.8-4.7 30.2 9.3 36.6 14.3 6.5 33.2.3 42-13.8 8.8-14.3 4.2-30.6-10.1-36.7zM880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zM467.6 736C353.1 736 236 680.4 236 588.9c0-47.8 30.2-103.1 82.3-155.3 69.5-69.6 150.6-101.4 181.1-70.8 13.5 13.5 14.8 36.8 6.1 64.6-4.5 14 13.1 6.3 13.1 6.3 56.2-23.6 105.2-25 123.1.7 9.6 13.7 8.6 32.8-.2 55.1-4.1 10.2 1.3 11.8 9 14.1 31.7 9.8 66.9 33.6 66.9 75.5.2 69.5-99.7 156.9-249.8 156.9zm207.3-290.8a34.9 34.9 0 0 0-7.2-34.1 34.68 34.68 0 0 0-33.1-10.7 18.24 18.24 0 0 1-7.6-35.7c24.1-5.1 50.1 2.3 67.7 21.9 17.7 19.6 22.4 46.3 14.9 69.8a18.13 18.13 0 0 1-22.9 11.7 18.18 18.18 0 0 1-11.8-22.9zm106 34.3s0 .1 0 0a21.1 21.1 0 0 1-26.6 13.7 21.19 21.19 0 0 1-13.6-26.7c11-34.2 4-73.2-21.7-101.8a104.04 104.04 0 0 0-98.9-32.1 21.14 21.14 0 0 1-25.1-16.3 21.07 21.07 0 0 1 16.2-25.1c49.4-10.5 102.8 4.8 139.1 45.1 36.3 40.2 46.1 95.1 30.6 143.2zm-334.5 6.1c-91.4 9-160.7 65.1-154.7 125.2 5.9 60.1 84.8 101.5 176.2 92.5 91.4-9.1 160.7-65.1 154.7-125.3-5.9-60.1-84.8-101.5-176.2-92.4zm80.2 141.7c-18.7 42.3-72.3 64.8-117.8 50.1-43.9-14.2-62.5-57.7-43.3-96.8 18.9-38.4 68-60.1 111.5-48.8 45 11.7 68 54.2 49.6 95.5zm-58.1-46.7c-5.4-2.2-12.2.5-15.4 5.8-3.1 5.4-1.4 11.5 4.1 13.8 5.5 2.3 12.6-.3 15.8-5.8 3-5.6 1-11.8-4.5-13.8z'
         )
       )),
       (t.YoutubeOutline = u(
@@ -16046,20 +16417,20 @@
           'M960 509.2c0-2.2 0-4.7-.1-7.6-.1-8.1-.3-17.2-.5-26.9-.8-27.9-2.2-55.7-4.4-81.9-3-36.1-7.4-66.2-13.4-88.8a139.52 139.52 0 0 0-98.3-98.5c-28.3-7.6-83.7-12.3-161.7-15.2-37.1-1.4-76.8-2.3-116.5-2.8-13.9-.2-26.8-.3-38.4-.4h-29.4c-11.6.1-24.5.2-38.4.4-39.7.5-79.4 1.4-116.5 2.8-78 3-133.5 7.7-161.7 15.2A139.35 139.35 0 0 0 82.4 304C76.3 326.6 72 356.7 69 392.8c-2.2 26.2-3.6 54-4.4 81.9-.3 9.7-.4 18.8-.5 26.9 0 2.9-.1 5.4-.1 7.6v5.6c0 2.2 0 4.7.1 7.6.1 8.1.3 17.2.5 26.9.8 27.9 2.2 55.7 4.4 81.9 3 36.1 7.4 66.2 13.4 88.8 12.8 47.9 50.4 85.7 98.3 98.5 28.2 7.6 83.7 12.3 161.7 15.2 37.1 1.4 76.8 2.3 116.5 2.8 13.9.2 26.8.3 38.4.4h29.4c11.6-.1 24.5-.2 38.4-.4 39.7-.5 79.4-1.4 116.5-2.8 78-3 133.5-7.7 161.7-15.2 47.9-12.8 85.5-50.5 98.3-98.5 6.1-22.6 10.4-52.7 13.4-88.8 2.2-26.2 3.6-54 4.4-81.9.3-9.7.4-18.8.5-26.9 0-2.9.1-5.4.1-7.6v-5.6zm-72 5.2c0 2.1 0 4.4-.1 7.1-.1 7.8-.3 16.4-.5 25.7-.7 26.6-2.1 53.2-4.2 77.9-2.7 32.2-6.5 58.6-11.2 76.3-6.2 23.1-24.4 41.4-47.4 47.5-21 5.6-73.9 10.1-145.8 12.8-36.4 1.4-75.6 2.3-114.7 2.8-13.7.2-26.4.3-37.8.3h-28.6l-37.8-.3c-39.1-.5-78.2-1.4-114.7-2.8-71.9-2.8-124.9-7.2-145.8-12.8-23-6.2-41.2-24.4-47.4-47.5-4.7-17.7-8.5-44.1-11.2-76.3-2.1-24.7-3.4-51.3-4.2-77.9-.3-9.3-.4-18-.5-25.7 0-2.7-.1-5.1-.1-7.1v-4.8c0-2.1 0-4.4.1-7.1.1-7.8.3-16.4.5-25.7.7-26.6 2.1-53.2 4.2-77.9 2.7-32.2 6.5-58.6 11.2-76.3 6.2-23.1 24.4-41.4 47.4-47.5 21-5.6 73.9-10.1 145.8-12.8 36.4-1.4 75.6-2.3 114.7-2.8 13.7-.2 26.4-.3 37.8-.3h28.6l37.8.3c39.1.5 78.2 1.4 114.7 2.8 71.9 2.8 124.9 7.2 145.8 12.8 23 6.2 41.2 24.4 47.4 47.5 4.7 17.7 8.5 44.1 11.2 76.3 2.1 24.7 3.4 51.3 4.2 77.9.3 9.3.4 18 .5 25.7 0 2.7.1 5.1.1 7.1v4.8zM423 646l232-135-232-133z'
         )
       )),
-      (t.AlibabaOutline = u(
-        'alibaba',
+      (t.YuqueOutline = u(
+        'yuque',
         i,
         l(
           o,
-          'M602.9 669.8c-37.2 2.6-33.6-17.3-11.5-46.2 50.4-67.2 143.7-158.5 147.9-225.2 5.8-86.6-81.3-113.4-171-113.4-62.4 1.6-127 18.9-171 34.6-151.6 53.5-246.6 137.5-306.9 232-62.4 93.4-43 183.2 91.8 185.8 101.8-4.2 170.5-32.5 239.7-68.2.5 0-192.5 55.1-263.9 14.7-7.9-4.2-15.7-10-17.8-26.2 0-33.1 54.6-67.7 86.6-78.7v-56.7c64.5 22.6 140.6 16.3 205.7-32 2.1 5.8 4.2 13.1 3.7 21h11c2.6-22.6-12.6-44.6-37.8-46.2 7.3 5.8 12.6 10.5 15.2 14.7l-1 1-.5.5c-83.9 58.8-165.3 31.5-173.1 29.9l46.7-45.7-13.1-33.1c92.9-32.5 169.5-56.2 296.9-78.7l-28.5-23 14.7-8.9c75.5 21 126.4 36.7 123.8 76.6-1 6.8-3.7 14.7-7.9 23.1C660.1 466.1 594 538 567.2 569c-17.3 20.5-34.6 39.4-46.7 58.3-13.6 19.4-20.5 37.3-21 53.5 2.6 131.8 391.4-61.9 468-112.9-111.7 47.8-232.9 93.5-364.6 101.9zm85-302.9c2.8 5.2 4.1 11.6 4.1 19.1-.1-6.8-1.4-13.3-4.1-19.1z'
+          'M854.6 370.6c-9.9-39.4 9.9-102.2 73.4-124.4l-67.9-3.6s-25.7-90-143.6-98c-117.8-8.1-194.9-3-195-3 .1 0 87.4 55.6 52.4 154.7-25.6 52.5-65.8 95.6-108.8 144.7-1.3 1.3-2.5 2.6-3.5 3.7C319.4 605 96 860 96 860c245.9 64.4 410.7-6.3 508.2-91.1 20.5-.2 35.9-.3 46.3-.3 135.8 0 250.6-117.6 245.9-248.4-3.2-89.9-31.9-110.2-41.8-149.6zm-204.1 334c-10.6 0-26.2.1-46.8.3l-23.6.2-17.8 15.5c-47.1 41-104.4 71.5-171.4 87.6-52.5 12.6-110 16.2-172.7 9.6 18-20.5 36.5-41.6 55.4-63.1 92-104.6 173.8-197.5 236.9-268.5l1.4-1.4 1.3-1.5c4.1-4.6 20.6-23.3 24.7-28.1 9.7-11.1 17.3-19.9 24.5-28.6 30.7-36.7 52.2-67.8 69-102.2l1.6-3.3 1.2-3.4c13.7-38.8 15.4-76.9 6.2-112.8 22.5.7 46.5 1.9 71.7 3.6 33.3 2.3 55.5 12.9 71.1 29.2 5.8 6 10.2 12.5 13.4 18.7 1 2 1.7 3.6 2.3 5l5 17.7c-15.7 34.5-19.9 73.3-11.4 107.2 3 11.8 6.9 22.4 12.3 34.4 2.1 4.7 9.5 20.1 11 23.3 10.3 22.7 15.4 43 16.7 78.7 3.3 94.6-82.7 181.9-182 181.9z'
         )
       )),
-      (t.AlignCenterOutline = u(
-        'align-center',
+      (t.YahooOutline = u(
+        'yahoo',
         i,
         l(
           o,
-          'M264 230h496c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H264c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm496 424c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H264c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496zm144 140H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0-424H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8z'
+          'M859.9 681.4h-14.1c-27.1 0-49.2 22.2-49.2 49.3v14.1c0 27.1 22.2 49.3 49.2 49.3h14.1c27.1 0 49.2-22.2 49.2-49.3v-14.1c0-27.1-22.2-49.3-49.2-49.3zM402.6 231C216.2 231 65 357 65 512.5S216.2 794 402.6 794s337.6-126 337.6-281.5S589.1 231 402.6 231zm0 507C245.1 738 121 634.6 121 512.5c0-62.3 32.3-119.7 84.9-161v48.4h37l159.8 159.9v65.3h-84.4v56.3h225.1v-56.3H459v-65.3l103.5-103.6h65.3v-56.3H459v65.3l-28.1 28.1-93.4-93.5h37v-56.3H216.4c49.4-35 114.3-56.6 186.2-56.6 157.6 0 281.6 103.4 281.6 225.5S560.2 738 402.6 738zm534.7-507H824.7c-15.5 0-27.7 12.6-27.1 28.1l13.1 366h84.4l65.4-366.4c2.7-15.2-7.8-27.7-23.2-27.7z'
         )
       )),
       (t.AlignLeftOutline = u(
@@ -16070,20 +16441,28 @@
           'M120 230h496c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm0 424h496c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm784 140H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0-424H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8z'
         )
       )),
+      (t.AlignCenterOutline = u(
+        'align-center',
+        i,
+        l(
+          o,
+          'M264 230h496c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H264c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm496 424c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H264c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496zm144 140H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0-424H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8z'
+        )
+      )),
+      (t.AlibabaOutline = u(
+        'alibaba',
+        i,
+        l(
+          o,
+          'M602.9 669.8c-37.2 2.6-33.6-17.3-11.5-46.2 50.4-67.2 143.7-158.5 147.9-225.2 5.8-86.6-81.3-113.4-171-113.4-62.4 1.6-127 18.9-171 34.6-151.6 53.5-246.6 137.5-306.9 232-62.4 93.4-43 183.2 91.8 185.8 101.8-4.2 170.5-32.5 239.7-68.2.5 0-192.5 55.1-263.9 14.7-7.9-4.2-15.7-10-17.8-26.2 0-33.1 54.6-67.7 86.6-78.7v-56.7c64.5 22.6 140.6 16.3 205.7-32 2.1 5.8 4.2 13.1 3.7 21h11c2.6-22.6-12.6-44.6-37.8-46.2 7.3 5.8 12.6 10.5 15.2 14.7l-1 1-.5.5c-83.9 58.8-165.3 31.5-173.1 29.9l46.7-45.7-13.1-33.1c92.9-32.5 169.5-56.2 296.9-78.7l-28.5-23 14.7-8.9c75.5 21 126.4 36.7 123.8 76.6-1 6.8-3.7 14.7-7.9 23.1C660.1 466.1 594 538 567.2 569c-17.3 20.5-34.6 39.4-46.7 58.3-13.6 19.4-20.5 37.3-21 53.5 2.6 131.8 391.4-61.9 468-112.9-111.7 47.8-232.9 93.5-364.6 101.9zm85-302.9c2.8 5.2 4.1 11.6 4.1 19.1-.1-6.8-1.4-13.3-4.1-19.1z'
+        )
+      )),
       (t.AlignRightOutline = u(
         'align-right',
         i,
         l(
           o,
           'M904 158H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 424H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 212H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0-424H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8z'
-        )
-      )),
-      (t.AlipayOutline = u(
-        'alipay',
-        i,
-        l(
-          o,
-          'M789 610.3c-38.7-12.9-90.7-32.7-148.5-53.6 34.8-60.3 62.5-129 80.7-203.6H530.5v-68.6h233.6v-38.3H530.5V132h-95.4c-16.7 0-16.7 16.5-16.7 16.5v97.8H182.2v38.3h236.3v68.6H223.4v38.3h378.4a667.18 667.18 0 0 1-54.5 132.9c-122.8-40.4-253.8-73.2-336.1-53-52.6 13-86.5 36.1-106.5 60.3-91.4 111-25.9 279.6 167.2 279.6C386 811.2 496 747.6 581.2 643 708.3 704 960 808.7 960 808.7V659.4s-31.6-2.5-171-49.1zM253.9 746.6c-150.5 0-195-118.3-120.6-183.1 24.8-21.9 70.2-32.6 94.4-35 89.4-8.8 172.2 25.2 269.9 72.8-68.8 89.5-156.3 145.3-243.7 145.3z'
         )
       )),
       (t.AliyunOutline = u(
@@ -16094,28 +16473,12 @@
           'M959.2 383.9c-.3-82.1-66.9-148.6-149.1-148.6H575.9l21.6 85.2 201 43.7a42.58 42.58 0 0 1 32.9 39.7c.1.5.1 216.1 0 216.6a42.58 42.58 0 0 1-32.9 39.7l-201 43.7-21.6 85.3h234.2c82.1 0 148.8-66.5 149.1-148.6V383.9zM225.5 660.4a42.58 42.58 0 0 1-32.9-39.7c-.1-.6-.1-216.1 0-216.6.8-19.4 14.6-35.5 32.9-39.7l201-43.7 21.6-85.2H213.8c-82.1 0-148.8 66.4-149.1 148.6V641c.3 82.1 67 148.6 149.1 148.6H448l-21.6-85.3-200.9-43.9zm200.9-158.8h171v21.3h-171z'
         )
       )),
-      (t.AmazonOutline = u(
-        'amazon',
+      (t.AlipayOutline = u(
+        'alipay',
         i,
         l(
           o,
-          'M825 768.9c-3.3-.9-7.3-.4-11.9 1.3-61.6 28.2-121.5 48.3-179.7 60.2C507.7 856 385.2 842.6 266 790.3c-33.1-14.6-79.1-39.2-138-74a9.36 9.36 0 0 0-5.3-2c-2-.1-3.7.1-5.3.9-1.6.8-2.8 1.8-3.7 3.1-.9 1.3-1.1 3.1-.4 5.4.6 2.2 2.1 4.7 4.6 7.4 10.4 12.2 23.3 25.2 38.6 39s35.6 29.4 60.9 46.8c25.3 17.4 51.8 32.9 79.3 46.4 27.6 13.5 59.6 24.9 96.1 34.1s73 13.8 109.4 13.8c36.2 0 71.4-3.7 105.5-10.9 34.2-7.3 63-15.9 86.5-25.9 23.4-9.9 45-21 64.8-33 19.8-12 34.4-22.2 43.9-30.3 9.5-8.2 16.3-14.6 20.2-19.4 4.6-5.7 6.9-10.6 6.9-14.9.1-4.5-1.7-7.1-5-7.9zM527.4 348.1c-15.2 1.3-33.5 4.1-55 8.3-21.5 4.1-41.4 9.3-59.8 15.4s-37.2 14.6-56.3 25.4c-19.2 10.8-35.5 23.2-49 37s-24.5 31.1-33.1 52c-8.6 20.8-12.9 43.7-12.9 68.7 0 27.1 4.7 51.2 14.3 72.5 9.5 21.3 22.2 38 38.2 50.4 15.9 12.4 34 22.1 54 29.2 20 7.1 41.2 10.3 63.2 9.4 22-.9 43.5-4.3 64.4-10.3 20.8-5.9 40.4-15.4 58.6-28.3 18.2-12.9 33.1-28.2 44.8-45.7 4.3 6.6 8.1 11.5 11.5 14.7l8.7 8.9c5.8 5.9 14.7 14.6 26.7 26.1 11.9 11.5 24.1 22.7 36.3 33.7l104.4-99.9-6-4.9c-4.3-3.3-9.4-8-15.2-14.3-5.8-6.2-11.6-13.1-17.2-20.5-5.7-7.4-10.6-16.1-14.7-25.9-4.1-9.8-6.2-19.3-6.2-28.5V258.7c0-10.1-1.9-21-5.7-32.8-3.9-11.7-10.7-24.5-20.7-38.3-10-13.8-22.4-26.2-37.2-37-14.9-10.8-34.7-20-59.6-27.4-24.8-7.4-52.6-11.1-83.2-11.1-31.3 0-60.4 3.7-87.6 10.9-27.1 7.3-50.3 17-69.7 29.2-19.3 12.2-35.9 26.3-49.7 42.4-13.8 16.1-24.1 32.9-30.8 50.4-6.7 17.5-10.1 35.2-10.1 53.1L408 310c5.5-16.4 12.9-30.6 22-42.8 9.2-12.2 17.9-21 25.8-26.5 8-5.5 16.6-9.9 25.7-13.2 9.2-3.3 15.4-5 18.6-5.4 3.2-.3 5.7-.4 7.6-.4 26.7 0 45.2 7.9 55.6 23.6 6.5 9.5 9.7 23.9 9.7 43.3v56.6c-15.2.6-30.4 1.6-45.6 2.9zM573.1 500c0 16.6-2.2 31.7-6.5 45-9.2 29.1-26.7 47.4-52.4 54.8-22.4 6.6-43.7 3.3-63.9-9.8-21.5-14-32.2-33.8-32.2-59.3 0-19.9 5-36.9 15-51.1 10-14.1 23.3-24.7 40-31.7s33-12 49-14.9c15.9-3 33-4.8 51-5.4V500zm335.2 218.9c-4.3-5.4-15.9-8.9-34.9-10.7-19-1.8-35.5-1.7-49.7.4-15.3 1.8-31.1 6.2-47.3 13.4-16.3 7.1-23.4 13.1-21.6 17.8l.7 1.3.9.7 1.4.2h4.6c.8 0 1.8-.1 3.2-.2 1.4-.1 2.7-.3 3.9-.4 1.2-.1 2.9-.3 5.1-.4 2.1-.1 4.1-.4 6-.7.3 0 3.7-.3 10.3-.9 6.6-.6 11.4-1 14.3-1.3 2.9-.3 7.8-.6 14.5-.9 6.7-.3 12.1-.3 16.1 0 4 .3 8.5.7 13.6 1.1 5.1.4 9.2 1.3 12.4 2.7 3.2 1.3 5.6 3 7.1 5.1 5.2 6.6 4.2 21.2-3 43.9s-14 40.8-20.4 54.2c-2.8 5.7-2.8 9.2 0 10.7s6.7.1 11.9-4c15.6-12.2 28.6-30.6 39.1-55.3 6.1-14.6 10.5-29.8 13.1-45.7 2.4-15.9 2-26.2-1.3-31z'
-        )
-      )),
-      (t.AntCloudOutline = u(
-        'ant-cloud',
-        i,
-        l(
-          o,
-          'M378.9 738c-3.1 0-6.1-.5-8.8-1.5l4.4 30.7h26.3l-15.5-29.9c-2.1.5-4.2.7-6.4.7zm421-291.2c-12.6 0-24.8 1.5-36.5 4.2-21.4-38.4-62.3-64.3-109.3-64.3-6.9 0-13.6.6-20.2 1.6-35.4-77.4-113.4-131.1-203.9-131.1-112.3 0-205.3 82.6-221.6 190.4C127.3 455.5 64 523.8 64 607c0 88.4 71.6 160.1 160 160.2h50l13.2-27.6c-26.2-8.3-43.3-29-39.1-48.8 4.6-21.6 32.8-33.9 63.1-27.5 22.9 4.9 40.4 19.1 45.5 35.1a26.1 26.1 0 0 1 22.1-12.4h.2c-.8-3.2-1.2-6.5-1.2-9.9 0-20.1 14.8-36.7 34.1-39.6v-25.4c0-4.4 3.6-8 8-8s8 3.6 8 8v26.3c4.6 1.2 8.8 3.2 12.6 5.8l19.5-21.4c3-3.3 8-3.5 11.3-.5 3.3 3 3.5 8 .5 11.3l-20 22-.2.2a40 40 0 0 1-46.9 59.2c-.4 5.6-2.6 10.7-6 14.8l20 38.4H804v-.1c86.5-2.2 156-73 156-160.1 0-88.5-71.7-160.2-160.1-160.2zM338.2 737.2l-4.3 30h24.4l-5.9-41.5c-3.5 4.6-8.3 8.5-14.2 11.5zM797.5 305a48 48 0 1 0 96 0 48 48 0 1 0-96 0zm-65.7 61.3a24 24 0 1 0 48 0 24 24 0 1 0-48 0zM303.4 742.9l-11.6 24.3h26l3.5-24.7c-5.7.8-11.7 1-17.9.4z'
-        )
-      )),
-      (t.ApartmentOutline = u(
-        'apartment',
-        i,
-        l(
-          o,
-          'M908 640H804V488c0-4.4-3.6-8-8-8H548v-96h108c8.8 0 16-7.2 16-16V80c0-8.8-7.2-16-16-16H368c-8.8 0-16 7.2-16 16v288c0 8.8 7.2 16 16 16h108v96H228c-4.4 0-8 3.6-8 8v152H116c-8.8 0-16 7.2-16 16v288c0 8.8 7.2 16 16 16h288c8.8 0 16-7.2 16-16V656c0-8.8-7.2-16-16-16H292v-88h440v88H620c-8.8 0-16 7.2-16 16v288c0 8.8 7.2 16 16 16h288c8.8 0 16-7.2 16-16V656c0-8.8-7.2-16-16-16zm-564 76v168H176V716h168zm84-408V140h168v168H428zm420 576H680V716h168v168z'
+          'M789 610.3c-38.7-12.9-90.7-32.7-148.5-53.6 34.8-60.3 62.5-129 80.7-203.6H530.5v-68.6h233.6v-38.3H530.5V132h-95.4c-16.7 0-16.7 16.5-16.7 16.5v97.8H182.2v38.3h236.3v68.6H223.4v38.3h378.4a667.18 667.18 0 0 1-54.5 132.9c-122.8-40.4-253.8-73.2-336.1-53-52.6 13-86.5 36.1-106.5 60.3-91.4 111-25.9 279.6 167.2 279.6C386 811.2 496 747.6 581.2 643 708.3 704 960 808.7 960 808.7V659.4s-31.6-2.5-171-49.1zM253.9 746.6c-150.5 0-195-118.3-120.6-183.1 24.8-21.9 70.2-32.6 94.4-35 89.4-8.8 172.2 25.2 269.9 72.8-68.8 89.5-156.3 145.3-243.7 145.3z'
         )
       )),
       (t.AntDesignOutline = u(
@@ -16126,20 +16489,36 @@
           'M716.3 313.8c19-18.9 19-49.7 0-68.6l-69.9-69.9.1.1c-18.5-18.5-50.3-50.3-95.3-95.2-21.2-20.7-55.5-20.5-76.5.5L80.9 474.2a53.84 53.84 0 0 0 0 76.4L474.6 944a54.14 54.14 0 0 0 76.5 0l165.1-165c19-18.9 19-49.7 0-68.6a48.7 48.7 0 0 0-68.7 0l-125 125.2c-5.2 5.2-13.3 5.2-18.5 0L189.5 521.4c-5.2-5.2-5.2-13.3 0-18.5l314.4-314.2c.4-.4.9-.7 1.3-1.1 5.2-4.1 12.4-3.7 17.2 1.1l125.2 125.1c19 19 49.8 19 68.7 0zM408.6 514.4a106.3 106.2 0 1 0 212.6 0 106.3 106.2 0 1 0-212.6 0zm536.2-38.6L821.9 353.5c-19-18.9-49.8-18.9-68.7.1a48.4 48.4 0 0 0 0 68.6l83 82.9c5.2 5.2 5.2 13.3 0 18.5l-81.8 81.7a48.4 48.4 0 0 0 0 68.6 48.7 48.7 0 0 0 68.7 0l121.8-121.7a53.93 53.93 0 0 0-.1-76.4z'
         )
       )),
+      (t.ApartmentOutline = u(
+        'apartment',
+        i,
+        l(
+          o,
+          'M908 640H804V488c0-4.4-3.6-8-8-8H548v-96h108c8.8 0 16-7.2 16-16V80c0-8.8-7.2-16-16-16H368c-8.8 0-16 7.2-16 16v288c0 8.8 7.2 16 16 16h108v96H228c-4.4 0-8 3.6-8 8v152H116c-8.8 0-16 7.2-16 16v288c0 8.8 7.2 16 16 16h288c8.8 0 16-7.2 16-16V656c0-8.8-7.2-16-16-16H292v-88h440v88H620c-8.8 0-16 7.2-16 16v288c0 8.8 7.2 16 16 16h288c8.8 0 16-7.2 16-16V656c0-8.8-7.2-16-16-16zm-564 76v168H176V716h168zm84-408V140h168v168H428zm420 576H680V716h168v168z'
+        )
+      )),
+      (t.AntCloudOutline = u(
+        'ant-cloud',
+        i,
+        l(
+          o,
+          'M378.9 738c-3.1 0-6.1-.5-8.8-1.5l4.4 30.7h26.3l-15.5-29.9c-2.1.5-4.2.7-6.4.7zm421-291.2c-12.6 0-24.8 1.5-36.5 4.2-21.4-38.4-62.3-64.3-109.3-64.3-6.9 0-13.6.6-20.2 1.6-35.4-77.4-113.4-131.1-203.9-131.1-112.3 0-205.3 82.6-221.6 190.4C127.3 455.5 64 523.8 64 607c0 88.4 71.6 160.1 160 160.2h50l13.2-27.6c-26.2-8.3-43.3-29-39.1-48.8 4.6-21.6 32.8-33.9 63.1-27.5 22.9 4.9 40.4 19.1 45.5 35.1a26.1 26.1 0 0 1 22.1-12.4h.2c-.8-3.2-1.2-6.5-1.2-9.9 0-20.1 14.8-36.7 34.1-39.6v-25.4c0-4.4 3.6-8 8-8s8 3.6 8 8v26.3c4.6 1.2 8.8 3.2 12.6 5.8l19.5-21.4c3-3.3 8-3.5 11.3-.5 3.3 3 3.5 8 .5 11.3l-20 22-.2.2a40 40 0 0 1-46.9 59.2c-.4 5.6-2.6 10.7-6 14.8l20 38.4H804v-.1c86.5-2.2 156-73 156-160.1 0-88.5-71.7-160.2-160.1-160.2zM338.2 737.2l-4.3 30h24.4l-5.9-41.5c-3.5 4.6-8.3 8.5-14.2 11.5zM797.5 305a48 48 0 1 0 96 0 48 48 0 1 0-96 0zm-65.7 61.3a24 24 0 1 0 48 0 24 24 0 1 0-48 0zM303.4 742.9l-11.6 24.3h26l3.5-24.7c-5.7.8-11.7 1-17.9.4z'
+        )
+      )),
+      (t.AmazonOutline = u(
+        'amazon',
+        i,
+        l(
+          o,
+          'M825 768.9c-3.3-.9-7.3-.4-11.9 1.3-61.6 28.2-121.5 48.3-179.7 60.2C507.7 856 385.2 842.6 266 790.3c-33.1-14.6-79.1-39.2-138-74a9.36 9.36 0 0 0-5.3-2c-2-.1-3.7.1-5.3.9-1.6.8-2.8 1.8-3.7 3.1-.9 1.3-1.1 3.1-.4 5.4.6 2.2 2.1 4.7 4.6 7.4 10.4 12.2 23.3 25.2 38.6 39s35.6 29.4 60.9 46.8c25.3 17.4 51.8 32.9 79.3 46.4 27.6 13.5 59.6 24.9 96.1 34.1s73 13.8 109.4 13.8c36.2 0 71.4-3.7 105.5-10.9 34.2-7.3 63-15.9 86.5-25.9 23.4-9.9 45-21 64.8-33 19.8-12 34.4-22.2 43.9-30.3 9.5-8.2 16.3-14.6 20.2-19.4 4.6-5.7 6.9-10.6 6.9-14.9.1-4.5-1.7-7.1-5-7.9zM527.4 348.1c-15.2 1.3-33.5 4.1-55 8.3-21.5 4.1-41.4 9.3-59.8 15.4s-37.2 14.6-56.3 25.4c-19.2 10.8-35.5 23.2-49 37s-24.5 31.1-33.1 52c-8.6 20.8-12.9 43.7-12.9 68.7 0 27.1 4.7 51.2 14.3 72.5 9.5 21.3 22.2 38 38.2 50.4 15.9 12.4 34 22.1 54 29.2 20 7.1 41.2 10.3 63.2 9.4 22-.9 43.5-4.3 64.4-10.3 20.8-5.9 40.4-15.4 58.6-28.3 18.2-12.9 33.1-28.2 44.8-45.7 4.3 6.6 8.1 11.5 11.5 14.7l8.7 8.9c5.8 5.9 14.7 14.6 26.7 26.1 11.9 11.5 24.1 22.7 36.3 33.7l104.4-99.9-6-4.9c-4.3-3.3-9.4-8-15.2-14.3-5.8-6.2-11.6-13.1-17.2-20.5-5.7-7.4-10.6-16.1-14.7-25.9-4.1-9.8-6.2-19.3-6.2-28.5V258.7c0-10.1-1.9-21-5.7-32.8-3.9-11.7-10.7-24.5-20.7-38.3-10-13.8-22.4-26.2-37.2-37-14.9-10.8-34.7-20-59.6-27.4-24.8-7.4-52.6-11.1-83.2-11.1-31.3 0-60.4 3.7-87.6 10.9-27.1 7.3-50.3 17-69.7 29.2-19.3 12.2-35.9 26.3-49.7 42.4-13.8 16.1-24.1 32.9-30.8 50.4-6.7 17.5-10.1 35.2-10.1 53.1L408 310c5.5-16.4 12.9-30.6 22-42.8 9.2-12.2 17.9-21 25.8-26.5 8-5.5 16.6-9.9 25.7-13.2 9.2-3.3 15.4-5 18.6-5.4 3.2-.3 5.7-.4 7.6-.4 26.7 0 45.2 7.9 55.6 23.6 6.5 9.5 9.7 23.9 9.7 43.3v56.6c-15.2.6-30.4 1.6-45.6 2.9zM573.1 500c0 16.6-2.2 31.7-6.5 45-9.2 29.1-26.7 47.4-52.4 54.8-22.4 6.6-43.7 3.3-63.9-9.8-21.5-14-32.2-33.8-32.2-59.3 0-19.9 5-36.9 15-51.1 10-14.1 23.3-24.7 40-31.7s33-12 49-14.9c15.9-3 33-4.8 51-5.4V500zm335.2 218.9c-4.3-5.4-15.9-8.9-34.9-10.7-19-1.8-35.5-1.7-49.7.4-15.3 1.8-31.1 6.2-47.3 13.4-16.3 7.1-23.4 13.1-21.6 17.8l.7 1.3.9.7 1.4.2h4.6c.8 0 1.8-.1 3.2-.2 1.4-.1 2.7-.3 3.9-.4 1.2-.1 2.9-.3 5.1-.4 2.1-.1 4.1-.4 6-.7.3 0 3.7-.3 10.3-.9 6.6-.6 11.4-1 14.3-1.3 2.9-.3 7.8-.6 14.5-.9 6.7-.3 12.1-.3 16.1 0 4 .3 8.5.7 13.6 1.1 5.1.4 9.2 1.3 12.4 2.7 3.2 1.3 5.6 3 7.1 5.1 5.2 6.6 4.2 21.2-3 43.9s-14 40.8-20.4 54.2c-2.8 5.7-2.8 9.2 0 10.7s6.7.1 11.9-4c15.6-12.2 28.6-30.6 39.1-55.3 6.1-14.6 10.5-29.8 13.1-45.7 2.4-15.9 2-26.2-1.3-31z'
+        )
+      )),
       (t.AreaChartOutline = u(
         'area-chart',
         i,
         l(
           o,
           'M888 792H200V168c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v688c0 4.4 3.6 8 8 8h752c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm-616-64h536c4.4 0 8-3.6 8-8V284c0-7.2-8.7-10.7-13.7-5.7L592 488.6l-125.4-124a8.03 8.03 0 0 0-11.3 0l-189 189.6a7.87 7.87 0 0 0-2.3 5.6V720c0 4.4 3.6 8 8 8z'
-        )
-      )),
-      (t.ArrowDownOutline = u(
-        'arrow-down',
-        i,
-        l(
-          o,
-          'M862 465.3h-81c-4.6 0-9 2-12.1 5.5L550 723.1V160c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v563.1L255.1 470.8c-3-3.5-7.4-5.5-12.1-5.5h-81c-6.8 0-10.5 8.1-6 13.2L487.9 861a31.96 31.96 0 0 0 48.3 0L868 478.5c4.5-5.2.8-13.2-6-13.2z'
         )
       )),
       (t.ArrowRightOutline = u(
@@ -16158,6 +16537,14 @@
           'M872 474H286.9l350.2-304c5.6-4.9 2.2-14-5.2-14h-88.5c-3.9 0-7.6 1.4-10.5 3.9L155 487.8a31.96 31.96 0 0 0 0 48.3L535.1 866c1.5 1.3 3.3 2 5.2 2h91.5c7.4 0 10.8-9.2 5.2-14L286.9 550H872c4.4 0 8-3.6 8-8v-60c0-4.4-3.6-8-8-8z'
         )
       )),
+      (t.ArrowDownOutline = u(
+        'arrow-down',
+        i,
+        l(
+          o,
+          'M862 465.3h-81c-4.6 0-9 2-12.1 5.5L550 723.1V160c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v563.1L255.1 470.8c-3-3.5-7.4-5.5-12.1-5.5h-81c-6.8 0-10.5 8.1-6 13.2L487.9 861a31.96 31.96 0 0 0 48.3 0L868 478.5c4.5-5.2.8-13.2-6-13.2z'
+        )
+      )),
       (t.ArrowUpOutline = u(
         'arrow-up',
         i,
@@ -16174,20 +16561,20 @@
           'M855 160.1l-189.2 23.5c-6.6.8-9.3 8.8-4.7 13.5l54.7 54.7-153.5 153.5a8.03 8.03 0 0 0 0 11.3l45.1 45.1c3.1 3.1 8.2 3.1 11.3 0l153.6-153.6 54.7 54.7a7.94 7.94 0 0 0 13.5-4.7L863.9 169a7.9 7.9 0 0 0-8.9-8.9zM416.6 562.3a8.03 8.03 0 0 0-11.3 0L251.8 715.9l-54.7-54.7a7.94 7.94 0 0 0-13.5 4.7L160.1 855c-.6 5.2 3.7 9.5 8.9 8.9l189.2-23.5c6.6-.8 9.3-8.8 4.7-13.5l-54.7-54.7 153.6-153.6c3.1-3.1 3.1-8.2 0-11.3l-45.2-45z'
         )
       )),
-      (t.AuditOutline = u(
-        'audit',
-        i,
-        l(
-          o,
-          'M296 250c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h384c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H296zm184 144H296c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8zm-48 458H208V148h560v320c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V108c0-17.7-14.3-32-32-32H168c-17.7 0-32 14.3-32 32v784c0 17.7 14.3 32 32 32h264c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm440-88H728v-36.6c46.3-13.8 80-56.6 80-107.4 0-61.9-50.1-112-112-112s-112 50.1-112 112c0 50.7 33.7 93.6 80 107.4V764H520c-8.8 0-16 7.2-16 16v152c0 8.8 7.2 16 16 16h352c8.8 0 16-7.2 16-16V780c0-8.8-7.2-16-16-16zM646 620c0-27.6 22.4-50 50-50s50 22.4 50 50-22.4 50-50 50-50-22.4-50-50zm180 266H566v-60h260v60z'
-        )
-      )),
       (t.BarChartOutline = u(
         'bar-chart',
         i,
         l(
           o,
           'M888 792H200V168c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v688c0 4.4 3.6 8 8 8h752c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm-600-80h56c4.4 0 8-3.6 8-8V560c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v144c0 4.4 3.6 8 8 8zm152 0h56c4.4 0 8-3.6 8-8V384c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v320c0 4.4 3.6 8 8 8zm152 0h56c4.4 0 8-3.6 8-8V462c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v242c0 4.4 3.6 8 8 8zm152 0h56c4.4 0 8-3.6 8-8V304c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v400c0 4.4 3.6 8 8 8z'
+        )
+      )),
+      (t.AuditOutline = u(
+        'audit',
+        i,
+        l(
+          o,
+          'M296 250c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h384c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H296zm184 144H296c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8zm-48 458H208V148h560v320c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V108c0-17.7-14.3-32-32-32H168c-17.7 0-32 14.3-32 32v784c0 17.7 14.3 32 32 32h264c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm440-88H728v-36.6c46.3-13.8 80-56.6 80-107.4 0-61.9-50.1-112-112-112s-112 50.1-112 112c0 50.7 33.7 93.6 80 107.4V764H520c-8.8 0-16 7.2-16 16v152c0 8.8 7.2 16 16 16h352c8.8 0 16-7.2 16-16V780c0-8.8-7.2-16-16-16zM646 620c0-27.6 22.4-50 50-50s50 22.4 50 50-22.4 50-50 50-50-22.4-50-50zm180 266H566v-60h260v60z'
         )
       )),
       (t.BarcodeOutline = u(
@@ -16198,20 +16585,20 @@
           'M120 160H72c-4.4 0-8 3.6-8 8v688c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V168c0-4.4-3.6-8-8-8zm833 0h-48c-4.4 0-8 3.6-8 8v688c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V168c0-4.4-3.6-8-8-8zM200 736h112c4.4 0 8-3.6 8-8V168c0-4.4-3.6-8-8-8H200c-4.4 0-8 3.6-8 8v560c0 4.4 3.6 8 8 8zm321 0h48c4.4 0 8-3.6 8-8V168c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v560c0 4.4 3.6 8 8 8zm126 0h178c4.4 0 8-3.6 8-8V168c0-4.4-3.6-8-8-8H647c-4.4 0-8 3.6-8 8v560c0 4.4 3.6 8 8 8zm-255 0h48c4.4 0 8-3.6 8-8V168c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v560c0 4.4 3.6 8 8 8zm-79 64H201c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h112c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8zm257 0h-48c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8zm256 0H648c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h178c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8zm-385 0h-48c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8z'
         )
       )),
-      (t.BarsOutline = u(
-        'bars',
-        i,
-        l(
-          r,
-          'M912 192H328c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h584c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 284H328c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h584c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 284H328c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h584c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM104 228a56 56 0 1 0 112 0 56 56 0 1 0-112 0zm0 284a56 56 0 1 0 112 0 56 56 0 1 0-112 0zm0 284a56 56 0 1 0 112 0 56 56 0 1 0-112 0z'
-        )
-      )),
       (t.BehanceOutline = u(
         'behance',
         i,
         l(
           o,
           'M634 294.3h199.5v48.4H634zM434.1 485.8c44.1-21.1 67.2-53.2 67.2-102.8 0-98.1-73-121.9-157.3-121.9H112v492.4h238.5c89.4 0 173.3-43 173.3-143 0-61.8-29.2-107.5-89.7-124.7zM220.2 345.1h101.5c39.1 0 74.2 10.9 74.2 56.3 0 41.8-27.3 58.6-66 58.6H220.2V345.1zm115.5 324.8H220.1V534.3H338c47.6 0 77.7 19.9 77.7 70.3 0 49.6-35.9 65.3-80 65.3zm575.8-89.5c0-105.5-61.7-193.4-173.3-193.4-108.5 0-182.3 81.7-182.3 188.8 0 111 69.9 187.2 182.3 187.2 85.1 0 140.2-38.3 166.7-120h-86.3c-9.4 30.5-47.6 46.5-77.3 46.5-57.4 0-87.4-33.6-87.4-90.7h256.9c.3-5.9.7-12.1.7-18.4zM653.9 537c3.1-46.9 34.4-76.2 81.2-76.2 49.2 0 73.8 28.9 78.1 76.2H653.9z'
+        )
+      )),
+      (t.BarsOutline = u(
+        'bars',
+        i,
+        l(
+          r,
+          'M912 192H328c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h584c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 284H328c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h584c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 284H328c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h584c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM104 228a56 56 0 1 0 112 0 56 56 0 1 0-112 0zm0 284a56 56 0 1 0 112 0 56 56 0 1 0-112 0zm0 284a56 56 0 1 0 112 0 56 56 0 1 0-112 0z'
         )
       )),
       (t.BgColorsOutline = u(
@@ -16222,14 +16609,6 @@
           'M766.4 744.3c43.7 0 79.4-36.2 79.4-80.5 0-53.5-79.4-140.8-79.4-140.8S687 610.3 687 663.8c0 44.3 35.7 80.5 79.4 80.5zm-377.1-44.1c7.1 7.1 18.6 7.1 25.6 0l256.1-256c7.1-7.1 7.1-18.6 0-25.6l-256-256c-.6-.6-1.3-1.2-2-1.7l-78.2-78.2a9.11 9.11 0 0 0-12.8 0l-48 48a9.11 9.11 0 0 0 0 12.8l67.2 67.2-207.8 207.9c-7.1 7.1-7.1 18.6 0 25.6l255.9 256zm12.9-448.6l178.9 178.9H223.4l178.8-178.9zM904 816H120c-4.4 0-8 3.6-8 8v80c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-80c0-4.4-3.6-8-8-8z'
         )
       )),
-      (t.BoldOutline = u(
-        'bold',
-        i,
-        l(
-          o,
-          'M697.8 481.4c33.6-35 54.2-82.3 54.2-134.3v-10.2C752 229.3 663.9 142 555.3 142H259.4c-15.1 0-27.4 12.3-27.4 27.4v679.1c0 16.3 13.2 29.5 29.5 29.5h318.7c117 0 211.8-94.2 211.8-210.5v-11c0-73-37.4-137.3-94.2-175.1zM328 238h224.7c57.1 0 103.3 44.4 103.3 99.3v9.5c0 54.8-46.3 99.3-103.3 99.3H328V238zm366.6 429.4c0 62.9-51.7 113.9-115.5 113.9H328V542.7h251.1c63.8 0 115.5 51 115.5 113.9v10.8z'
-        )
-      )),
       (t.BlockOutline = u(
         'block',
         i,
@@ -16238,28 +16617,12 @@
           'M856 376H648V168c0-8.8-7.2-16-16-16H168c-8.8 0-16 7.2-16 16v464c0 8.8 7.2 16 16 16h208v208c0 8.8 7.2 16 16 16h464c8.8 0 16-7.2 16-16V392c0-8.8-7.2-16-16-16zm-480 16v188H220V220h360v156H392c-8.8 0-16 7.2-16 16zm204 52v136H444V444h136zm224 360H444V648h188c8.8 0 16-7.2 16-16V444h156v360z'
         )
       )),
-      (t.BorderBottomOutline = u(
-        'border-bottom',
+      (t.BoldOutline = u(
+        'bold',
         i,
         l(
           o,
-          'M872 808H152c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h720c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm-720-94h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm0-498h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm0 332h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm0-166h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm166 166h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm0-332h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm332 0h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm0 332h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm222-72h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm-388 72h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm388-404h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm-388 72h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm388 426h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm-388 72h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm388-404h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm-388 72h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8z'
-        )
-      )),
-      (t.BorderHorizontalOutline = u(
-        'border-horizontal',
-        i,
-        l(
-          o,
-          'M540 144h-56c-4.4 0-8 3.6-8 8v720c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V152c0-4.4-3.6-8-8-8zm-166 0h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm498 0h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm-664 0h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm498 0h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM208 310h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm664 0h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 332h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm-664 0h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 166h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0-332h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm664 332h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0-332h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM374 808h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0-332h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm332 332h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0-332h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8z'
-        )
-      )),
-      (t.BorderLeftOutline = u(
-        'border-left',
-        i,
-        l(
-          o,
-          'M208 144h-56c-4.4 0-8 3.6-8 8v720c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V152c0-4.4-3.6-8-8-8zm166 0h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm498 0h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm-332 0h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm166 0h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM540 310h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm332 0h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 332h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm-332 0h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 166h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0-332h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm332 332h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0-332h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM374 808h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0-332h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm332 332h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0-332h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8z'
+          'M697.8 481.4c33.6-35 54.2-82.3 54.2-134.3v-10.2C752 229.3 663.9 142 555.3 142H259.4c-15.1 0-27.4 12.3-27.4 27.4v679.1c0 16.3 13.2 29.5 29.5 29.5h318.7c117 0 211.8-94.2 211.8-210.5v-11c0-73-37.4-137.3-94.2-175.1zM328 238h224.7c57.1 0 103.3 44.4 103.3 99.3v9.5c0 54.8-46.3 99.3-103.3 99.3H328V238zm366.6 429.4c0 62.9-51.7 113.9-115.5 113.9H328V542.7h251.1c63.8 0 115.5 51 115.5 113.9v10.8z'
         )
       )),
       (t.BorderInnerOutline = u(
@@ -16270,6 +16633,22 @@
           'M872 476H548V144h-72v332H152c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h324v332h72V548h324c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0-166h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 498h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0-664h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 498h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM650 216h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm56 592h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm-332 0h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm-56-592h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-166 0h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm56 592h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm-56-426h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm56 260h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8z'
         )
       )),
+      (t.BorderBottomOutline = u(
+        'border-bottom',
+        i,
+        l(
+          o,
+          'M872 808H152c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h720c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm-720-94h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm0-498h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm0 332h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm0-166h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm166 166h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm0-332h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm332 0h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm0 332h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm222-72h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm-388 72h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm388-404h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm-388 72h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm388 426h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm-388 72h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm388-404h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm-388 72h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8z'
+        )
+      )),
+      (t.BorderLeftOutline = u(
+        'border-left',
+        i,
+        l(
+          o,
+          'M208 144h-56c-4.4 0-8 3.6-8 8v720c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V152c0-4.4-3.6-8-8-8zm166 0h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm498 0h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm-332 0h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm166 0h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM540 310h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm332 0h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 332h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm-332 0h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 166h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0-332h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm332 332h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0-332h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM374 808h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0-332h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm332 332h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0-332h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8z'
+        )
+      )),
       (t.BorderOuterOutline = u(
         'border-outer',
         i,
@@ -16278,12 +16657,12 @@
           'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-40 728H184V184h656v656zM484 366h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zM302 548h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm364 0h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-182 0h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm0 182h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8z'
         )
       )),
-      (t.BorderRightOutline = u(
-        'border-right',
+      (t.BorderHorizontalOutline = u(
+        'border-horizontal',
         i,
         l(
           o,
-          'M872 144h-56c-4.4 0-8 3.6-8 8v720c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V152c0-4.4-3.6-8-8-8zm-166 0h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm-498 0h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm332 0h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm-166 0h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm166 166h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm-332 0h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 332h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm332 0h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 166h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0-332h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM208 808h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0-332h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm498 332h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0-332h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM374 808h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0-332h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8z'
+          'M540 144h-56c-4.4 0-8 3.6-8 8v720c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V152c0-4.4-3.6-8-8-8zm-166 0h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm498 0h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm-664 0h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm498 0h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM208 310h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm664 0h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 332h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm-664 0h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 166h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0-332h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm664 332h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0-332h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM374 808h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0-332h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm332 332h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0-332h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8z'
         )
       )),
       (t.BorderTopOutline = u(
@@ -16300,6 +16679,14 @@
         l(
           o,
           'M872 476H152c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h720c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0-166h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 498h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0-664h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 498h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM650 216h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm56 592h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm-332 0h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm-56-592h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-166 0h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm332 0h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zM208 808h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm332 0h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM152 382h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm332 0h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zM208 642h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm332 0h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8z'
+        )
+      )),
+      (t.BorderRightOutline = u(
+        'border-right',
+        i,
+        l(
+          o,
+          'M872 144h-56c-4.4 0-8 3.6-8 8v720c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V152c0-4.4-3.6-8-8-8zm-166 0h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm-498 0h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm332 0h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm-166 0h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm166 166h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm-332 0h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 332h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm332 0h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 166h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0-332h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM208 808h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0-332h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm498 332h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0-332h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM374 808h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0-332h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8z'
         )
       )),
       (t.BorderOutline = u(
@@ -16326,12 +16713,22 @@
           'M912 190h-69.9c-9.8 0-19.1 4.5-25.1 12.2L404.7 724.5 207 474a32 32 0 0 0-25.1-12.2H112c-6.7 0-10.4 7.7-6.3 12.9l273.9 347c12.8 16.2 37.4 16.2 50.3 0l488.4-618.9c4.1-5.1.4-12.8-6.3-12.8z'
         )
       )),
-      (t.CiOutline = u(
-        'ci',
+      (t.CloudServerOutline = u(
+        'cloud-server',
         i,
         l(
           o,
-          'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372zm218-572.1h-50.4c-4.4 0-8 3.6-8 8v384.2c0 4.4 3.6 8 8 8H730c4.4 0 8-3.6 8-8V319.9c0-4.4-3.6-8-8-8zm-281.4 49.6c49.5 0 83.1 31.5 87 77.6.4 4.2 3.8 7.4 8 7.4h52.6c2.4 0 4.4-2 4.4-4.4 0-81.2-64-138.1-152.3-138.1C345.4 304 286 373.5 286 488.4v49c0 114 59.4 182.6 162.3 182.6 88 0 152.3-55.1 152.3-132.5 0-2.4-2-4.4-4.4-4.4h-52.7c-4.2 0-7.6 3.2-8 7.3-4.2 43-37.7 72.4-87 72.4-61.1 0-95.6-44.9-95.6-125.2v-49.3c.1-81.4 34.6-126.8 95.7-126.8z'
+          'M704 446H320c-4.4 0-8 3.6-8 8v402c0 4.4 3.6 8 8 8h384c4.4 0 8-3.6 8-8V454c0-4.4-3.6-8-8-8zm-328 64h272v117H376V510zm272 290H376V683h272v117z',
+          'M424 748a32 32 0 1 0 64 0 32 32 0 1 0-64 0zm0-178a32 32 0 1 0 64 0 32 32 0 1 0-64 0z',
+          'M811.4 368.9C765.6 248 648.9 162 512.2 162S258.8 247.9 213 368.8C126.9 391.5 63.5 470.2 64 563.6 64.6 668 145.6 752.9 247.6 762c4.7.4 8.7-3.3 8.7-8v-60.4c0-4-3-7.4-7-7.9-27-3.4-52.5-15.2-72.1-34.5-24-23.5-37.2-55.1-37.2-88.6 0-28 9.1-54.4 26.2-76.4 16.7-21.4 40.2-36.9 66.1-43.7l37.9-10 13.9-36.7c8.6-22.8 20.6-44.2 35.7-63.5 14.9-19.2 32.6-36 52.4-50 41.1-28.9 89.5-44.2 140-44.2s98.9 15.3 140 44.3c19.9 14 37.5 30.8 52.4 50 15.1 19.3 27.1 40.7 35.7 63.5l13.8 36.6 37.8 10c54.2 14.4 92.1 63.7 92.1 120 0 33.6-13.2 65.1-37.2 88.6-19.5 19.2-44.9 31.1-71.9 34.5-4 .5-6.9 3.9-6.9 7.9V754c0 4.7 4.1 8.4 8.8 8 101.7-9.2 182.5-94 183.2-198.2.6-93.4-62.7-172.1-148.6-194.9z'
+        )
+      )),
+      (t.CloseOutline = u(
+        'close',
+        i,
+        l(
+          o,
+          'M563.8 512l262.5-312.9c4.4-5.2.7-13.1-6.1-13.1h-79.8c-4.7 0-9.2 2.1-12.3 5.7L511.6 449.8 295.1 191.7c-3-3.6-7.5-5.7-12.3-5.7H203c-6.8 0-10.5 7.9-6.1 13.1L459.4 512 196.9 824.9A7.95 7.95 0 0 0 203 838h79.8c4.7 0 9.2-2.1 12.3-5.7l216.5-258.1 216.5 258.1c3 3.6 7.5 5.7 12.3 5.7h79.8c6.8 0 10.5-7.9 6.1-13.1L563.8 512z'
         )
       )),
       (t.CloudDownloadOutline = u(
@@ -16343,22 +16740,12 @@
           'M811.4 366.7C765.6 245.9 648.9 160 512.2 160S258.8 245.8 213 366.6C127.3 389.1 64 467.2 64 560c0 110.5 89.5 200 199.9 200H304c4.4 0 8-3.6 8-8v-60c0-4.4-3.6-8-8-8h-40.1c-33.7 0-65.4-13.4-89-37.7-23.5-24.2-36-56.8-34.9-90.6.9-26.4 9.9-51.2 26.2-72.1 16.7-21.3 40.1-36.8 66.1-43.7l37.9-9.9 13.9-36.6c8.6-22.8 20.6-44.1 35.7-63.4a245.6 245.6 0 0 1 52.4-49.9c41.1-28.9 89.5-44.2 140-44.2s98.9 15.3 140 44.2c19.9 14 37.5 30.8 52.4 49.9 15.1 19.3 27.1 40.7 35.7 63.4l13.8 36.5 37.8 10C846.1 454.5 884 503.8 884 560c0 33.1-12.9 64.3-36.3 87.7a123.07 123.07 0 0 1-87.6 36.3H720c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h40.1C870.5 760 960 670.5 960 560c0-92.7-63.1-170.7-148.6-193.3z'
         )
       )),
-      (t.CloseOutline = u(
-        'close',
+      (t.CiOutline = u(
+        'ci',
         i,
         l(
           o,
-          'M563.8 512l262.5-312.9c4.4-5.2.7-13.1-6.1-13.1h-79.8c-4.7 0-9.2 2.1-12.3 5.7L511.6 449.8 295.1 191.7c-3-3.6-7.5-5.7-12.3-5.7H203c-6.8 0-10.5 7.9-6.1 13.1L459.4 512 196.9 824.9A7.95 7.95 0 0 0 203 838h79.8c4.7 0 9.2-2.1 12.3-5.7l216.5-258.1 216.5 258.1c3 3.6 7.5 5.7 12.3 5.7h79.8c6.8 0 10.5-7.9 6.1-13.1L563.8 512z'
-        )
-      )),
-      (t.CloudServerOutline = u(
-        'cloud-server',
-        i,
-        l(
-          o,
-          'M704 446H320c-4.4 0-8 3.6-8 8v402c0 4.4 3.6 8 8 8h384c4.4 0 8-3.6 8-8V454c0-4.4-3.6-8-8-8zm-328 64h272v117H376V510zm272 290H376V683h272v117z',
-          'M424 748a32 32 0 1 0 64 0 32 32 0 1 0-64 0zM424 570a32 32 0 1 0 64 0 32 32 0 1 0-64 0z',
-          'M811.4 368.9C765.6 248 648.9 162 512.2 162S258.8 247.9 213 368.8C126.9 391.5 63.5 470.2 64 563.6 64.6 668 145.6 752.9 247.6 762c4.7.4 8.7-3.3 8.7-8v-60.4c0-4-3-7.4-7-7.9-27-3.4-52.5-15.2-72.1-34.5-24-23.5-37.2-55.1-37.2-88.6 0-28 9.1-54.4 26.2-76.4 16.7-21.4 40.2-36.9 66.1-43.7l37.9-10 13.9-36.7c8.6-22.8 20.6-44.2 35.7-63.5 14.9-19.2 32.6-36 52.4-50 41.1-28.9 89.5-44.2 140-44.2s98.9 15.3 140 44.3c19.9 14 37.5 30.8 52.4 50 15.1 19.3 27.1 40.7 35.7 63.5l13.8 36.6 37.8 10c54.2 14.4 92.1 63.7 92.1 120 0 33.6-13.2 65.1-37.2 88.6-19.5 19.2-44.9 31.1-71.9 34.5-4 .5-6.9 3.9-6.9 7.9V754c0 4.7 4.1 8.4 8.8 8 101.7-9.2 182.5-94 183.2-198.2.6-93.4-62.7-172.1-148.6-194.9z'
+          'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372zm218-572.1h-50.4c-4.4 0-8 3.6-8 8v384.2c0 4.4 3.6 8 8 8H730c4.4 0 8-3.6 8-8V319.9c0-4.4-3.6-8-8-8zm-281.4 49.6c49.5 0 83.1 31.5 87 77.6.4 4.2 3.8 7.4 8 7.4h52.6c2.4 0 4.4-2 4.4-4.4 0-81.2-64-138.1-152.3-138.1C345.4 304 286 373.5 286 488.4v49c0 114 59.4 182.6 162.3 182.6 88 0 152.3-55.1 152.3-132.5 0-2.4-2-4.4-4.4-4.4h-52.7c-4.2 0-7.6 3.2-8 7.3-4.2 43-37.7 72.4-87 72.4-61.1 0-95.6-44.9-95.6-125.2v-49.3c.1-81.4 34.6-126.8 95.7-126.8z'
         )
       )),
       (t.CloudSyncOutline = u(
@@ -16370,15 +16757,6 @@
           'M376.9 656.4c1.8-33.5 15.7-64.7 39.5-88.6 25.4-25.5 60-39.8 96-39.8 36.2 0 70.3 14.1 96 39.8 1.4 1.4 2.7 2.8 4.1 4.3l-25 19.6a8 8 0 0 0 3 14.1l98.2 24c5 1.2 9.9-2.6 9.9-7.7l.5-101.3c0-6.7-7.6-10.5-12.9-6.3L663 532.7c-36.6-42-90.4-68.6-150.5-68.6-107.4 0-195 85.1-199.4 191.7-.2 4.5 3.4 8.3 8 8.3H369c4.2-.1 7.7-3.4 7.9-7.7zM703 664h-47.9c-4.2 0-7.7 3.3-8 7.6-1.8 33.5-15.7 64.7-39.5 88.6-25.4 25.5-60 39.8-96 39.8-36.2 0-70.3-14.1-96-39.8-1.4-1.4-2.7-2.8-4.1-4.3l25-19.6a8 8 0 0 0-3-14.1l-98.2-24c-5-1.2-9.9 2.6-9.9 7.7l-.4 101.4c0 6.7 7.6 10.5 12.9 6.3l23.2-18.2c36.6 42 90.4 68.6 150.5 68.6 107.4 0 195-85.1 199.4-191.7.2-4.5-3.4-8.3-8-8.3z'
         )
       )),
-      (t.CloudUploadOutline = u(
-        'cloud-upload',
-        i,
-        l(
-          o,
-          'M518.3 459a8 8 0 0 0-12.6 0l-112 141.7a7.98 7.98 0 0 0 6.3 12.9h73.9V856c0 4.4 3.6 8 8 8h60c4.4 0 8-3.6 8-8V613.7H624c6.7 0 10.4-7.7 6.3-12.9L518.3 459z',
-          'M811.4 366.7C765.6 245.9 648.9 160 512.2 160S258.8 245.8 213 366.6C127.3 389.1 64 467.2 64 560c0 110.5 89.5 200 199.9 200H304c4.4 0 8-3.6 8-8v-60c0-4.4-3.6-8-8-8h-40.1c-33.7 0-65.4-13.4-89-37.7-23.5-24.2-36-56.8-34.9-90.6.9-26.4 9.9-51.2 26.2-72.1 16.7-21.3 40.1-36.8 66.1-43.7l37.9-9.9 13.9-36.6c8.6-22.8 20.6-44.1 35.7-63.4a245.6 245.6 0 0 1 52.4-49.9c41.1-28.9 89.5-44.2 140-44.2s98.9 15.3 140 44.2c19.9 14 37.5 30.8 52.4 49.9 15.1 19.3 27.1 40.7 35.7 63.4l13.8 36.5 37.8 10C846.1 454.5 884 503.8 884 560c0 33.1-12.9 64.3-36.3 87.7a123.07 123.07 0 0 1-87.6 36.3H720c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h40.1C870.5 760 960 670.5 960 560c0-92.7-63.1-170.7-148.6-193.3z'
-        )
-      )),
       (t.ClusterOutline = u(
         'cluster',
         i,
@@ -16387,12 +16765,13 @@
           'M888 680h-54V540H546v-92h238c8.8 0 16-7.2 16-16V168c0-8.8-7.2-16-16-16H240c-8.8 0-16 7.2-16 16v264c0 8.8 7.2 16 16 16h238v92H190v140h-54c-4.4 0-8 3.6-8 8v176c0 4.4 3.6 8 8 8h176c4.4 0 8-3.6 8-8V688c0-4.4-3.6-8-8-8h-54v-72h220v72h-54c-4.4 0-8 3.6-8 8v176c0 4.4 3.6 8 8 8h176c4.4 0 8-3.6 8-8V688c0-4.4-3.6-8-8-8h-54v-72h220v72h-54c-4.4 0-8 3.6-8 8v176c0 4.4 3.6 8 8 8h176c4.4 0 8-3.6 8-8V688c0-4.4-3.6-8-8-8zM256 805.3c0 1.5-1.2 2.7-2.7 2.7h-58.7c-1.5 0-2.7-1.2-2.7-2.7v-58.7c0-1.5 1.2-2.7 2.7-2.7h58.7c1.5 0 2.7 1.2 2.7 2.7v58.7zm288 0c0 1.5-1.2 2.7-2.7 2.7h-58.7c-1.5 0-2.7-1.2-2.7-2.7v-58.7c0-1.5 1.2-2.7 2.7-2.7h58.7c1.5 0 2.7 1.2 2.7 2.7v58.7zM288 384V216h448v168H288zm544 421.3c0 1.5-1.2 2.7-2.7 2.7h-58.7c-1.5 0-2.7-1.2-2.7-2.7v-58.7c0-1.5 1.2-2.7 2.7-2.7h58.7c1.5 0 2.7 1.2 2.7 2.7v58.7zM360 300a40 40 0 1 0 80 0 40 40 0 1 0-80 0z'
         )
       )),
-      (t.CodeSandboxOutline = u(
-        'code-sandbox',
+      (t.CloudUploadOutline = u(
+        'cloud-upload',
         i,
         l(
           o,
-          'M709.6 210l.4-.2h.2L512 96 313.9 209.8h-.2l.7.3L151.5 304v416L512 928l360.5-208V304l-162.9-94zM482.7 843.6L339.6 761V621.4L210 547.8V372.9l272.7 157.3v313.4zM238.2 321.5l134.7-77.8 138.9 79.7 139.1-79.9 135.2 78-273.9 158-274-158zM814 548.3l-128.8 73.1v139.1l-143.9 83V530.4L814 373.1v175.2z'
+          'M518.3 459a8 8 0 0 0-12.6 0l-112 141.7a7.98 7.98 0 0 0 6.3 12.9h73.9V856c0 4.4 3.6 8 8 8h60c4.4 0 8-3.6 8-8V613.7H624c6.7 0 10.4-7.7 6.3-12.9L518.3 459z',
+          'M811.4 366.7C765.6 245.9 648.9 160 512.2 160S258.8 245.8 213 366.6C127.3 389.1 64 467.2 64 560c0 110.5 89.5 200 199.9 200H304c4.4 0 8-3.6 8-8v-60c0-4.4-3.6-8-8-8h-40.1c-33.7 0-65.4-13.4-89-37.7-23.5-24.2-36-56.8-34.9-90.6.9-26.4 9.9-51.2 26.2-72.1 16.7-21.3 40.1-36.8 66.1-43.7l37.9-9.9 13.9-36.6c8.6-22.8 20.6-44.1 35.7-63.4a245.6 245.6 0 0 1 52.4-49.9c41.1-28.9 89.5-44.2 140-44.2s98.9 15.3 140 44.2c19.9 14 37.5 30.8 52.4 49.9 15.1 19.3 27.1 40.7 35.7 63.4l13.8 36.5 37.8 10C846.1 454.5 884 503.8 884 560c0 33.1-12.9 64.3-36.3 87.7a123.07 123.07 0 0 1-87.6 36.3H720c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h40.1C870.5 760 960 670.5 960 560c0-92.7-63.1-170.7-148.6-193.3z'
         )
       )),
       (t.CodepenOutline = u(
@@ -16403,20 +16782,20 @@
           'M911.7 385.3l-.3-1.5c-.2-1-.3-1.9-.6-2.9-.2-.6-.4-1.1-.5-1.7-.3-.8-.5-1.7-.9-2.5-.2-.6-.5-1.1-.8-1.7-.4-.8-.8-1.5-1.2-2.3-.3-.5-.6-1.1-1-1.6-.8-1.2-1.7-2.4-2.6-3.6-.5-.6-1.1-1.3-1.7-1.9-.4-.5-.9-.9-1.4-1.3-.6-.6-1.3-1.1-1.9-1.6-.5-.4-1-.8-1.6-1.2-.2-.1-.4-.3-.6-.4L531.1 117.8a34.3 34.3 0 0 0-38.1 0L127.3 361.3c-.2.1-.4.3-.6.4-.5.4-1 .8-1.6 1.2-.7.5-1.3 1.1-1.9 1.6-.5.4-.9.9-1.4 1.3-.6.6-1.2 1.2-1.7 1.9-1 1.1-1.8 2.3-2.6 3.6-.3.5-.7 1-1 1.6-.4.7-.8 1.5-1.2 2.3-.3.5-.5 1.1-.8 1.7-.3.8-.6 1.7-.9 2.5-.2.6-.4 1.1-.5 1.7-.2.9-.4 1.9-.6 2.9l-.3 1.5c-.2 1.5-.3 3-.3 4.5v243.5c0 1.5.1 3 .3 4.5l.3 1.5.6 2.9c.2.6.3 1.1.5 1.7.3.9.6 1.7.9 2.5.2.6.5 1.1.8 1.7.4.8.7 1.5 1.2 2.3.3.5.6 1.1 1 1.6.5.7.9 1.4 1.5 2.1l1.2 1.5c.5.6 1.1 1.3 1.7 1.9.4.5.9.9 1.4 1.3.6.6 1.3 1.1 1.9 1.6.5.4 1 .8 1.6 1.2.2.1.4.3.6.4L493 905.7c5.6 3.8 12.3 5.8 19.1 5.8 6.6 0 13.3-1.9 19.1-5.8l365.6-243.5c.2-.1.4-.3.6-.4.5-.4 1-.8 1.6-1.2.7-.5 1.3-1.1 1.9-1.6.5-.4.9-.9 1.4-1.3.6-.6 1.2-1.2 1.7-1.9l1.2-1.5 1.5-2.1c.3-.5.7-1 1-1.6.4-.8.8-1.5 1.2-2.3.3-.5.5-1.1.8-1.7.3-.8.6-1.7.9-2.5.2-.5.4-1.1.5-1.7.3-.9.4-1.9.6-2.9l.3-1.5c.2-1.5.3-3 .3-4.5V389.8c-.3-1.5-.4-3-.6-4.5zM546.4 210.5l269.4 179.4-120.3 80.4-149-99.6V210.5zm-68.8 0v160.2l-149 99.6-120.3-80.4 269.3-179.4zM180.7 454.1l86 57.5-86 57.5v-115zm296.9 358.5L208.3 633.2l120.3-80.4 149 99.6v160.2zM512 592.8l-121.6-81.2L512 430.3l121.6 81.2L512 592.8zm34.4 219.8V652.4l149-99.6 120.3 80.4-269.3 179.4zM843.3 569l-86-57.5 86-57.5v115z'
         )
       )),
+      (t.CodeSandboxOutline = u(
+        'code-sandbox',
+        i,
+        l(
+          o,
+          'M709.6 210l.4-.2h.2L512 96 313.9 209.8h-.2l.7.3L151.5 304v416L512 928l360.5-208V304l-162.9-94zM482.7 843.6L339.6 761V621.4L210 547.8V372.9l272.7 157.3v313.4zM238.2 321.5l134.7-77.8 138.9 79.7 139.1-79.9 135.2 78-273.9 158-274-158zM814 548.3l-128.8 73.1v139.1l-143.9 83V530.4L814 373.1v175.2z'
+        )
+      )),
       (t.CoffeeOutline = u(
         'coffee',
         i,
         l(
           r,
           'M275 281c19.9 0 36-16.1 36-36V36c0-19.9-16.1-36-36-36s-36 16.1-36 36v209c0 19.9 16.1 36 36 36zm613 144H768c0-39.8-32.2-72-72-72H200c-39.8 0-72 32.2-72 72v248c0 3.4.2 6.7.7 9.9-.5 7-.7 14-.7 21.1 0 176.7 143.3 320 320 320 160.1 0 292.7-117.5 316.3-271H888c39.8 0 72-32.2 72-72V497c0-39.8-32.2-72-72-72zM696 681h-1.1c.7 7.6 1.1 15.2 1.1 23 0 137-111 248-248 248S200 841 200 704c0-7.8.4-15.4 1.1-23H200V425h496v256zm192-8H776V497h112v176zM613 281c19.9 0 36-16.1 36-36V36c0-19.9-16.1-36-36-36s-36 16.1-36 36v209c0 19.9 16.1 36 36 36zm-170 0c19.9 0 36-16.1 36-36V36c0-19.9-16.1-36-36-36s-36 16.1-36 36v209c0 19.9 16.1 36 36 36z'
-        )
-      )),
-      (t.ColumHeightOutline = u(
-        'colum-height',
-        i,
-        l(
-          o,
-          'M840 836H184c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h656c4.4 0 8-3.6 8-8v-60c0-4.4-3.6-8-8-8zm0-724H184c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h656c4.4 0 8-3.6 8-8v-60c0-4.4-3.6-8-8-8zM610.8 378c6 0 9.4-7 5.7-11.7L515.7 238.7a7.14 7.14 0 0 0-11.3 0L403.6 366.3a7.23 7.23 0 0 0 5.7 11.7H476v268h-62.8c-6 0-9.4 7-5.7 11.7l100.8 127.5c2.9 3.7 8.5 3.7 11.3 0l100.8-127.5c3.7-4.7.4-11.7-5.7-11.7H548V378h62.8z'
         )
       )),
       (t.ColumnWidthOutline = u(
@@ -16427,12 +16806,12 @@
           'M180 176h-60c-4.4 0-8 3.6-8 8v656c0 4.4 3.6 8 8 8h60c4.4 0 8-3.6 8-8V184c0-4.4-3.6-8-8-8zm724 0h-60c-4.4 0-8 3.6-8 8v656c0 4.4 3.6 8 8 8h60c4.4 0 8-3.6 8-8V184c0-4.4-3.6-8-8-8zM785.3 504.3L657.7 403.6a7.23 7.23 0 0 0-11.7 5.7V476H378v-62.8c0-6-7-9.4-11.7-5.7L238.7 508.3a7.14 7.14 0 0 0 0 11.3l127.5 100.8c4.7 3.7 11.7.4 11.7-5.7V548h268v62.8c0 6 7 9.4 11.7 5.7l127.5-100.8c3.8-2.9 3.8-8.5.2-11.4z'
         )
       )),
-      (t.CopyrightOutline = u(
-        'copyright',
+      (t.ColumHeightOutline = u(
+        'colum-height',
         i,
         l(
           o,
-          'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372zm5.6-532.7c53 0 89 33.8 93 83.4.3 4.2 3.8 7.4 8 7.4h56.7c2.6 0 4.7-2.1 4.7-4.7 0-86.7-68.4-147.4-162.7-147.4C407.4 290 344 364.2 344 486.8v52.3C344 660.8 407.4 734 517.3 734c94 0 162.7-58.8 162.7-141.4 0-2.6-2.1-4.7-4.7-4.7h-56.8c-4.2 0-7.6 3.2-8 7.3-4.2 46.1-40.1 77.8-93 77.8-65.3 0-102.1-47.9-102.1-133.6v-52.6c.1-87 37-135.5 102.2-135.5z'
+          'M840 836H184c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h656c4.4 0 8-3.6 8-8v-60c0-4.4-3.6-8-8-8zm0-724H184c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h656c4.4 0 8-3.6 8-8v-60c0-4.4-3.6-8-8-8zM610.8 378c6 0 9.4-7 5.7-11.7L515.7 238.7a7.14 7.14 0 0 0-11.3 0L403.6 366.3a7.23 7.23 0 0 0 5.7 11.7H476v268h-62.8c-6 0-9.4 7-5.7 11.7l100.8 127.5c2.9 3.7 8.5 3.7 11.3 0l100.8-127.5c3.7-4.7.4-11.7-5.7-11.7H548V378h62.8z'
         )
       )),
       (t.DashOutline = u(
@@ -16448,12 +16827,12 @@
           'M888.3 693.2c-42.5-24.6-94.3-18-129.2 12.8l-53-30.7V523.6c0-15.7-8.4-30.3-22-38.1l-136-78.3v-67.1c44.2-15 76-56.8 76-106.1 0-61.9-50.1-112-112-112s-112 50.1-112 112c0 49.3 31.8 91.1 76 106.1v67.1l-136 78.3c-13.6 7.8-22 22.4-22 38.1v151.6l-53 30.7c-34.9-30.8-86.8-37.4-129.2-12.8-53.5 31-71.7 99.4-41 152.9 30.8 53.5 98.9 71.9 152.2 41 42.5-24.6 62.7-73 53.6-118.8l48.7-28.3 140.6 81c6.8 3.9 14.4 5.9 22 5.9s15.2-2 22-5.9L674.5 740l48.7 28.3c-9.1 45.7 11.2 94.2 53.6 118.8 53.3 30.9 121.5 12.6 152.2-41 30.8-53.6 12.6-122-40.7-152.9zm-673 138.4a47.6 47.6 0 0 1-65.2-17.6c-13.2-22.9-5.4-52.3 17.5-65.5a47.6 47.6 0 0 1 65.2 17.6c13.2 22.9 5.4 52.3-17.5 65.5zM522 463.8zM464 234a48.01 48.01 0 0 1 96 0 48.01 48.01 0 0 1-96 0zm170 446.2l-122 70.3-122-70.3V539.8l122-70.3 122 70.3v140.4zm239.9 133.9c-13.2 22.9-42.4 30.8-65.2 17.6-22.8-13.2-30.7-42.6-17.5-65.5s42.4-30.8 65.2-17.6c22.9 13.2 30.7 42.5 17.5 65.5z'
         )
       )),
-      (t.DesktopOutline = u(
-        'desktop',
+      (t.CopyrightOutline = u(
+        'copyright',
         i,
         l(
           o,
-          'M928 140H96c-17.7 0-32 14.3-32 32v496c0 17.7 14.3 32 32 32h380v112H304c-8.8 0-16 7.2-16 16v48c0 4.4 3.6 8 8 8h432c4.4 0 8-3.6 8-8v-48c0-8.8-7.2-16-16-16H548V700h380c17.7 0 32-14.3 32-32V172c0-17.7-14.3-32-32-32zm-40 488H136V212h752v416z'
+          'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372zm5.6-532.7c53 0 89 33.8 93 83.4.3 4.2 3.8 7.4 8 7.4h56.7c2.6 0 4.7-2.1 4.7-4.7 0-86.7-68.4-147.4-162.7-147.4C407.4 290 344 364.2 344 486.8v52.3C344 660.8 407.4 734 517.3 734c94 0 162.7-58.8 162.7-141.4 0-2.6-2.1-4.7-4.7-4.7h-56.8c-4.2 0-7.6 3.2-8 7.3-4.2 46.1-40.1 77.8-93 77.8-65.3 0-102.1-47.9-102.1-133.6v-52.6c.1-87 37-135.5 102.2-135.5z'
         )
       )),
       (t.DingdingOutline = u(
@@ -16464,20 +16843,20 @@
           'M573.7 252.5C422.5 197.4 201.3 96.7 201.3 96.7c-15.7-4.1-17.9 11.1-17.9 11.1-5 61.1 33.6 160.5 53.6 182.8 19.9 22.3 319.1 113.7 319.1 113.7S326 357.9 270.5 341.9c-55.6-16-37.9 17.8-37.9 17.8 11.4 61.7 64.9 131.8 107.2 138.4 42.2 6.6 220.1 4 220.1 4s-35.5 4.1-93.2 11.9c-42.7 5.8-97 12.5-111.1 17.8-33.1 12.5 24 62.6 24 62.6 84.7 76.8 129.7 50.5 129.7 50.5 33.3-10.7 61.4-18.5 85.2-24.2L565 743.1h84.6L603 928l205.3-271.9H700.8l22.3-38.7c.3.5.4.8.4.8S799.8 496.1 829 433.8l.6-1h-.1c5-10.8 8.6-19.7 10-25.8 17-71.3-114.5-99.4-265.8-154.5z'
         )
       )),
+      (t.DesktopOutline = u(
+        'desktop',
+        i,
+        l(
+          o,
+          'M928 140H96c-17.7 0-32 14.3-32 32v496c0 17.7 14.3 32 32 32h380v112H304c-8.8 0-16 7.2-16 16v48c0 4.4 3.6 8 8 8h432c4.4 0 8-3.6 8-8v-48c0-8.8-7.2-16-16-16H548V700h380c17.7 0 32-14.3 32-32V172c0-17.7-14.3-32-32-32zm-40 488H136V212h752v416z'
+        )
+      )),
       (t.DisconnectOutline = u(
         'disconnect',
         i,
         l(
           o,
           'M832.6 191.4c-84.6-84.6-221.5-84.6-306 0l-96.9 96.9 51 51 96.9-96.9c53.8-53.8 144.6-59.5 204 0 59.5 59.5 53.8 150.2 0 204l-96.9 96.9 51.1 51.1 96.9-96.9c84.4-84.6 84.4-221.5-.1-306.1zM446.5 781.6c-53.8 53.8-144.6 59.5-204 0-59.5-59.5-53.8-150.2 0-204l96.9-96.9-51.1-51.1-96.9 96.9c-84.6 84.6-84.6 221.5 0 306s221.5 84.6 306 0l96.9-96.9-51-51-96.8 97zM260.3 209.4a8.03 8.03 0 0 0-11.3 0L209.4 249a8.03 8.03 0 0 0 0 11.3l554.4 554.4c3.1 3.1 8.2 3.1 11.3 0l39.6-39.6c3.1-3.1 3.1-8.2 0-11.3L260.3 209.4z'
-        )
-      )),
-      (t.DollarOutline = u(
-        'dollar',
-        i,
-        l(
-          o,
-          'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372zm47.7-395.2l-25.4-5.9V348.6c38 5.2 61.5 29 65.5 58.2.5 4 3.9 6.9 7.9 6.9h44.9c4.7 0 8.4-4.1 8-8.8-6.1-62.3-57.4-102.3-125.9-109.2V263c0-4.4-3.6-8-8-8h-28.1c-4.4 0-8 3.6-8 8v33c-70.8 6.9-126.2 46-126.2 119 0 67.6 49.8 100.2 102.1 112.7l24.7 6.3v142.7c-44.2-5.9-69-29.5-74.1-61.3-.6-3.8-4-6.6-7.9-6.6H363c-4.7 0-8.4 4-8 8.7 4.5 55 46.2 105.6 135.2 112.1V761c0 4.4 3.6 8 8 8h28.4c4.4 0 8-3.6 8-8.1l-.2-31.7c78.3-6.9 134.3-48.8 134.3-124-.1-69.4-44.2-100.4-109-116.4zm-68.6-16.2c-5.6-1.6-10.3-3.1-15-5-33.8-12.2-49.5-31.9-49.5-57.3 0-36.3 27.5-57 64.5-61.7v124zM534.3 677V543.3c3.1.9 5.9 1.6 8.8 2.2 47.3 14.4 63.2 34.4 63.2 65.1 0 39.1-29.4 62.6-72 66.4z'
         )
       )),
       (t.DotChartOutline = u(
@@ -16488,20 +16867,28 @@
           'M888 792H200V168c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v688c0 4.4 3.6 8 8 8h752c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM288 604a64 64 0 1 0 128 0 64 64 0 1 0-128 0zm118-224a48 48 0 1 0 96 0 48 48 0 1 0-96 0zm158 228a96 96 0 1 0 192 0 96 96 0 1 0-192 0zm148-314a56 56 0 1 0 112 0 56 56 0 1 0-112 0z'
         )
       )),
-      (t.DoubleLeftOutline = u(
-        'double-left',
-        i,
-        l(
-          o,
-          'M272.9 512l265.4-339.1c4.1-5.2.4-12.9-6.3-12.9h-77.3c-4.9 0-9.6 2.3-12.6 6.1L186.8 492.3a31.99 31.99 0 0 0 0 39.5l255.3 326.1c3 3.9 7.7 6.1 12.6 6.1H532c6.7 0 10.4-7.7 6.3-12.9L272.9 512zm304 0l265.4-339.1c4.1-5.2.4-12.9-6.3-12.9h-77.3c-4.9 0-9.6 2.3-12.6 6.1L490.8 492.3a31.99 31.99 0 0 0 0 39.5l255.3 326.1c3 3.9 7.7 6.1 12.6 6.1H836c6.7 0 10.4-7.7 6.3-12.9L576.9 512z'
-        )
-      )),
       (t.DoubleRightOutline = u(
         'double-right',
         i,
         l(
           o,
           'M533.2 492.3L277.9 166.1c-3-3.9-7.7-6.1-12.6-6.1H188c-6.7 0-10.4 7.7-6.3 12.9L447.1 512 181.7 851.1A7.98 7.98 0 0 0 188 864h77.3c4.9 0 9.6-2.3 12.6-6.1l255.3-326.1c9.1-11.7 9.1-27.9 0-39.5zm304 0L581.9 166.1c-3-3.9-7.7-6.1-12.6-6.1H492c-6.7 0-10.4 7.7-6.3 12.9L751.1 512 485.7 851.1A7.98 7.98 0 0 0 492 864h77.3c4.9 0 9.6-2.3 12.6-6.1l255.3-326.1c9.1-11.7 9.1-27.9 0-39.5z'
+        )
+      )),
+      (t.DollarOutline = u(
+        'dollar',
+        i,
+        l(
+          o,
+          'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372zm47.7-395.2l-25.4-5.9V348.6c38 5.2 61.5 29 65.5 58.2.5 4 3.9 6.9 7.9 6.9h44.9c4.7 0 8.4-4.1 8-8.8-6.1-62.3-57.4-102.3-125.9-109.2V263c0-4.4-3.6-8-8-8h-28.1c-4.4 0-8 3.6-8 8v33c-70.8 6.9-126.2 46-126.2 119 0 67.6 49.8 100.2 102.1 112.7l24.7 6.3v142.7c-44.2-5.9-69-29.5-74.1-61.3-.6-3.8-4-6.6-7.9-6.6H363c-4.7 0-8.4 4-8 8.7 4.5 55 46.2 105.6 135.2 112.1V761c0 4.4 3.6 8 8 8h28.4c4.4 0 8-3.6 8-8.1l-.2-31.7c78.3-6.9 134.3-48.8 134.3-124-.1-69.4-44.2-100.4-109-116.4zm-68.6-16.2c-5.6-1.6-10.3-3.1-15-5-33.8-12.2-49.5-31.9-49.5-57.3 0-36.3 27.5-57 64.5-61.7v124zM534.3 677V543.3c3.1.9 5.9 1.6 8.8 2.2 47.3 14.4 63.2 34.4 63.2 65.1 0 39.1-29.4 62.6-72 66.4z'
+        )
+      )),
+      (t.DoubleLeftOutline = u(
+        'double-left',
+        i,
+        l(
+          o,
+          'M272.9 512l265.4-339.1c4.1-5.2.4-12.9-6.3-12.9h-77.3c-4.9 0-9.6 2.3-12.6 6.1L186.8 492.3a31.99 31.99 0 0 0 0 39.5l255.3 326.1c3 3.9 7.7 6.1 12.6 6.1H532c6.7 0 10.4-7.7 6.3-12.9L272.9 512zm304 0l265.4-339.1c4.1-5.2.4-12.9-6.3-12.9h-77.3c-4.9 0-9.6 2.3-12.6 6.1L490.8 492.3a31.99 31.99 0 0 0 0 39.5l255.3 326.1c3 3.9 7.7 6.1 12.6 6.1H836c6.7 0 10.4-7.7 6.3-12.9L576.9 512z'
         )
       )),
       (t.DownOutline = u(
@@ -16520,12 +16907,12 @@
           'M505.7 661a8 8 0 0 0 12.6 0l112-141.7c4.1-5.2.4-12.9-6.3-12.9h-74.1V168c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v338.3H400c-6.7 0-10.4 7.7-6.3 12.9l112 141.8zM878 626h-60c-4.4 0-8 3.6-8 8v154H214V634c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v198c0 17.7 14.3 32 32 32h684c17.7 0 32-14.3 32-32V634c0-4.4-3.6-8-8-8z'
         )
       )),
-      (t.DragOutline = u(
-        'drag',
+      (t.DropboxOutline = u(
+        'dropbox',
         i,
         l(
           o,
-          'M909.3 506.3L781.7 405.6a7.23 7.23 0 0 0-11.7 5.7V476H548V254h64.8c6 0 9.4-7 5.7-11.7L517.7 114.7a7.14 7.14 0 0 0-11.3 0L405.6 242.3a7.23 7.23 0 0 0 5.7 11.7H476v222H254v-64.8c0-6-7-9.4-11.7-5.7L114.7 506.3a7.14 7.14 0 0 0 0 11.3l127.5 100.8c4.7 3.7 11.7.4 11.7-5.7V548h222v222h-64.8c-6 0-9.4 7-5.7 11.7l100.8 127.5c2.9 3.7 8.5 3.7 11.3 0l100.8-127.5c3.7-4.7.4-11.7-5.7-11.7H548V548h222v64.8c0 6 7 9.4 11.7 5.7l127.5-100.8a7.3 7.3 0 0 0 .1-11.4z'
+          'M64 556.9l264.2 173.5L512.5 577 246.8 412.7zm896-290.3zm0 0L696.8 95 512.5 248.5l265.2 164.2L512.5 577l184.3 153.4L960 558.8 777.7 412.7zM513 609.8L328.2 763.3l-79.4-51.5v57.8L513 928l263.7-158.4v-57.8l-78.9 51.5zM328.2 95L64 265.1l182.8 147.6 265.7-164.2zM64 556.9z'
         )
       )),
       (t.DribbbleOutline = u(
@@ -16536,20 +16923,12 @@
           'M512 96C282.6 96 96 282.6 96 512s186.6 416 416 416 416-186.6 416-416S741.4 96 512 96zm275.1 191.8c49.5 60.5 79.5 137.5 80.2 221.4-11.7-2.5-129.2-26.3-247.4-11.4-2.5-6.1-5-12.2-7.6-18.3-7.4-17.3-15.3-34.6-23.6-51.5C720 374.3 779.6 298 787.1 287.8zM512 157.2c90.3 0 172.8 33.9 235.5 89.5-6.4 9.1-59.9 81-186.2 128.4-58.2-107-122.7-194.8-132.6-208 27.3-6.6 55.2-9.9 83.3-9.9zM360.9 191c9.4 12.8 72.9 100.9 131.7 205.5C326.4 440.6 180 440 164.1 439.8c23.1-110.3 97.4-201.9 196.8-248.8zM156.7 512.5c0-3.6.1-7.3.2-10.9 15.5.3 187.7 2.5 365.2-50.6 10.2 19.9 19.9 40.1 28.8 60.3-4.7 1.3-9.4 2.7-14 4.2C353.6 574.9 256.1 736.4 248 750.1c-56.7-63-91.3-146.3-91.3-237.6zM512 867.8c-82.2 0-157.9-28-218.1-75 6.4-13.1 78.3-152 278.7-221.9l2.3-.8c49.9 129.6 70.5 238.3 75.8 269.5A350.46 350.46 0 0 1 512 867.8zm198.5-60.7c-3.6-21.6-22.5-125.6-69-253.3C752.9 536 850.7 565.2 862.8 569c-15.8 98.8-72.5 184.2-152.3 238.1z'
         )
       )),
-      (t.DropboxOutline = u(
-        'dropbox',
+      (t.DragOutline = u(
+        'drag',
         i,
         l(
           o,
-          'M64 556.9l264.2 173.5L512.5 577 246.8 412.7zm896-290.3zm0 0L696.8 95 512.5 248.5l265.2 164.2L512.5 577l184.3 153.4L960 558.8 777.7 412.7zM513 609.8L328.2 763.3l-79.4-51.5v57.8L513 928l263.7-158.4v-57.8l-78.9 51.5zM328.2 95L64 265.1l182.8 147.6 265.7-164.2zM64 556.9z'
-        )
-      )),
-      (t.EllipsisOutline = u(
-        'ellipsis',
-        i,
-        l(
-          o,
-          'M176 511a56 56 0 1 0 112 0 56 56 0 1 0-112 0zm280 0a56 56 0 1 0 112 0 56 56 0 1 0-112 0zm280 0a56 56 0 1 0 112 0 56 56 0 1 0-112 0z'
+          'M909.3 506.3L781.7 405.6a7.23 7.23 0 0 0-11.7 5.7V476H548V254h64.8c6 0 9.4-7 5.7-11.7L517.7 114.7a7.14 7.14 0 0 0-11.3 0L405.6 242.3a7.23 7.23 0 0 0 5.7 11.7H476v222H254v-64.8c0-6-7-9.4-11.7-5.7L114.7 506.3a7.14 7.14 0 0 0 0 11.3l127.5 100.8c4.7 3.7 11.7.4 11.7-5.7V548h222v222h-64.8c-6 0-9.4 7-5.7 11.7l100.8 127.5c2.9 3.7 8.5 3.7 11.3 0l100.8-127.5c3.7-4.7.4-11.7-5.7-11.7H548V548h222v64.8c0 6 7 9.4 11.7 5.7l127.5-100.8a7.3 7.3 0 0 0 .1-11.4z'
         )
       )),
       (t.EnterOutline = u(
@@ -16560,20 +16939,12 @@
           'M864 170h-60c-4.4 0-8 3.6-8 8v518H310v-73c0-6.7-7.8-10.5-13-6.3l-141.9 112a8 8 0 0 0 0 12.6l141.9 112c5.3 4.2 13 .4 13-6.3v-75h498c35.3 0 64-28.7 64-64V178c0-4.4-3.6-8-8-8z'
         )
       )),
-      (t.EuroOutline = u(
-        'euro',
+      (t.EllipsisOutline = u(
+        'ellipsis',
         i,
         l(
           o,
-          'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372zm117.7-588.6c-15.9-3.5-34.4-5.4-55.3-5.4-106.7 0-178.9 55.7-198.6 149.9H344c-4.4 0-8 3.6-8 8v27.2c0 4.4 3.6 8 8 8h26.4c-.3 4.1-.3 8.4-.3 12.8v36.9H344c-4.4 0-8 3.6-8 8V568c0 4.4 3.6 8 8 8h30.2c17.2 99.2 90.4 158 200.2 158 20.9 0 39.4-1.7 55.3-5.1 3.7-.8 6.4-4 6.4-7.8v-42.8c0-5-4.6-8.8-9.5-7.8-14.7 2.8-31.9 4.1-51.8 4.1-68.5 0-114.5-36.6-129.8-98.6h130.6c4.4 0 8-3.6 8-8v-27.2c0-4.4-3.6-8-8-8H439.2v-36c0-4.7 0-9.4.3-13.8h135.9c4.4 0 8-3.6 8-8v-27.2c0-4.4-3.6-8-8-8H447.1c17.2-56.9 62.3-90.4 127.6-90.4 19.9 0 37.1 1.5 51.7 4.4a8 8 0 0 0 9.6-7.8v-42.8c0-3.8-2.6-7-6.3-7.8z'
-        )
-      )),
-      (t.ExceptionOutline = u(
-        'exception',
-        i,
-        l(
-          o,
-          'M688 312v-48c0-4.4-3.6-8-8-8H296c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h384c4.4 0 8-3.6 8-8zm-392 88c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H296zm376 116c-119.3 0-216 96.7-216 216s96.7 216 216 216 216-96.7 216-216-96.7-216-216-216zm107.5 323.5C750.8 868.2 712.6 884 672 884s-78.8-15.8-107.5-44.5C535.8 810.8 520 772.6 520 732s15.8-78.8 44.5-107.5C593.2 595.8 631.4 580 672 580s78.8 15.8 107.5 44.5C808.2 653.2 824 691.4 824 732s-15.8 78.8-44.5 107.5zM640 812a32 32 0 1 0 64 0 32 32 0 1 0-64 0zm12-64h40c4.4 0 8-3.6 8-8V628c0-4.4-3.6-8-8-8h-40c-4.4 0-8 3.6-8 8v112c0 4.4 3.6 8 8 8zM440 852H208V148h560v344c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V108c0-17.7-14.3-32-32-32H168c-17.7 0-32 14.3-32 32v784c0 17.7 14.3 32 32 32h272c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8z'
+          'M176 511a56 56 0 1 0 112 0 56 56 0 1 0-112 0zm280 0a56 56 0 1 0 112 0 56 56 0 1 0-112 0zm280 0a56 56 0 1 0 112 0 56 56 0 1 0-112 0z'
         )
       )),
       (t.ExclamationOutline = u(
@@ -16584,12 +16955,28 @@
           'M448 804a64 64 0 1 0 128 0 64 64 0 1 0-128 0zm32-168h64c4.4 0 8-3.6 8-8V164c0-4.4-3.6-8-8-8h-64c-4.4 0-8 3.6-8 8v464c0 4.4 3.6 8 8 8z'
         )
       )),
+      (t.ExceptionOutline = u(
+        'exception',
+        i,
+        l(
+          o,
+          'M688 312v-48c0-4.4-3.6-8-8-8H296c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h384c4.4 0 8-3.6 8-8zm-392 88c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H296zm376 116c-119.3 0-216 96.7-216 216s96.7 216 216 216 216-96.7 216-216-96.7-216-216-216zm107.5 323.5C750.8 868.2 712.6 884 672 884s-78.8-15.8-107.5-44.5C535.8 810.8 520 772.6 520 732s15.8-78.8 44.5-107.5C593.2 595.8 631.4 580 672 580s78.8 15.8 107.5 44.5C808.2 653.2 824 691.4 824 732s-15.8 78.8-44.5 107.5zM640 812a32 32 0 1 0 64 0 32 32 0 1 0-64 0zm12-64h40c4.4 0 8-3.6 8-8V628c0-4.4-3.6-8-8-8h-40c-4.4 0-8 3.6-8 8v112c0 4.4 3.6 8 8 8zM440 852H208V148h560v344c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V108c0-17.7-14.3-32-32-32H168c-17.7 0-32 14.3-32 32v784c0 17.7 14.3 32 32 32h272c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8z'
+        )
+      )),
       (t.ExportOutline = u(
         'export',
         i,
         l(
           o,
           'M888.3 757.4h-53.8c-4.2 0-7.7 3.5-7.7 7.7v61.8H197.1V197.1h629.8v61.8c0 4.2 3.5 7.7 7.7 7.7h53.8c4.2 0 7.7-3.4 7.7-7.7V158.7c0-17-13.7-30.7-30.7-30.7H158.7c-17 0-30.7 13.7-30.7 30.7v706.6c0 17 13.7 30.7 30.7 30.7h706.6c17 0 30.7-13.7 30.7-30.7V765.1c0-4.3-3.5-7.7-7.7-7.7zm18.6-251.7L765 393.7c-5.3-4.2-13-.4-13 6.3v76H438c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h314v76c0 6.7 7.8 10.5 13 6.3l141.9-112a8 8 0 0 0 0-12.6z'
+        )
+      )),
+      (t.EuroOutline = u(
+        'euro',
+        i,
+        l(
+          o,
+          'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372zm117.7-588.6c-15.9-3.5-34.4-5.4-55.3-5.4-106.7 0-178.9 55.7-198.6 149.9H344c-4.4 0-8 3.6-8 8v27.2c0 4.4 3.6 8 8 8h26.4c-.3 4.1-.3 8.4-.3 12.8v36.9H344c-4.4 0-8 3.6-8 8V568c0 4.4 3.6 8 8 8h30.2c17.2 99.2 90.4 158 200.2 158 20.9 0 39.4-1.7 55.3-5.1 3.7-.8 6.4-4 6.4-7.8v-42.8c0-5-4.6-8.8-9.5-7.8-14.7 2.8-31.9 4.1-51.8 4.1-68.5 0-114.5-36.6-129.8-98.6h130.6c4.4 0 8-3.6 8-8v-27.2c0-4.4-3.6-8-8-8H439.2v-36c0-4.7 0-9.4.3-13.8h135.9c4.4 0 8-3.6 8-8v-27.2c0-4.4-3.6-8-8-8H447.1c17.2-56.9 62.3-90.4 127.6-90.4 19.9 0 37.1 1.5 51.7 4.4a8 8 0 0 0 9.6-7.8v-42.8c0-3.8-2.6-7-6.3-7.8z'
         )
       )),
       (t.FallOutline = u(
@@ -16600,14 +16987,6 @@
           'M925.9 804l-24-199.2c-.8-6.6-8.9-9.4-13.6-4.7L829 659.5 557.7 388.3c-6.3-6.2-16.4-6.2-22.6 0L433.3 490 156.6 213.3a8.03 8.03 0 0 0-11.3 0l-45 45.2a8.03 8.03 0 0 0 0 11.3L422 591.7c6.2 6.3 16.4 6.3 22.6 0L546.4 490l226.1 226-59.3 59.3a8.01 8.01 0 0 0 4.7 13.6l199.2 24c5.1.7 9.5-3.7 8.8-8.9z'
         )
       )),
-      (t.FileDoneOutline = u(
-        'file-done',
-        i,
-        l(
-          o,
-          'M688 312v-48c0-4.4-3.6-8-8-8H296c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h384c4.4 0 8-3.6 8-8zm-392 88c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H296zm376 116c-119.3 0-216 96.7-216 216s96.7 216 216 216 216-96.7 216-216-96.7-216-216-216zm107.5 323.5C750.8 868.2 712.6 884 672 884s-78.8-15.8-107.5-44.5C535.8 810.8 520 772.6 520 732s15.8-78.8 44.5-107.5C593.2 595.8 631.4 580 672 580s78.8 15.8 107.5 44.5C808.2 653.2 824 691.4 824 732s-15.8 78.8-44.5 107.5zM761 656h-44.3c-2.6 0-5 1.2-6.5 3.3l-63.5 87.8-23.1-31.9a7.92 7.92 0 0 0-6.5-3.3H573c-6.5 0-10.3 7.4-6.5 12.7l73.8 102.1c3.2 4.4 9.7 4.4 12.9 0l114.2-158c3.9-5.3.1-12.7-6.4-12.7zM440 852H208V148h560v344c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V108c0-17.7-14.3-32-32-32H168c-17.7 0-32 14.3-32 32v784c0 17.7 14.3 32 32 32h272c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8z'
-        )
-      )),
       (t.FileJpgOutline = u(
         'file-jpg',
         i,
@@ -16616,12 +16995,12 @@
           'M874.6 301.8L596.8 21.3c-4.5-4.5-9.4-8.3-14.7-11.5-1.4-.8-2.8-1.6-4.3-2.3-.9-.5-1.9-.9-2.8-1.3-9-4-18.9-6.2-29-6.2H201c-39.8 0-73 32.2-73 72v880c0 39.8 33.2 72 73 72h623c39.8 0 71-32.2 71-72V352.5c0-19-7-37.2-20.4-50.7zM583 110.4L783.8 312H583V110.4zM823 952H200V72h311v240c0 39.8 33.2 72 73 72h239v568zM350 696.5c0 24.2-7.5 31.4-21.9 31.4-9 0-18.4-5.8-24.8-18.5L272.9 732c13.4 22.9 32.3 34.2 61.3 34.2 41.6 0 60.8-29.9 60.8-66.2V577h-45v119.5zM501.3 577H437v186h44v-62h21.6c39.1 0 73.1-19.6 73.1-63.6 0-45.8-33.5-60.4-74.4-60.4zm-.8 89H481v-53h18.2c21.5 0 33.4 6.2 33.4 24.9 0 18.1-10.5 28.1-32.1 28.1zm182.5-9v36h30v30.1c-4 2.9-11 4.7-17.7 4.7-34.3 0-50.7-21.4-50.7-58.2 0-36.1 19.7-57.4 47.1-57.4 15.3 0 25 6.2 34 14.4l23.7-28.3c-12.7-12.8-32.1-24.2-59.2-24.2-49.6 0-91.1 35.3-91.1 97 0 62.7 40 95.1 91.5 95.1 25.9 0 49.2-10.2 61.5-22.6V657H683z'
         )
       )),
-      (t.FileProtectOutline = u(
-        'file-protect',
+      (t.FileDoneOutline = u(
+        'file-done',
         i,
         l(
           o,
-          'M644.7 669.2a7.92 7.92 0 0 0-6.5-3.3H594c-6.5 0-10.3 7.4-6.5 12.7l73.8 102.1c3.2 4.4 9.7 4.4 12.9 0l114.2-158c3.8-5.3 0-12.7-6.5-12.7h-44.3c-2.6 0-5 1.2-6.5 3.3l-63.5 87.8-22.9-31.9zM688 306v-48c0-4.4-3.6-8-8-8H296c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h384c4.4 0 8-3.6 8-8zm-392 88c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H296zm184 458H208V148h560v296c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V108c0-17.7-14.3-32-32-32H168c-17.7 0-32 14.3-32 32v784c0 17.7 14.3 32 32 32h312c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm402.6-320.8l-192-66.7c-.9-.3-1.7-.4-2.6-.4s-1.8.1-2.6.4l-192 66.7a7.96 7.96 0 0 0-5.4 7.5v251.1c0 2.5 1.1 4.8 3.1 6.3l192 150.2c1.4 1.1 3.2 1.7 4.9 1.7s3.5-.6 4.9-1.7l192-150.2c1.9-1.5 3.1-3.8 3.1-6.3V538.7c0-3.4-2.2-6.4-5.4-7.5zM826 763.7L688 871.6 550 763.7V577l138-48 138 48v186.7z'
+          'M688 312v-48c0-4.4-3.6-8-8-8H296c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h384c4.4 0 8-3.6 8-8zm-392 88c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H296zm376 116c-119.3 0-216 96.7-216 216s96.7 216 216 216 216-96.7 216-216-96.7-216-216-216zm107.5 323.5C750.8 868.2 712.6 884 672 884s-78.8-15.8-107.5-44.5C535.8 810.8 520 772.6 520 732s15.8-78.8 44.5-107.5C593.2 595.8 631.4 580 672 580s78.8 15.8 107.5 44.5C808.2 653.2 824 691.4 824 732s-15.8 78.8-44.5 107.5zM761 656h-44.3c-2.6 0-5 1.2-6.5 3.3l-63.5 87.8-23.1-31.9a7.92 7.92 0 0 0-6.5-3.3H573c-6.5 0-10.3 7.4-6.5 12.7l73.8 102.1c3.2 4.4 9.7 4.4 12.9 0l114.2-158c3.9-5.3.1-12.7-6.4-12.7zM440 852H208V148h560v344c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V108c0-17.7-14.3-32-32-32H168c-17.7 0-32 14.3-32 32v784c0 17.7 14.3 32 32 32h272c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8z'
         )
       )),
       (t.FileSearchOutline = u(
@@ -16632,20 +17011,20 @@
           'M688 312v-48c0-4.4-3.6-8-8-8H296c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h384c4.4 0 8-3.6 8-8zm-392 88c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H296zm144 452H208V148h560v344c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V108c0-17.7-14.3-32-32-32H168c-17.7 0-32 14.3-32 32v784c0 17.7 14.3 32 32 32h272c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm445.7 51.5l-93.3-93.3C814.7 780.7 828 743.9 828 704c0-97.2-78.8-176-176-176s-176 78.8-176 176 78.8 176 176 176c35.8 0 69-10.7 96.8-29l94.7 94.7c1.6 1.6 3.6 2.3 5.6 2.3s4.1-.8 5.6-2.3l31-31a7.9 7.9 0 0 0 0-11.2zM652 816c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z'
         )
       )),
+      (t.FileProtectOutline = u(
+        'file-protect',
+        i,
+        l(
+          o,
+          'M644.7 669.2a7.92 7.92 0 0 0-6.5-3.3H594c-6.5 0-10.3 7.4-6.5 12.7l73.8 102.1c3.2 4.4 9.7 4.4 12.9 0l114.2-158c3.8-5.3 0-12.7-6.5-12.7h-44.3c-2.6 0-5 1.2-6.5 3.3l-63.5 87.8-22.9-31.9zM688 306v-48c0-4.4-3.6-8-8-8H296c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h384c4.4 0 8-3.6 8-8zm-392 88c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H296zm184 458H208V148h560v296c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V108c0-17.7-14.3-32-32-32H168c-17.7 0-32 14.3-32 32v784c0 17.7 14.3 32 32 32h312c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm402.6-320.8l-192-66.7c-.9-.3-1.7-.4-2.6-.4s-1.8.1-2.6.4l-192 66.7a7.96 7.96 0 0 0-5.4 7.5v251.1c0 2.5 1.1 4.8 3.1 6.3l192 150.2c1.4 1.1 3.2 1.7 4.9 1.7s3.5-.6 4.9-1.7l192-150.2c1.9-1.5 3.1-3.8 3.1-6.3V538.7c0-3.4-2.2-6.4-5.4-7.5zM826 763.7L688 871.6 550 763.7V577l138-48 138 48v186.7z'
+        )
+      )),
       (t.FileSyncOutline = u(
         'file-sync',
         i,
         l(
           o,
           'M296 256c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h384c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H296zm192 200v-48c0-4.4-3.6-8-8-8H296c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h184c4.4 0 8-3.6 8-8zm-48 396H208V148h560v344c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V108c0-17.7-14.3-32-32-32H168c-17.7 0-32 14.3-32 32v784c0 17.7 14.3 32 32 32h272c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm104.1-115.6c1.8-34.5 16.2-66.8 40.8-91.4 26.2-26.2 62-41 99.1-41 37.4 0 72.6 14.6 99.1 41 3.2 3.2 6.3 6.6 9.2 10.1L769.2 673a8 8 0 0 0 3 14.1l93.3 22.5c5 1.2 9.8-2.6 9.9-7.7l.6-95.4a8 8 0 0 0-12.9-6.4l-20.3 15.8C805.4 569.6 748.1 540 684 540c-109.9 0-199.6 86.9-204 195.7-.2 4.5 3.5 8.3 8 8.3h48.1c4.3 0 7.8-3.3 8-7.6zM880 744h-48.1c-4.3 0-7.8 3.3-8 7.6-1.8 34.5-16.2 66.8-40.8 91.4-26.2 26.2-62 41-99.1 41-37.4 0-72.6-14.6-99.1-41-3.2-3.2-6.3-6.6-9.2-10.1l23.1-17.9a8 8 0 0 0-3-14.1l-93.3-22.5c-5-1.2-9.8 2.6-9.9 7.7l-.6 95.4a8 8 0 0 0 12.9 6.4l20.3-15.8C562.6 918.4 619.9 948 684 948c109.9 0 199.6-86.9 204-195.7.2-4.5-3.5-8.3-8-8.3z'
-        )
-      )),
-      (t.FontColorsOutline = u(
-        'font-colors',
-        i,
-        l(
-          o,
-          'M904 816H120c-4.4 0-8 3.6-8 8v80c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-80c0-4.4-3.6-8-8-8zm-650.3-80h85c4.2 0 8-2.7 9.3-6.8l53.7-166h219.2l53.2 166c1.3 4 5 6.8 9.3 6.8h89.1c1.1 0 2.2-.2 3.2-.5a9.7 9.7 0 0 0 6-12.4L573.6 118.6a9.9 9.9 0 0 0-9.2-6.6H462.1c-4.2 0-7.9 2.6-9.2 6.6L244.5 723.1c-.4 1-.5 2.1-.5 3.2-.1 5.3 4.3 9.7 9.7 9.7zm255.9-516.1h4.1l83.8 263.8H424.9l84.7-263.8z'
         )
       )),
       (t.FontSizeOutline = u(
@@ -16656,12 +17035,12 @@
           'M920 416H616c-4.4 0-8 3.6-8 8v112c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8v-56h60v320h-46c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h164c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8h-46V480h60v56c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V424c0-4.4-3.6-8-8-8zM656 296V168c0-4.4-3.6-8-8-8H104c-4.4 0-8 3.6-8 8v128c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-64h168v560h-92c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h264c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-92V232h168v64c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8z'
         )
       )),
-      (t.ForkOutline = u(
-        'fork',
+      (t.FontColorsOutline = u(
+        'font-colors',
         i,
         l(
           o,
-          'M752 100c-61.8 0-112 50.2-112 112 0 47.7 29.9 88.5 72 104.6v27.6L512 601.4 312 344.2v-27.6c42.1-16.1 72-56.9 72-104.6 0-61.8-50.2-112-112-112s-112 50.2-112 112c0 50.6 33.8 93.5 80 107.3v34.4c0 9.7 3.3 19.3 9.3 27L476 672.3v33.6c-44.2 15-76 56.9-76 106.1 0 61.8 50.2 112 112 112s112-50.2 112-112c0-49.2-31.8-91-76-106.1v-33.6l226.7-291.6c6-7.7 9.3-17.3 9.3-27v-34.4c46.2-13.8 80-56.7 80-107.3 0-61.8-50.2-112-112-112zM224 212a48.01 48.01 0 0 1 96 0 48.01 48.01 0 0 1-96 0zm336 600a48.01 48.01 0 0 1-96 0 48.01 48.01 0 0 1 96 0zm192-552a48.01 48.01 0 0 1 0-96 48.01 48.01 0 0 1 0 96z'
+          'M904 816H120c-4.4 0-8 3.6-8 8v80c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-80c0-4.4-3.6-8-8-8zm-650.3-80h85c4.2 0 8-2.7 9.3-6.8l53.7-166h219.2l53.2 166c1.3 4 5 6.8 9.3 6.8h89.1c1.1 0 2.2-.2 3.2-.5a9.7 9.7 0 0 0 6-12.4L573.6 118.6a9.9 9.9 0 0 0-9.2-6.6H462.1c-4.2 0-7.9 2.6-9.2 6.6L244.5 723.1c-.4 1-.5 2.1-.5 3.2-.1 5.3 4.3 9.7 9.7 9.7zm255.9-516.1h4.1l83.8 263.8H424.9l84.7-263.8z'
         )
       )),
       (t.FormOutline = u(
@@ -16679,6 +17058,14 @@
         l(
           o,
           'M391 240.9c-.8-6.6-8.9-9.4-13.6-4.7l-43.7 43.7L200 146.3a8.03 8.03 0 0 0-11.3 0l-42.4 42.3a8.03 8.03 0 0 0 0 11.3L280 333.6l-43.9 43.9a8.01 8.01 0 0 0 4.7 13.6L401 410c5.1.6 9.5-3.7 8.9-8.9L391 240.9zm10.1 373.2L240.8 633c-6.6.8-9.4 8.9-4.7 13.6l43.9 43.9L146.3 824a8.03 8.03 0 0 0 0 11.3l42.4 42.3c3.1 3.1 8.2 3.1 11.3 0L333.7 744l43.7 43.7A8.01 8.01 0 0 0 391 783l18.9-160.1c.6-5.1-3.7-9.4-8.8-8.8zm221.8-204.2L783.2 391c6.6-.8 9.4-8.9 4.7-13.6L744 333.6 877.7 200c3.1-3.1 3.1-8.2 0-11.3l-42.4-42.3a8.03 8.03 0 0 0-11.3 0L690.3 279.9l-43.7-43.7a8.01 8.01 0 0 0-13.6 4.7L614.1 401c-.6 5.2 3.7 9.5 8.8 8.9zM744 690.4l43.9-43.9a8.01 8.01 0 0 0-4.7-13.6L623 614c-5.1-.6-9.5 3.7-8.9 8.9L633 783.1c.8 6.6 8.9 9.4 13.6 4.7l43.7-43.7L824 877.7c3.1 3.1 8.2 3.1 11.3 0l42.4-42.3c3.1-3.1 3.1-8.2 0-11.3L744 690.4z'
+        )
+      )),
+      (t.ForkOutline = u(
+        'fork',
+        i,
+        l(
+          o,
+          'M752 100c-61.8 0-112 50.2-112 112 0 47.7 29.9 88.5 72 104.6v27.6L512 601.4 312 344.2v-27.6c42.1-16.1 72-56.9 72-104.6 0-61.8-50.2-112-112-112s-112 50.2-112 112c0 50.6 33.8 93.5 80 107.3v34.4c0 9.7 3.3 19.3 9.3 27L476 672.3v33.6c-44.2 15-76 56.9-76 106.1 0 61.8 50.2 112 112 112s112-50.2 112-112c0-49.2-31.8-91-76-106.1v-33.6l226.7-291.6c6-7.7 9.3-17.3 9.3-27v-34.4c46.2-13.8 80-56.7 80-107.3 0-61.8-50.2-112-112-112zM224 212a48.01 48.01 0 0 1 96 0 48.01 48.01 0 0 1-96 0zm336 600a48.01 48.01 0 0 1-96 0 48.01 48.01 0 0 1 96 0zm192-552a48.01 48.01 0 0 1 0-96 48.01 48.01 0 0 1 0 96z'
         )
       )),
       (t.FullscreenOutline = u(
@@ -16729,14 +17116,6 @@
           'M881 442.4H519.7v148.5h206.4c-8.9 48-35.9 88.6-76.6 115.8-34.4 23-78.3 36.6-129.9 36.6-99.9 0-184.4-67.5-214.6-158.2-7.6-23-12-47.6-12-72.9s4.4-49.9 12-72.9c30.3-90.6 114.8-158.1 214.7-158.1 56.3 0 106.8 19.4 146.6 57.4l110-110.1c-66.5-62-153.2-100-256.6-100-149.9 0-279.6 86-342.7 211.4-26 51.8-40.8 110.4-40.8 172.4S151 632.8 177 684.6C240.1 810 369.8 896 519.7 896c103.6 0 190.4-34.4 253.8-93 72.5-66.8 114.4-165.2 114.4-282.1 0-27.2-2.4-53.3-6.9-78.5z'
         )
       )),
-      (t.HeatMapOutline = u(
-        'heat-map',
-        i,
-        l(
-          o,
-          'M955.7 856l-416-720c-6.2-10.7-16.9-16-27.7-16s-21.6 5.3-27.7 16l-416 720C56 877.4 71.4 904 96 904h832c24.6 0 40-26.6 27.7-48zm-790.4-23.9L512 231.9 858.7 832H165.3zm319-474.1l-228 394c-12.3 21.3 3.1 48 27.7 48h455.8c24.7 0 40.1-26.7 27.7-48L539.7 358c-6.2-10.7-17-16-27.7-16-10.8 0-21.6 5.3-27.7 16zm214 386H325.7L512 422l186.3 322zm-214-194.1l-57 98.4C415 669.5 430.4 696 455 696h114c24.6 0 39.9-26.5 27.7-47.7l-57-98.4c-6.1-10.6-16.9-15.9-27.7-15.9s-21.5 5.3-27.7 15.9zm57.1 98.4h-58.7l29.4-50.7 29.3 50.7z'
-        )
-      )),
       (t.IeOutline = u(
         'ie',
         i,
@@ -16745,20 +17124,28 @@
           'M852.6 367.6c16.3-36.9 32.1-90.7 32.1-131.8 0-109.1-119.5-147.6-314.5-57.9-161.4-10.8-316.8 110.5-355.6 279.7 46.3-52.3 117.4-123.4 183-151.7C316.1 378.3 246.7 470 194 565.6c-31.1 56.9-66 148.8-66 217.5 0 147.9 139.3 129.8 270.4 63 47.1 23.1 99.8 23.4 152.5 23.4 145.7 0 276.4-81.4 325.2-219H694.9c-78.8 132.9-295.2 79.5-295.2-71.2h493.2c9.6-65.4-2.5-143.6-40.3-211.7zM224.8 648.3c26.6 76.7 80.6 143.8 150.4 185-133.1 73.4-259.9 43.6-150.4-185zm174-163.3c3-82.7 75.4-142.3 156-142.3 80.1 0 153 59.6 156 142.3h-312zm276.8-281.4c32.1-15.4 72.8-33 108.8-33 47.1 0 81.4 32.6 81.4 80.6 0 30-11.1 73.5-21.9 101.8-39.3-63.5-98.9-122.4-168.3-149.4z'
         )
       )),
-      (t.ImportOutline = u(
-        'import',
-        i,
-        l(
-          o,
-          'M888.3 757.4h-53.8c-4.2 0-7.7 3.5-7.7 7.7v61.8H197.1V197.1h629.8v61.8c0 4.2 3.5 7.7 7.7 7.7h53.8c4.2 0 7.7-3.4 7.7-7.7V158.7c0-17-13.7-30.7-30.7-30.7H158.7c-17 0-30.7 13.7-30.7 30.7v706.6c0 17 13.7 30.7 30.7 30.7h706.6c17 0 30.7-13.7 30.7-30.7V765.1c0-4.3-3.5-7.7-7.7-7.7zM902 476H588v-76c0-6.7-7.8-10.5-13-6.3l-141.9 112a8 8 0 0 0 0 12.6l141.9 112c5.3 4.2 13 .4 13-6.3v-76h314c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8z'
-        )
-      )),
       (t.InboxOutline = u(
         'inbox',
         i,
         l(
           r,
           'M885.2 446.3l-.2-.8-112.2-285.1c-5-16.1-19.9-27.2-36.8-27.2H281.2c-17 0-32.1 11.3-36.9 27.6L139.4 443l-.3.7-.2.8c-1.3 4.9-1.7 9.9-1 14.8-.1 1.6-.2 3.2-.2 4.8V830a60.9 60.9 0 0 0 60.8 60.8h627.2c33.5 0 60.8-27.3 60.9-60.8V464.1c0-1.3 0-2.6-.1-3.7.4-4.9 0-9.6-1.3-14.1zm-295.8-43l-.3 15.7c-.8 44.9-31.8 75.1-77.1 75.1-22.1 0-41.1-7.1-54.8-20.6S436 441.2 435.6 419l-.3-15.7H229.5L309 210h399.2l81.7 193.3H589.4zm-375 76.8h157.3c24.3 57.1 76 90.8 140.4 90.8 33.7 0 65-9.4 90.3-27.2 22.2-15.6 39.5-37.4 50.7-63.6h156.5V814H214.4V480.1z'
+        )
+      )),
+      (t.HeatMapOutline = u(
+        'heat-map',
+        i,
+        l(
+          o,
+          'M955.7 856l-416-720c-6.2-10.7-16.9-16-27.7-16s-21.6 5.3-27.7 16l-416 720C56 877.4 71.4 904 96 904h832c24.6 0 40-26.6 27.7-48zm-790.4-23.9L512 231.9 858.7 832H165.3zm319-474.1l-228 394c-12.3 21.3 3.1 48 27.7 48h455.8c24.7 0 40.1-26.7 27.7-48L539.7 358c-6.2-10.7-17-16-27.7-16-10.8 0-21.6 5.3-27.7 16zm214 386H325.7L512 422l186.3 322zm-214-194.1l-57 98.4C415 669.5 430.4 696 455 696h114c24.6 0 39.9-26.5 27.7-47.7l-57-98.4c-6.1-10.6-16.9-15.9-27.7-15.9s-21.5 5.3-27.7 15.9zm57.1 98.4h-58.7l29.4-50.7 29.3 50.7z'
+        )
+      )),
+      (t.ImportOutline = u(
+        'import',
+        i,
+        l(
+          o,
+          'M888.3 757.4h-53.8c-4.2 0-7.7 3.5-7.7 7.7v61.8H197.1V197.1h629.8v61.8c0 4.2 3.5 7.7 7.7 7.7h53.8c4.2 0 7.7-3.4 7.7-7.7V158.7c0-17-13.7-30.7-30.7-30.7H158.7c-17 0-30.7 13.7-30.7 30.7v706.6c0 17 13.7 30.7 30.7 30.7h706.6c17 0 30.7-13.7 30.7-30.7V765.1c0-4.3-3.5-7.7-7.7-7.7zM902 476H588v-76c0-6.7-7.8-10.5-13-6.3l-141.9 112a8 8 0 0 0 0 12.6l141.9 112c5.3 4.2 13 .4 13-6.3v-76h314c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8z'
         )
       )),
       (t.InfoOutline = u(
@@ -16777,28 +17164,20 @@
           'M464 688a48 48 0 1 0 96 0 48 48 0 1 0-96 0zm72-112c4.4 0 8-3.6 8-8V296c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v272c0 4.4 3.6 8 8 8h48zm400-188h-59.3c-2.6 0-5 1.2-6.5 3.3L763.7 538.1l-49.9-68.8a7.92 7.92 0 0 0-6.5-3.3H648c-6.5 0-10.3 7.4-6.5 12.7l109.2 150.7a16.1 16.1 0 0 0 26 0l165.8-228.7c3.8-5.3 0-12.7-6.5-12.7zm-44 306h-64.2c-5.5 0-10.6 2.9-13.6 7.5a352.2 352.2 0 0 1-49.8 62.2A355.92 355.92 0 0 1 651.1 840a355 355 0 0 1-138.7 27.9c-48.1 0-94.8-9.4-138.7-27.9a355.92 355.92 0 0 1-113.3-76.3A353.06 353.06 0 0 1 184 650.5c-18.6-43.8-28-90.5-28-138.5s9.4-94.7 28-138.5c17.9-42.4 43.6-80.5 76.4-113.2 32.8-32.7 70.9-58.4 113.3-76.3a355 355 0 0 1 138.7-27.9c48.1 0 94.8 9.4 138.7 27.9 42.4 17.9 80.5 43.6 113.3 76.3 19 19 35.6 39.8 49.8 62.2 2.9 4.7 8.1 7.5 13.6 7.5H892c6 0 9.8-6.3 7.2-11.6C828.8 178.5 684.7 82 517.7 80 278.9 77.2 80.5 272.5 80 511.2 79.5 750.1 273.3 944 512.4 944c169.2 0 315.6-97 386.7-238.4A8 8 0 0 0 892 694z'
         )
       )),
-      (t.ItalicOutline = u(
-        'italic',
-        i,
-        l(
-          o,
-          'M798 160H366c-4.4 0-8 3.6-8 8v64c0 4.4 3.6 8 8 8h181.2l-156 544H229c-4.4 0-8 3.6-8 8v64c0 4.4 3.6 8 8 8h432c4.4 0 8-3.6 8-8v-64c0-4.4-3.6-8-8-8H474.4l156-544H798c4.4 0 8-3.6 8-8v-64c0-4.4-3.6-8-8-8z'
-        )
-      )),
-      (t.KeyOutline = u(
-        'key',
-        i,
-        l(
-          o,
-          'M608 112c-167.9 0-304 136.1-304 304 0 70.3 23.9 135 63.9 186.5l-41.1 41.1-62.3-62.3a8.15 8.15 0 0 0-11.4 0l-39.8 39.8a8.15 8.15 0 0 0 0 11.4l62.3 62.3-44.9 44.9-62.3-62.3a8.15 8.15 0 0 0-11.4 0l-39.8 39.8a8.15 8.15 0 0 0 0 11.4l62.3 62.3-65.3 65.3a8.03 8.03 0 0 0 0 11.3l42.3 42.3c3.1 3.1 8.2 3.1 11.3 0l253.6-253.6A304.06 304.06 0 0 0 608 720c167.9 0 304-136.1 304-304S775.9 112 608 112zm161.2 465.2C726.2 620.3 668.9 644 608 644c-60.9 0-118.2-23.7-161.2-66.8-43.1-43-66.8-100.3-66.8-161.2 0-60.9 23.7-118.2 66.8-161.2 43-43.1 100.3-66.8 161.2-66.8 60.9 0 118.2 23.7 161.2 66.8 43.1 43 66.8 100.3 66.8 161.2 0 60.9-23.7 118.2-66.8 161.2z'
-        )
-      )),
       (t.LaptopOutline = u(
         'laptop',
         i,
         l(
           o,
           'M956.9 845.1L896.4 632V168c0-17.7-14.3-32-32-32h-704c-17.7 0-32 14.3-32 32v464L67.9 845.1C60.4 866 75.8 888 98 888h828.8c22.2 0 37.6-22 30.1-42.9zM200.4 208h624v395h-624V208zm228.3 608l8.1-37h150.3l8.1 37H428.7zm224 0l-19.1-86.7c-.8-3.7-4.1-6.3-7.8-6.3H398.2c-3.8 0-7 2.6-7.8 6.3L371.3 816H151l42.3-149h638.2l42.3 149H652.7z'
+        )
+      )),
+      (t.ItalicOutline = u(
+        'italic',
+        i,
+        l(
+          o,
+          'M798 160H366c-4.4 0-8 3.6-8 8v64c0 4.4 3.6 8 8 8h181.2l-156 544H229c-4.4 0-8 3.6-8 8v64c0 4.4 3.6 8 8 8h432c4.4 0 8-3.6 8-8v-64c0-4.4-3.6-8-8-8H474.4l156-544H798c4.4 0 8-3.6 8-8v-64c0-4.4-3.6-8-8-8z'
         )
       )),
       (t.LeftOutline = u(
@@ -16809,12 +17188,12 @@
           'M724 218.3V141c0-6.7-7.7-10.4-12.9-6.3L260.3 486.8a31.86 31.86 0 0 0 0 50.3l450.8 352.1c5.3 4.1 12.9.4 12.9-6.3v-77.3c0-4.9-2.3-9.6-6.1-12.6l-360-281 360-281.1c3.8-3 6.1-7.7 6.1-12.6z'
         )
       )),
-      (t.LineChartOutline = u(
-        'line-chart',
+      (t.KeyOutline = u(
+        'key',
         i,
         l(
           o,
-          'M888 792H200V168c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v688c0 4.4 3.6 8 8 8h752c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM305.8 637.7c3.1 3.1 8.1 3.1 11.3 0l138.3-137.6L583 628.5c3.1 3.1 8.2 3.1 11.3 0l275.4-275.3c3.1-3.1 3.1-8.2 0-11.3l-39.6-39.6a8.03 8.03 0 0 0-11.3 0l-230 229.9L461.4 404a8.03 8.03 0 0 0-11.3 0L266.3 586.7a8.03 8.03 0 0 0 0 11.3l39.5 39.7z'
+          'M608 112c-167.9 0-304 136.1-304 304 0 70.3 23.9 135 63.9 186.5l-41.1 41.1-62.3-62.3a8.15 8.15 0 0 0-11.4 0l-39.8 39.8a8.15 8.15 0 0 0 0 11.4l62.3 62.3-44.9 44.9-62.3-62.3a8.15 8.15 0 0 0-11.4 0l-39.8 39.8a8.15 8.15 0 0 0 0 11.4l62.3 62.3-65.3 65.3a8.03 8.03 0 0 0 0 11.3l42.3 42.3c3.1 3.1 8.2 3.1 11.3 0l253.6-253.6A304.06 304.06 0 0 0 608 720c167.9 0 304-136.1 304-304S775.9 112 608 112zm161.2 465.2C726.2 620.3 668.9 644 608 644c-60.9 0-118.2-23.7-161.2-66.8-43.1-43-66.8-100.3-66.8-161.2 0-60.9 23.7-118.2 66.8-161.2 43-43.1 100.3-66.8 161.2-66.8 60.9 0 118.2 23.7 161.2 66.8 43.1 43 66.8 100.3 66.8 161.2 0 60.9-23.7 118.2-66.8 161.2z'
         )
       )),
       (t.LineHeightOutline = u(
@@ -16833,12 +17212,12 @@
           'M904 476H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8z'
         )
       )),
-      (t.LinkOutline = u(
-        'link',
+      (t.LineChartOutline = u(
+        'line-chart',
         i,
         l(
           o,
-          'M574 665.4a8.03 8.03 0 0 0-11.3 0L446.5 781.6c-53.8 53.8-144.6 59.5-204 0-59.5-59.5-53.8-150.2 0-204l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3l-39.8-39.8a8.03 8.03 0 0 0-11.3 0L191.4 526.5c-84.6 84.6-84.6 221.5 0 306s221.5 84.6 306 0l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3L574 665.4zm258.6-474c-84.6-84.6-221.5-84.6-306 0L410.3 307.6a8.03 8.03 0 0 0 0 11.3l39.7 39.7c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c53.8-53.8 144.6-59.5 204 0 59.5 59.5 53.8 150.2 0 204L665.3 562.6a8.03 8.03 0 0 0 0 11.3l39.8 39.8c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c84.5-84.6 84.5-221.5 0-306.1zM610.1 372.3a8.03 8.03 0 0 0-11.3 0L372.3 598.7a8.03 8.03 0 0 0 0 11.3l39.6 39.6c3.1 3.1 8.2 3.1 11.3 0l226.4-226.4c3.1-3.1 3.1-8.2 0-11.3l-39.5-39.6z'
+          'M888 792H200V168c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v688c0 4.4 3.6 8 8 8h752c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM305.8 637.7c3.1 3.1 8.1 3.1 11.3 0l138.3-137.6L583 628.5c3.1 3.1 8.2 3.1 11.3 0l275.4-275.3c3.1-3.1 3.1-8.2 0-11.3l-39.6-39.6a8.03 8.03 0 0 0-11.3 0l-230 229.9L461.4 404a8.03 8.03 0 0 0-11.3 0L266.3 586.7a8.03 8.03 0 0 0 0 11.3l39.5 39.7z'
         )
       )),
       (t.Loading3QuartersOutline = u(
@@ -16857,12 +17236,12 @@
           'M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 0 0-94.3-139.9 437.71 437.71 0 0 0-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z'
         )
       )),
-      (t.LoginOutline = u(
-        'login',
+      (t.LinkOutline = u(
+        'link',
         i,
         l(
           o,
-          'M521.7 82c-152.5-.4-286.7 78.5-363.4 197.7-3.4 5.3.4 12.3 6.7 12.3h70.3c4.8 0 9.3-2.1 12.3-5.8 7-8.5 14.5-16.7 22.4-24.5 32.6-32.5 70.5-58.1 112.7-75.9 43.6-18.4 90-27.8 137.9-27.8 47.9 0 94.3 9.3 137.9 27.8 42.2 17.8 80.1 43.4 112.7 75.9 32.6 32.5 58.1 70.4 76 112.5C865.7 417.8 875 464.1 875 512c0 47.9-9.4 94.2-27.8 137.8-17.8 42.1-43.4 80-76 112.5s-70.5 58.1-112.7 75.9A352.8 352.8 0 0 1 520.6 866c-47.9 0-94.3-9.4-137.9-27.8A353.84 353.84 0 0 1 270 762.3c-7.9-7.9-15.3-16.1-22.4-24.5-3-3.7-7.6-5.8-12.3-5.8H165c-6.3 0-10.2 7-6.7 12.3C234.9 863.2 368.5 942 520.6 942c236.2 0 428-190.1 430.4-425.6C953.4 277.1 761.3 82.6 521.7 82zM395.02 624v-76h-314c-4.4 0-8-3.6-8-8v-56c0-4.4 3.6-8 8-8h314v-76c0-6.7 7.8-10.5 13-6.3l141.9 112a8 8 0 0 1 0 12.6l-141.9 112c-5.2 4.1-13 .4-13-6.3z'
+          'M574 665.4a8.03 8.03 0 0 0-11.3 0L446.5 781.6c-53.8 53.8-144.6 59.5-204 0-59.5-59.5-53.8-150.2 0-204l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3l-39.8-39.8a8.03 8.03 0 0 0-11.3 0L191.4 526.5c-84.6 84.6-84.6 221.5 0 306s221.5 84.6 306 0l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3L574 665.4zm258.6-474c-84.6-84.6-221.5-84.6-306 0L410.3 307.6a8.03 8.03 0 0 0 0 11.3l39.7 39.7c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c53.8-53.8 144.6-59.5 204 0 59.5 59.5 53.8 150.2 0 204L665.3 562.6a8.03 8.03 0 0 0 0 11.3l39.8 39.8c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c84.5-84.6 84.5-221.5 0-306.1zM610.1 372.3a8.03 8.03 0 0 0-11.3 0L372.3 598.7a8.03 8.03 0 0 0 0 11.3l39.6 39.6c3.1 3.1 8.2 3.1 11.3 0l226.4-226.4c3.1-3.1 3.1-8.2 0-11.3l-39.5-39.6z'
         )
       )),
       (t.LogoutOutline = u(
@@ -16886,15 +17265,7 @@
         i,
         l(
           r,
-          'M517.2 590.55c0 3.55 0 4.36 2.4 6.55l13.43 13.25v.57h-59.57v-25.47a41.44 41.44 0 0 1-39.5 27.65c-30.61 0-52.84-24.25-52.84-68.87 0-41.8 23.99-69.69 57.65-69.69a35.15 35.15 0 0 1 34.61 21.67v-56.19a6.99 6.99 0 0 0-2.71-6.79l-12.8-12.45v-.56l59.33-7.04v177.37zm-43.74-8.09v-83.83a22.2 22.2 0 0 0-17.74-8.4c-14.48 0-28.47 13.25-28.47 52.62 0 36.86 12.07 49.88 27.1 49.88a23.91 23.91 0 0 0 19.11-10.27zm83.23 28.46V497.74a7.65 7.65 0 0 0-2.4-6.79l-13.19-13.74v-.57h59.56v114.8c0 3.55 0 4.36 2.4 6.54l13.12 12.45v.57l-59.49-.08zm-2.16-175.67c0-13.4 10.74-24.25 23.99-24.25 13.25 0 23.98 10.86 23.98 24.25 0 13.4-10.73 24.25-23.98 24.25s-23.99-10.85-23.99-24.25zm206.83 155.06c0 3.55 0 4.6 2.4 6.79l13.43 13.25v.57h-59.88V581.9a43.4 43.4 0 0 1-41.01 31.2c-26.55 0-40.78-19.56-40.78-56.59 0-17.86 0-37.43.56-59.41a6.91 6.91 0 0 0-2.4-6.55L620.5 477.2v-.57h59.09v73.81c0 24.25 3.51 40.42 18.54 40.42a23.96 23.96 0 0 0 19.35-12.2v-80.85a7.65 7.65 0 0 0-2.4-6.79l-13.27-13.82v-.57h59.56v113.67zm202.76 20.6c0-4.36.8-59.97.8-72.75 0-24.25-3.76-40.98-20.63-40.98a26.7 26.7 0 0 0-21.19 11.64 99.68 99.68 0 0 1 2.4 23.04c0 16.81-.56 38.23-.8 59.66a6.91 6.91 0 0 0 2.4 6.55l13.43 12.45v.56h-60.12c0-4.04.8-59.98.8-72.76 0-24.65-3.76-40.98-20.39-40.98-8.2.3-15.68 4.8-19.83 11.96v82.46c0 3.56 0 4.37 2.4 6.55l13.11 12.45v.56h-59.48V498.15a7.65 7.65 0 0 0-2.4-6.8l-13.19-14.14v-.57H841v28.78c5.53-19 23.13-31.76 42.7-30.96 19.82 0 33.26 11.16 38.93 32.34a46.41 46.41 0 0 1 44.77-32.34c26.55 0 41.58 19.8 41.58 57.23 0 17.87-.56 38.24-.8 59.66a6.5 6.5 0 0 0 2.72 6.55l13.11 12.45v.57h-59.88zM215.87 593.3l17.66 17.05v.57h-89.62v-.57l17.99-17.05a6.91 6.91 0 0 0 2.4-6.55V477.69c0-4.6 0-10.83.8-16.16L104.66 613.1h-.72l-62.6-139.45c-1.37-3.47-1.77-3.72-2.65-6.06v91.43a32.08 32.08 0 0 0 2.96 17.87l25.19 33.46v.57H0v-.57l25.18-33.55a32.16 32.16 0 0 0 2.96-17.78V457.97A19.71 19.71 0 0 0 24 444.15L6.16 420.78v-.56h63.96l53.56 118.1 47.17-118.1h62.6v.56l-17.58 19.8a6.99 6.99 0 0 0-2.72 6.8v139.37a6.5 6.5 0 0 0 2.72 6.55zm70.11-54.65v.56c0 34.6 17.67 48.5 38.38 48.5 17.29.6 33.29-9.2 40.77-24.97h.56c-7.2 34.2-28.14 50.36-59.48 50.36-33.82 0-65.72-20.61-65.72-68.39 0-50.2 31.98-70.25 67.32-70.25 28.46 0 58.76 13.58 58.76 57.24v6.95h-80.59zm0-6.95h39.42v-7.04c0-35.57-7.28-45.03-18.23-45.03-13.27 0-21.35 14.15-21.35 52.07h.16z'
-        )
-      )),
-      (t.MediumOutline = u(
-        'medium',
-        i,
-        l(
-          o,
-          'M834.7 279.8l61.3-58.9V208H683.7L532.4 586.4 360.3 208H137.7v12.9l71.6 86.6c7 6.4 10.6 15.8 9.7 25.2V673c2.2 12.3-1.7 24.8-10.3 33.7L128 805v12.7h228.6v-12.9l-80.6-98a39.99 39.99 0 0 1-11.1-33.7V378.7l200.7 439.2h23.3l172.6-439.2v349.9c0 9.2 0 11.1-6 17.2l-62.1 60.3V819h301.2v-12.9l-59.9-58.9c-5.2-4-7.9-10.7-6.8-17.2V297a18.1 18.1 0 0 1 6.8-17.2z'
+          'M517.2 590.55c0 3.55 0 4.36 2.4 6.55l13.43 13.25v.57h-59.57v-25.47a41.44 41.44 0 0 1-39.5 27.65c-30.61 0-52.84-24.25-52.84-68.87 0-41.8 23.99-69.69 57.65-69.69a35.15 35.15 0 0 1 34.61 21.67v-56.19a6.99 6.99 0 0 0-2.71-6.79l-12.8-12.45v-.56l59.33-7.04v177.37zm-43.74-8.09v-83.83a22.2 22.2 0 0 0-17.74-8.4c-14.48 0-28.47 13.25-28.47 52.62 0 36.86 12.07 49.88 27.1 49.88a23.91 23.91 0 0 0 19.11-10.27zm83.23 28.46V497.74a7.65 7.65 0 0 0-2.4-6.79l-13.19-13.74v-.57h59.56v114.8c0 3.55 0 4.36 2.4 6.54l13.12 12.45v.57l-59.49-.08zm-2.16-175.67c0-13.4 10.74-24.25 23.99-24.25 13.25 0 23.98 10.86 23.98 24.25 0 13.4-10.73 24.25-23.98 24.25s-23.99-10.85-23.99-24.25zm206.83 155.06c0 3.55 0 4.6 2.4 6.79l13.43 13.25v.57h-59.88V581.9a43.4 43.4 0 0 1-41.01 31.2c-26.55 0-40.78-19.56-40.78-56.59 0-17.86 0-37.43.56-59.41a6.91 6.91 0 0 0-2.4-6.55L620.5 477.2v-.57h59.09v73.81c0 24.25 3.51 40.42 18.54 40.42a23.96 23.96 0 0 0 19.35-12.2v-80.85a7.65 7.65 0 0 0-2.4-6.79l-13.27-13.82v-.57h59.56V590.3zm202.76 20.6c0-4.36.8-59.97.8-72.75 0-24.25-3.76-40.98-20.63-40.98a26.7 26.7 0 0 0-21.19 11.64 99.68 99.68 0 0 1 2.4 23.04c0 16.81-.56 38.23-.8 59.66a6.91 6.91 0 0 0 2.4 6.55l13.43 12.45v.56h-60.12c0-4.04.8-59.98.8-72.76 0-24.65-3.76-40.98-20.39-40.98-8.2.3-15.68 4.8-19.83 11.96v82.46c0 3.56 0 4.37 2.4 6.55l13.11 12.45v.56h-59.48V498.15a7.65 7.65 0 0 0-2.4-6.8l-13.19-14.14v-.57H841v28.78c5.53-19 23.13-31.76 42.7-30.96 19.82 0 33.26 11.16 38.93 32.34a46.41 46.41 0 0 1 44.77-32.34c26.55 0 41.58 19.8 41.58 57.23 0 17.87-.56 38.24-.8 59.66a6.5 6.5 0 0 0 2.72 6.55l13.11 12.45v.57h-59.88zM215.87 593.3l17.66 17.05v.57h-89.62v-.57l17.99-17.05a6.91 6.91 0 0 0 2.4-6.55V477.69c0-4.6 0-10.83.8-16.16L104.66 613.1h-.72l-62.6-139.45c-1.37-3.47-1.77-3.72-2.65-6.06v91.43a32.08 32.08 0 0 0 2.96 17.87l25.19 33.46v.57H0v-.57l25.18-33.55a32.16 32.16 0 0 0 2.96-17.78V457.97A19.71 19.71 0 0 0 24 444.15L6.16 420.78v-.56h63.96l53.56 118.1 47.17-118.1h62.6v.56l-17.58 19.8a6.99 6.99 0 0 0-2.72 6.8v139.37a6.5 6.5 0 0 0 2.72 6.55zm70.11-54.65v.56c0 34.6 17.67 48.5 38.38 48.5a43.5 43.5 0 0 0 40.77-24.97h.56c-7.2 34.2-28.14 50.36-59.48 50.36-33.82 0-65.72-20.61-65.72-68.39 0-50.2 31.98-70.25 67.32-70.25 28.46 0 58.76 13.58 58.76 57.24v6.95h-80.59zm0-6.95h39.42v-7.04c0-35.57-7.28-45.03-18.23-45.03-13.27 0-21.35 14.15-21.35 52.07h.16z'
         )
       )),
       (t.MenuFoldOutline = u(
@@ -16913,6 +17284,22 @@
           'M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM142.4 642.1L298.7 519a8.84 8.84 0 0 0 0-13.9L142.4 381.9c-5.8-4.6-14.4-.5-14.4 6.9v246.3a8.9 8.9 0 0 0 14.4 7z'
         )
       )),
+      (t.MediumOutline = u(
+        'medium',
+        i,
+        l(
+          o,
+          'M834.7 279.8l61.3-58.9V208H683.7L532.4 586.4 360.3 208H137.7v12.9l71.6 86.6c7 6.4 10.6 15.8 9.7 25.2V673c2.2 12.3-1.7 24.8-10.3 33.7L128 805v12.7h228.6v-12.9l-80.6-98a39.99 39.99 0 0 1-11.1-33.7V378.7l200.7 439.2h23.3l172.6-439.2v349.9c0 9.2 0 11.1-6 17.2l-62.1 60.3V819h301.2v-12.9l-59.9-58.9c-5.2-4-7.9-10.7-6.8-17.2V297a18.1 18.1 0 0 1 6.8-17.2z'
+        )
+      )),
+      (t.LoginOutline = u(
+        'login',
+        i,
+        l(
+          o,
+          'M521.7 82c-152.5-.4-286.7 78.5-363.4 197.7-3.4 5.3.4 12.3 6.7 12.3h70.3c4.8 0 9.3-2.1 12.3-5.8 7-8.5 14.5-16.7 22.4-24.5 32.6-32.5 70.5-58.1 112.7-75.9 43.6-18.4 90-27.8 137.9-27.8 47.9 0 94.3 9.3 137.9 27.8 42.2 17.8 80.1 43.4 112.7 75.9 32.6 32.5 58.1 70.4 76 112.5C865.7 417.8 875 464.1 875 512c0 47.9-9.4 94.2-27.8 137.8-17.8 42.1-43.4 80-76 112.5s-70.5 58.1-112.7 75.9A352.8 352.8 0 0 1 520.6 866c-47.9 0-94.3-9.4-137.9-27.8A353.84 353.84 0 0 1 270 762.3c-7.9-7.9-15.3-16.1-22.4-24.5-3-3.7-7.6-5.8-12.3-5.8H165c-6.3 0-10.2 7-6.7 12.3C234.9 863.2 368.5 942 520.6 942c236.2 0 428-190.1 430.4-425.6C953.4 277.1 761.3 82.6 521.7 82zM395.02 624v-76h-314c-4.4 0-8-3.6-8-8v-56c0-4.4 3.6-8 8-8h314v-76c0-6.7 7.8-10.5 13-6.3l141.9 112a8 8 0 0 1 0 12.6l-141.9 112c-5.2 4.1-13 .4-13-6.3z'
+        )
+      )),
       (t.MenuOutline = u(
         'menu',
         i,
@@ -16929,12 +17316,12 @@
           'M872 474H152c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h720c4.4 0 8-3.6 8-8v-60c0-4.4-3.6-8-8-8z'
         )
       )),
-      (t.MonitorOutline = u(
-        'monitor',
+      (t.NumberOutline = u(
+        'number',
         i,
         l(
           o,
-          'M692.8 412.7l.2-.2-34.6-44.3a7.97 7.97 0 0 0-11.2-1.4l-50.4 39.3-70.5-90.1a7.97 7.97 0 0 0-11.2-1.4l-37.9 29.7a7.97 7.97 0 0 0-1.4 11.2l70.5 90.2-.2.1 34.6 44.3c2.7 3.5 7.7 4.1 11.2 1.4l50.4-39.3 64.1 82c2.7 3.5 7.7 4.1 11.2 1.4l37.9-29.6c3.5-2.7 4.1-7.7 1.4-11.2l-64.1-82.1zM608 112c-167.9 0-304 136.1-304 304 0 70.3 23.9 135 63.9 186.5L114.3 856.1a8.03 8.03 0 0 0 0 11.3l42.3 42.3c3.1 3.1 8.2 3.1 11.3 0l253.6-253.6C473 696.1 537.7 720 608 720c167.9 0 304-136.1 304-304S775.9 112 608 112zm161.2 465.2C726.2 620.3 668.9 644 608 644s-118.2-23.7-161.2-66.8C403.7 534.2 380 476.9 380 416s23.7-118.2 66.8-161.2c43-43.1 100.3-66.8 161.2-66.8s118.2 23.7 161.2 66.8c43.1 43 66.8 100.3 66.8 161.2s-23.7 118.2-66.8 161.2z'
+          'M872 394c4.4 0 8-3.6 8-8v-60c0-4.4-3.6-8-8-8H708V152c0-4.4-3.6-8-8-8h-64c-4.4 0-8 3.6-8 8v166H400V152c0-4.4-3.6-8-8-8h-64c-4.4 0-8 3.6-8 8v166H152c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h168v236H152c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h168v166c0 4.4 3.6 8 8 8h64c4.4 0 8-3.6 8-8V706h228v166c0 4.4 3.6 8 8 8h64c4.4 0 8-3.6 8-8V706h164c4.4 0 8-3.6 8-8v-60c0-4.4-3.6-8-8-8H708V394h164zM628 630H400V394h228v236z'
         )
       )),
       (t.MrOutline = u(
@@ -16945,12 +17332,12 @@
           'M788 705.9V192c0-8.8-7.2-16-16-16H602v-68.8c0-6-7-9.4-11.7-5.7L462.7 202.3a7.14 7.14 0 0 0 0 11.3l127.5 100.8c4.7 3.7 11.7.4 11.7-5.7V240h114v465.9c-44.2 15-76 56.9-76 106.1 0 61.8 50.2 112 112 112s112-50.2 112-112c.1-49.2-31.7-91-75.9-106.1zM752 860a48.01 48.01 0 0 1 0-96 48.01 48.01 0 0 1 0 96zM384 212c0-61.8-50.2-112-112-112s-112 50.2-112 112c0 49.2 31.8 91 76 106.1V706c-44.2 15-76 56.9-76 106.1 0 61.8 50.2 112 112 112s112-50.2 112-112c0-49.2-31.8-91-76-106.1V318.1c44.2-15.1 76-56.9 76-106.1zm-160 0a48.01 48.01 0 0 1 96 0 48.01 48.01 0 0 1-96 0zm96 600a48.01 48.01 0 0 1-96 0 48.01 48.01 0 0 1 96 0z'
         )
       )),
-      (t.NumberOutline = u(
-        'number',
+      (t.MonitorOutline = u(
+        'monitor',
         i,
         l(
           o,
-          'M872 394c4.4 0 8-3.6 8-8v-60c0-4.4-3.6-8-8-8H708V152c0-4.4-3.6-8-8-8h-64c-4.4 0-8 3.6-8 8v166H400V152c0-4.4-3.6-8-8-8h-64c-4.4 0-8 3.6-8 8v166H152c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h168v236H152c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h168v166c0 4.4 3.6 8 8 8h64c4.4 0 8-3.6 8-8V706h228v166c0 4.4 3.6 8 8 8h64c4.4 0 8-3.6 8-8V706h164c4.4 0 8-3.6 8-8v-60c0-4.4-3.6-8-8-8H708V394h164zM628 630H400V394h228v236z'
+          'M692.8 412.7l.2-.2-34.6-44.3a7.97 7.97 0 0 0-11.2-1.4l-50.4 39.3-70.5-90.1a7.97 7.97 0 0 0-11.2-1.4l-37.9 29.7a7.97 7.97 0 0 0-1.4 11.2l70.5 90.2-.2.1 34.6 44.3c2.7 3.5 7.7 4.1 11.2 1.4l50.4-39.3 64.1 82c2.7 3.5 7.7 4.1 11.2 1.4l37.9-29.6c3.5-2.7 4.1-7.7 1.4-11.2l-64.1-82.1zM608 112c-167.9 0-304 136.1-304 304 0 70.3 23.9 135 63.9 186.5L114.3 856.1a8.03 8.03 0 0 0 0 11.3l42.3 42.3c3.1 3.1 8.2 3.1 11.3 0l253.6-253.6C473 696.1 537.7 720 608 720c167.9 0 304-136.1 304-304S775.9 112 608 112zm161.2 465.2C726.2 620.3 668.9 644 608 644s-118.2-23.7-161.2-66.8C403.7 534.2 380 476.9 380 416s23.7-118.2 66.8-161.2c43-43.1 100.3-66.8 161.2-66.8s118.2 23.7 161.2 66.8c43.1 43 66.8 100.3 66.8 161.2s-23.7 118.2-66.8 161.2z'
         )
       )),
       (t.OrderedListOutline = u(
@@ -16977,14 +17364,6 @@
           'M304 176h80v672h-80zm408 0h-64c-4.4 0-8 3.6-8 8v656c0 4.4 3.6 8 8 8h64c4.4 0 8-3.6 8-8V184c0-4.4-3.6-8-8-8z'
         )
       )),
-      (t.PercentageOutline = u(
-        'percentage',
-        i,
-        l(
-          o,
-          'M855.7 210.8l-42.4-42.4a8.03 8.03 0 0 0-11.3 0L168.3 801.9a8.03 8.03 0 0 0 0 11.3l42.4 42.4c3.1 3.1 8.2 3.1 11.3 0L855.6 222c3.2-3 3.2-8.1.1-11.2zM304 448c79.4 0 144-64.6 144-144s-64.6-144-144-144-144 64.6-144 144 64.6 144 144 144zm0-216c39.7 0 72 32.3 72 72s-32.3 72-72 72-72-32.3-72-72 32.3-72 72-72zm416 344c-79.4 0-144 64.6-144 144s64.6 144 144 144 144-64.6 144-144-64.6-144-144-144zm0 216c-39.7 0-72-32.3-72-72s32.3-72 72-72 72 32.3 72 72-32.3 72-72 72z'
-        )
-      )),
       (t.PicCenterOutline = u(
         'pic-center',
         i,
@@ -17001,12 +17380,12 @@
           'M952 792H72c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h880c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0-632H72c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h880c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM608 660c8.8 0 16-7.2 16-16V380c0-8.8-7.2-16-16-16H96c-8.8 0-16 7.2-16 16v264c0 8.8 7.2 16 16 16h512zM152 436h400v152H152V436zm552 210c0 4.4 3.6 8 8 8h224c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H712c-4.4 0-8 3.6-8 8v56zm8-204h224c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H712c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8z'
         )
       )),
-      (t.PicRightOutline = u(
-        'pic-right',
+      (t.PercentageOutline = u(
+        'percentage',
         i,
         l(
           o,
-          'M952 792H72c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h880c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0-632H72c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h880c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm-24 500c8.8 0 16-7.2 16-16V380c0-8.8-7.2-16-16-16H416c-8.8 0-16 7.2-16 16v264c0 8.8 7.2 16 16 16h512zM472 436h400v152H472V436zM80 646c0 4.4 3.6 8 8 8h224c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H88c-4.4 0-8 3.6-8 8v56zm8-204h224c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H88c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8z'
+          'M855.7 210.8l-42.4-42.4a8.03 8.03 0 0 0-11.3 0L168.3 801.9a8.03 8.03 0 0 0 0 11.3l42.4 42.4c3.1 3.1 8.2 3.1 11.3 0L855.6 222c3.2-3 3.2-8.1.1-11.2zM304 448c79.4 0 144-64.6 144-144s-64.6-144-144-144-144 64.6-144 144 64.6 144 144 144zm0-216c39.7 0 72 32.3 72 72s-32.3 72-72 72-72-32.3-72-72 32.3-72 72-72zm416 344c-79.4 0-144 64.6-144 144s64.6 144 144 144 144-64.6 144-144-64.6-144-144-144zm0 216c-39.7 0-72-32.3-72-72s32.3-72 72-72 72 32.3 72 72-32.3 72-72 72z'
         )
       )),
       (t.PlusOutline = u(
@@ -17025,12 +17404,12 @@
           'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372zm138-209.8H469.8v-4.7c27.4-17.2 43.9-50.4 43.9-91.1 0-14.1-2.2-27.9-5.3-41H607c4.4 0 8-3.6 8-8v-30c0-4.4-3.6-8-8-8H495c-7.2-22.6-13.4-45.7-13.4-70.5 0-43.5 34-70.2 87.3-70.2 21.5 0 42.5 4.1 60.4 10.5 5.2 1.9 10.6-2 10.6-7.6v-39.5c0-3.3-2.1-6.3-5.2-7.5-18.8-7.2-43.8-12.7-70.3-12.7-92.9 0-151.5 44.5-151.5 120.3 0 26.3 6.9 52 14.6 77.1H374c-4.4 0-8 3.6-8 8v30c0 4.4 3.6 8 8 8h67.1c3.4 14.7 5.9 29.4 5.9 44.2 0 45.2-28.8 83.3-72.8 94.2-3.6.9-6.1 4.1-6.1 7.8V722c0 4.4 3.6 8 8 8H650c4.4 0 8-3.6 8-8v-39.8c0-4.4-3.6-8-8-8z'
         )
       )),
-      (t.PoweroffOutline = u(
-        'poweroff',
+      (t.PicRightOutline = u(
+        'pic-right',
         i,
         l(
           o,
-          'M705.6 124.9a8 8 0 0 0-11.6 7.2v64.2c0 5.5 2.9 10.6 7.5 13.6a352.2 352.2 0 0 1 62.2 49.8c32.7 32.8 58.4 70.9 76.3 113.3a355 355 0 0 1 27.9 138.7c0 48.1-9.4 94.8-27.9 138.7a355.92 355.92 0 0 1-76.3 113.3 353.06 353.06 0 0 1-113.2 76.4c-43.8 18.6-90.5 28-138.5 28s-94.7-9.4-138.5-28a353.06 353.06 0 0 1-113.2-76.4A355.92 355.92 0 0 1 184 650.4a355 355 0 0 1-27.9-138.7c0-48.1 9.4-94.8 27.9-138.7 17.9-42.4 43.6-80.5 76.3-113.3 19-19 39.8-35.6 62.2-49.8 4.7-2.9 7.5-8.1 7.5-13.6V132c0-6-6.3-9.8-11.6-7.2C178.5 195.2 82 339.3 80 506.3 77.2 745.1 272.5 943.5 511.2 944c239 .5 432.8-193.3 432.8-432.4 0-169.2-97-315.7-238.4-386.7zM480 560h64c4.4 0 8-3.6 8-8V88c0-4.4-3.6-8-8-8h-64c-4.4 0-8 3.6-8 8v464c0 4.4 3.6 8 8 8z'
+          'M952 792H72c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h880c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0-632H72c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h880c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm-24 500c8.8 0 16-7.2 16-16V380c0-8.8-7.2-16-16-16H416c-8.8 0-16 7.2-16 16v264c0 8.8 7.2 16 16 16h512zM472 436h400v152H472V436zM80 646c0 4.4 3.6 8 8 8h224c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H88c-4.4 0-8 3.6-8 8v56zm8-204h224c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H88c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8z'
         )
       )),
       (t.QqOutline = u(
@@ -17047,6 +17426,14 @@
         l(
           o,
           'M468 128H160c-17.7 0-32 14.3-32 32v308c0 4.4 3.6 8 8 8h332c4.4 0 8-3.6 8-8V136c0-4.4-3.6-8-8-8zm-56 284H192V192h220v220zm-138-74h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm194 210H136c-4.4 0-8 3.6-8 8v308c0 17.7 14.3 32 32 32h308c4.4 0 8-3.6 8-8V556c0-4.4-3.6-8-8-8zm-56 284H192V612h220v220zm-138-74h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm590-630H556c-4.4 0-8 3.6-8 8v332c0 4.4 3.6 8 8 8h332c4.4 0 8-3.6 8-8V160c0-17.7-14.3-32-32-32zm-32 284H612V192h220v220zm-138-74h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm194 210h-48c-4.4 0-8 3.6-8 8v134h-78V556c0-4.4-3.6-8-8-8H556c-4.4 0-8 3.6-8 8v332c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V644h78v102c0 4.4 3.6 8 8 8h190c4.4 0 8-3.6 8-8V556c0-4.4-3.6-8-8-8zM746 832h-48c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8zm142 0h-48c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8z'
+        )
+      )),
+      (t.PoweroffOutline = u(
+        'poweroff',
+        i,
+        l(
+          o,
+          'M705.6 124.9a8 8 0 0 0-11.6 7.2v64.2c0 5.5 2.9 10.6 7.5 13.6a352.2 352.2 0 0 1 62.2 49.8c32.7 32.8 58.4 70.9 76.3 113.3a355 355 0 0 1 27.9 138.7c0 48.1-9.4 94.8-27.9 138.7a355.92 355.92 0 0 1-76.3 113.3 353.06 353.06 0 0 1-113.2 76.4c-43.8 18.6-90.5 28-138.5 28s-94.7-9.4-138.5-28a353.06 353.06 0 0 1-113.2-76.4A355.92 355.92 0 0 1 184 650.4a355 355 0 0 1-27.9-138.7c0-48.1 9.4-94.8 27.9-138.7 17.9-42.4 43.6-80.5 76.3-113.3 19-19 39.8-35.6 62.2-49.8 4.7-2.9 7.5-8.1 7.5-13.6V132c0-6-6.3-9.8-11.6-7.2C178.5 195.2 82 339.3 80 506.3 77.2 745.1 272.5 943.5 511.2 944c239 .5 432.8-193.3 432.8-432.4 0-169.2-97-315.7-238.4-386.7zM480 560h64c4.4 0 8-3.6 8-8V88c0-4.4-3.6-8-8-8h-64c-4.4 0-8 3.6-8 8v464c0 4.4 3.6 8 8 8z'
         )
       )),
       (t.QuestionOutline = u(
@@ -17073,12 +17460,12 @@
           'M712 824h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm2-696h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM136 374h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm0-174h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm752 624h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0-174h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0-174h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0-174h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0-174h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm-348 0h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm-230 72h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm230 624H358c-87.3 0-158-70.7-158-158V484c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v182c0 127 103 230 230 230h182c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8z'
         )
       )),
-      (t.RadiusBottomrightOutline = u(
-        'radius-bottomright',
+      (t.RadiusUpleftOutline = u(
+        'radius-upleft',
         i,
         l(
           o,
-          'M368 824h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm-58-624h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm578 102h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0-174h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM192 824h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0-174h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0-174h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0-174h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0-174h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm292 72h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm174 0h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm230 276h-56c-4.4 0-8 3.6-8 8v182c0 87.3-70.7 158-158 158H484c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h182c127 0 230-103 230-230V484c0-4.4-3.6-8-8-8z'
+          'M656 200h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm58 624h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM192 650h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 174h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm696-696h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 174h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 174h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 174h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 174h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm-348 0h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm-174 0h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm174-696H358c-127 0-230 103-230 230v182c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V358c0-87.3 70.7-158 158-158h182c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8z'
         )
       )),
       (t.RadiusSettingOutline = u(
@@ -17089,20 +17476,20 @@
           'M396 140h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm-44 684h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm524-204h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM192 344h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 160h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 160h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 160h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm320 0h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm160 0h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm140-284c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V370c0-127-103-230-230-230H484c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h170c87.3 0 158 70.7 158 158v170zM236 96H92c-4.4 0-8 3.6-8 8v144c0 4.4 3.6 8 8 8h144c4.4 0 8-3.6 8-8V104c0-4.4-3.6-8-8-8zm-48 101.6c0 1.3-1.1 2.4-2.4 2.4h-43.2c-1.3 0-2.4-1.1-2.4-2.4v-43.2c0-1.3 1.1-2.4 2.4-2.4h43.2c1.3 0 2.4 1.1 2.4 2.4v43.2zM920 780H776c-4.4 0-8 3.6-8 8v144c0 4.4 3.6 8 8 8h144c4.4 0 8-3.6 8-8V788c0-4.4-3.6-8-8-8zm-48 101.6c0 1.3-1.1 2.4-2.4 2.4h-43.2c-1.3 0-2.4-1.1-2.4-2.4v-43.2c0-1.3 1.1-2.4 2.4-2.4h43.2c1.3 0 2.4 1.1 2.4 2.4v43.2z'
         )
       )),
-      (t.RadiusUpleftOutline = u(
-        'radius-upleft',
-        i,
-        l(
-          o,
-          'M656 200h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm58 624h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM192 650h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 174h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm696-696h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 174h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 174h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 174h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 174h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm-348 0h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm-174 0h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm174-696H358c-127 0-230 103-230 230v182c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V358c0-87.3 70.7-158 158-158h182c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8z'
-        )
-      )),
       (t.RadiusUprightOutline = u(
         'radius-upright',
         i,
         l(
           o,
           'M368 128h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm-2 696h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm522-174h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 174h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM192 128h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 174h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 174h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 174h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 174h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm348 0h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm174 0h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm-48-696H484c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h182c87.3 0 158 70.7 158 158v182c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V358c0-127-103-230-230-230z'
+        )
+      )),
+      (t.RadiusBottomrightOutline = u(
+        'radius-bottomright',
+        i,
+        l(
+          o,
+          'M368 824h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm-58-624h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm578 102h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0-174h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM192 824h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0-174h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0-174h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0-174h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0-174h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm292 72h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm174 0h56c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm230 276h-56c-4.4 0-8 3.6-8 8v182c0 87.3-70.7 158-158 158H484c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h182c127 0 230-103 230-230V484c0-4.4-3.6-8-8-8z'
         )
       )),
       (t.RedditOutline = u(
@@ -17129,14 +17516,6 @@
           'M536.1 273H488c-4.4 0-8 3.6-8 8v275.3c0 2.6 1.2 5 3.3 6.5l165.3 120.7c3.6 2.6 8.6 1.9 11.2-1.7l28.6-39c2.7-3.7 1.9-8.7-1.7-11.2L544.1 528.5V281c0-4.4-3.6-8-8-8zm219.8 75.2l156.8 38.3c5 1.2 9.9-2.6 9.9-7.7l.8-161.5c0-6.7-7.7-10.5-12.9-6.3L752.9 334.1a8 8 0 0 0 3 14.1zm167.7 301.1l-56.7-19.5a8 8 0 0 0-10.1 4.8c-1.9 5.1-3.9 10.1-6 15.1-17.8 42.1-43.3 80-75.9 112.5a353 353 0 0 1-112.5 75.9 352.18 352.18 0 0 1-137.7 27.8c-47.8 0-94.1-9.3-137.7-27.8a353 353 0 0 1-112.5-75.9c-32.5-32.5-58-70.4-75.9-112.5A353.44 353.44 0 0 1 171 512c0-47.8 9.3-94.2 27.8-137.8 17.8-42.1 43.3-80 75.9-112.5a353 353 0 0 1 112.5-75.9C430.6 167.3 477 158 524.8 158s94.1 9.3 137.7 27.8A353 353 0 0 1 775 261.7c10.2 10.3 19.8 21 28.6 32.3l59.8-46.8C784.7 146.6 662.2 81.9 524.6 82 285 82.1 92.6 276.7 95 516.4 97.4 751.9 288.9 942 524.8 942c185.5 0 343.5-117.6 403.7-282.3 1.5-4.2-.7-8.9-4.9-10.4z'
         )
       )),
-      (t.ReloadOutline = u(
-        'reload',
-        i,
-        l(
-          o,
-          'M909.1 209.3l-56.4 44.1C775.8 155.1 656.2 92 521.9 92 290 92 102.3 279.5 102 511.5 101.7 743.7 289.8 932 521.9 932c181.3 0 335.8-115 394.6-276.1 1.5-4.2-.7-8.9-4.9-10.3l-56.7-19.5a8 8 0 0 0-10.1 4.8c-1.8 5-3.8 10-5.9 14.9-17.3 41-42.1 77.8-73.7 109.4A344.77 344.77 0 0 1 655.9 829c-42.3 17.9-87.4 27-133.8 27-46.5 0-91.5-9.1-133.8-27A341.5 341.5 0 0 1 279 755.2a342.16 342.16 0 0 1-73.7-109.4c-17.9-42.4-27-87.4-27-133.9s9.1-91.5 27-133.9c17.3-41 42.1-77.8 73.7-109.4 31.6-31.6 68.4-56.4 109.3-73.8 42.3-17.9 87.4-27 133.8-27 46.5 0 91.5 9.1 133.8 27a341.5 341.5 0 0 1 109.3 73.8c9.9 9.9 19.2 20.4 27.8 31.4l-60.2 47a8 8 0 0 0 3 14.1l175.6 43c5 1.2 9.9-2.6 9.9-7.7l.8-180.9c-.1-6.6-7.8-10.3-13-6.2z'
-        )
-      )),
       (t.RetweetOutline = u(
         'retweet',
         i,
@@ -17145,12 +17524,12 @@
           'M136 552h63.6c4.4 0 8-3.6 8-8V288.7h528.6v72.6c0 1.9.6 3.7 1.8 5.2a8.3 8.3 0 0 0 11.7 1.4L893 255.4c4.3-5 3.6-10.3 0-13.2L749.7 129.8a8.22 8.22 0 0 0-5.2-1.8c-4.6 0-8.4 3.8-8.4 8.4V209H199.7c-39.5 0-71.7 32.2-71.7 71.8V544c0 4.4 3.6 8 8 8zm752-80h-63.6c-4.4 0-8 3.6-8 8v255.3H287.8v-72.6c0-1.9-.6-3.7-1.8-5.2a8.3 8.3 0 0 0-11.7-1.4L131 768.6c-4.3 5-3.6 10.3 0 13.2l143.3 112.4c1.5 1.2 3.3 1.8 5.2 1.8 4.6 0 8.4-3.8 8.4-8.4V815h536.6c39.5 0 71.7-32.2 71.7-71.8V480c-.2-4.4-3.8-8-8.2-8z'
         )
       )),
-      (t.RightOutline = u(
-        'right',
+      (t.ReloadOutline = u(
+        'reload',
         i,
         l(
           o,
-          'M765.7 486.8L314.9 134.7A7.97 7.97 0 0 0 302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 0 0 0-50.4z'
+          'M909.1 209.3l-56.4 44.1C775.8 155.1 656.2 92 521.9 92 290 92 102.3 279.5 102 511.5 101.7 743.7 289.8 932 521.9 932c181.3 0 335.8-115 394.6-276.1 1.5-4.2-.7-8.9-4.9-10.3l-56.7-19.5a8 8 0 0 0-10.1 4.8c-1.8 5-3.8 10-5.9 14.9-17.3 41-42.1 77.8-73.7 109.4A344.77 344.77 0 0 1 655.9 829c-42.3 17.9-87.4 27-133.8 27-46.5 0-91.5-9.1-133.8-27A341.5 341.5 0 0 1 279 755.2a342.16 342.16 0 0 1-73.7-109.4c-17.9-42.4-27-87.4-27-133.9s9.1-91.5 27-133.9c17.3-41 42.1-77.8 73.7-109.4 31.6-31.6 68.4-56.4 109.3-73.8 42.3-17.9 87.4-27 133.8-27 46.5 0 91.5 9.1 133.8 27a341.5 341.5 0 0 1 109.3 73.8c9.9 9.9 19.2 20.4 27.8 31.4l-60.2 47a8 8 0 0 0 3 14.1l175.6 43c5 1.2 9.9-2.6 9.9-7.7l.8-180.9c-.1-6.6-7.8-10.3-13-6.2z'
         )
       )),
       (t.RiseOutline = u(
@@ -17177,13 +17556,12 @@
           'M793 242H366v-74c0-6.7-7.7-10.4-12.9-6.3l-142 112a8 8 0 0 0 0 12.6l142 112c5.2 4.1 12.9.4 12.9-6.3v-74h415v470H175c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h618c35.3 0 64-28.7 64-64V306c0-35.3-28.7-64-64-64z'
         )
       )),
-      (t.SafetyOutline = u(
-        'safety',
+      (t.RightOutline = u(
+        'right',
         i,
         l(
-          r,
-          'M512 64L128 192v384c0 212.1 171.9 384 384 384s384-171.9 384-384V192L512 64zm312 512c0 172.3-139.7 312-312 312S200 748.3 200 576V246l312-110 312 110v330z',
-          'M378.4 475.1a35.91 35.91 0 0 0-50.9 0 35.91 35.91 0 0 0 0 50.9l129.4 129.4 2.1 2.1a33.98 33.98 0 0 0 48.1 0L730.6 434a33.98 33.98 0 0 0 0-48.1l-2.8-2.8a33.98 33.98 0 0 0-48.1 0L483 579.7 378.4 475.1z'
+          o,
+          'M765.7 486.8L314.9 134.7A7.97 7.97 0 0 0 302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 0 0 0-50.4z'
         )
       )),
       (t.ScanOutline = u(
@@ -17192,6 +17570,15 @@
         l(
           o,
           'M136 384h56c4.4 0 8-3.6 8-8V200h176c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H196c-37.6 0-68 30.4-68 68v180c0 4.4 3.6 8 8 8zm512-184h176v176c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V196c0-37.6-30.4-68-68-68H648c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zM376 824H200V648c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v180c0 37.6 30.4 68 68 68h180c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm512-184h-56c-4.4 0-8 3.6-8 8v176H648c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h180c37.6 0 68-30.4 68-68V648c0-4.4-3.6-8-8-8zm16-164H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8z'
+        )
+      )),
+      (t.SafetyOutline = u(
+        'safety',
+        i,
+        l(
+          r,
+          'M512 64L128 192v384c0 212.1 171.9 384 384 384s384-171.9 384-384V192L512 64zm312 512c0 172.3-139.7 312-312 312S200 748.3 200 576V246l312-110 312 110v330z',
+          'M378.4 475.1a35.91 35.91 0 0 0-50.9 0 35.91 35.91 0 0 0 0 50.9l129.4 129.4 2.1 2.1a33.98 33.98 0 0 0 48.1 0L730.6 434a33.98 33.98 0 0 0 0-48.1l-2.8-2.8a33.98 33.98 0 0 0-48.1 0L483 579.7 378.4 475.1z'
         )
       )),
       (t.ScissorOutline = u(
@@ -17210,14 +17597,6 @@
           'M909.6 854.5L649.9 594.8C690.2 542.7 712 479 712 412c0-80.2-31.3-155.4-87.9-212.1-56.6-56.7-132-87.9-212.1-87.9s-155.5 31.3-212.1 87.9C143.2 256.5 112 331.8 112 412c0 80.1 31.3 155.5 87.9 212.1C256.5 680.8 331.8 712 412 712c67 0 130.6-21.8 182.7-62l259.7 259.6a8.2 8.2 0 0 0 11.6 0l43.6-43.5a8.2 8.2 0 0 0 0-11.6zM570.4 570.4C528 612.7 471.8 636 412 636s-116-23.3-158.4-65.6C211.3 528 188 471.8 188 412s23.3-116.1 65.6-158.4C296 211.3 352.2 188 412 188s116.1 23.2 158.4 65.6S636 352.2 636 412s-23.3 116.1-65.6 158.4z'
         )
       )),
-      (t.SelectOutline = u(
-        'select',
-        i,
-        l(
-          o,
-          'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h360c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H184V184h656v320c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V144c0-17.7-14.3-32-32-32zM653.3 599.4l52.2-52.2a8.01 8.01 0 0 0-4.7-13.6l-179.4-21c-5.1-.6-9.5 3.7-8.9 8.9l21 179.4c.8 6.6 8.9 9.4 13.6 4.7l52.4-52.4 256.2 256.2c3.1 3.1 8.2 3.1 11.3 0l42.4-42.4c3.1-3.1 3.1-8.2 0-11.3L653.3 599.4z'
-        )
-      )),
       (t.ShakeOutline = u(
         'shake',
         i,
@@ -17234,12 +17613,12 @@
           'M752 664c-28.5 0-54.8 10-75.4 26.7L469.4 540.8a160.68 160.68 0 0 0 0-57.6l207.2-149.9C697.2 350 723.5 360 752 360c66.2 0 120-53.8 120-120s-53.8-120-120-120-120 53.8-120 120c0 11.6 1.6 22.7 4.7 33.3L439.9 415.8C410.7 377.1 364.3 352 312 352c-88.4 0-160 71.6-160 160s71.6 160 160 160c52.3 0 98.7-25.1 127.9-63.8l196.8 142.5c-3.1 10.6-4.7 21.8-4.7 33.3 0 66.2 53.8 120 120 120s120-53.8 120-120-53.8-120-120-120zm0-476c28.7 0 52 23.3 52 52s-23.3 52-52 52-52-23.3-52-52 23.3-52 52-52zM312 600c-48.5 0-88-39.5-88-88s39.5-88 88-88 88 39.5 88 88-39.5 88-88 88zm440 236c-28.7 0-52-23.3-52-52s23.3-52 52-52 52 23.3 52 52-23.3 52-52 52z'
         )
       )),
-      (t.ShoppingCartOutline = u(
-        'shopping-cart',
+      (t.SelectOutline = u(
+        'select',
         i,
         l(
-          r,
-          'M922.9 701.9H327.4l29.9-60.9 496.8-.9c16.8 0 31.2-12 34.2-28.6l68.8-385.1c1.8-10.1-.9-20.5-7.5-28.4a34.99 34.99 0 0 0-26.6-12.5l-632-2.1-5.4-25.4c-3.4-16.2-18-28-34.6-28H96.5a35.3 35.3 0 1 0 0 70.6h125.9L246 312.8l58.1 281.3-74.8 122.1a34.96 34.96 0 0 0-3 36.8c6 11.9 18.1 19.4 31.5 19.4h62.8a102.43 102.43 0 0 0-20.6 61.7c0 56.6 46 102.6 102.6 102.6s102.6-46 102.6-102.6c0-22.3-7.4-44-20.6-61.7h161.1a102.43 102.43 0 0 0-20.6 61.7c0 56.6 46 102.6 102.6 102.6s102.6-46 102.6-102.6c0-22.3-7.4-44-20.6-61.7H923c19.4 0 35.3-15.8 35.3-35.3a35.42 35.42 0 0 0-35.4-35.2zM305.7 253l575.8 1.9-56.4 315.8-452.3.8L305.7 253zm96.9 612.7c-17.4 0-31.6-14.2-31.6-31.6 0-17.4 14.2-31.6 31.6-31.6s31.6 14.2 31.6 31.6a31.6 31.6 0 0 1-31.6 31.6zm325.1 0c-17.4 0-31.6-14.2-31.6-31.6 0-17.4 14.2-31.6 31.6-31.6s31.6 14.2 31.6 31.6a31.6 31.6 0 0 1-31.6 31.6z'
+          o,
+          'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h360c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H184V184h656v320c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V144c0-17.7-14.3-32-32-32zM653.3 599.4l52.2-52.2a8.01 8.01 0 0 0-4.7-13.6l-179.4-21c-5.1-.6-9.5 3.7-8.9 8.9l21 179.4c.8 6.6 8.9 9.4 13.6 4.7l52.4-52.4 256.2 256.2c3.1 3.1 8.2 3.1 11.3 0l42.4-42.4c3.1-3.1 3.1-8.2 0-11.3L653.3 599.4z'
         )
       )),
       (t.ShrinkOutline = u(
@@ -17250,20 +17629,20 @@
           'M881.7 187.4l-45.1-45.1a8.03 8.03 0 0 0-11.3 0L667.8 299.9l-54.7-54.7a7.94 7.94 0 0 0-13.5 4.7L576.1 439c-.6 5.2 3.7 9.5 8.9 8.9l189.2-23.5c6.6-.8 9.3-8.8 4.7-13.5l-54.7-54.7 157.6-157.6c3-3 3-8.1-.1-11.2zM439 576.1l-189.2 23.5c-6.6.8-9.3 8.9-4.7 13.5l54.7 54.7-157.5 157.5a8.03 8.03 0 0 0 0 11.3l45.1 45.1c3.1 3.1 8.2 3.1 11.3 0l157.6-157.6 54.7 54.7a7.94 7.94 0 0 0 13.5-4.7L447.9 585a7.9 7.9 0 0 0-8.9-8.9z'
         )
       )),
+      (t.ShoppingCartOutline = u(
+        'shopping-cart',
+        i,
+        l(
+          r,
+          'M922.9 701.9H327.4l29.9-60.9 496.8-.9c16.8 0 31.2-12 34.2-28.6l68.8-385.1c1.8-10.1-.9-20.5-7.5-28.4a34.99 34.99 0 0 0-26.6-12.5l-632-2.1-5.4-25.4c-3.4-16.2-18-28-34.6-28H96.5a35.3 35.3 0 1 0 0 70.6h125.9L246 312.8l58.1 281.3-74.8 122.1a34.96 34.96 0 0 0-3 36.8c6 11.9 18.1 19.4 31.5 19.4h62.8a102.43 102.43 0 0 0-20.6 61.7c0 56.6 46 102.6 102.6 102.6s102.6-46 102.6-102.6c0-22.3-7.4-44-20.6-61.7h161.1a102.43 102.43 0 0 0-20.6 61.7c0 56.6 46 102.6 102.6 102.6s102.6-46 102.6-102.6c0-22.3-7.4-44-20.6-61.7H923c19.4 0 35.3-15.8 35.3-35.3a35.42 35.42 0 0 0-35.4-35.2zM305.7 253l575.8 1.9-56.4 315.8-452.3.8L305.7 253zm96.9 612.7c-17.4 0-31.6-14.2-31.6-31.6 0-17.4 14.2-31.6 31.6-31.6s31.6 14.2 31.6 31.6a31.6 31.6 0 0 1-31.6 31.6zm325.1 0c-17.4 0-31.6-14.2-31.6-31.6 0-17.4 14.2-31.6 31.6-31.6s31.6 14.2 31.6 31.6a31.6 31.6 0 0 1-31.6 31.6z'
+        )
+      )),
       (t.SketchOutline = u(
         'sketch',
         i,
         l(
           o,
           'M925.6 405.1l-203-253.7a6.5 6.5 0 0 0-5-2.4H306.4c-1.9 0-3.8.9-5 2.4l-203 253.7a6.5 6.5 0 0 0 .2 8.3l408.6 459.5c1.2 1.4 3 2.1 4.8 2.1 1.8 0 3.5-.8 4.8-2.1l408.6-459.5a6.5 6.5 0 0 0 .2-8.3zM645.2 206.4l34.4 133.9-132.5-133.9h98.1zm8.2 178.5H370.6L512 242l141.4 142.9zM378.8 206.4h98.1L344.3 340.3l34.5-133.9zm-53.4 7l-44.1 171.5h-93.1l137.2-171.5zM194.6 434.9H289l125.8 247.7-220.2-247.7zM512 763.4L345.1 434.9h333.7L512 763.4zm97.1-80.8L735 434.9h94.4L609.1 682.6zm133.6-297.7l-44.1-171.5 137.2 171.5h-93.1z'
-        )
-      )),
-      (t.SlackOutline = u(
-        'slack',
-        i,
-        l(
-          o,
-          'M925.5 541.9a71.49 71.49 0 0 0-90.1-45.9l-80 26L703 360.9l80-26a71.49 71.49 0 0 0 45.9-90.1 71.49 71.49 0 0 0-90.1-45.9l-80 26-26.2-80.6a71.49 71.49 0 1 0-136 44.2l26.2 80.6-161.1 52.4-26.2-80.6a71.49 71.49 0 1 0-136 44.2l26.2 80.6-81.1 26.4a71.49 71.49 0 0 0-45.9 90.1 71.49 71.49 0 0 0 90.1 45.9l81.1-26.4 52.4 161.1-81.3 26.3a71.49 71.49 0 0 0-45.9 90.1 71.49 71.49 0 0 0 90.1 45.9l81.1-26.4 26.2 80.6a71.49 71.49 0 0 0 90.1 45.9 71.49 71.49 0 0 0 45.9-90.1l-26.2-80.6 161.1-52.4 26.2 80.6a71.49 71.49 0 0 0 90.1 45.9 71.49 71.49 0 0 0 45.9-90.1l-26-80.5 80-26c37.5-12.1 58.1-52.5 45.9-90.1zm-467.3 76.7l-52.4-161.1L567 405.1l52.4 161.1-161.2 52.4z'
         )
       )),
       (t.SmallDashOutline = u(
@@ -17274,14 +17653,6 @@
           'M112 476h72v72h-72zm182 0h72v72h-72zm364 0h72v72h-72zm182 0h72v72h-72zm-364 0h72v72h-72z'
         )
       )),
-      (t.SolutionOutline = u(
-        'solution',
-        i,
-        l(
-          o,
-          'M688 264c0-4.4-3.6-8-8-8H296c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h384c4.4 0 8-3.6 8-8v-48zm-8 136H296c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h384c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8zM480 544H296c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8zm-48 308H208V148h560v344c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V108c0-17.7-14.3-32-32-32H168c-17.7 0-32 14.3-32 32v784c0 17.7 14.3 32 32 32h264c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm356.8-74.4c29-26.3 47.2-64.3 47.2-106.6 0-79.5-64.5-144-144-144s-144 64.5-144 144c0 42.3 18.2 80.3 47.2 106.6-57 32.5-96.2 92.7-99.2 162.1-.2 4.5 3.5 8.3 8 8.3h48.1c4.2 0 7.7-3.3 8-7.6C564 871.2 621.7 816 692 816s128 55.2 131.9 124.4c.2 4.2 3.7 7.6 8 7.6H880c4.6 0 8.2-3.8 8-8.3-2.9-69.5-42.2-129.6-99.2-162.1zM692 591c44.2 0 80 35.8 80 80s-35.8 80-80 80-80-35.8-80-80 35.8-80 80-80z'
-        )
-      )),
       (t.SortAscendingOutline = u(
         'sort-ascending',
         i,
@@ -17290,12 +17661,20 @@
           'M839.6 433.8L749 150.5a9.24 9.24 0 0 0-8.9-6.5h-77.4c-4.1 0-7.6 2.6-8.9 6.5l-91.3 283.3c-.3.9-.5 1.9-.5 2.9 0 5.1 4.2 9.3 9.3 9.3h56.4c4.2 0 7.8-2.8 9-6.8l17.5-61.6h89l17.3 61.5c1.1 4 4.8 6.8 9 6.8h61.2c1 0 1.9-.1 2.8-.4 2.4-.8 4.3-2.4 5.5-4.6 1.1-2.2 1.3-4.7.6-7.1zM663.3 325.5l32.8-116.9h6.3l32.1 116.9h-71.2zm143.5 492.9H677.2v-.4l132.6-188.9c1.1-1.6 1.7-3.4 1.7-5.4v-36.4c0-5.1-4.2-9.3-9.3-9.3h-204c-5.1 0-9.3 4.2-9.3 9.3v43c0 5.1 4.2 9.3 9.3 9.3h122.6v.4L587.7 828.9a9.35 9.35 0 0 0-1.7 5.4v36.4c0 5.1 4.2 9.3 9.3 9.3h211.4c5.1 0 9.3-4.2 9.3-9.3v-43a9.2 9.2 0 0 0-9.2-9.3zM416 702h-76V172c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v530h-76c-6.7 0-10.5 7.8-6.3 13l112 141.9a8 8 0 0 0 12.6 0l112-141.9c4.1-5.2.4-13-6.3-13z'
         )
       )),
-      (t.SortDescendingOutline = u(
-        'sort-descending',
+      (t.SlackOutline = u(
+        'slack',
         i,
         l(
           o,
-          'M839.6 433.8L749 150.5a9.24 9.24 0 0 0-8.9-6.5h-77.4c-4.1 0-7.6 2.6-8.9 6.5l-91.3 283.3c-.3.9-.5 1.9-.5 2.9 0 5.1 4.2 9.3 9.3 9.3h56.4c4.2 0 7.8-2.8 9-6.8l17.5-61.6h89l17.3 61.5c1.1 4 4.8 6.8 9 6.8h61.2c1 0 1.9-.1 2.8-.4 2.4-.8 4.3-2.4 5.5-4.6 1.1-2.2 1.3-4.7.6-7.1zM663.3 325.5l32.8-116.9h6.3l32.1 116.9h-71.2zm143.5 492.9H677.2v-.4l132.6-188.9c1.1-1.6 1.7-3.4 1.7-5.4v-36.4c0-5.1-4.2-9.3-9.3-9.3h-204c-5.1 0-9.3 4.2-9.3 9.3v43c0 5.1 4.2 9.3 9.3 9.3h122.6v.4L587.7 828.9a9.35 9.35 0 0 0-1.7 5.4v36.4c0 5.1 4.2 9.3 9.3 9.3h211.4c5.1 0 9.3-4.2 9.3-9.3v-43a9.2 9.2 0 0 0-9.2-9.3zM310.3 167.1a8 8 0 0 0-12.6 0L185.7 309c-4.2 5.3-.4 13 6.3 13h76v530c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V322h76c6.7 0 10.5-7.8 6.3-13l-112-141.9z'
+          'M925.5 541.9a71.49 71.49 0 0 0-90.1-45.9l-80 26L703 360.9l80-26a71.49 71.49 0 0 0 45.9-90.1 71.49 71.49 0 0 0-90.1-45.9l-80 26-26.2-80.6a71.49 71.49 0 1 0-136 44.2l26.2 80.6-161.1 52.4-26.2-80.6a71.49 71.49 0 1 0-136 44.2l26.2 80.6-81.1 26.4a71.49 71.49 0 0 0-45.9 90.1 71.49 71.49 0 0 0 90.1 45.9l81.1-26.4 52.4 161.1-81.3 26.3a71.49 71.49 0 0 0-45.9 90.1 71.49 71.49 0 0 0 90.1 45.9l81.1-26.4 26.2 80.6a71.49 71.49 0 0 0 90.1 45.9 71.49 71.49 0 0 0 45.9-90.1l-26.2-80.6 161.1-52.4 26.2 80.6a71.49 71.49 0 0 0 90.1 45.9 71.49 71.49 0 0 0 45.9-90.1l-26-80.5 80-26c37.5-12.1 58.1-52.5 45.9-90.1zm-467.3 76.7l-52.4-161.1L567 405.1l52.4 161.1-161.2 52.4z'
+        )
+      )),
+      (t.SolutionOutline = u(
+        'solution',
+        i,
+        l(
+          o,
+          'M688 264c0-4.4-3.6-8-8-8H296c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h384c4.4 0 8-3.6 8-8v-48zm-8 136H296c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h384c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8zM480 544H296c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8zm-48 308H208V148h560v344c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V108c0-17.7-14.3-32-32-32H168c-17.7 0-32 14.3-32 32v784c0 17.7 14.3 32 32 32h264c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm356.8-74.4c29-26.3 47.2-64.3 47.2-106.6 0-79.5-64.5-144-144-144s-144 64.5-144 144c0 42.3 18.2 80.3 47.2 106.6-57 32.5-96.2 92.7-99.2 162.1-.2 4.5 3.5 8.3 8 8.3h48.1c4.2 0 7.7-3.3 8-7.6C564 871.2 621.7 816 692 816s128 55.2 131.9 124.4c.2 4.2 3.7 7.6 8 7.6H880c4.6 0 8.2-3.8 8-8.3-2.9-69.5-42.2-129.6-99.2-162.1zM692 591c44.2 0 80 35.8 80 80s-35.8 80-80 80-80-35.8-80-80 35.8-80 80-80z'
         )
       )),
       (t.StockOutline = u(
@@ -17306,20 +17685,12 @@
           'M904 747H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM165.7 621.8l39.7 39.5c3.1 3.1 8.2 3.1 11.3 0l234.7-233.9 97.6 97.3a32.11 32.11 0 0 0 45.2 0l264.2-263.2c3.1-3.1 3.1-8.2 0-11.3l-39.7-39.6a8.03 8.03 0 0 0-11.3 0l-235.7 235-97.7-97.3a32.11 32.11 0 0 0-45.2 0L165.7 610.5a7.94 7.94 0 0 0 0 11.3z'
         )
       )),
-      (t.StrikethroughOutline = u(
-        'strikethrough',
+      (t.SortDescendingOutline = u(
+        'sort-descending',
         i,
         l(
           o,
-          'M952 474H569.9c-10-2-20.5-4-31.6-6-15.9-2.9-22.2-4.1-30.8-5.8-51.3-10-82.2-20-106.8-34.2-35.1-20.5-52.2-48.3-52.2-85.1 0-37 15.2-67.7 44-89 28.4-21 68.8-32.1 116.8-32.1 54.8 0 97.1 14.4 125.8 42.8 14.6 14.4 25.3 32.1 31.8 52.6 1.3 4.1 2.8 10 4.3 17.8.9 4.8 5.2 8.2 9.9 8.2h72.8c5.6 0 10.1-4.6 10.1-10.1v-1c-.7-6.8-1.3-12.1-2-16-7.3-43.5-28-81.7-59.7-110.3-44.4-40.5-109.7-61.8-188.7-61.8-72.3 0-137.4 18.1-183.3 50.9-25.6 18.4-45.4 41.2-58.6 67.7-13.5 27.1-20.3 58.4-20.3 92.9 0 29.5 5.7 54.5 17.3 76.5 8.3 15.7 19.6 29.5 34.1 42H72c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h433.2c2.1.4 3.9.8 5.9 1.2 30.9 6.2 49.5 10.4 66.6 15.2 23 6.5 40.6 13.3 55.2 21.5 35.8 20.2 53.3 49.2 53.3 89 0 35.3-15.5 66.8-43.6 88.8-30.5 23.9-75.6 36.4-130.5 36.4-43.7 0-80.7-8.5-110.2-25-29.1-16.3-49.1-39.8-59.7-69.5-.8-2.2-1.7-5.2-2.7-9-1.2-4.4-5.3-7.5-9.7-7.5h-79.7c-5.6 0-10.1 4.6-10.1 10.1v1c.2 2.3.4 4.2.6 5.7 6.5 48.8 30.3 88.8 70.7 118.8 47.1 34.8 113.4 53.2 191.8 53.2 84.2 0 154.8-19.8 204.2-57.3 25-18.9 44.2-42.2 57.1-69 13-27.1 19.7-57.9 19.7-91.5 0-31.8-5.8-58.4-17.8-81.4-5.8-11.2-13.1-21.5-21.8-30.8H952c4.4 0 8-3.6 8-8v-60a8 8 0 0 0-8-7.9z'
-        )
-      )),
-      (t.SwapLeftOutline = u(
-        'swap-left',
-        i,
-        l(
-          r,
-          'M872 572H266.8l144.3-183c4.1-5.2.4-13-6.3-13H340c-9.8 0-19.1 4.5-25.1 12.2l-164 208c-16.5 21-1.6 51.8 25.1 51.8h696c4.4 0 8-3.6 8-8v-60c0-4.4-3.6-8-8-8z'
+          'M839.6 433.8L749 150.5a9.24 9.24 0 0 0-8.9-6.5h-77.4c-4.1 0-7.6 2.6-8.9 6.5l-91.3 283.3c-.3.9-.5 1.9-.5 2.9 0 5.1 4.2 9.3 9.3 9.3h56.4c4.2 0 7.8-2.8 9-6.8l17.5-61.6h89l17.3 61.5c1.1 4 4.8 6.8 9 6.8h61.2c1 0 1.9-.1 2.8-.4 2.4-.8 4.3-2.4 5.5-4.6 1.1-2.2 1.3-4.7.6-7.1zM663.3 325.5l32.8-116.9h6.3l32.1 116.9h-71.2zm143.5 492.9H677.2v-.4l132.6-188.9c1.1-1.6 1.7-3.4 1.7-5.4v-36.4c0-5.1-4.2-9.3-9.3-9.3h-204c-5.1 0-9.3 4.2-9.3 9.3v43c0 5.1 4.2 9.3 9.3 9.3h122.6v.4L587.7 828.9a9.35 9.35 0 0 0-1.7 5.4v36.4c0 5.1 4.2 9.3 9.3 9.3h211.4c5.1 0 9.3-4.2 9.3-9.3v-43a9.2 9.2 0 0 0-9.2-9.3zM310.3 167.1a8 8 0 0 0-12.6 0L185.7 309c-4.2 5.3-.4 13 6.3 13h76v530c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V322h76c6.7 0 10.5-7.8 6.3-13l-112-141.9z'
         )
       )),
       (t.SwapRightOutline = u(
@@ -17330,12 +17701,28 @@
           'M873.1 596.2l-164-208A32 32 0 0 0 684 376h-64.8c-6.7 0-10.4 7.7-6.3 13l144.3 183H152c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h695.9c26.8 0 41.7-30.8 25.2-51.8z'
         )
       )),
+      (t.SwapLeftOutline = u(
+        'swap-left',
+        i,
+        l(
+          r,
+          'M872 572H266.8l144.3-183c4.1-5.2.4-13-6.3-13H340c-9.8 0-19.1 4.5-25.1 12.2l-164 208c-16.5 21-1.6 51.8 25.1 51.8h696c4.4 0 8-3.6 8-8v-60c0-4.4-3.6-8-8-8z'
+        )
+      )),
       (t.SwapOutline = u(
         'swap',
         i,
         l(
           o,
           'M847.9 592H152c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h605.2L612.9 851c-4.1 5.2-.4 13 6.3 13h72.5c4.9 0 9.5-2.2 12.6-6.1l168.8-214.1c16.5-21 1.6-51.8-25.2-51.8zM872 356H266.8l144.3-183c4.1-5.2.4-13-6.3-13h-72.5c-4.9 0-9.5 2.2-12.6 6.1L150.9 380.2c-16.5 21-1.6 51.8 25.1 51.8h696c4.4 0 8-3.6 8-8v-60c0-4.4-3.6-8-8-8z'
+        )
+      )),
+      (t.StrikethroughOutline = u(
+        'strikethrough',
+        i,
+        l(
+          o,
+          'M952 474H569.9c-10-2-20.5-4-31.6-6-15.9-2.9-22.2-4.1-30.8-5.8-51.3-10-82.2-20-106.8-34.2-35.1-20.5-52.2-48.3-52.2-85.1 0-37 15.2-67.7 44-89 28.4-21 68.8-32.1 116.8-32.1 54.8 0 97.1 14.4 125.8 42.8 14.6 14.4 25.3 32.1 31.8 52.6 1.3 4.1 2.8 10 4.3 17.8.9 4.8 5.2 8.2 9.9 8.2h72.8c5.6 0 10.1-4.6 10.1-10.1v-1c-.7-6.8-1.3-12.1-2-16-7.3-43.5-28-81.7-59.7-110.3-44.4-40.5-109.7-61.8-188.7-61.8-72.3 0-137.4 18.1-183.3 50.9-25.6 18.4-45.4 41.2-58.6 67.7-13.5 27.1-20.3 58.4-20.3 92.9 0 29.5 5.7 54.5 17.3 76.5 8.3 15.7 19.6 29.5 34.1 42H72c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h433.2c2.1.4 3.9.8 5.9 1.2 30.9 6.2 49.5 10.4 66.6 15.2 23 6.5 40.6 13.3 55.2 21.5 35.8 20.2 53.3 49.2 53.3 89 0 35.3-15.5 66.8-43.6 88.8-30.5 23.9-75.6 36.4-130.5 36.4-43.7 0-80.7-8.5-110.2-25-29.1-16.3-49.1-39.8-59.7-69.5-.8-2.2-1.7-5.2-2.7-9-1.2-4.4-5.3-7.5-9.7-7.5h-79.7c-5.6 0-10.1 4.6-10.1 10.1v1c.2 2.3.4 4.2.6 5.7 6.5 48.8 30.3 88.8 70.7 118.8 47.1 34.8 113.4 53.2 191.8 53.2 84.2 0 154.8-19.8 204.2-57.3 25-18.9 44.2-42.2 57.1-69 13-27.1 19.7-57.9 19.7-91.5 0-31.8-5.8-58.4-17.8-81.4-5.8-11.2-13.1-21.5-21.8-30.8H952c4.4 0 8-3.6 8-8v-60a8 8 0 0 0-8-7.9z'
         )
       )),
       (t.SyncOutline = u(
@@ -17346,14 +17733,6 @@
           'M168 504.2c1-43.7 10-86.1 26.9-126 17.3-41 42.1-77.7 73.7-109.4S337 212.3 378 195c42.4-17.9 87.4-27 133.9-27s91.5 9.1 133.8 27A341.5 341.5 0 0 1 755 268.8c9.9 9.9 19.2 20.4 27.8 31.4l-60.2 47a8 8 0 0 0 3 14.1l175.7 43c5 1.2 9.9-2.6 9.9-7.7l.8-180.9c0-6.7-7.7-10.5-12.9-6.3l-56.4 44.1C765.8 155.1 646.2 92 511.8 92 282.7 92 96.3 275.6 92 503.8a8 8 0 0 0 8 8.2h60c4.4 0 7.9-3.5 8-7.8zm756 7.8h-60c-4.4 0-7.9 3.5-8 7.8-1 43.7-10 86.1-26.9 126-17.3 41-42.1 77.8-73.7 109.4A342.45 342.45 0 0 1 512.1 856a342.24 342.24 0 0 1-243.2-100.8c-9.9-9.9-19.2-20.4-27.8-31.4l60.2-47a8 8 0 0 0-3-14.1l-175.7-43c-5-1.2-9.9 2.6-9.9 7.7l-.7 181c0 6.7 7.7 10.5 12.9 6.3l56.4-44.1C258.2 868.9 377.8 932 512.2 932c229.2 0 415.5-183.7 419.8-411.8a8 8 0 0 0-8-8.2z'
         )
       )),
-      (t.TableOutline = u(
-        'table',
-        i,
-        l(
-          o,
-          'M928 160H96c-17.7 0-32 14.3-32 32v640c0 17.7 14.3 32 32 32h832c17.7 0 32-14.3 32-32V192c0-17.7-14.3-32-32-32zm-40 208H676V232h212v136zm0 224H676V432h212v160zM412 432h200v160H412V432zm200-64H412V232h200v136zm-476 64h212v160H136V432zm0-200h212v136H136V232zm0 424h212v136H136V656zm276 0h200v136H412V656zm476 136H676V656h212v136z'
-        )
-      )),
       (t.TaobaoOutline = u(
         'taobao',
         i,
@@ -17362,12 +17741,12 @@
           'M168.5 273.7a68.7 68.7 0 1 0 137.4 0 68.7 68.7 0 1 0-137.4 0zm730 79.2s-23.7-184.4-426.9-70.1c17.3-30 25.6-49.5 25.6-49.5L396.4 205s-40.6 132.6-113 194.4c0 0 70.1 40.6 69.4 39.4 20.1-20.1 38.2-40.6 53.7-60.4 16.1-7 31.5-13.6 46.7-19.8-18.6 33.5-48.7 83.8-78.8 115.6l42.4 37s28.8-27.7 60.4-61.2h36v61.8H372.9v49.5h140.3v118.5c-1.7 0-3.6 0-5.4-.2-15.4-.7-39.5-3.3-49-18.2-11.5-18.1-3-51.5-2.4-71.9h-97l-3.4 1.8s-35.5 159.1 102.3 155.5c129.1 3.6 203-36 238.6-63.1l14.2 52.6 79.6-33.2-53.9-131.9-64.6 20.1 12.1 45.2c-16.6 12.4-35.6 21.7-56.2 28.4V561.3h137.1v-49.5H628.1V450h137.6v-49.5H521.3c17.6-21.4 31.5-41.1 35-53.6l-42.5-11.6c182.8-65.5 284.5-54.2 283.6 53.2v282.8s10.8 97.1-100.4 90.1l-60.2-12.9-14.2 57.1S882.5 880 903.7 680.2c21.3-200-5.2-327.3-5.2-327.3zm-707.4 18.3l-45.4 69.7 83.6 52.1s56 28.5 29.4 81.9C233.8 625.5 112 736.3 112 736.3l109 68.1c75.4-163.7 70.5-142 89.5-200.7 19.5-60.1 23.7-105.9-9.4-139.1-42.4-42.6-47-46.6-110-93.4z'
         )
       )),
-      (t.TeamOutline = u(
-        'team',
+      (t.TableOutline = u(
+        'table',
         i,
         l(
           o,
-          'M824.2 699.9a301.55 301.55 0 0 0-86.4-60.4C783.1 602.8 812 546.8 812 484c0-110.8-92.4-201.7-203.2-200-109.1 1.7-197 90.6-197 200 0 62.8 29 118.8 74.2 155.5a300.95 300.95 0 0 0-86.4 60.4C345 754.6 314 826.8 312 903.8a8 8 0 0 0 8 8.2h56c4.3 0 7.9-3.4 8-7.7 1.9-58 25.4-112.3 66.7-153.5A226.62 226.62 0 0 1 612 684c60.9 0 118.2 23.7 161.3 66.8C814.5 792 838 846.3 840 904.3c.1 4.3 3.7 7.7 8 7.7h56a8 8 0 0 0 8-8.2c-2-77-33-149.2-87.8-203.9zM612 612c-34.2 0-66.4-13.3-90.5-37.5a126.86 126.86 0 0 1-37.5-91.8c.3-32.8 13.4-64.5 36.3-88 24-24.6 56.1-38.3 90.4-38.7 33.9-.3 66.8 12.9 91 36.6 24.8 24.3 38.4 56.8 38.4 91.4 0 34.2-13.3 66.3-37.5 90.5A127.3 127.3 0 0 1 612 612zM361.5 510.4c-.9-8.7-1.4-17.5-1.4-26.4 0-15.9 1.5-31.4 4.3-46.5.7-3.6-1.2-7.3-4.5-8.8-13.6-6.1-26.1-14.5-36.9-25.1a127.54 127.54 0 0 1-38.7-95.4c.9-32.1 13.8-62.6 36.3-85.6 24.7-25.3 57.9-39.1 93.2-38.7 31.9.3 62.7 12.6 86 34.4 7.9 7.4 14.7 15.6 20.4 24.4 2 3.1 5.9 4.4 9.3 3.2 17.6-6.1 36.2-10.4 55.3-12.4 5.6-.6 8.8-6.6 6.3-11.6-32.5-64.3-98.9-108.7-175.7-109.9-110.9-1.7-203.3 89.2-203.3 199.9 0 62.8 28.9 118.8 74.2 155.5-31.8 14.7-61.1 35-86.5 60.4-54.8 54.7-85.8 126.9-87.8 204a8 8 0 0 0 8 8.2h56.1c4.3 0 7.9-3.4 8-7.7 1.9-58 25.4-112.3 66.7-153.5 29.4-29.4 65.4-49.8 104.7-59.7 3.9-1 6.5-4.7 6-8.7z'
+          'M928 160H96c-17.7 0-32 14.3-32 32v640c0 17.7 14.3 32 32 32h832c17.7 0 32-14.3 32-32V192c0-17.7-14.3-32-32-32zm-40 208H676V232h212v136zm0 224H676V432h212v160zM412 432h200v160H412V432zm200-64H412V232h200v136zm-476 64h212v160H136V432zm0-200h212v136H136V232zm0 424h212v136H136V656zm276 0h200v136H412V656zm476 136H676V656h212v136z'
         )
       )),
       (t.ToTopOutline = u(
@@ -17376,6 +17755,14 @@
         l(
           o,
           'M885 780H165c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h720c4.4 0 8-3.6 8-8v-60c0-4.4-3.6-8-8-8zM400 325.7h73.9V664c0 4.4 3.6 8 8 8h60c4.4 0 8-3.6 8-8V325.7H624c6.7 0 10.4-7.7 6.3-12.9L518.3 171a8 8 0 0 0-12.6 0l-112 141.7c-4.1 5.3-.4 13 6.3 13z'
+        )
+      )),
+      (t.TeamOutline = u(
+        'team',
+        i,
+        l(
+          o,
+          'M824.2 699.9a301.55 301.55 0 0 0-86.4-60.4C783.1 602.8 812 546.8 812 484c0-110.8-92.4-201.7-203.2-200-109.1 1.7-197 90.6-197 200 0 62.8 29 118.8 74.2 155.5a300.95 300.95 0 0 0-86.4 60.4C345 754.6 314 826.8 312 903.8a8 8 0 0 0 8 8.2h56c4.3 0 7.9-3.4 8-7.7 1.9-58 25.4-112.3 66.7-153.5A226.62 226.62 0 0 1 612 684c60.9 0 118.2 23.7 161.3 66.8C814.5 792 838 846.3 840 904.3c.1 4.3 3.7 7.7 8 7.7h56a8 8 0 0 0 8-8.2c-2-77-33-149.2-87.8-203.9zM612 612c-34.2 0-66.4-13.3-90.5-37.5a126.86 126.86 0 0 1-37.5-91.8c.3-32.8 13.4-64.5 36.3-88 24-24.6 56.1-38.3 90.4-38.7 33.9-.3 66.8 12.9 91 36.6 24.8 24.3 38.4 56.8 38.4 91.4 0 34.2-13.3 66.3-37.5 90.5A127.3 127.3 0 0 1 612 612zM361.5 510.4c-.9-8.7-1.4-17.5-1.4-26.4 0-15.9 1.5-31.4 4.3-46.5.7-3.6-1.2-7.3-4.5-8.8-13.6-6.1-26.1-14.5-36.9-25.1a127.54 127.54 0 0 1-38.7-95.4c.9-32.1 13.8-62.6 36.3-85.6 24.7-25.3 57.9-39.1 93.2-38.7 31.9.3 62.7 12.6 86 34.4 7.9 7.4 14.7 15.6 20.4 24.4 2 3.1 5.9 4.4 9.3 3.2 17.6-6.1 36.2-10.4 55.3-12.4 5.6-.6 8.8-6.6 6.3-11.6-32.5-64.3-98.9-108.7-175.7-109.9-110.9-1.7-203.3 89.2-203.3 199.9 0 62.8 28.9 118.8 74.2 155.5-31.8 14.7-61.1 35-86.5 60.4-54.8 54.7-85.8 126.9-87.8 204a8 8 0 0 0 8 8.2h56.1c4.3 0 7.9-3.4 8-7.7 1.9-58 25.4-112.3 66.7-153.5 29.4-29.4 65.4-49.8 104.7-59.7 3.9-1 6.5-4.7 6-8.7z'
         )
       )),
       (t.TrademarkOutline = u(
@@ -17402,14 +17789,6 @@
           'M928 254.3c-30.6 13.2-63.9 22.7-98.2 26.4a170.1 170.1 0 0 0 75-94 336.64 336.64 0 0 1-108.2 41.2A170.1 170.1 0 0 0 672 174c-94.5 0-170.5 76.6-170.5 170.6 0 13.2 1.6 26.4 4.2 39.1-141.5-7.4-267.7-75-351.6-178.5a169.32 169.32 0 0 0-23.2 86.1c0 59.2 30.1 111.4 76 142.1a172 172 0 0 1-77.1-21.7v2.1c0 82.9 58.6 151.6 136.7 167.4a180.6 180.6 0 0 1-44.9 5.8c-11.1 0-21.6-1.1-32.2-2.6C211 652 273.9 701.1 348.8 702.7c-58.6 45.9-132 72.9-211.7 72.9-14.3 0-27.5-.5-41.2-2.1C171.5 822 261.2 850 357.8 850 671.4 850 843 590.2 843 364.7c0-7.4 0-14.8-.5-22.2 33.2-24.3 62.3-54.4 85.5-88.2z'
         )
       )),
-      (t.UnderlineOutline = u(
-        'underline',
-        i,
-        l(
-          o,
-          'M824 804H200c-4.4 0-8 3.4-8 7.6v60.8c0 4.2 3.6 7.6 8 7.6h624c4.4 0 8-3.4 8-7.6v-60.8c0-4.2-3.6-7.6-8-7.6zm-312-76c69.4 0 134.6-27.1 183.8-76.2C745 602.7 772 537.4 772 468V156c0-6.6-5.4-12-12-12h-60c-6.6 0-12 5.4-12 12v312c0 97-79 176-176 176s-176-79-176-176V156c0-6.6-5.4-12-12-12h-60c-6.6 0-12 5.4-12 12v312c0 69.4 27.1 134.6 76.2 183.8C377.3 701 442.6 728 512 728z'
-        )
-      )),
       (t.UndoOutline = u(
         'undo',
         i,
@@ -17418,12 +17797,12 @@
           'M511.4 124C290.5 124.3 112 303 112 523.9c0 128 60.2 242 153.8 315.2l-37.5 48c-4.1 5.3-.3 13 6.3 12.9l167-.8c5.2 0 9-4.9 7.7-9.9L369.8 727a8 8 0 0 0-14.1-3L315 776.1c-10.2-8-20-16.7-29.3-26a318.64 318.64 0 0 1-68.6-101.7C200.4 609 192 567.1 192 523.9s8.4-85.1 25.1-124.5c16.1-38.1 39.2-72.3 68.6-101.7 29.4-29.4 63.6-52.5 101.7-68.6C426.9 212.4 468.8 204 512 204s85.1 8.4 124.5 25.1c38.1 16.1 72.3 39.2 101.7 68.6 29.4 29.4 52.5 63.6 68.6 101.7 16.7 39.4 25.1 81.3 25.1 124.5s-8.4 85.1-25.1 124.5a318.64 318.64 0 0 1-68.6 101.7c-7.5 7.5-15.3 14.5-23.4 21.2a7.93 7.93 0 0 0-1.2 11.1l39.4 50.5c2.8 3.5 7.9 4.1 11.4 1.3C854.5 760.8 912 649.1 912 523.9c0-221.1-179.4-400.2-400.6-399.9z'
         )
       )),
-      (t.UnorderedListOutline = u(
-        'unordered-list',
+      (t.UnderlineOutline = u(
+        'underline',
         i,
         l(
           o,
-          'M912 192H328c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h584c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 284H328c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h584c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 284H328c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h584c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM104 228a56 56 0 1 0 112 0 56 56 0 1 0-112 0zm0 284a56 56 0 1 0 112 0 56 56 0 1 0-112 0zm0 284a56 56 0 1 0 112 0 56 56 0 1 0-112 0z'
+          'M824 804H200c-4.4 0-8 3.4-8 7.6v60.8c0 4.2 3.6 7.6 8 7.6h624c4.4 0 8-3.4 8-7.6v-60.8c0-4.2-3.6-7.6-8-7.6zm-312-76c69.4 0 134.6-27.1 183.8-76.2C745 602.7 772 537.4 772 468V156c0-6.6-5.4-12-12-12h-60c-6.6 0-12 5.4-12 12v312c0 97-79 176-176 176s-176-79-176-176V156c0-6.6-5.4-12-12-12h-60c-6.6 0-12 5.4-12 12v312c0 69.4 27.1 134.6 76.2 183.8C377.3 701 442.6 728 512 728z'
         )
       )),
       (t.UpOutline = u(
@@ -17434,14 +17813,6 @@
           'M890.5 755.3L537.9 269.2c-12.8-17.6-39-17.6-51.7 0L133.5 755.3A8 8 0 0 0 140 768h75c5.1 0 9.9-2.5 12.9-6.6L512 369.8l284.1 391.6c3 4.1 7.8 6.6 12.9 6.6h75c6.5 0 10.3-7.4 6.5-12.7z'
         )
       )),
-      (t.UploadOutline = u(
-        'upload',
-        i,
-        l(
-          o,
-          'M400 317.7h73.9V656c0 4.4 3.6 8 8 8h60c4.4 0 8-3.6 8-8V317.7H624c6.7 0 10.4-7.7 6.3-12.9L518.3 163a8 8 0 0 0-12.6 0l-112 141.7c-4.1 5.3-.4 13 6.3 13zM878 626h-60c-4.4 0-8 3.6-8 8v154H214V634c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v198c0 17.7 14.3 32 32 32h684c17.7 0 32-14.3 32-32V634c0-4.4-3.6-8-8-8z'
-        )
-      )),
       (t.UserAddOutline = u(
         'user-add',
         i,
@@ -17450,12 +17821,12 @@
           'M678.3 642.4c24.2-13 51.9-20.4 81.4-20.4h.1c3 0 4.4-3.6 2.2-5.6a371.67 371.67 0 0 0-103.7-65.8c-.4-.2-.8-.3-1.2-.5C719.2 505 759.6 431.7 759.6 349c0-137-110.8-248-247.5-248S264.7 212 264.7 349c0 82.7 40.4 156 102.6 201.1-.4.2-.8.3-1.2.5-44.7 18.9-84.8 46-119.3 80.6a373.42 373.42 0 0 0-80.4 119.5A373.6 373.6 0 0 0 137 888.8a8 8 0 0 0 8 8.2h59.9c4.3 0 7.9-3.5 8-7.8 2-77.2 32.9-149.5 87.6-204.3C357 628.2 432.2 597 512.2 597c56.7 0 111.1 15.7 158 45.1a8.1 8.1 0 0 0 8.1.3zM512.2 521c-45.8 0-88.9-17.9-121.4-50.4A171.2 171.2 0 0 1 340.5 349c0-45.9 17.9-89.1 50.3-121.6S466.3 177 512.2 177s88.9 17.9 121.4 50.4A171.2 171.2 0 0 1 683.9 349c0 45.9-17.9 89.1-50.3 121.6C601.1 503.1 558 521 512.2 521zM880 759h-84v-84c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v84h-84c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h84v84c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-84h84c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8z'
         )
       )),
-      (t.UserDeleteOutline = u(
-        'user-delete',
+      (t.UnorderedListOutline = u(
+        'unordered-list',
         i,
         l(
           o,
-          'M678.3 655.4c24.2-13 51.9-20.4 81.4-20.4h.1c3 0 4.4-3.6 2.2-5.6a371.67 371.67 0 0 0-103.7-65.8c-.4-.2-.8-.3-1.2-.5C719.2 518 759.6 444.7 759.6 362c0-137-110.8-248-247.5-248S264.7 225 264.7 362c0 82.7 40.4 156 102.6 201.1-.4.2-.8.3-1.2.5-44.7 18.9-84.8 46-119.3 80.6a373.42 373.42 0 0 0-80.4 119.5A373.6 373.6 0 0 0 137 901.8a8 8 0 0 0 8 8.2h59.9c4.3 0 7.9-3.5 8-7.8 2-77.2 32.9-149.5 87.6-204.3C357 641.2 432.2 610 512.2 610c56.7 0 111.1 15.7 158 45.1a8.1 8.1 0 0 0 8.1.3zM512.2 534c-45.8 0-88.9-17.9-121.4-50.4A171.2 171.2 0 0 1 340.5 362c0-45.9 17.9-89.1 50.3-121.6S466.3 190 512.2 190s88.9 17.9 121.4 50.4A171.2 171.2 0 0 1 683.9 362c0 45.9-17.9 89.1-50.3 121.6C601.1 516.1 558 534 512.2 534zM880 772H640c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h240c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8z'
+          'M912 192H328c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h584c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 284H328c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h584c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 284H328c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h584c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM104 228a56 56 0 1 0 112 0 56 56 0 1 0-112 0zm0 284a56 56 0 1 0 112 0 56 56 0 1 0-112 0zm0 284a56 56 0 1 0 112 0 56 56 0 1 0-112 0z'
         )
       )),
       (t.UserOutline = u(
@@ -17464,6 +17835,22 @@
         l(
           o,
           'M858.5 763.6a374 374 0 0 0-80.6-119.5 375.63 375.63 0 0 0-119.5-80.6c-.4-.2-.8-.3-1.2-.5C719.5 518 760 444.7 760 362c0-137-111-248-248-248S264 225 264 362c0 82.7 40.5 156 102.8 201.1-.4.2-.8.3-1.2.5-44.8 18.9-85 46-119.5 80.6a375.63 375.63 0 0 0-80.6 119.5A371.7 371.7 0 0 0 136 901.8a8 8 0 0 0 8 8.2h60c4.4 0 7.9-3.5 8-7.8 2-77.2 33-149.5 87.8-204.3 56.7-56.7 132-87.9 212.2-87.9s155.5 31.2 212.2 87.9C779 752.7 810 825 812 902.2c.1 4.4 3.6 7.8 8 7.8h60a8 8 0 0 0 8-8.2c-1-47.8-10.9-94.3-29.5-138.2zM512 534c-45.9 0-89.1-17.9-121.6-50.4S340 407.9 340 362c0-45.9 17.9-89.1 50.4-121.6S466.1 190 512 190s89.1 17.9 121.6 50.4S684 316.1 684 362c0 45.9-17.9 89.1-50.4 121.6S557.9 534 512 534z'
+        )
+      )),
+      (t.UploadOutline = u(
+        'upload',
+        i,
+        l(
+          o,
+          'M400 317.7h73.9V656c0 4.4 3.6 8 8 8h60c4.4 0 8-3.6 8-8V317.7H624c6.7 0 10.4-7.7 6.3-12.9L518.3 163a8 8 0 0 0-12.6 0l-112 141.7c-4.1 5.3-.4 13 6.3 13zM878 626h-60c-4.4 0-8 3.6-8 8v154H214V634c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v198c0 17.7 14.3 32 32 32h684c17.7 0 32-14.3 32-32V634c0-4.4-3.6-8-8-8z'
+        )
+      )),
+      (t.UserDeleteOutline = u(
+        'user-delete',
+        i,
+        l(
+          o,
+          'M678.3 655.4c24.2-13 51.9-20.4 81.4-20.4h.1c3 0 4.4-3.6 2.2-5.6a371.67 371.67 0 0 0-103.7-65.8c-.4-.2-.8-.3-1.2-.5C719.2 518 759.6 444.7 759.6 362c0-137-110.8-248-247.5-248S264.7 225 264.7 362c0 82.7 40.4 156 102.6 201.1-.4.2-.8.3-1.2.5-44.7 18.9-84.8 46-119.3 80.6a373.42 373.42 0 0 0-80.4 119.5A373.6 373.6 0 0 0 137 901.8a8 8 0 0 0 8 8.2h59.9c4.3 0 7.9-3.5 8-7.8 2-77.2 32.9-149.5 87.6-204.3C357 641.2 432.2 610 512.2 610c56.7 0 111.1 15.7 158 45.1a8.1 8.1 0 0 0 8.1.3zM512.2 534c-45.8 0-88.9-17.9-121.4-50.4A171.2 171.2 0 0 1 340.5 362c0-45.9 17.9-89.1 50.3-121.6S466.3 190 512.2 190s88.9 17.9 121.4 50.4A171.2 171.2 0 0 1 683.9 362c0 45.9-17.9 89.1-50.3 121.6C601.1 516.1 558 534 512.2 534zM880 772H640c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h240c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8z'
         )
       )),
       (t.UsergroupAddOutline = u(
@@ -17482,14 +17869,6 @@
           'M888 784H664c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h224c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8zM373.5 510.4c-.9-8.7-1.4-17.5-1.4-26.4 0-15.9 1.5-31.4 4.3-46.5.7-3.6-1.2-7.3-4.5-8.8-13.6-6.1-26.1-14.5-36.9-25.1a127.54 127.54 0 0 1-38.7-95.4c.9-32.1 13.8-62.6 36.3-85.6 24.7-25.3 57.9-39.1 93.2-38.7 31.9.3 62.7 12.6 86 34.4 7.9 7.4 14.7 15.6 20.4 24.4 2 3.1 5.9 4.4 9.3 3.2 17.6-6.1 36.2-10.4 55.3-12.4 5.6-.6 8.8-6.6 6.3-11.6-32.5-64.3-98.9-108.7-175.7-109.9-110.9-1.7-203.3 89.2-203.3 199.9 0 62.8 28.9 118.8 74.2 155.5-31.8 14.7-61.1 35-86.5 60.4-54.8 54.7-85.8 126.9-87.8 204a8 8 0 0 0 8 8.2h56.1c4.3 0 7.9-3.4 8-7.7 1.9-58 25.4-112.3 66.7-153.5 29.4-29.4 65.4-49.8 104.7-59.7 3.9-1 6.5-4.7 6-8.7zM824 484c0-109.4-87.9-198.3-196.9-200C516.3 282.3 424 373.2 424 484c0 62.8 29 118.8 74.2 155.5a300.95 300.95 0 0 0-86.4 60.4C357 754.6 326 826.8 324 903.8a8 8 0 0 0 8 8.2h56c4.3 0 7.9-3.4 8-7.7 1.9-58 25.4-112.3 66.7-153.5C505.8 707.7 563 684 624 684c110.4 0 200-89.5 200-200zm-109.5 90.5C690.3 598.7 658.2 612 624 612s-66.3-13.3-90.5-37.5a127.26 127.26 0 0 1-37.5-91.8c.3-32.8 13.4-64.5 36.3-88 24-24.6 56.1-38.3 90.4-38.7 33.9-.3 66.8 12.9 91 36.6 24.8 24.3 38.4 56.8 38.4 91.4-.1 34.2-13.4 66.3-37.6 90.5z'
         )
       )),
-      (t.VerticalAlignBottomOutline = u(
-        'vertical-align-bottom',
-        i,
-        l(
-          o,
-          'M859.9 780H164.1c-4.5 0-8.1 3.6-8.1 8v60c0 4.4 3.6 8 8.1 8h695.8c4.5 0 8.1-3.6 8.1-8v-60c0-4.4-3.6-8-8.1-8zM505.7 669a8 8 0 0 0 12.6 0l112-141.7c4.1-5.2.4-12.9-6.3-12.9h-74.1V176c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v338.3H400c-6.7 0-10.4 7.7-6.3 12.9l112 141.8z'
-        )
-      )),
       (t.VerticalAlignMiddleOutline = u(
         'vertical-align-middle',
         i,
@@ -17498,12 +17877,12 @@
           'M859.9 474H164.1c-4.5 0-8.1 3.6-8.1 8v60c0 4.4 3.6 8 8.1 8h695.8c4.5 0 8.1-3.6 8.1-8v-60c0-4.4-3.6-8-8.1-8zm-353.6-74.7c2.9 3.7 8.5 3.7 11.3 0l100.8-127.5c3.7-4.7.4-11.7-5.7-11.7H550V104c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v156h-62.8c-6 0-9.4 7-5.7 11.7l100.8 127.6zm11.4 225.4a7.14 7.14 0 0 0-11.3 0L405.6 752.3a7.23 7.23 0 0 0 5.7 11.7H474v156c0 4.4 3.6 8 8 8h60c4.4 0 8-3.6 8-8V764h62.8c6 0 9.4-7 5.7-11.7L517.7 624.7z'
         )
       )),
-      (t.VerticalAlignTopOutline = u(
-        'vertical-align-top',
+      (t.VerticalAlignBottomOutline = u(
+        'vertical-align-bottom',
         i,
         l(
           o,
-          'M859.9 168H164.1c-4.5 0-8.1 3.6-8.1 8v60c0 4.4 3.6 8 8.1 8h695.8c4.5 0 8.1-3.6 8.1-8v-60c0-4.4-3.6-8-8.1-8zM518.3 355a8 8 0 0 0-12.6 0l-112 141.7a7.98 7.98 0 0 0 6.3 12.9h73.9V848c0 4.4 3.6 8 8 8h60c4.4 0 8-3.6 8-8V509.7H624c6.7 0 10.4-7.7 6.3-12.9L518.3 355z'
+          'M859.9 780H164.1c-4.5 0-8.1 3.6-8.1 8v60c0 4.4 3.6 8 8.1 8h695.8c4.5 0 8.1-3.6 8.1-8v-60c0-4.4-3.6-8-8.1-8zM505.7 669a8 8 0 0 0 12.6 0l112-141.7c4.1-5.2.4-12.9-6.3-12.9h-74.1V176c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v338.3H400c-6.7 0-10.4 7.7-6.3 12.9l112 141.8z'
         )
       )),
       (t.VerticalLeftOutline = u(
@@ -17522,20 +17901,20 @@
           'M326 164h-64c-4.4 0-8 3.6-8 8v688c0 4.4 3.6 8 8 8h64c4.4 0 8-3.6 8-8V172c0-4.4-3.6-8-8-8zm444 72.4V164c0-6.8-7.9-10.5-13.1-6.1L335 512l421.9 354.1c5.2 4.4 13.1.7 13.1-6.1v-72.4c0-9.4-4.2-18.4-11.4-24.5L459.4 512l299.2-251.1c7.2-6.1 11.4-15.1 11.4-24.5z'
         )
       )),
+      (t.VerticalAlignTopOutline = u(
+        'vertical-align-top',
+        i,
+        l(
+          o,
+          'M859.9 168H164.1c-4.5 0-8.1 3.6-8.1 8v60c0 4.4 3.6 8 8.1 8h695.8c4.5 0 8.1-3.6 8.1-8v-60c0-4.4-3.6-8-8.1-8zM518.3 355a8 8 0 0 0-12.6 0l-112 141.7a7.98 7.98 0 0 0 6.3 12.9h73.9V848c0 4.4 3.6 8 8 8h60c4.4 0 8-3.6 8-8V509.7H624c6.7 0 10.4-7.7 6.3-12.9L518.3 355z'
+        )
+      )),
       (t.WifiOutline = u(
         'wifi',
         i,
         l(
           o,
           'M723 620.5C666.8 571.6 593.4 542 513 542s-153.8 29.6-210.1 78.6a8.1 8.1 0 0 0-.8 11.2l36 42.9c2.9 3.4 8 3.8 11.4.9C393.1 637.2 450.3 614 513 614s119.9 23.2 163.5 61.5c3.4 2.9 8.5 2.5 11.4-.9l36-42.9c2.8-3.3 2.4-8.3-.9-11.2zm117.4-140.1C751.7 406.5 637.6 362 513 362s-238.7 44.5-327.5 118.4a8.05 8.05 0 0 0-1 11.3l36 42.9c2.8 3.4 7.9 3.8 11.2 1C308 472.2 406.1 434 513 434s205 38.2 281.2 101.6c3.4 2.8 8.4 2.4 11.2-1l36-42.9c2.8-3.4 2.4-8.5-1-11.3zm116.7-139C835.7 241.8 680.3 182 511 182c-168.2 0-322.6 59-443.7 157.4a8 8 0 0 0-1.1 11.4l36 42.9c2.8 3.3 7.8 3.8 11.1 1.1C222 306.7 360.3 254 511 254c151.8 0 291 53.5 400 142.7 3.4 2.8 8.4 2.3 11.2-1.1l36-42.9c2.9-3.4 2.4-8.5-1.1-11.3zM448 778a64 64 0 1 0 128 0 64 64 0 1 0-128 0z'
-        )
-      )),
-      (t.WeiboOutline = u(
-        'weibo',
-        i,
-        l(
-          o,
-          'M457.3 543c-68.1-17.7-145 16.2-174.6 76.2-30.1 61.2-1 129.1 67.8 151.3 71.2 23 155.2-12.2 184.4-78.3 28.7-64.6-7.2-131-77.6-149.2zm-52 156.2c-13.8 22.1-43.5 31.7-65.8 21.6-22-10-28.5-35.7-14.6-57.2 13.7-21.4 42.3-31 64.4-21.7 22.4 9.5 29.6 35 16 57.3zm45.5-58.5c-5 8.6-16.1 12.7-24.7 9.1-8.5-3.5-11.2-13.1-6.4-21.5 5-8.4 15.6-12.4 24.1-9.1 8.7 3.2 11.8 12.9 7 21.5zm334.5-197.2c15 4.8 31-3.4 35.9-18.3 11.8-36.6 4.4-78.4-23.2-109a111.39 111.39 0 0 0-106-34.3 28.45 28.45 0 0 0-21.9 33.8 28.39 28.39 0 0 0 33.8 21.8c18.4-3.9 38.3 1.8 51.9 16.7a54.2 54.2 0 0 1 11.3 53.3 28.45 28.45 0 0 0 18.2 36zm99.8-206c-56.7-62.9-140.4-86.9-217.7-70.5a32.98 32.98 0 0 0-25.4 39.3 33.12 33.12 0 0 0 39.3 25.5c55-11.7 114.4 5.4 154.8 50.1 40.3 44.7 51.2 105.7 34 159.1-5.6 17.4 3.9 36 21.3 41.7 17.4 5.6 36-3.9 41.6-21.2v-.1c24.1-75.4 8.9-161.1-47.9-223.9zM729 499c-12.2-3.6-20.5-6.1-14.1-22.1 13.8-34.7 15.2-64.7.3-86-28-40.1-104.8-37.9-192.8-1.1 0 0-27.6 12.1-20.6-9.8 13.5-43.5 11.5-79.9-9.6-101-47.7-47.8-174.6 1.8-283.5 110.6C127.3 471.1 80 557.5 80 632.2 80 775.1 263.2 862 442.5 862c235 0 391.3-136.5 391.3-245 0-65.5-55.2-102.6-104.8-118zM443 810.8c-143 14.1-266.5-50.5-275.8-144.5-9.3-93.9 99.2-181.5 242.2-195.6 143-14.2 266.5 50.5 275.8 144.4C694.4 709 586 796.6 443 810.8z'
         )
       )),
       (t.WomanOutline = u(
@@ -17546,12 +17925,12 @@
           'M712.8 548.8c53.6-53.6 83.2-125 83.2-200.8 0-75.9-29.5-147.2-83.2-200.8C659.2 93.6 587.8 64 512 64s-147.2 29.5-200.8 83.2C257.6 200.9 228 272.1 228 348c0 63.8 20.9 124.4 59.4 173.9 7.3 9.4 15.2 18.3 23.7 26.9 8.5 8.5 17.5 16.4 26.8 23.7 39.6 30.8 86.3 50.4 136.1 57V736H360c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h114v140c0 4.4 3.6 8 8 8h60c4.4 0 8-3.6 8-8V812h114c4.4 0 8-3.6 8-8v-60c0-4.4-3.6-8-8-8H550V629.5c61.5-8.2 118.2-36.1 162.8-80.7zM512 556c-55.6 0-107.7-21.6-147.1-60.9C325.6 455.8 304 403.6 304 348s21.6-107.7 60.9-147.1C404.2 161.5 456.4 140 512 140s107.7 21.6 147.1 60.9C698.4 240.2 720 292.4 720 348s-21.6 107.7-60.9 147.1C619.7 534.4 567.6 556 512 556z'
         )
       )),
-      (t.ZhihuOutline = u(
-        'zhihu',
+      (t.WeiboOutline = u(
+        'weibo',
         i,
         l(
           o,
-          'M564.7 230.1V803h60l25.2 71.4L756.3 803h131.5V230.1H564.7zm247.7 497h-59.9l-75.1 50.4-17.8-50.4h-18V308.3h170.7v418.8zM526.1 486.9H393.3c2.1-44.9 4.3-104.3 6.6-172.9h130.9l-.1-8.1c0-.6-.2-14.7-2.3-29.1-2.1-15-6.6-34.9-21-34.9H287.8c4.4-20.6 15.7-69.7 29.4-93.8l6.4-11.2-12.9-.7c-.8 0-19.6-.9-41.4 10.6-35.7 19-51.7 56.4-58.7 84.4-18.4 73.1-44.6 123.9-55.7 145.6-3.3 6.4-5.3 10.2-6.2 12.8-1.8 4.9-.8 9.8 2.8 13 10.5 9.5 38.2-2.9 38.5-3 .6-.3 1.3-.6 2.2-1 13.9-6.3 55.1-25 69.8-84.5h56.7c.7 32.2 3.1 138.4 2.9 172.9h-141l-2.1 1.5c-23.1 16.9-30.5 63.2-30.8 65.2l-1.4 9.2h167c-12.3 78.3-26.5 113.4-34 127.4-3.7 7-7.3 14-10.7 20.8-21.3 42.2-43.4 85.8-126.3 153.6-3.6 2.8-7 8-4.8 13.7 2.4 6.3 9.3 9.1 24.6 9.1 5.4 0 11.8-.3 19.4-1 49.9-4.4 100.8-18 135.1-87.6 17-35.1 31.7-71.7 43.9-108.9L497 850l5-12c.8-1.9 19-46.3 5.1-95.9l-.5-1.8-108.1-123-22 16.6c6.4-26.1 10.6-49.9 12.5-71.1h158.7v-8c0-40.1-18.5-63.9-19.2-64.9l-2.4-3z'
+          'M457.3 543c-68.1-17.7-145 16.2-174.6 76.2-30.1 61.2-1 129.1 67.8 151.3 71.2 23 155.2-12.2 184.4-78.3 28.7-64.6-7.2-131-77.6-149.2zm-52 156.2c-13.8 22.1-43.5 31.7-65.8 21.6-22-10-28.5-35.7-14.6-57.2 13.7-21.4 42.3-31 64.4-21.7 22.4 9.5 29.6 35 16 57.3zm45.5-58.5c-5 8.6-16.1 12.7-24.7 9.1-8.5-3.5-11.2-13.1-6.4-21.5 5-8.4 15.6-12.4 24.1-9.1 8.7 3.2 11.8 12.9 7 21.5zm334.5-197.2c15 4.8 31-3.4 35.9-18.3 11.8-36.6 4.4-78.4-23.2-109a111.39 111.39 0 0 0-106-34.3 28.45 28.45 0 0 0-21.9 33.8 28.39 28.39 0 0 0 33.8 21.8c18.4-3.9 38.3 1.8 51.9 16.7a54.2 54.2 0 0 1 11.3 53.3 28.45 28.45 0 0 0 18.2 36zm99.8-206c-56.7-62.9-140.4-86.9-217.7-70.5a32.98 32.98 0 0 0-25.4 39.3 33.12 33.12 0 0 0 39.3 25.5c55-11.7 114.4 5.4 154.8 50.1 40.3 44.7 51.2 105.7 34 159.1-5.6 17.4 3.9 36 21.3 41.7 17.4 5.6 36-3.9 41.6-21.2v-.1c24.1-75.4 8.9-161.1-47.9-223.9zM729 499c-12.2-3.6-20.5-6.1-14.1-22.1 13.8-34.7 15.2-64.7.3-86-28-40.1-104.8-37.9-192.8-1.1 0 0-27.6 12.1-20.6-9.8 13.5-43.5 11.5-79.9-9.6-101-47.7-47.8-174.6 1.8-283.5 110.6C127.3 471.1 80 557.5 80 632.2 80 775.1 263.2 862 442.5 862c235 0 391.3-136.5 391.3-245 0-65.5-55.2-102.6-104.8-118zM443 810.8c-143 14.1-266.5-50.5-275.8-144.5-9.3-93.9 99.2-181.5 242.2-195.6 143-14.2 266.5 50.5 275.8 144.4C694.4 709 586 796.6 443 810.8z'
         )
       )),
       (t.ZoomInOutline = u(
@@ -17570,23 +17949,14 @@
           'M637 443H325c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h312c4.4 0 8-3.6 8-8v-60c0-4.4-3.6-8-8-8zm284 424L775 721c122.1-148.9 113.6-369.5-26-509-148-148.1-388.4-148.1-537 0-148.1 148.6-148.1 389 0 537 139.5 139.6 360.1 148.1 509 26l146 146c3.2 2.8 8.3 2.8 11 0l43-43c2.8-2.7 2.8-7.8 0-11zM696 696c-118.8 118.7-311.2 118.7-430 0-118.7-118.8-118.7-311.2 0-430 118.8-118.7 311.2-118.7 430 0 118.7 118.8 118.7 311.2 0 430z'
         )
       )),
-      (t.AccountBookTwoTone = u('account-book', a, function(e, t) {
-        return l(
+      (t.ZhihuOutline = u(
+        'zhihu',
+        i,
+        l(
           o,
-          [
-            t,
-            'M712 304c0 4.4-3.6 8-8 8h-56c-4.4 0-8-3.6-8-8v-48H384v48c0 4.4-3.6 8-8 8h-56c-4.4 0-8-3.6-8-8v-48H184v584h656V256H712v48zm-65.6 121.8l-89.3 164.1h49.1c4.4 0 8 3.6 8 8v21.3c0 4.4-3.6 8-8 8h-65.4v33.7h65.4c4.4 0 8 3.6 8 8v21.3c0 4.4-3.6 8-8 8h-65.4V752c0 4.4-3.6 8-8 8h-41.3c-4.4 0-8-3.6-8-8v-53.8h-65.1c-4.4 0-8-3.6-8-8v-21.3c0-4.4 3.6-8 8-8h65.1v-33.7h-65.1c-4.4 0-8-3.6-8-8v-21.3c0-4.4 3.6-8 8-8H467l-89.3-164c-2.1-3.9-.7-8.8 3.2-10.9 1.1-.7 2.5-1 3.8-1h46a8 8 0 0 1 7.1 4.4l73.4 145.4h2.8l73.4-145.4c1.3-2.7 4.1-4.4 7.1-4.4h45c4.5 0 8 3.6 7.9 8 0 1.3-.4 2.6-1 3.8z',
-          ],
-          [
-            e,
-            'M639.5 414h-45c-3 0-5.8 1.7-7.1 4.4L514 563.8h-2.8l-73.4-145.4a8 8 0 0 0-7.1-4.4h-46c-1.3 0-2.7.3-3.8 1-3.9 2.1-5.3 7-3.2 10.9l89.3 164h-48.6c-4.4 0-8 3.6-8 8v21.3c0 4.4 3.6 8 8 8h65.1v33.7h-65.1c-4.4 0-8 3.6-8 8v21.3c0 4.4 3.6 8 8 8h65.1V752c0 4.4 3.6 8 8 8h41.3c4.4 0 8-3.6 8-8v-53.8h65.4c4.4 0 8-3.6 8-8v-21.3c0-4.4-3.6-8-8-8h-65.4v-33.7h65.4c4.4 0 8-3.6 8-8v-21.3c0-4.4-3.6-8-8-8h-49.1l89.3-164.1c.6-1.2 1-2.5 1-3.8.1-4.4-3.4-8-7.9-8z',
-          ],
-          [
-            e,
-            'M880 184H712v-64c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v64H384v-64c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v64H144c-17.7 0-32 14.3-32 32v664c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V216c0-17.7-14.3-32-32-32zm-40 656H184V256h128v48c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-48h256v48c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-48h128v584z',
-          ]
-        );
-      })),
+          'M564.7 230.1V803h60l25.2 71.4L756.3 803h131.5V230.1H564.7zm247.7 497h-59.9l-75.1 50.4-17.8-50.4h-18V308.3h170.7v418.8zM526.1 486.9H393.3c2.1-44.9 4.3-104.3 6.6-172.9h130.9l-.1-8.1c0-.6-.2-14.7-2.3-29.1-2.1-15-6.6-34.9-21-34.9H287.8c4.4-20.6 15.7-69.7 29.4-93.8l6.4-11.2-12.9-.7c-.8 0-19.6-.9-41.4 10.6-35.7 19-51.7 56.4-58.7 84.4-18.4 73.1-44.6 123.9-55.7 145.6-3.3 6.4-5.3 10.2-6.2 12.8-1.8 4.9-.8 9.8 2.8 13 10.5 9.5 38.2-2.9 38.5-3 .6-.3 1.3-.6 2.2-1 13.9-6.3 55.1-25 69.8-84.5h56.7c.7 32.2 3.1 138.4 2.9 172.9h-141l-2.1 1.5c-23.1 16.9-30.5 63.2-30.8 65.2l-1.4 9.2h167c-12.3 78.3-26.5 113.4-34 127.4-3.7 7-7.3 14-10.7 20.8-21.3 42.2-43.4 85.8-126.3 153.6-3.6 2.8-7 8-4.8 13.7 2.4 6.3 9.3 9.1 24.6 9.1 5.4 0 11.8-.3 19.4-1 49.9-4.4 100.8-18 135.1-87.6 17-35.1 31.7-71.7 43.9-108.9L497 850l5-12c.8-1.9 19-46.3 5.1-95.9l-.5-1.8-108.1-123-22 16.6c6.4-26.1 10.6-49.9 12.5-71.1h158.7v-8c0-40.1-18.5-63.9-19.2-64.9l-2.4-3z'
+        )
+      )),
       (t.AlertTwoTone = u('alert', a, function(e, t) {
         return l(
           o,
@@ -17613,14 +17983,21 @@
           ]
         );
       })),
-      (t.AppstoreTwoTone = u('appstore', a, function(e, t) {
+      (t.AccountBookTwoTone = u('account-book', a, function(e, t) {
         return l(
           o,
           [
-            e,
-            'M864 144H560c-8.8 0-16 7.2-16 16v304c0 8.8 7.2 16 16 16h304c8.8 0 16-7.2 16-16V160c0-8.8-7.2-16-16-16zm-52 268H612V212h200v200zM464 544H160c-8.8 0-16 7.2-16 16v304c0 8.8 7.2 16 16 16h304c8.8 0 16-7.2 16-16V560c0-8.8-7.2-16-16-16zm-52 268H212V612h200v200zm52-668H160c-8.8 0-16 7.2-16 16v304c0 8.8 7.2 16 16 16h304c8.8 0 16-7.2 16-16V160c0-8.8-7.2-16-16-16zm-52 268H212V212h200v200zm452 132H560c-8.8 0-16 7.2-16 16v304c0 8.8 7.2 16 16 16h304c8.8 0 16-7.2 16-16V560c0-8.8-7.2-16-16-16zm-52 268H612V612h200v200z',
+            t,
+            'M712 304c0 4.4-3.6 8-8 8h-56c-4.4 0-8-3.6-8-8v-48H384v48c0 4.4-3.6 8-8 8h-56c-4.4 0-8-3.6-8-8v-48H184v584h656V256H712v48zm-65.6 121.8l-89.3 164.1h49.1c4.4 0 8 3.6 8 8v21.3c0 4.4-3.6 8-8 8h-65.4v33.7h65.4c4.4 0 8 3.6 8 8v21.3c0 4.4-3.6 8-8 8h-65.4V752c0 4.4-3.6 8-8 8h-41.3c-4.4 0-8-3.6-8-8v-53.8h-65.1c-4.4 0-8-3.6-8-8v-21.3c0-4.4 3.6-8 8-8h65.1v-33.7h-65.1c-4.4 0-8-3.6-8-8v-21.3c0-4.4 3.6-8 8-8H467l-89.3-164c-2.1-3.9-.7-8.8 3.2-10.9 1.1-.7 2.5-1 3.8-1h46a8 8 0 0 1 7.1 4.4l73.4 145.4h2.8l73.4-145.4c1.3-2.7 4.1-4.4 7.1-4.4h45c4.5 0 8 3.6 7.9 8 0 1.3-.4 2.6-1 3.8z',
           ],
-          [t, 'M212 212h200v200H212zm400 0h200v200H612zM212 612h200v200H212zm400 0h200v200H612z']
+          [
+            e,
+            'M639.5 414h-45c-3 0-5.8 1.7-7.1 4.4L514 563.8h-2.8l-73.4-145.4a8 8 0 0 0-7.1-4.4h-46c-1.3 0-2.7.3-3.8 1-3.9 2.1-5.3 7-3.2 10.9l89.3 164h-48.6c-4.4 0-8 3.6-8 8v21.3c0 4.4 3.6 8 8 8h65.1v33.7h-65.1c-4.4 0-8 3.6-8 8v21.3c0 4.4 3.6 8 8 8h65.1V752c0 4.4 3.6 8 8 8h41.3c4.4 0 8-3.6 8-8v-53.8h65.4c4.4 0 8-3.6 8-8v-21.3c0-4.4-3.6-8-8-8h-65.4v-33.7h65.4c4.4 0 8-3.6 8-8v-21.3c0-4.4-3.6-8-8-8h-49.1l89.3-164.1c.6-1.2 1-2.5 1-3.8.1-4.4-3.4-8-7.9-8z',
+          ],
+          [
+            e,
+            'M880 184H712v-64c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v64H384v-64c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v64H144c-17.7 0-32 14.3-32 32v664c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V216c0-17.7-14.3-32-32-32zm-40 656H184V256h128v48c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-48h256v48c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-48h128v584z',
+          ]
         );
       })),
       (t.AudioTwoTone = u('audio', a, function(e, t) {
@@ -17638,6 +18015,16 @@
             e,
             'M512 624c93.9 0 170-75.2 170-168V232c0-92.8-76.1-168-170-168s-170 75.2-170 168v224c0 92.8 76.1 168 170 168zm-98-392c0-52.8 43.7-96 98-96s98 43.2 98 96v224c0 52.8-43.7 96-98 96s-98-43.2-98-96V232z',
           ]
+        );
+      })),
+      (t.AppstoreTwoTone = u('appstore', a, function(e, t) {
+        return l(
+          o,
+          [
+            e,
+            'M864 144H560c-8.8 0-16 7.2-16 16v304c0 8.8 7.2 16 16 16h304c8.8 0 16-7.2 16-16V160c0-8.8-7.2-16-16-16zm-52 268H612V212h200v200zM464 544H160c-8.8 0-16 7.2-16 16v304c0 8.8 7.2 16 16 16h304c8.8 0 16-7.2 16-16V560c0-8.8-7.2-16-16-16zm-52 268H212V612h200v200zm52-668H160c-8.8 0-16 7.2-16 16v304c0 8.8 7.2 16 16 16h304c8.8 0 16-7.2 16-16V160c0-8.8-7.2-16-16-16zm-52 268H212V212h200v200zm452 132H560c-8.8 0-16 7.2-16 16v304c0 8.8 7.2 16 16 16h304c8.8 0 16-7.2 16-16V560c0-8.8-7.2-16-16-16zm-52 268H612V612h200v200z',
+          ],
+          [t, 'M212 212h200v200H212zm400 0h200v200H612zM212 612h200v200H212zm400 0h200v200H612z']
         );
       })),
       (t.BankTwoTone = u('bank', a, function(e, t) {
@@ -17677,16 +18064,6 @@
           ]
         );
       })),
-      (t.BoxPlotTwoTone = u('box-plot', a, function(e, t) {
-        return l(
-          o,
-          [t, 'M296 368h88v288h-88zm152 0h280v288H448z'],
-          [
-            e,
-            'M952 224h-52c-4.4 0-8 3.6-8 8v248h-92V304c0-4.4-3.6-8-8-8H232c-4.4 0-8 3.6-8 8v176h-92V232c0-4.4-3.6-8-8-8H72c-4.4 0-8 3.6-8 8v560c0 4.4 3.6 8 8 8h52c4.4 0 8-3.6 8-8V548h92v172c0 4.4 3.6 8 8 8h560c4.4 0 8-3.6 8-8V548h92v244c0 4.4 3.6 8 8 8h52c4.4 0 8-3.6 8-8V232c0-4.4-3.6-8-8-8zM384 656h-88V368h88v288zm344 0H448V368h280v288z',
-          ]
-        );
-      })),
       (t.BuildTwoTone = u('build', a, function(e, t) {
         return l(
           o,
@@ -17694,6 +18071,16 @@
           [
             e,
             'M916 210H376c-17.7 0-32 14.3-32 32v236H108c-17.7 0-32 14.3-32 32v272c0 17.7 14.3 32 32 32h540c17.7 0 32-14.3 32-32V546h236c17.7 0 32-14.3 32-32V242c0-17.7-14.3-32-32-32zM344 746H144V546h200v200zm268 0H412V546h200v200zm0-268H412V278h200v200zm268 0H680V278h200v200z',
+          ]
+        );
+      })),
+      (t.BoxPlotTwoTone = u('box-plot', a, function(e, t) {
+        return l(
+          o,
+          [t, 'M296 368h88v288h-88zm152 0h280v288H448z'],
+          [
+            e,
+            'M952 224h-52c-4.4 0-8 3.6-8 8v248h-92V304c0-4.4-3.6-8-8-8H232c-4.4 0-8 3.6-8 8v176h-92V232c0-4.4-3.6-8-8-8H72c-4.4 0-8 3.6-8 8v560c0 4.4 3.6 8 8 8h52c4.4 0 8-3.6 8-8V548h92v172c0 4.4 3.6 8 8 8h560c4.4 0 8-3.6 8-8V548h92v244c0 4.4 3.6 8 8 8h52c4.4 0 8-3.6 8-8V232c0-4.4-3.6-8-8-8zM384 656h-88V368h88v288zm344 0H448V368h280v288z',
           ]
         );
       })),
@@ -17707,23 +18094,6 @@
           [
             e,
             'M632 888H392c-4.4 0-8 3.6-8 8v32c0 17.7 14.3 32 32 32h192c17.7 0 32-14.3 32-32v-32c0-4.4-3.6-8-8-8zM512 64c-181.1 0-328 146.9-328 328 0 121.4 66 227.4 164 284.1V792c0 17.7 14.3 32 32 32h264c17.7 0 32-14.3 32-32V676.1c98-56.7 164-162.7 164-284.1 0-181.1-146.9-328-328-328zm127.9 549.8L604 634.6V752H420V634.6l-35.9-20.8C305.4 568.3 256 484.5 256 392c0-141.4 114.6-256 256-256s256 114.6 256 256c0 92.5-49.4 176.3-128.1 221.8z',
-          ]
-        );
-      })),
-      (t.CalculatorTwoTone = u('calculator', a, function(e, t) {
-        return l(
-          o,
-          [
-            e,
-            'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-40 728H184V184h656v656z',
-          ],
-          [
-            t,
-            'M184 840h656V184H184v656zm256.2-75h-50.8c-2.2 0-4.5-1.1-5.9-2.9L348 718.6l-35.5 43.5a7.38 7.38 0 0 1-5.9 2.9h-50.8c-6.6 0-10.2-7.9-5.8-13.1l62.7-76.8-61.2-74.9c-4.3-5.2-.7-13.1 5.9-13.1h50.9c2.2 0 4.5 1.1 5.9 2.9l34 41.6 34-41.6c1.5-1.9 3.6-2.9 5.9-2.9h50.8c6.6 0 10.2 7.9 5.9 13.1L383.5 675l62.7 76.8c4.2 5.3.6 13.2-6 13.2zM576 335c0-2.2 1.4-4 3.2-4h193.5c1.9 0 3.3 1.8 3.3 4v48c0 2.2-1.4 4-3.2 4H579.2c-1.8 0-3.2-1.8-3.2-4v-48zm0 265c0-2.2 1.4-4 3.2-4h193.5c1.9 0 3.3 1.8 3.3 4v48c0 2.2-1.4 4-3.2 4H579.2c-1.8 0-3.2-1.8-3.2-4v-48zm0 104c0-2.2 1.4-4 3.2-4h193.5c1.9 0 3.3 1.8 3.3 4v48c0 2.2-1.4 4-3.2 4H579.2c-1.8 0-3.2-1.8-3.2-4v-48zM248 335c0-2.2 1.4-4 3.2-4H320v-68.8c0-1.8 1.8-3.2 4-3.2h48c2.2 0 4 1.4 4 3.2V331h68.7c1.9 0 3.3 1.8 3.3 4v48c0 2.2-1.4 4-3.2 4H376v68.7c0 1.9-1.8 3.3-4 3.3h-48c-2.2 0-4-1.4-4-3.2V387h-68.8c-1.8 0-3.2-1.8-3.2-4v-48z',
-          ],
-          [
-            e,
-            'M383.5 675l61.3-74.8c4.3-5.2.7-13.1-5.9-13.1h-50.8c-2.3 0-4.4 1-5.9 2.9l-34 41.6-34-41.6a7.69 7.69 0 0 0-5.9-2.9h-50.9c-6.6 0-10.2 7.9-5.9 13.1l61.2 74.9-62.7 76.8c-4.4 5.2-.8 13.1 5.8 13.1h50.8c2.3 0 4.4-1 5.9-2.9l35.5-43.5 35.5 43.5c1.4 1.8 3.7 2.9 5.9 2.9h50.8c6.6 0 10.2-7.9 6-13.2L383.5 675zM251.2 387H320v68.8c0 1.8 1.8 3.2 4 3.2h48c2.2 0 4-1.4 4-3.3V387h68.8c1.8 0 3.2-1.8 3.2-4v-48c0-2.2-1.4-4-3.3-4H376v-68.8c0-1.8-1.8-3.2-4-3.2h-48c-2.2 0-4 1.4-4 3.2V331h-68.8c-1.8 0-3.2 1.8-3.2 4v48c0 2.2 1.4 4 3.2 4zm328 369h193.6c1.8 0 3.2-1.8 3.2-4v-48c0-2.2-1.4-4-3.3-4H579.2c-1.8 0-3.2 1.8-3.2 4v48c0 2.2 1.4 4 3.2 4zm0-104h193.6c1.8 0 3.2-1.8 3.2-4v-48c0-2.2-1.4-4-3.3-4H579.2c-1.8 0-3.2 1.8-3.2 4v48c0 2.2 1.4 4 3.2 4zm0-265h193.6c1.8 0 3.2-1.8 3.2-4v-48c0-2.2-1.4-4-3.3-4H579.2c-1.8 0-3.2 1.8-3.2 4v48c0 2.2 1.4 4 3.2 4z',
           ]
         );
       })),
@@ -17761,6 +18131,23 @@
           ]
         );
       })),
+      (t.CalculatorTwoTone = u('calculator', a, function(e, t) {
+        return l(
+          o,
+          [
+            e,
+            'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-40 728H184V184h656v656z',
+          ],
+          [
+            t,
+            'M184 840h656V184H184v656zm256.2-75h-50.8c-2.2 0-4.5-1.1-5.9-2.9L348 718.6l-35.5 43.5a7.38 7.38 0 0 1-5.9 2.9h-50.8c-6.6 0-10.2-7.9-5.8-13.1l62.7-76.8-61.2-74.9c-4.3-5.2-.7-13.1 5.9-13.1h50.9c2.2 0 4.5 1.1 5.9 2.9l34 41.6 34-41.6c1.5-1.9 3.6-2.9 5.9-2.9h50.8c6.6 0 10.2 7.9 5.9 13.1L383.5 675l62.7 76.8c4.2 5.3.6 13.2-6 13.2zM576 335c0-2.2 1.4-4 3.2-4h193.5c1.9 0 3.3 1.8 3.3 4v48c0 2.2-1.4 4-3.2 4H579.2c-1.8 0-3.2-1.8-3.2-4v-48zm0 265c0-2.2 1.4-4 3.2-4h193.5c1.9 0 3.3 1.8 3.3 4v48c0 2.2-1.4 4-3.2 4H579.2c-1.8 0-3.2-1.8-3.2-4v-48zm0 104c0-2.2 1.4-4 3.2-4h193.5c1.9 0 3.3 1.8 3.3 4v48c0 2.2-1.4 4-3.2 4H579.2c-1.8 0-3.2-1.8-3.2-4v-48zM248 335c0-2.2 1.4-4 3.2-4H320v-68.8c0-1.8 1.8-3.2 4-3.2h48c2.2 0 4 1.4 4 3.2V331h68.7c1.9 0 3.3 1.8 3.3 4v48c0 2.2-1.4 4-3.2 4H376v68.7c0 1.9-1.8 3.3-4 3.3h-48c-2.2 0-4-1.4-4-3.2V387h-68.8c-1.8 0-3.2-1.8-3.2-4v-48z',
+          ],
+          [
+            e,
+            'M383.5 675l61.3-74.8c4.3-5.2.7-13.1-5.9-13.1h-50.8c-2.3 0-4.4 1-5.9 2.9l-34 41.6-34-41.6a7.69 7.69 0 0 0-5.9-2.9h-50.9c-6.6 0-10.2 7.9-5.9 13.1l61.2 74.9-62.7 76.8c-4.4 5.2-.8 13.1 5.8 13.1h50.8c2.3 0 4.4-1 5.9-2.9l35.5-43.5 35.5 43.5c1.4 1.8 3.7 2.9 5.9 2.9h50.8c6.6 0 10.2-7.9 6-13.2L383.5 675zM251.2 387H320v68.8c0 1.8 1.8 3.2 4 3.2h48c2.2 0 4-1.4 4-3.3V387h68.8c1.8 0 3.2-1.8 3.2-4v-48c0-2.2-1.4-4-3.3-4H376v-68.8c0-1.8-1.8-3.2-4-3.2h-48c-2.2 0-4 1.4-4 3.2V331h-68.8c-1.8 0-3.2 1.8-3.2 4v48c0 2.2 1.4 4 3.2 4zm328 369h193.6c1.8 0 3.2-1.8 3.2-4v-48c0-2.2-1.4-4-3.3-4H579.2c-1.8 0-3.2 1.8-3.2 4v48c0 2.2 1.4 4 3.2 4zm0-104h193.6c1.8 0 3.2-1.8 3.2-4v-48c0-2.2-1.4-4-3.3-4H579.2c-1.8 0-3.2 1.8-3.2 4v48c0 2.2 1.4 4 3.2 4zm0-265h193.6c1.8 0 3.2-1.8 3.2-4v-48c0-2.2-1.4-4-3.3-4H579.2c-1.8 0-3.2 1.8-3.2 4v48c0 2.2 1.4 4 3.2 4z',
+          ]
+        );
+      })),
       (t.CarTwoTone = u('car', a, function(e, t) {
         return l(
           o,
@@ -17775,7 +18162,7 @@
           ],
           [
             e,
-            'M224 581a40 40 0 1 0 80 0 40 40 0 1 0-80 0zM644 604h-40c-4.4 0-8 3.6-8 8v36H428v-36c0-4.4-3.6-8-8-8h-40c-4.4 0-8 3.6-8 8v84c0 4.4 3.6 8 8 8h264c4.4 0 8-3.6 8-8v-84c0-4.4-3.6-8-8-8z',
+            'M224 581a40 40 0 1 0 80 0 40 40 0 1 0-80 0zm420 23h-40c-4.4 0-8 3.6-8 8v36H428v-36c0-4.4-3.6-8-8-8h-40c-4.4 0-8 3.6-8 8v84c0 4.4 3.6 8 8 8h264c4.4 0 8-3.6 8-8v-84c0-4.4-3.6-8-8-8z',
           ]
         );
       })),
@@ -17813,20 +18200,20 @@
           ]
         );
       })),
-      (t.ClockCircleTwoTone = u('clock-circle', a, function(e, t) {
+      (t.CloseSquareTwoTone = u('close-square', a, function(e, t) {
         return l(
           o,
           [
             e,
-            'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z',
+            'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-40 728H184V184h656v656z',
           ],
           [
             t,
-            'M512 140c-205.4 0-372 166.6-372 372s166.6 372 372 372 372-166.6 372-372-166.6-372-372-372zm176.5 509.7l-28.6 39a7.99 7.99 0 0 1-11.2 1.7L483.3 569.8a7.92 7.92 0 0 1-3.3-6.5V288c0-4.4 3.6-8 8-8h48.1c4.4 0 8 3.6 8 8v247.5l142.6 103.1c3.6 2.5 4.4 7.5 1.8 11.1z',
+            'M184 840h656V184H184v656zm163.9-473.9A7.95 7.95 0 0 1 354 353h58.9c4.7 0 9.2 2.1 12.3 5.7L512 462.2l86.8-103.5c3-3.6 7.5-5.7 12.3-5.7H670c6.8 0 10.5 7.9 6.1 13.1L553.8 512l122.3 145.9c4.4 5.2.7 13.1-6.1 13.1h-58.9c-4.7 0-9.2-2.1-12.3-5.7L512 561.8l-86.8 103.5c-3 3.6-7.5 5.7-12.3 5.7H354c-6.8 0-10.5-7.9-6.1-13.1L470.2 512 347.9 366.1z',
           ],
           [
             e,
-            'M686.7 638.6L544.1 535.5V288c0-4.4-3.6-8-8-8H488c-4.4 0-8 3.6-8 8v275.3c0 2.6 1.2 5 3.3 6.5l165.4 120.6c3.6 2.6 8.6 1.9 11.2-1.7l28.6-39c2.6-3.6 1.8-8.6-1.8-11.1z',
+            'M354 671h58.9c4.8 0 9.3-2.1 12.3-5.7L512 561.8l86.8 103.5c3.1 3.6 7.6 5.7 12.3 5.7H670c6.8 0 10.5-7.9 6.1-13.1L553.8 512l122.3-145.9c4.4-5.2.7-13.1-6.1-13.1h-58.9c-4.8 0-9.3 2.1-12.3 5.7L512 462.2l-86.8-103.5c-3.1-3.6-7.6-5.7-12.3-5.7H354c-6.8 0-10.5 7.9-6.1 13.1L470.2 512 347.9 657.9A7.95 7.95 0 0 0 354 671z',
           ]
         );
       })),
@@ -17847,20 +18234,20 @@
           ]
         );
       })),
-      (t.CloseSquareTwoTone = u('close-square', a, function(e, t) {
+      (t.ClockCircleTwoTone = u('clock-circle', a, function(e, t) {
         return l(
           o,
           [
             e,
-            'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-40 728H184V184h656v656z',
+            'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z',
           ],
           [
             t,
-            'M184 840h656V184H184v656zm163.9-473.9A7.95 7.95 0 0 1 354 353h58.9c4.7 0 9.2 2.1 12.3 5.7L512 462.2l86.8-103.5c3-3.6 7.5-5.7 12.3-5.7H670c6.8 0 10.5 7.9 6.1 13.1L553.8 512l122.3 145.9c4.4 5.2.7 13.1-6.1 13.1h-58.9c-4.7 0-9.2-2.1-12.3-5.7L512 561.8l-86.8 103.5c-3 3.6-7.5 5.7-12.3 5.7H354c-6.8 0-10.5-7.9-6.1-13.1L470.2 512 347.9 366.1z',
+            'M512 140c-205.4 0-372 166.6-372 372s166.6 372 372 372 372-166.6 372-372-166.6-372-372-372zm176.5 509.7l-28.6 39a7.99 7.99 0 0 1-11.2 1.7L483.3 569.8a7.92 7.92 0 0 1-3.3-6.5V288c0-4.4 3.6-8 8-8h48.1c4.4 0 8 3.6 8 8v247.5l142.6 103.1c3.6 2.5 4.4 7.5 1.8 11.1z',
           ],
           [
             e,
-            'M354 671h58.9c4.8 0 9.3-2.1 12.3-5.7L512 561.8l86.8 103.5c3.1 3.6 7.6 5.7 12.3 5.7H670c6.8 0 10.5-7.9 6.1-13.1L553.8 512l122.3-145.9c4.4-5.2.7-13.1-6.1-13.1h-58.9c-4.8 0-9.3 2.1-12.3 5.7L512 462.2l-86.8-103.5c-3.1-3.6-7.6-5.7-12.3-5.7H354c-6.8 0-10.5 7.9-6.1 13.1L470.2 512 347.9 657.9A7.95 7.95 0 0 0 354 671z',
+            'M686.7 638.6L544.1 535.5V288c0-4.4-3.6-8-8-8H488c-4.4 0-8 3.6-8 8v275.3c0 2.6 1.2 5 3.3 6.5l165.4 120.6c3.6 2.6 8.6 1.9 11.2-1.7l28.6-39c2.6-3.6 1.8-8.6-1.8-11.1z',
           ]
         );
       })),
@@ -17891,41 +18278,6 @@
           [
             e,
             'M321.1 679.1l192-161c3.9-3.2 3.9-9.1 0-12.3l-192-160.9A7.95 7.95 0 0 0 308 351v62.7c0 2.4 1 4.6 2.9 6.1L420.7 512l-109.8 92.2a8.1 8.1 0 0 0-2.9 6.1V673c0 6.8 7.9 10.5 13.1 6.1zM516 673c0 4.4 3.4 8 7.5 8h185c4.1 0 7.5-3.6 7.5-8v-48c0-4.4-3.4-8-7.5-8h-185c-4.1 0-7.5 3.6-7.5 8v48z',
-          ]
-        );
-      })),
-      (t.CompassTwoTone = u('compass', a, function(e, t) {
-        return l(
-          o,
-          [
-            t,
-            'M512 140c-205.4 0-372 166.6-372 372s166.6 372 372 372 372-166.6 372-372-166.6-372-372-372zM327.6 701.7c-2 .9-4.4 0-5.3-2.1-.4-1-.4-2.2 0-3.2L421 470.9 553.1 603l-225.5 98.7zm375.1-375.1L604 552.1 471.9 420l225.5-98.7c2-.9 4.4 0 5.3 2.1.4 1 .4 2.1 0 3.2z',
-          ],
-          [
-            e,
-            'M322.3 696.4c-.4 1-.4 2.2 0 3.2.9 2.1 3.3 3 5.3 2.1L553.1 603 421 470.9l-98.7 225.5zm375.1-375.1L471.9 420 604 552.1l98.7-225.5c.4-1.1.4-2.2 0-3.2-.9-2.1-3.3-3-5.3-2.1z',
-          ],
-          [
-            e,
-            'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z',
-          ]
-        );
-      })),
-      (t.ContactsTwoTone = u('contacts', a, function(e, t) {
-        return l(
-          o,
-          [t, 'M460.3 526a51.7 52 0 1 0 103.4 0 51.7 52 0 1 0-103.4 0z'],
-          [
-            t,
-            'M768 352c0 4.4-3.6 8-8 8h-56c-4.4 0-8-3.6-8-8v-56H548v56c0 4.4-3.6 8-8 8h-56c-4.4 0-8-3.6-8-8v-56H328v56c0 4.4-3.6 8-8 8h-56c-4.4 0-8-3.6-8-8v-56H136v496h752V296H768v56zM661 736h-43.8c-4.2 0-7.6-3.3-7.9-7.5-3.8-50.5-46-90.5-97.2-90.5s-93.4 39.9-97.2 90.5c-.3 4.2-3.7 7.5-7.9 7.5h-43.9a8 8 0 0 1-8-8.4c2.8-53.3 31.9-99.6 74.6-126.1-18.1-20-29.1-46.4-29.1-75.5 0-61.9 49.9-112 111.4-112s111.4 50.1 111.4 112c0 29.1-11 55.6-29.1 75.5 42.7 26.4 71.9 72.8 74.7 126.1a8 8 0 0 1-8 8.4z',
-          ],
-          [
-            e,
-            'M594.3 601.5a111.8 111.8 0 0 0 29.1-75.5c0-61.9-49.9-112-111.4-112s-111.4 50.1-111.4 112c0 29.1 11 55.5 29.1 75.5a158.09 158.09 0 0 0-74.6 126.1 8 8 0 0 0 8 8.4H407c4.2 0 7.6-3.3 7.9-7.5 3.8-50.6 46-90.5 97.2-90.5s93.4 40 97.2 90.5c.3 4.2 3.7 7.5 7.9 7.5H661a8 8 0 0 0 8-8.4c-2.8-53.3-32-99.7-74.7-126.1zM512 578c-28.5 0-51.7-23.3-51.7-52s23.2-52 51.7-52 51.7 23.3 51.7 52-23.2 52-51.7 52z',
-          ],
-          [
-            e,
-            'M928 224H768v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56H548v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56H328v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56H96c-17.7 0-32 14.3-32 32v576c0 17.7 14.3 32 32 32h832c17.7 0 32-14.3 32-32V256c0-17.7-14.3-32-32-32zm-40 568H136V296h120v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56h148v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56h148v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56h120v496z',
           ]
         );
       })),
@@ -17971,6 +18323,41 @@
           ]
         );
       })),
+      (t.CompassTwoTone = u('compass', a, function(e, t) {
+        return l(
+          o,
+          [
+            t,
+            'M512 140c-205.4 0-372 166.6-372 372s166.6 372 372 372 372-166.6 372-372-166.6-372-372-372zM327.6 701.7c-2 .9-4.4 0-5.3-2.1-.4-1-.4-2.2 0-3.2L421 470.9 553.1 603l-225.5 98.7zm375.1-375.1L604 552.1 471.9 420l225.5-98.7c2-.9 4.4 0 5.3 2.1.4 1 .4 2.1 0 3.2z',
+          ],
+          [
+            e,
+            'M322.3 696.4c-.4 1-.4 2.2 0 3.2.9 2.1 3.3 3 5.3 2.1L553.1 603 421 470.9l-98.7 225.5zm375.1-375.1L471.9 420 604 552.1l98.7-225.5c.4-1.1.4-2.2 0-3.2-.9-2.1-3.3-3-5.3-2.1z',
+          ],
+          [
+            e,
+            'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z',
+          ]
+        );
+      })),
+      (t.ContactsTwoTone = u('contacts', a, function(e, t) {
+        return l(
+          o,
+          [t, 'M460.3 526a51.7 52 0 1 0 103.4 0 51.7 52 0 1 0-103.4 0z'],
+          [
+            t,
+            'M768 352c0 4.4-3.6 8-8 8h-56c-4.4 0-8-3.6-8-8v-56H548v56c0 4.4-3.6 8-8 8h-56c-4.4 0-8-3.6-8-8v-56H328v56c0 4.4-3.6 8-8 8h-56c-4.4 0-8-3.6-8-8v-56H136v496h752V296H768v56zM661 736h-43.8c-4.2 0-7.6-3.3-7.9-7.5-3.8-50.5-46-90.5-97.2-90.5s-93.4 39.9-97.2 90.5c-.3 4.2-3.7 7.5-7.9 7.5h-43.9a8 8 0 0 1-8-8.4c2.8-53.3 31.9-99.6 74.6-126.1-18.1-20-29.1-46.4-29.1-75.5 0-61.9 49.9-112 111.4-112s111.4 50.1 111.4 112c0 29.1-11 55.6-29.1 75.5 42.7 26.4 71.9 72.8 74.7 126.1a8 8 0 0 1-8 8.4z',
+          ],
+          [
+            e,
+            'M594.3 601.5a111.8 111.8 0 0 0 29.1-75.5c0-61.9-49.9-112-111.4-112s-111.4 50.1-111.4 112c0 29.1 11 55.5 29.1 75.5a158.09 158.09 0 0 0-74.6 126.1 8 8 0 0 0 8 8.4H407c4.2 0 7.6-3.3 7.9-7.5 3.8-50.6 46-90.5 97.2-90.5s93.4 40 97.2 90.5c.3 4.2 3.7 7.5 7.9 7.5H661a8 8 0 0 0 8-8.4c-2.8-53.3-32-99.7-74.7-126.1zM512 578c-28.5 0-51.7-23.3-51.7-52s23.2-52 51.7-52 51.7 23.3 51.7 52-23.2 52-51.7 52z',
+          ],
+          [
+            e,
+            'M928 224H768v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56H548v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56H328v-56c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v56H96c-17.7 0-32 14.3-32 32v576c0 17.7 14.3 32 32 32h832c17.7 0 32-14.3 32-32V256c0-17.7-14.3-32-32-32zm-40 568H136V296h120v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56h148v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56h148v56c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-56h120v496z',
+          ]
+        );
+      })),
       (t.CopyTwoTone = u('copy', a, function(e, t) {
         return l(
           o,
@@ -18002,37 +18389,6 @@
           ]
         );
       })),
-      (t.CrownTwoTone = u('crown', a, function(e, t) {
-        return l(
-          o,
-          [
-            t,
-            'M911.9 283.9v.5L835.5 865c-1 8-7.9 14-15.9 14H204.5c-8.1 0-14.9-6.1-16-14l-76.4-580.6v-.6 1.6L188.5 866c1.1 7.9 7.9 14 16 14h615.1c8 0 14.9-6 15.9-14l76.4-580.6c.1-.5.1-1 0-1.5z',
-          ],
-          [
-            t,
-            'M773.6 810.6l53.9-409.4-139.8 86.1L512 252.9 336.3 487.3l-139.8-86.1 53.8 409.4h523.3zm-374.2-189c0-62.1 50.5-112.6 112.6-112.6s112.6 50.5 112.6 112.6v1c0 62.1-50.5 112.6-112.6 112.6s-112.6-50.5-112.6-112.6v-1z',
-          ],
-          [
-            e,
-            'M512 734.2c61.9 0 112.3-50.2 112.6-112.1v-.5c0-62.1-50.5-112.6-112.6-112.6s-112.6 50.5-112.6 112.6v.5c.3 61.9 50.7 112.1 112.6 112.1zm0-160.9c26.6 0 48.2 21.6 48.2 48.3 0 26.6-21.6 48.3-48.2 48.3s-48.2-21.6-48.2-48.3c0-26.6 21.6-48.3 48.2-48.3z',
-          ],
-          [
-            e,
-            'M188.5 865c1.1 7.9 7.9 14 16 14h615.1c8 0 14.9-6 15.9-14l76.4-580.6v-.5c.3-6.4-6.7-10.8-12.3-7.4L705 396.4 518.4 147.5a8.06 8.06 0 0 0-12.9 0L319 396.4 124.3 276.5c-5.5-3.4-12.6.9-12.2 7.3v.6L188.5 865zm147.8-377.7L512 252.9l175.7 234.4 139.8-86.1-53.9 409.4H250.3l-53.8-409.4 139.8 86.1z',
-          ]
-        );
-      })),
-      (t.CustomerServiceTwoTone = u('customer-service', a, function(e, t) {
-        return l(
-          o,
-          [t, 'M696 632h128v192H696zm-496 0h128v192H200z'],
-          [
-            e,
-            'M512 128c-212.1 0-384 171.9-384 384v360c0 13.3 10.7 24 24 24h184c35.3 0 64-28.7 64-64V624c0-35.3-28.7-64-64-64H200v-48c0-172.3 139.7-312 312-312s312 139.7 312 312v48H688c-35.3 0-64 28.7-64 64v208c0 35.3 28.7 64 64 64h184c13.3 0 24-10.7 24-24V512c0-212.1-171.9-384-384-384zM328 632v192H200V632h128zm496 192H696V632h128v192z',
-          ]
-        );
-      })),
       (t.DashboardTwoTone = u('dashboard', a, function(e, t) {
         return l(
           o,
@@ -18054,6 +18410,27 @@
           ]
         );
       })),
+      (t.CrownTwoTone = u('crown', a, function(e, t) {
+        return l(
+          o,
+          [
+            t,
+            'M911.9 283.9v.5L835.5 865c-1 8-7.9 14-15.9 14H204.5c-8.1 0-14.9-6.1-16-14l-76.4-580.6v-.6 1.6L188.5 866c1.1 7.9 7.9 14 16 14h615.1c8 0 14.9-6 15.9-14l76.4-580.6c.1-.5.1-1 0-1.5z',
+          ],
+          [
+            t,
+            'M773.6 810.6l53.9-409.4-139.8 86.1L512 252.9 336.3 487.3l-139.8-86.1 53.8 409.4h523.3zm-374.2-189c0-62.1 50.5-112.6 112.6-112.6s112.6 50.5 112.6 112.6v1c0 62.1-50.5 112.6-112.6 112.6s-112.6-50.5-112.6-112.6v-1z',
+          ],
+          [
+            e,
+            'M512 734.2c61.9 0 112.3-50.2 112.6-112.1v-.5c0-62.1-50.5-112.6-112.6-112.6s-112.6 50.5-112.6 112.6v.5c.3 61.9 50.7 112.1 112.6 112.1zm0-160.9c26.6 0 48.2 21.6 48.2 48.3 0 26.6-21.6 48.3-48.2 48.3s-48.2-21.6-48.2-48.3c0-26.6 21.6-48.3 48.2-48.3z',
+          ],
+          [
+            e,
+            'M188.5 865c1.1 7.9 7.9 14 16 14h615.1c8 0 14.9-6 15.9-14l76.4-580.6v-.5c.3-6.4-6.7-10.8-12.3-7.4L705 396.4 518.4 147.5a8.06 8.06 0 0 0-12.9 0L319 396.4 124.3 276.5c-5.5-3.4-12.6.9-12.2 7.3v.6L188.5 865zm147.8-377.7L512 252.9l175.7 234.4 139.8-86.1-53.9 409.4H250.3l-53.8-409.4 139.8 86.1z',
+          ]
+        );
+      })),
       (t.DatabaseTwoTone = u('database', a, function(e, t) {
         return l(
           o,
@@ -18063,11 +18440,21 @@
           ],
           [
             e,
-            'M304 512a40 40 0 1 0 80 0 40 40 0 1 0-80 0zM304 784a40 40 0 1 0 80 0 40 40 0 1 0-80 0zM304 240a40 40 0 1 0 80 0 40 40 0 1 0-80 0z',
+            'M304 512a40 40 0 1 0 80 0 40 40 0 1 0-80 0zm0 272a40 40 0 1 0 80 0 40 40 0 1 0-80 0zm0-544a40 40 0 1 0 80 0 40 40 0 1 0-80 0z',
           ],
           [
             e,
             'M832 64H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V96c0-17.7-14.3-32-32-32zm-40 824H232V680h560v208zm0-272H232V408h560v208zm0-272H232V136h560v208z',
+          ]
+        );
+      })),
+      (t.CustomerServiceTwoTone = u('customer-service', a, function(e, t) {
+        return l(
+          o,
+          [t, 'M696 632h128v192H696zm-496 0h128v192H200z'],
+          [
+            e,
+            'M512 128c-212.1 0-384 171.9-384 384v360c0 13.3 10.7 24 24 24h184c35.3 0 64-28.7 64-64V624c0-35.3-28.7-64-64-64H200v-48c0-172.3 139.7-312 312-312s312 139.7 312 312v48H688c-35.3 0-64 28.7-64 64v208c0 35.3 28.7 64 64 64h184c13.3 0 24-10.7 24-24V512c0-212.1-171.9-384-384-384zM328 632v192H200V632h128zm496 192H696V632h128v192z',
           ]
         );
       })),
@@ -18078,6 +18465,19 @@
           [
             e,
             'M864 256H736v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zm-504-72h304v72H360v-72zm371.3 656H292.7l-24.2-512h487l-24.2 512z',
+          ]
+        );
+      })),
+      (t.DislikeTwoTone = u('dislike', a, function(e, t) {
+        return l(
+          o,
+          [
+            t,
+            'M273 100.1v428h.3l-.3-428zM820.4 525l-21.9-19 14-25.5a56.2 56.2 0 0 0 6.9-27.3c0-16.5-7.1-32.2-19.6-43l-21.9-19 13.9-25.4a56.2 56.2 0 0 0 6.9-27.3c0-16.5-7.1-32.2-19.6-43l-21.9-19 13.9-25.4a56.2 56.2 0 0 0 6.9-27.3c0-22.4-13.2-42.6-33.6-51.8H345v345.2c18.6 67.2 46.4 168 83.5 302.5a44.28 44.28 0 0 0 42.2 32.3c7.5.1 15-2.2 21.1-6.7 9.9-7.4 15.2-18.6 14.6-30.5l-9.6-198.4h314.4C829 605.5 840 587.1 840 568c0-16.5-7.1-32.2-19.6-43z',
+          ],
+          [
+            e,
+            'M112 132v364c0 17.7 14.3 32 32 32h65V100h-65c-17.7 0-32 14.3-32 32zm773.9 358.3c3.6-12 5.4-24.4 5.4-37 0-28.3-9.3-55.5-26.1-77.7 3.6-12 5.4-24.4 5.4-37 0-28.3-9.3-55.5-26.1-77.7 3.6-12 5.4-24.4 5.4-37 0-51.6-30.7-98.1-78.3-118.4a66.1 66.1 0 0 0-26.5-5.4H273l.3 428 85.8 310.8C372.9 889 418.9 924 470.9 924c29.7 0 57.4-11.8 77.9-33.4 20.5-21.5 31-49.7 29.5-79.4l-6-122.9h239.9c12.1 0 23.9-3.2 34.3-9.3 40.4-23.5 65.5-66.1 65.5-111 0-28.3-9.3-55.5-26.1-77.7zm-74.7 126.1H496.8l9.6 198.4c.6 11.9-4.7 23.1-14.6 30.5-6.1 4.5-13.6 6.8-21.1 6.7a44.28 44.28 0 0 1-42.2-32.3c-37.1-134.4-64.9-235.2-83.5-302.5V172h399.4a56.85 56.85 0 0 1 33.6 51.8c0 9.7-2.3 18.9-6.9 27.3l-13.9 25.4 21.9 19a56.76 56.76 0 0 1 19.6 43c0 9.7-2.3 18.9-6.9 27.3l-13.9 25.4 21.9 19a56.76 56.76 0 0 1 19.6 43c0 9.7-2.3 18.9-6.9 27.3l-14 25.5 21.9 19a56.76 56.76 0 0 1 19.6 43c0 19.1-11 37.5-28.8 48.4z',
           ]
         );
       })),
@@ -18102,36 +18502,6 @@
           ]
         );
       })),
-      (t.DislikeTwoTone = u('dislike', a, function(e, t) {
-        return l(
-          o,
-          [
-            t,
-            'M273 100.1v428h.3l-.3-428zM820.4 525l-21.9-19 14-25.5a56.2 56.2 0 0 0 6.9-27.3c0-16.5-7.1-32.2-19.6-43l-21.9-19 13.9-25.4a56.2 56.2 0 0 0 6.9-27.3c0-16.5-7.1-32.2-19.6-43l-21.9-19 13.9-25.4a56.2 56.2 0 0 0 6.9-27.3c0-22.4-13.2-42.6-33.6-51.8H345v345.2c18.6 67.2 46.4 168 83.5 302.5a44.28 44.28 0 0 0 42.2 32.3c7.5.1 15-2.2 21.1-6.7 9.9-7.4 15.2-18.6 14.6-30.5l-9.6-198.4h314.4C829 605.5 840 587.1 840 568c0-16.5-7.1-32.2-19.6-43z',
-          ],
-          [
-            e,
-            'M112 132v364c0 17.7 14.3 32 32 32h65V100h-65c-17.7 0-32 14.3-32 32zm773.9 358.3c3.6-12 5.4-24.4 5.4-37 0-28.3-9.3-55.5-26.1-77.7 3.6-12 5.4-24.4 5.4-37 0-28.3-9.3-55.5-26.1-77.7 3.6-12 5.4-24.4 5.4-37 0-51.6-30.7-98.1-78.3-118.4a66.1 66.1 0 0 0-26.5-5.4H273l.3 428 85.8 310.8C372.9 889 418.9 924 470.9 924c29.7 0 57.4-11.8 77.9-33.4 20.5-21.5 31-49.7 29.5-79.4l-6-122.9h239.9c12.1 0 23.9-3.2 34.3-9.3 40.4-23.5 65.5-66.1 65.5-111 0-28.3-9.3-55.5-26.1-77.7zm-74.7 126.1H496.8l9.6 198.4c.6 11.9-4.7 23.1-14.6 30.5-6.1 4.5-13.6 6.8-21.1 6.7a44.28 44.28 0 0 1-42.2-32.3c-37.1-134.4-64.9-235.2-83.5-302.5V172h399.4a56.85 56.85 0 0 1 33.6 51.8c0 9.7-2.3 18.9-6.9 27.3l-13.9 25.4 21.9 19a56.76 56.76 0 0 1 19.6 43c0 9.7-2.3 18.9-6.9 27.3l-13.9 25.4 21.9 19a56.76 56.76 0 0 1 19.6 43c0 9.7-2.3 18.9-6.9 27.3l-14 25.5 21.9 19a56.76 56.76 0 0 1 19.6 43c0 19.1-11 37.5-28.8 48.4z',
-          ]
-        );
-      })),
-      (t.DownCircleTwoTone = u('down-circle', a, function(e, t) {
-        return l(
-          o,
-          [
-            t,
-            'M512 140c-205.4 0-372 166.6-372 372s166.6 372 372 372 372-166.6 372-372-166.6-372-372-372zm184.4 277.7l-178 246a7.95 7.95 0 0 1-12.9 0l-178-246c-3.8-5.3 0-12.7 6.5-12.7h46.9c10.3 0 19.9 4.9 25.9 13.2L512 563.6l105.2-145.4c6-8.3 15.7-13.2 25.9-13.2H690c6.5 0 10.3 7.4 6.4 12.7z',
-          ],
-          [
-            e,
-            'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z',
-          ],
-          [
-            e,
-            'M690 405h-46.9c-10.2 0-19.9 4.9-25.9 13.2L512 563.6 406.8 418.2c-6-8.3-15.6-13.2-25.9-13.2H334c-6.5 0-10.3 7.4-6.5 12.7l178 246c3.2 4.4 9.7 4.4 12.9 0l178-246c3.9-5.3.1-12.7-6.4-12.7z',
-          ]
-        );
-      })),
       (t.DownSquareTwoTone = u('down-square', a, function(e, t) {
         return l(
           o,
@@ -18146,16 +18516,6 @@
           [
             e,
             'M505.5 658.7c3.2 4.4 9.7 4.4 12.9 0l178-246c3.9-5.3.1-12.7-6.4-12.7h-46.9c-10.2 0-19.9 4.9-25.9 13.2L512 558.6 406.8 413.2c-6-8.3-15.6-13.2-25.9-13.2H334c-6.5 0-10.3 7.4-6.5 12.7l178 246z',
-          ]
-        );
-      })),
-      (t.EditTwoTone = u('edit', a, function(e, t) {
-        return l(
-          o,
-          [t, 'M761.1 288.3L687.8 215 325.1 577.6l-15.6 89 88.9-15.7z'],
-          [
-            e,
-            'M880 836H144c-17.7 0-32 14.3-32 32v36c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-36c0-17.7-14.3-32-32-32zm-622.3-84c2 0 4-.2 6-.5L431.9 722c2-.4 3.9-1.3 5.3-2.8l423.9-423.9a9.96 9.96 0 0 0 0-14.1L694.9 114.9c-1.9-1.9-4.4-2.9-7.1-2.9s-5.2 1-7.1 2.9L256.8 538.8c-1.5 1.5-2.4 3.3-2.8 5.3l-29.5 168.2a33.5 33.5 0 0 0 9.4 29.8c6.6 6.4 14.9 9.9 23.8 9.9zm67.4-174.4L687.8 215l73.3 73.3-362.7 362.6-88.9 15.7 15.6-89z',
           ]
         );
       })),
@@ -18176,6 +18536,50 @@
           ]
         );
       })),
+      (t.DownCircleTwoTone = u('down-circle', a, function(e, t) {
+        return l(
+          o,
+          [
+            t,
+            'M512 140c-205.4 0-372 166.6-372 372s166.6 372 372 372 372-166.6 372-372-166.6-372-372-372zm184.4 277.7l-178 246a7.95 7.95 0 0 1-12.9 0l-178-246c-3.8-5.3 0-12.7 6.5-12.7h46.9c10.3 0 19.9 4.9 25.9 13.2L512 563.6l105.2-145.4c6-8.3 15.7-13.2 25.9-13.2H690c6.5 0 10.3 7.4 6.4 12.7z',
+          ],
+          [
+            e,
+            'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z',
+          ],
+          [
+            e,
+            'M690 405h-46.9c-10.2 0-19.9 4.9-25.9 13.2L512 563.6 406.8 418.2c-6-8.3-15.6-13.2-25.9-13.2H334c-6.5 0-10.3 7.4-6.5 12.7l178 246c3.2 4.4 9.7 4.4 12.9 0l178-246c3.9-5.3.1-12.7-6.4-12.7z',
+          ]
+        );
+      })),
+      (t.EyeInvisibleTwoTone = u('eye-invisible', a, function(e, t) {
+        return l(
+          o,
+          [
+            t,
+            'M254.89 758.85l125.57-125.57a176 176 0 0 1 248.82-248.82L757 256.72Q651.69 186.07 512 186q-288.3 0-430.2 300.3a60.3 60.3 0 0 0 0 51.5q69.27 145.91 173.09 221.05zM942.2 486.2Q889.46 375.11 816.7 305L672.48 449.27a176.09 176.09 0 0 1-227.22 227.21L323 798.75Q408 838 512 838q288.3 0 430.2-300.3a60.29 60.29 0 0 0 0-51.5z',
+          ],
+          [
+            e,
+            'M942.2 486.2Q889.47 375.11 816.7 305l-50.88 50.88C807.31 395.53 843.45 447.4 874.7 512 791.5 684.2 673.4 766 512 766q-72.67 0-133.87-22.38L323 798.75Q408 838 512 838q288.3 0 430.2-300.3a60.29 60.29 0 0 0 0-51.5zM878.63 165.56L836 122.88a8 8 0 0 0-11.32 0L715.31 232.2Q624.86 186 512 186q-288.3 0-430.2 300.3a60.3 60.3 0 0 0 0 51.5q56.69 119.4 136.5 191.41L112.48 835a8 8 0 0 0 0 11.31L155.17 889a8 8 0 0 0 11.31 0l712.15-712.12a8 8 0 0 0 0-11.32zM149.3 512C232.6 339.8 350.7 258 512 258c54.54 0 104.13 9.36 149.12 28.39l-70.3 70.3a176 176 0 0 0-238.13 238.13l-83.42 83.42C223.1 637.49 183.3 582.28 149.3 512zm246.7 0a112.11 112.11 0 0 1 146.2-106.69L401.31 546.2A112 112 0 0 1 396 512z',
+          ],
+          [
+            e,
+            'M508 624c-3.46 0-6.87-.16-10.25-.47l-52.82 52.82a176.09 176.09 0 0 0 227.42-227.42l-52.82 52.82c.31 3.38.47 6.79.47 10.25a111.94 111.94 0 0 1-112 112z',
+          ]
+        );
+      })),
+      (t.EditTwoTone = u('edit', a, function(e, t) {
+        return l(
+          o,
+          [t, 'M761.1 288.3L687.8 215 325.1 577.6l-15.6 89 88.9-15.7z'],
+          [
+            e,
+            'M880 836H144c-17.7 0-32 14.3-32 32v36c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-36c0-17.7-14.3-32-32-32zm-622.3-84c2 0 4-.2 6-.5L431.9 722c2-.4 3.9-1.3 5.3-2.8l423.9-423.9a9.96 9.96 0 0 0 0-14.1L694.9 114.9c-1.9-1.9-4.4-2.9-7.1-2.9s-5.2 1-7.1 2.9L256.8 538.8c-1.5 1.5-2.4 3.3-2.8 5.3l-29.5 168.2a33.5 33.5 0 0 0 9.4 29.8c6.6 6.4 14.9 9.9 23.8 9.9zm67.4-174.4L687.8 215l73.3 73.3-362.7 362.6-88.9 15.7 15.6-89z',
+          ]
+        );
+      })),
       (t.ExclamationCircleTwoTone = u('exclamation-circle', a, function(e, t) {
         return l(
           o,
@@ -18189,24 +18593,7 @@
           ],
           [
             e,
-            'M488 576h48c4.4 0 8-3.6 8-8V296c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v272c0 4.4 3.6 8 8 8zM464 688a48 48 0 1 0 96 0 48 48 0 1 0-96 0z',
-          ]
-        );
-      })),
-      (t.ExperimentTwoTone = u('experiment', a, function(e, t) {
-        return l(
-          o,
-          [
-            t,
-            'M551.9 513c19.6 0 35.9-14.2 39.3-32.8A40.02 40.02 0 0 1 552 512a40 40 0 0 1-40-39.4v.5c0 22 17.9 39.9 39.9 39.9zM752 687.8l-.3-.3c-29-17.5-62.3-26.8-97-26.8-44.9 0-87.2 15.7-121 43.8a256.27 256.27 0 0 1-164.9 59.9c-41.2 0-81-9.8-116.7-28L210.5 844h603l-59.9-155.2-1.6-1z',
-          ],
-          [
-            e,
-            'M879 824.9L696.3 352V178H768v-68H256v68h71.7v174L145 824.9c-2.8 7.4-4.3 15.2-4.3 23.1 0 35.3 28.7 64 64 64h614.6c7.9 0 15.7-1.5 23.1-4.3 33-12.7 49.4-49.8 36.6-82.8zM395.7 364.7V180h232.6v184.7L719.2 600c-20.7-5.3-42.1-8-63.9-8-61.2 0-119.2 21.5-165.3 60a188.78 188.78 0 0 1-121.3 43.9c-32.7 0-64.1-8.3-91.8-23.7l118.8-307.5zM210.5 844l41.6-107.6.1-.2c35.7 18.1 75.4 27.8 116.6 27.8 61.2 0 119.2-21.5 165.3-60 33.9-28.2 76.3-43.9 121.3-43.9 35 0 68.4 9.5 97.6 27.1l.6 1.6L813.5 844h-603z',
-          ],
-          [
-            e,
-            'M552 512c19.3 0 35.4-13.6 39.2-31.8.6-2.7.8-5.4.8-8.2 0-22.1-17.9-40-40-40s-40 17.9-40 40v.6a40 40 0 0 0 40 39.4z',
+            'M488 576h48c4.4 0 8-3.6 8-8V296c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v272c0 4.4 3.6 8 8 8zm-24 112a48 48 0 1 0 96 0 48 48 0 1 0-96 0z',
           ]
         );
       })),
@@ -18228,6 +18615,23 @@
           [
             e,
             'M508 336c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176zm0 288c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z',
+          ]
+        );
+      })),
+      (t.ExperimentTwoTone = u('experiment', a, function(e, t) {
+        return l(
+          o,
+          [
+            t,
+            'M551.9 513c19.6 0 35.9-14.2 39.3-32.8A40.02 40.02 0 0 1 552 512a40 40 0 0 1-40-39.4v.5c0 22 17.9 39.9 39.9 39.9zM752 687.8l-.3-.3c-29-17.5-62.3-26.8-97-26.8-44.9 0-87.2 15.7-121 43.8a256.27 256.27 0 0 1-164.9 59.9c-41.2 0-81-9.8-116.7-28L210.5 844h603l-59.9-155.2-1.6-1z',
+          ],
+          [
+            e,
+            'M879 824.9L696.3 352V178H768v-68H256v68h71.7v174L145 824.9c-2.8 7.4-4.3 15.2-4.3 23.1 0 35.3 28.7 64 64 64h614.6c7.9 0 15.7-1.5 23.1-4.3 33-12.7 49.4-49.8 36.6-82.8zM395.7 364.7V180h232.6v184.7L719.2 600c-20.7-5.3-42.1-8-63.9-8-61.2 0-119.2 21.5-165.3 60a188.78 188.78 0 0 1-121.3 43.9c-32.7 0-64.1-8.3-91.8-23.7l118.8-307.5zM210.5 844l41.6-107.6.1-.2c35.7 18.1 75.4 27.8 116.6 27.8 61.2 0 119.2-21.5 165.3-60 33.9-28.2 76.3-43.9 121.3-43.9 35 0 68.4 9.5 97.6 27.1l.6 1.6L813.5 844h-603z',
+          ],
+          [
+            e,
+            'M552 512c19.3 0 35.4-13.6 39.2-31.8.6-2.7.8-5.4.8-8.2 0-22.1-17.9-40-40-40s-40 17.9-40 40v.6a40 40 0 0 0 40 39.4z',
           ]
         );
       })),
@@ -18278,7 +18682,24 @@
           ],
           [
             e,
-            'M488 640h48c4.4 0 8-3.6 8-8V448c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v184c0 4.4 3.6 8 8 8zM472 744a40 40 0 1 0 80 0 40 40 0 1 0-80 0z',
+            'M488 640h48c4.4 0 8-3.6 8-8V448c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v184c0 4.4 3.6 8 8 8zm-16 104a40 40 0 1 0 80 0 40 40 0 1 0-80 0z',
+          ]
+        );
+      })),
+      (t.FileMarkdownTwoTone = u('file-markdown', a, function(e, t) {
+        return l(
+          o,
+          [
+            t,
+            'M534 352V136H232v752h560V394H576a42 42 0 0 1-42-42zm72.3 122H641c6.6 0 12 5.4 12 12v272c0 6.6-5.4 12-12 12h-27.2c-6.6 0-12-5.4-12-12V581.7L535 732.3c-2 4.3-6.3 7.1-11 7.1h-24.1a12 12 0 0 1-11-7.1l-66.8-150.2V758c0 6.6-5.4 12-12 12H383c-6.6 0-12-5.4-12-12V486c0-6.6 5.4-12 12-12h35c4.8 0 9.1 2.8 11 7.2l83.2 191 83.1-191c1.9-4.4 6.2-7.2 11-7.2z',
+          ],
+          [
+            e,
+            'M854.6 288.6L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM602 137.8L790.2 326H602V137.8zM792 888H232V136h302v216a42 42 0 0 0 42 42h216v494z',
+          ],
+          [
+            e,
+            'M429 481.2c-1.9-4.4-6.2-7.2-11-7.2h-35c-6.6 0-12 5.4-12 12v272c0 6.6 5.4 12 12 12h27.1c6.6 0 12-5.4 12-12V582.1l66.8 150.2a12 12 0 0 0 11 7.1H524c4.7 0 9-2.8 11-7.1l66.8-150.6V758c0 6.6 5.4 12 12 12H641c6.6 0 12-5.4 12-12V486c0-6.6-5.4-12-12-12h-34.7c-4.8 0-9.1 2.8-11 7.2l-83.1 191-83.2-191z',
           ]
         );
       })),
@@ -18299,12 +18720,16 @@
           ]
         );
       })),
-      (t.FileMarkdownTwoTone = u('file-markdown', a, function(e, t) {
+      (t.FilePptTwoTone = u('file-ppt', a, function(e, t) {
         return l(
           o,
           [
             t,
-            'M534 352V136H232v752h560V394H576a42 42 0 0 1-42-42zm72.3 122H641c6.6 0 12 5.4 12 12v272c0 6.6-5.4 12-12 12h-27.2c-6.6 0-12-5.4-12-12V581.7L535 732.3c-2 4.3-6.3 7.1-11 7.1h-24.1a12 12 0 0 1-11-7.1l-66.8-150.2V758c0 6.6-5.4 12-12 12H383c-6.6 0-12-5.4-12-12V486c0-6.6 5.4-12 12-12h35c4.8 0 9.1 2.8 11 7.2l83.2 191 83.1-191c1.9-4.4 6.2-7.2 11-7.2z',
+            'M464.5 516.2v108.4h38.9c44.7 0 71.2-10.9 71.2-54.3 0-34.4-20.1-54.1-53.9-54.1h-56.2z',
+          ],
+          [
+            t,
+            'M534 352V136H232v752h560V394H576a42 42 0 0 1-42-42zm90 218.4c0 55.2-36.8 94.1-96.2 94.1h-63.3V760c0 4.4-3.6 8-8 8H424c-4.4 0-8-3.6-8-8V484c0-4.4 3.6-8 8-8v.1h104c59.7 0 96 39.8 96 94.3z',
           ],
           [
             e,
@@ -18312,7 +18737,7 @@
           ],
           [
             e,
-            'M429 481.2c-1.9-4.4-6.2-7.2-11-7.2h-35c-6.6 0-12 5.4-12 12v272c0 6.6 5.4 12 12 12h27.1c6.6 0 12-5.4 12-12V582.1l66.8 150.2a12 12 0 0 0 11 7.1H524c4.7 0 9-2.8 11-7.1l66.8-150.6V758c0 6.6 5.4 12 12 12H641c6.6 0 12-5.4 12-12V486c0-6.6-5.4-12-12-12h-34.7c-4.8 0-9.1 2.8-11 7.2l-83.1 191-83.2-191z',
+            'M424 476.1c-4.4-.1-8 3.5-8 7.9v276c0 4.4 3.6 8 8 8h32.5c4.4 0 8-3.6 8-8v-95.5h63.3c59.4 0 96.2-38.9 96.2-94.1 0-54.5-36.3-94.3-96-94.3H424zm150.6 94.2c0 43.4-26.5 54.3-71.2 54.3h-38.9V516.2h56.2c33.8 0 53.9 19.7 53.9 54.1z',
           ]
         );
       })),
@@ -18341,27 +18766,6 @@
           ]
         );
       })),
-      (t.FilePptTwoTone = u('file-ppt', a, function(e, t) {
-        return l(
-          o,
-          [
-            t,
-            'M464.5 516.2v108.4h38.9c44.7 0 71.2-10.9 71.2-54.3 0-34.4-20.1-54.1-53.9-54.1h-56.2z',
-          ],
-          [
-            t,
-            'M534 352V136H232v752h560V394H576a42 42 0 0 1-42-42zm90 218.4c0 55.2-36.8 94.1-96.2 94.1h-63.3V760c0 4.4-3.6 8-8 8H424c-4.4 0-8-3.6-8-8V484c0-4.4 3.6-8 8-8v.1h104c59.7 0 96 39.8 96 94.3z',
-          ],
-          [
-            e,
-            'M854.6 288.6L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM602 137.8L790.2 326H602V137.8zM792 888H232V136h302v216a42 42 0 0 0 42 42h216v494z',
-          ],
-          [
-            e,
-            'M424 476.1c-4.4-.1-8 3.5-8 7.9v276c0 4.4 3.6 8 8 8h32.5c4.4 0 8-3.6 8-8v-95.5h63.3c59.4 0 96.2-38.9 96.2-94.1 0-54.5-36.3-94.3-96-94.3H424zm150.6 94.2c0 43.4-26.5 54.3-71.2 54.3h-38.9V516.2h56.2c33.8 0 53.9 19.7 53.9 54.1z',
-          ]
-        );
-      })),
       (t.FileUnknownTwoTone = u('file-unknown', a, function(e, t) {
         return l(
           o,
@@ -18375,24 +18779,7 @@
           ],
           [
             e,
-            'M480 744a32 32 0 1 0 64 0 32 32 0 1 0-64 0zM402 549c0 5.4 4.4 9.5 9.8 9.5h32.4c5.4 0 9.8-4.2 9.8-9.4 0-28.2 25.8-51.6 58-51.6s58 23.4 58 51.5c0 25.3-21 47.2-49.3 50.9-19.3 2.8-34.5 20.3-34.7 40.1v32c0 5.5 4.5 10 10 10h32c5.5 0 10-4.5 10-10v-12.2c0-6 4-11.5 9.7-13.3 44.6-14.4 75-54 74.3-98.9-.8-55.5-49.2-100.8-108.5-101.6-61.4-.7-111.5 45.6-111.5 103z',
-          ]
-        );
-      })),
-      (t.FileTextTwoTone = u('file-text', a, function(e, t) {
-        return l(
-          o,
-          [
-            t,
-            'M534 352V136H232v752h560V394H576a42 42 0 0 1-42-42zm-22 322c0 4.4-3.6 8-8 8H320c-4.4 0-8-3.6-8-8v-48c0-4.4 3.6-8 8-8h184c4.4 0 8 3.6 8 8v48zm200-184v48c0 4.4-3.6 8-8 8H320c-4.4 0-8-3.6-8-8v-48c0-4.4 3.6-8 8-8h384c4.4 0 8 3.6 8 8z',
-          ],
-          [
-            e,
-            'M854.6 288.6L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM602 137.8L790.2 326H602V137.8zM792 888H232V136h302v216a42 42 0 0 0 42 42h216v494z',
-          ],
-          [
-            e,
-            'M312 490v48c0 4.4 3.6 8 8 8h384c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H320c-4.4 0-8 3.6-8 8zm192 128H320c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8z',
+            'M480 744a32 32 0 1 0 64 0 32 32 0 1 0-64 0zm-78-195c0 5.4 4.4 9.5 9.8 9.5h32.4c5.4 0 9.8-4.2 9.8-9.4 0-28.2 25.8-51.6 58-51.6s58 23.4 58 51.5c0 25.3-21 47.2-49.3 50.9-19.3 2.8-34.5 20.3-34.7 40.1v32c0 5.5 4.5 10 10 10h32c5.5 0 10-4.5 10-10v-12.2c0-6 4-11.5 9.7-13.3 44.6-14.4 75-54 74.3-98.9-.8-55.5-49.2-100.8-108.5-101.6-61.4-.7-111.5 45.6-111.5 103z',
           ]
         );
       })),
@@ -18410,6 +18797,16 @@
           [
             e,
             'M528.1 472h-32.2c-5.5 0-10.3 3.7-11.6 9.1L434.6 680l-46.1-198.7c-1.3-5.4-6.1-9.3-11.7-9.3h-35.4a12.02 12.02 0 0 0-11.6 15.1l74.2 276c1.4 5.2 6.2 8.9 11.6 8.9h32c5.4 0 10.2-3.6 11.6-8.9l52.8-197 52.8 197c1.4 5.2 6.2 8.9 11.6 8.9h31.8c5.4 0 10.2-3.6 11.6-8.9l74.4-276a12.04 12.04 0 0 0-11.6-15.1H647c-5.6 0-10.4 3.9-11.7 9.3l-45.8 199.1-49.8-199.3c-1.3-5.4-6.1-9.1-11.6-9.1z',
+          ]
+        );
+      })),
+      (t.FilterTwoTone = u('filter', a, function(e, t) {
+        return l(
+          o,
+          [t, 'M420.6 798h182.9V642H420.6zM411 561.4l9.5 16.6h183l9.5-16.6L811.3 226H212.7z'],
+          [
+            e,
+            'M880.1 154H143.9c-24.5 0-39.8 26.7-27.5 48L349 597.4V838c0 17.7 14.2 32 31.8 32h262.4c17.6 0 31.8-14.3 31.8-32V597.4L907.7 202c12.2-21.3-3.1-48-27.6-48zM603.5 798H420.6V642h182.9v156zm9.5-236.6l-9.5 16.6h-183l-9.5-16.6L212.7 226h598.6L613 561.4z',
           ]
         );
       })),
@@ -18431,13 +18828,30 @@
           ]
         );
       })),
-      (t.FilterTwoTone = u('filter', a, function(e, t) {
+      (t.FileTextTwoTone = u('file-text', a, function(e, t) {
         return l(
           o,
-          [t, 'M420.6 798h182.9V642H420.6zM411 561.4l9.5 16.6h183l9.5-16.6L811.3 226H212.7z'],
+          [
+            t,
+            'M534 352V136H232v752h560V394H576a42 42 0 0 1-42-42zm-22 322c0 4.4-3.6 8-8 8H320c-4.4 0-8-3.6-8-8v-48c0-4.4 3.6-8 8-8h184c4.4 0 8 3.6 8 8v48zm200-184v48c0 4.4-3.6 8-8 8H320c-4.4 0-8-3.6-8-8v-48c0-4.4 3.6-8 8-8h384c4.4 0 8 3.6 8 8z',
+          ],
           [
             e,
-            'M880.1 154H143.9c-24.5 0-39.8 26.7-27.5 48L349 597.4V838c0 17.7 14.2 32 31.8 32h262.4c17.6 0 31.8-14.3 31.8-32V597.4L907.7 202c12.2-21.3-3.1-48-27.6-48zM603.5 798H420.6V642h182.9v156zm9.5-236.6l-9.5 16.6h-183l-9.5-16.6L212.7 226h598.6L613 561.4z',
+            'M854.6 288.6L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM602 137.8L790.2 326H602V137.8zM792 888H232V136h302v216a42 42 0 0 0 42 42h216v494z',
+          ],
+          [
+            e,
+            'M312 490v48c0 4.4 3.6 8 8 8h384c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H320c-4.4 0-8 3.6-8 8zm192 128H320c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8z',
+          ]
+        );
+      })),
+      (t.FileTwoTone = u('file', a, function(e, t) {
+        return l(
+          o,
+          [t, 'M534 352V136H232v752h560V394H576a42 42 0 0 1-42-42z'],
+          [
+            e,
+            'M854.6 288.6L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM602 137.8L790.2 326H602V137.8zM792 888H232V136h302v216a42 42 0 0 0 42 42h216v494z',
           ]
         );
       })),
@@ -18515,7 +18929,20 @@
           ],
           [
             e,
-            'M288 421a48 48 0 1 0 96 0 48 48 0 1 0-96 0zM512 533c-85.5 0-155.6 67.3-160 151.6a8 8 0 0 0 8 8.4h48.1c4.2 0 7.8-3.2 8.1-7.4 3.7-49.5 45.3-88.6 95.8-88.6s92 39.1 95.8 88.6c.3 4.2 3.9 7.4 8.1 7.4H664a8 8 0 0 0 8-8.4C667.6 600.3 597.5 533 512 533zM640 421a48 48 0 1 0 96 0 48 48 0 1 0-96 0z',
+            'M288 421a48 48 0 1 0 96 0 48 48 0 1 0-96 0zm224 112c-85.5 0-155.6 67.3-160 151.6a8 8 0 0 0 8 8.4h48.1c4.2 0 7.8-3.2 8.1-7.4 3.7-49.5 45.3-88.6 95.8-88.6s92 39.1 95.8 88.6c.3 4.2 3.9 7.4 8.1 7.4H664a8 8 0 0 0 8-8.4C667.6 600.3 597.5 533 512 533zm128-112a48 48 0 1 0 96 0 48 48 0 1 0-96 0z',
+          ]
+        );
+      })),
+      (t.FunnelPlotTwoTone = u('funnel-plot', a, function(e, t) {
+        return l(
+          o,
+          [
+            t,
+            'M420.6 798h182.9V650H420.6zM297.7 374h428.6l85-148H212.7zm113.2 197.4l8.4 14.6h185.3l8.4-14.6L689.6 438H334.4z',
+          ],
+          [
+            e,
+            'M880.1 154H143.9c-24.5 0-39.8 26.7-27.5 48L349 607.4V838c0 17.7 14.2 32 31.8 32h262.4c17.6 0 31.8-14.3 31.8-32V607.4L907.7 202c12.2-21.3-3.1-48-27.6-48zM603.5 798H420.6V650h182.9v148zm9.5-226.6l-8.4 14.6H419.3l-8.4-14.6L334.4 438h355.2L613 571.4zM726.3 374H297.7l-85-148h598.6l-85 148z',
           ]
         );
       })),
@@ -18533,19 +18960,6 @@
           [
             e,
             'M229.1 709.7c3.1 3.1 8.2 3.1 11.3 0l172.5-172.5 114.4 114.5c3.1 3.1 8.2 3.1 11.3 0l297-297.2c3.1-3.1 3.1-8.2 0-11.3l-36.8-36.8a8.03 8.03 0 0 0-11.3 0L533 561 418.6 446.5a8.03 8.03 0 0 0-11.3 0l-214.9 215a8.03 8.03 0 0 0 0 11.3l36.7 36.9z',
-          ]
-        );
-      })),
-      (t.FunnelPlotTwoTone = u('funnel-plot', a, function(e, t) {
-        return l(
-          o,
-          [
-            t,
-            'M420.6 798h182.9V650H420.6zM297.7 374h428.6l85-148H212.7zm113.2 197.4l8.4 14.6h185.3l8.4-14.6L689.6 438H334.4z',
-          ],
-          [
-            e,
-            'M880.1 154H143.9c-24.5 0-39.8 26.7-27.5 48L349 607.4V838c0 17.7 14.2 32 31.8 32h262.4c17.6 0 31.8-14.3 31.8-32V607.4L907.7 202c12.2-21.3-3.1-48-27.6-48zM603.5 798H420.6V650h182.9v148zm9.5-226.6l-8.4 14.6H419.3l-8.4-14.6L334.4 438h355.2L613 571.4zM726.3 374H297.7l-85-148h598.6l-85 148z',
           ]
         );
       })),
@@ -18575,7 +18989,7 @@
           ],
           [
             e,
-            'M312 544h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H312c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8zm0-272h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H312c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8zM640 788a40 40 0 1 0 80 0 40 40 0 1 0-80 0z',
+            'M312 544h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H312c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8zm0-272h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H312c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8zm328 516a40 40 0 1 0 80 0 40 40 0 1 0-80 0z',
           ]
         );
       })),
@@ -18589,16 +19003,6 @@
           [
             t,
             'M679.7 201c-73.1 0-136.5 40.8-167.7 100.4C480.8 241.8 417.4 201 344.3 201c-104 0-188.3 82.6-188.3 184.5 0 201.2 356 429.3 356 429.3s356-228.1 356-429.3C868 283.6 783.7 201 679.7 201z',
-          ]
-        );
-      })),
-      (t.FileTwoTone = u('file', a, function(e, t) {
-        return l(
-          o,
-          [t, 'M534 352V136H232v752h560V394H576a42 42 0 0 1-42-42z'],
-          [
-            e,
-            'M854.6 288.6L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM602 137.8L790.2 326H602V137.8zM792 888H232V136h302v216a42 42 0 0 0 42 42h216v494z',
           ]
         );
       })),
@@ -18689,7 +19093,24 @@
           ],
           [
             e,
-            'M464 336a48 48 0 1 0 96 0 48 48 0 1 0-96 0zM536 448h-48c-4.4 0-8 3.6-8 8v272c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V456c0-4.4-3.6-8-8-8z',
+            'M464 336a48 48 0 1 0 96 0 48 48 0 1 0-96 0zm72 112h-48c-4.4 0-8 3.6-8 8v272c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V456c0-4.4-3.6-8-8-8z',
+          ]
+        );
+      })),
+      (t.InterationTwoTone = u('interation', a, function(e, t) {
+        return l(
+          o,
+          [
+            e,
+            'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-40 728H184V184h656v656z',
+          ],
+          [
+            t,
+            'M184 840h656V184H184v656zm114-401.9c0-55.3 44.6-100.1 99.7-100.1h205.8v-53.4c0-5.6 6.5-8.8 10.9-5.3L723.5 365c3.5 2.7 3.5 8 0 10.7l-109.1 85.7c-4.4 3.5-10.9.4-10.9-5.3v-53.4H397.8c-19.6 0-35.5 15.9-35.5 35.6v78.9c0 3.8-3.1 6.8-6.8 6.8h-50.7c-3.8 0-6.8-3-6.8-7v-78.9zm2.6 210.3l109.1-85.7c4.4-3.5 10.9-.4 10.9 5.3v53.4h205.6c19.6 0 35.5-15.9 35.5-35.6v-78.9c0-3.8 3.1-6.8 6.8-6.8h50.7c3.8 0 6.8 3.1 6.8 6.8v78.9c0 55.3-44.6 100.1-99.7 100.1H420.6v53.4c0 5.6-6.5 8.8-10.9 5.3l-109.1-85.7c-3.5-2.7-3.5-8 0-10.5z',
+          ],
+          [
+            e,
+            'M304.8 524h50.7c3.7 0 6.8-3 6.8-6.8v-78.9c0-19.7 15.9-35.6 35.5-35.6h205.7v53.4c0 5.7 6.5 8.8 10.9 5.3l109.1-85.7c3.5-2.7 3.5-8 0-10.7l-109.1-85.7c-4.4-3.5-10.9-.3-10.9 5.3V338H397.7c-55.1 0-99.7 44.8-99.7 100.1V517c0 4 3 7 6.8 7zm-4.2 134.9l109.1 85.7c4.4 3.5 10.9.3 10.9-5.3v-53.4h205.7c55.1 0 99.7-44.8 99.7-100.1v-78.9c0-3.7-3-6.8-6.8-6.8h-50.7c-3.7 0-6.8 3-6.8 6.8v78.9c0 19.7-15.9 35.6-35.5 35.6H420.6V568c0-5.7-6.5-8.8-10.9-5.3l-109.1 85.7c-3.5 2.5-3.5 7.8 0 10.5z',
           ]
         );
       })),
@@ -18708,23 +19129,6 @@
           [
             e,
             'M443.7 306.9l-38.6-18.3c-3.4-1.6-7.3.2-8.4 3.7-17.5 58.5-45.2 110.2-82.2 153.6a5.7 5.7 0 0 0-1.2 5.6l13.2 43.5c1.4 4.5 7 5.8 10.2 2.4 7.7-8.1 15.4-16.8 23.1-26V656c0 4.4 3.6 8 8 8h37.3c4.4 0 8-3.6 8-8h.2V393.1a429.2 429.2 0 0 0 33.6-79c.9-2.8-.5-5.9-3.2-7.2zm26.8 9.1v127.4c0 4.4 3.6 8 8 8h65.9V470h-94.9c-4.4 0-8 3.6-8 8v35.6c0 4.4 3.6 8 8 8h55.1c-19.1 30.8-42.4 55.7-71 76a6 6 0 0 0-1.6 8.1l22.8 36.5c.9 1.5 2.4 2.5 4.1 2.8 1.7.3 3.5-.2 4.8-1.4 31.6-26.8 58.6-62.9 80.6-107.6v120c0 4.4 3.6 8 8 8h36.2c4.4 0 8-3.6 8-8V535.9c21.3 41.7 47.5 77.6 78.1 106.9 2.6 2.5 6.7 2.2 8.9-.7l26.3-35.3c2-2.6 1.4-6.4-1.2-8.5-30.5-22.6-54.2-47.8-72.3-76.9h59c4.4 0 8-3.6 8-8v-35.6c0-4.4-3.6-8-8-8h-98.8v-18.6h66.7c4.4 0 8-3.6 8-8V316c0-4.4-3.6-8-8-8H478.5c-4.4 0-8 3.6-8 8zm51.4 42.8h97.9v41.6h-97.9v-41.6z',
-          ]
-        );
-      })),
-      (t.InterationTwoTone = u('interation', a, function(e, t) {
-        return l(
-          o,
-          [
-            e,
-            'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-40 728H184V184h656v656z',
-          ],
-          [
-            t,
-            'M184 840h656V184H184v656zm114-401.9c0-55.3 44.6-100.1 99.7-100.1h205.8v-53.4c0-5.6 6.5-8.8 10.9-5.3L723.5 365c3.5 2.7 3.5 8 0 10.7l-109.1 85.7c-4.4 3.5-10.9.4-10.9-5.3v-53.4H397.8c-19.6 0-35.5 15.9-35.5 35.6v78.9c0 3.8-3.1 6.8-6.8 6.8h-50.7c-3.8 0-6.8-3-6.8-7v-78.9zm2.6 210.3l109.1-85.7c4.4-3.5 10.9-.4 10.9 5.3v53.4h205.6c19.6 0 35.5-15.9 35.5-35.6v-78.9c0-3.8 3.1-6.8 6.8-6.8h50.7c3.8 0 6.8 3.1 6.8 6.8v78.9c0 55.3-44.6 100.1-99.7 100.1H420.6v53.4c0 5.6-6.5 8.8-10.9 5.3l-109.1-85.7c-3.5-2.7-3.5-8 0-10.5z',
-          ],
-          [
-            e,
-            'M304.8 524h50.7c3.7 0 6.8-3 6.8-6.8v-78.9c0-19.7 15.9-35.6 35.5-35.6h205.7v53.4c0 5.7 6.5 8.8 10.9 5.3l109.1-85.7c3.5-2.7 3.5-8 0-10.7l-109.1-85.7c-4.4-3.5-10.9-.3-10.9 5.3V338H397.7c-55.1 0-99.7 44.8-99.7 100.1V517c0 4 3 7 6.8 7zm-4.2 134.9l109.1 85.7c4.4 3.5 10.9.3 10.9-5.3v-53.4h205.7c55.1 0 99.7-44.8 99.7-100.1v-78.9c0-3.7-3-6.8-6.8-6.8h-50.7c-3.7 0-6.8 3-6.8 6.8v78.9c0 19.7-15.9 35.6-35.5 35.6H420.6V568c0-5.7-6.5-8.8-10.9-5.3l-109.1 85.7c-3.5 2.5-3.5 7.8 0 10.5z',
           ]
         );
       })),
@@ -18758,6 +19162,19 @@
           ]
         );
       })),
+      (t.LikeTwoTone = u('like', a, function(e, t) {
+        return l(
+          o,
+          [
+            t,
+            'M273 495.9v428l.3-428zm538.2-88.3H496.8l9.6-198.4c.6-11.9-4.7-23.1-14.6-30.5-6.1-4.5-13.6-6.8-21.1-6.7-19.6.1-36.9 13.4-42.2 32.3-37.1 134.4-64.9 235.2-83.5 302.5V852h399.4a56.85 56.85 0 0 0 33.6-51.8c0-9.7-2.3-18.9-6.9-27.3l-13.9-25.4 21.9-19a56.76 56.76 0 0 0 19.6-43c0-9.7-2.3-18.9-6.9-27.3l-13.9-25.4 21.9-19a56.76 56.76 0 0 0 19.6-43c0-9.7-2.3-18.9-6.9-27.3l-14-25.5 21.9-19a56.76 56.76 0 0 0 19.6-43c0-19.1-11-37.5-28.8-48.4z',
+          ],
+          [
+            e,
+            'M112 528v364c0 17.7 14.3 32 32 32h65V496h-65c-17.7 0-32 14.3-32 32zm773.9 5.7c16.8-22.2 26.1-49.4 26.1-77.7 0-44.9-25.1-87.5-65.5-111a67.67 67.67 0 0 0-34.3-9.3H572.3l6-122.9c1.5-29.7-9-57.9-29.5-79.4a106.4 106.4 0 0 0-77.9-33.4c-52 0-98 35-111.8 85.1l-85.8 310.8-.3 428h472.1c9.3 0 18.2-1.8 26.5-5.4 47.6-20.3 78.3-66.8 78.3-118.4 0-12.6-1.8-25-5.4-37 16.8-22.2 26.1-49.4 26.1-77.7 0-12.6-1.8-25-5.4-37 16.8-22.2 26.1-49.4 26.1-77.7 0-12.6-1.8-25-5.4-37zM820.4 499l-21.9 19 14 25.5a56.2 56.2 0 0 1 6.9 27.3c0 16.5-7.1 32.2-19.6 43l-21.9 19 13.9 25.4a56.2 56.2 0 0 1 6.9 27.3c0 16.5-7.1 32.2-19.6 43l-21.9 19 13.9 25.4a56.2 56.2 0 0 1 6.9 27.3c0 22.4-13.2 42.6-33.6 51.8H345V506.8c18.6-67.2 46.4-168 83.5-302.5a44.28 44.28 0 0 1 42.2-32.3c7.5-.1 15 2.2 21.1 6.7 9.9 7.4 15.2 18.6 14.6 30.5l-9.6 198.4h314.4C829 418.5 840 436.9 840 456c0 16.5-7.1 32.2-19.6 43z',
+          ]
+        );
+      })),
       (t.LeftSquareTwoTone = u('left-square', a, function(e, t) {
         return l(
           o,
@@ -18775,19 +19192,6 @@
           ]
         );
       })),
-      (t.LikeTwoTone = u('like', a, function(e, t) {
-        return l(
-          o,
-          [
-            t,
-            'M273 495.9v428l.3-428zm538.2-88.3H496.8l9.6-198.4c.6-11.9-4.7-23.1-14.6-30.5-6.1-4.5-13.6-6.8-21.1-6.7-19.6.1-36.9 13.4-42.2 32.3-37.1 134.4-64.9 235.2-83.5 302.5V852h399.4a56.85 56.85 0 0 0 33.6-51.8c0-9.7-2.3-18.9-6.9-27.3l-13.9-25.4 21.9-19a56.76 56.76 0 0 0 19.6-43c0-9.7-2.3-18.9-6.9-27.3l-13.9-25.4 21.9-19a56.76 56.76 0 0 0 19.6-43c0-9.7-2.3-18.9-6.9-27.3l-14-25.5 21.9-19a56.76 56.76 0 0 0 19.6-43c0-19.1-11-37.5-28.8-48.4z',
-          ],
-          [
-            e,
-            'M112 528v364c0 17.7 14.3 32 32 32h65V496h-65c-17.7 0-32 14.3-32 32zm773.9 5.7c16.8-22.2 26.1-49.4 26.1-77.7 0-44.9-25.1-87.5-65.5-111a67.67 67.67 0 0 0-34.3-9.3H572.3l6-122.9c1.5-29.7-9-57.9-29.5-79.4a106.4 106.4 0 0 0-77.9-33.4c-52 0-98 35-111.8 85.1l-85.8 310.8-.3 428h472.1c9.3 0 18.2-1.8 26.5-5.4 47.6-20.3 78.3-66.8 78.3-118.4 0-12.6-1.8-25-5.4-37 16.8-22.2 26.1-49.4 26.1-77.7 0-12.6-1.8-25-5.4-37 16.8-22.2 26.1-49.4 26.1-77.7 0-12.6-1.8-25-5.4-37zM820.4 499l-21.9 19 14 25.5a56.2 56.2 0 0 1 6.9 27.3c0 16.5-7.1 32.2-19.6 43l-21.9 19 13.9 25.4a56.2 56.2 0 0 1 6.9 27.3c0 16.5-7.1 32.2-19.6 43l-21.9 19 13.9 25.4a56.2 56.2 0 0 1 6.9 27.3c0 22.4-13.2 42.6-33.6 51.8H345V506.8c18.6-67.2 46.4-168 83.5-302.5a44.28 44.28 0 0 1 42.2-32.3c7.5-.1 15 2.2 21.1 6.7 9.9 7.4 15.2 18.6 14.6 30.5l-9.6 198.4h314.4C829 418.5 840 436.9 840 456c0 16.5-7.1 32.2-19.6 43z',
-          ]
-        );
-      })),
       (t.LockTwoTone = u('lock', a, function(e, t) {
         return l(
           o,
@@ -18800,6 +19204,20 @@
             'M232 840h560V536H232v304zm280-226a48.01 48.01 0 0 1 28 87v53c0 4.4-3.6 8-8 8h-40c-4.4 0-8-3.6-8-8v-53a48.01 48.01 0 0 1 28-87z',
           ],
           [e, 'M484 701v53c0 4.4 3.6 8 8 8h40c4.4 0 8-3.6 8-8v-53a48.01 48.01 0 1 0-56 0z']
+        );
+      })),
+      (t.MailTwoTone = u('mail', a, function(e, t) {
+        return l(
+          o,
+          [
+            t,
+            'M477.5 536.3L135.9 270.7l-27.5-21.4 27.6 21.5V792h752V270.8L546.2 536.3a55.99 55.99 0 0 1-68.7 0z',
+          ],
+          [t, 'M876.3 198.8l39.3 50.5-27.6 21.5 27.7-21.5-39.3-50.5z'],
+          [
+            e,
+            'M928 160H96c-17.7 0-32 14.3-32 32v640c0 17.7 14.3 32 32 32h832c17.7 0 32-14.3 32-32V192c0-17.7-14.3-32-32-32zm-94.5 72.1L512 482 190.5 232.1h643zm54.5 38.7V792H136V270.8l-27.6-21.5 27.5 21.4 341.6 265.6a55.99 55.99 0 0 0 68.7 0L888 270.8l27.6-21.5-39.3-50.5h.1l39.3 50.5-27.7 21.5z',
+          ]
         );
       })),
       (t.MedicineBoxTwoTone = u('medicine-box', a, function(e, t) {
@@ -18819,18 +19237,22 @@
           ]
         );
       })),
-      (t.MailTwoTone = u('mail', a, function(e, t) {
+      (t.MessageTwoTone = u('message', a, function(e, t) {
         return l(
           o,
           [
             t,
-            'M477.5 536.3L135.9 270.7l-27.5-21.4 27.6 21.5V792h752V270.8L546.2 536.3a55.99 55.99 0 0 1-68.7 0z',
+            'M775.3 248.9a369.62 369.62 0 0 0-119-80A370.2 370.2 0 0 0 512.1 140h-1.7c-99.7.4-193 39.4-262.8 109.9-69.9 70.5-108 164.1-107.6 263.8.3 60.3 15.3 120.2 43.5 173.1l4.5 8.4V836h140.8l8.4 4.5c52.9 28.2 112.8 43.2 173.1 43.5h1.7c99 0 192-38.2 262.1-107.6 70.4-69.8 109.5-163.1 110.1-262.7.2-50.6-9.5-99.6-28.9-145.8a370.15 370.15 0 0 0-80-119zM312 560a48.01 48.01 0 0 1 0-96 48.01 48.01 0 0 1 0 96zm200 0a48.01 48.01 0 0 1 0-96 48.01 48.01 0 0 1 0 96zm200 0a48.01 48.01 0 0 1 0-96 48.01 48.01 0 0 1 0 96z',
           ],
-          [t, 'M876.3 198.8l39.3 50.5-27.6 21.5 27.7-21.5-39.3-50.5z'],
           [
             e,
-            'M928 160H96c-17.7 0-32 14.3-32 32v640c0 17.7 14.3 32 32 32h832c17.7 0 32-14.3 32-32V192c0-17.7-14.3-32-32-32zm-94.5 72.1L512 482 190.5 232.1h643zm54.5 38.7V792H136V270.8l-27.6-21.5 27.5 21.4 341.6 265.6a55.99 55.99 0 0 0 68.7 0L888 270.8l27.6-21.5-39.3-50.5h.1l39.3 50.5-27.7 21.5z',
-          ]
+            'M664 512a48 48 0 1 0 96 0 48 48 0 1 0-96 0zm-400 0a48 48 0 1 0 96 0 48 48 0 1 0-96 0z',
+          ],
+          [
+            e,
+            'M925.2 338.4c-22.6-53.7-55-101.9-96.3-143.3a444.35 444.35 0 0 0-143.3-96.3C630.6 75.7 572.2 64 512 64h-2c-60.6.3-119.3 12.3-174.5 35.9a445.35 445.35 0 0 0-142 96.5c-40.9 41.3-73 89.3-95.2 142.8-23 55.4-34.6 114.3-34.3 174.9A449.4 449.4 0 0 0 112 714v152a46 46 0 0 0 46 46h152.1A449.4 449.4 0 0 0 510 960h2.1c59.9 0 118-11.6 172.7-34.3a444.48 444.48 0 0 0 142.8-95.2c41.3-40.9 73.8-88.7 96.5-142 23.6-55.2 35.6-113.9 35.9-174.5.3-60.9-11.5-120-34.8-175.6zm-151.1 438C704 845.8 611 884 512 884h-1.7c-60.3-.3-120.2-15.3-173.1-43.5l-8.4-4.5H188V695.2l-4.5-8.4C155.3 633.9 140.3 574 140 513.7c-.4-99.7 37.7-193.3 107.6-263.8 69.8-70.5 163.1-109.5 262.8-109.9h1.7c50 0 98.5 9.7 144.2 28.9 44.6 18.7 84.6 45.6 119 80 34.3 34.3 61.3 74.4 80 119 19.4 46.2 29.1 95.2 28.9 145.8-.6 99.6-39.7 192.9-110.1 262.7z',
+          ],
+          [e, 'M464 512a48 48 0 1 0 96 0 48 48 0 1 0-96 0z']
         );
       })),
       (t.MehTwoTone = u('meh', a, function(e, t) {
@@ -18846,26 +19268,8 @@
           ],
           [
             e,
-            'M288 421a48 48 0 1 0 96 0 48 48 0 1 0-96 0zM664 565H360c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h304c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8zM640 421a48 48 0 1 0 96 0 48 48 0 1 0-96 0z',
+            'M288 421a48 48 0 1 0 96 0 48 48 0 1 0-96 0zm376 144H360c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h304c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8zm-24-144a48 48 0 1 0 96 0 48 48 0 1 0-96 0z',
           ]
-        );
-      })),
-      (t.MessageTwoTone = u('message', a, function(e, t) {
-        return l(
-          o,
-          [
-            t,
-            'M775.3 248.9a369.62 369.62 0 0 0-119-80A370.2 370.2 0 0 0 512.1 140h-1.7c-99.7.4-193 39.4-262.8 109.9-69.9 70.5-108 164.1-107.6 263.8.3 60.3 15.3 120.2 43.5 173.1l4.5 8.4V836h140.8l8.4 4.5c52.9 28.2 112.8 43.2 173.1 43.5h1.7c99 0 192-38.2 262.1-107.6 70.4-69.8 109.5-163.1 110.1-262.7.2-50.6-9.5-99.6-28.9-145.8a370.15 370.15 0 0 0-80-119zM312 560a48.01 48.01 0 0 1 0-96 48.01 48.01 0 0 1 0 96zm200 0a48.01 48.01 0 0 1 0-96 48.01 48.01 0 0 1 0 96zm200 0a48.01 48.01 0 0 1 0-96 48.01 48.01 0 0 1 0 96z',
-          ],
-          [
-            e,
-            'M664 512a48 48 0 1 0 96 0 48 48 0 1 0-96 0zM264 512a48 48 0 1 0 96 0 48 48 0 1 0-96 0z',
-          ],
-          [
-            e,
-            'M925.2 338.4c-22.6-53.7-55-101.9-96.3-143.3a444.35 444.35 0 0 0-143.3-96.3C630.6 75.7 572.2 64 512 64h-2c-60.6.3-119.3 12.3-174.5 35.9a445.35 445.35 0 0 0-142 96.5c-40.9 41.3-73 89.3-95.2 142.8-23 55.4-34.6 114.3-34.3 174.9A449.4 449.4 0 0 0 112 714v152a46 46 0 0 0 46 46h152.1A449.4 449.4 0 0 0 510 960h2.1c59.9 0 118-11.6 172.7-34.3a444.48 444.48 0 0 0 142.8-95.2c41.3-40.9 73.8-88.7 96.5-142 23.6-55.2 35.6-113.9 35.9-174.5.3-60.9-11.5-120-34.8-175.6zm-151.1 438C704 845.8 611 884 512 884h-1.7c-60.3-.3-120.2-15.3-173.1-43.5l-8.4-4.5H188V695.2l-4.5-8.4C155.3 633.9 140.3 574 140 513.7c-.4-99.7 37.7-193.3 107.6-263.8 69.8-70.5 163.1-109.5 262.8-109.9h1.7c50 0 98.5 9.7 144.2 28.9 44.6 18.7 84.6 45.6 119 80 34.3 34.3 61.3 74.4 80 119 19.4 46.2 29.1 95.2 28.9 145.8-.6 99.6-39.7 192.9-110.1 262.7z',
-          ],
-          [e, 'M464 512a48 48 0 1 0 96 0 48 48 0 1 0-96 0z']
         );
       })),
       (t.MinusCircleTwoTone = u('minus-circle', a, function(e, t) {
@@ -18885,20 +19289,6 @@
           ]
         );
       })),
-      (t.MobileTwoTone = u('mobile', a, function(e, t) {
-        return l(
-          o,
-          [
-            e,
-            'M744 64H280c-35.3 0-64 28.7-64 64v768c0 35.3 28.7 64 64 64h464c35.3 0 64-28.7 64-64V128c0-35.3-28.7-64-64-64zm-8 824H288V136h448v752z',
-          ],
-          [
-            t,
-            'M288 888h448V136H288v752zm224-142c22.1 0 40 17.9 40 40s-17.9 40-40 40-40-17.9-40-40 17.9-40 40-40z',
-          ],
-          [e, 'M472 786a40 40 0 1 0 80 0 40 40 0 1 0-80 0z']
-        );
-      })),
       (t.MinusSquareTwoTone = u('minus-square', a, function(e, t) {
         return l(
           o,
@@ -18914,6 +19304,20 @@
             e,
             'M328 544h368c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H328c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8z',
           ]
+        );
+      })),
+      (t.MobileTwoTone = u('mobile', a, function(e, t) {
+        return l(
+          o,
+          [
+            e,
+            'M744 64H280c-35.3 0-64 28.7-64 64v768c0 35.3 28.7 64 64 64h464c35.3 0 64-28.7 64-64V128c0-35.3-28.7-64-64-64zm-8 824H288V136h448v752z',
+          ],
+          [
+            t,
+            'M288 888h448V136H288v752zm224-142c22.1 0 40 17.9 40 40s-17.9 40-40 40-40-17.9-40-40 17.9-40 40-40z',
+          ],
+          [e, 'M472 786a40 40 0 1 0 80 0 40 40 0 1 0-80 0z']
         );
       })),
       (t.MoneyCollectTwoTone = u('money-collect', a, function(e, t) {
@@ -18943,6 +19347,19 @@
           [
             e,
             'M880 112c-3.8 0-7.7.7-11.6 2.3L292 345.9H128c-8.8 0-16 7.4-16 16.6v299c0 9.2 7.2 16.6 16 16.6h101.7c-3.7 11.6-5.7 23.9-5.7 36.4 0 65.9 53.8 119.5 120 119.5 55.4 0 102.1-37.6 115.9-88.4l408.6 164.2c3.9 1.5 7.8 2.3 11.6 2.3 16.9 0 32-14.2 32-33.2V145.2C912 126.2 897 112 880 112zM344 762.3c-26.5 0-48-21.4-48-47.8 0-11.2 3.9-21.9 11-30.4l84.9 34.1c-2 24.6-22.7 44.1-47.9 44.1zm496 58.4L318.8 611.3l-12.9-5.2H184V417.9h121.9l12.9-5.2L840 203.3v617.4z',
+          ]
+        );
+      })),
+      (t.PhoneTwoTone = u('phone', a, function(e, t) {
+        return l(
+          o,
+          [
+            t,
+            'M721.7 184.9L610.9 295.8l120.8 120.7-8 21.6A481.29 481.29 0 0 1 438 723.9l-21.6 8-.9-.9-119.8-120-110.8 110.9 104.5 104.5c10.8 10.7 26 15.7 40.8 13.2 117.9-19.5 235.4-82.9 330.9-178.4s158.9-213.1 178.4-331c2.5-14.8-2.5-30-13.3-40.8L721.7 184.9z',
+          ],
+          [
+            e,
+            'M877.1 238.7L770.6 132.3c-13-13-30.4-20.3-48.8-20.3s-35.8 7.2-48.8 20.3L558.3 246.8c-13 13-20.3 30.5-20.3 48.9 0 18.5 7.2 35.8 20.3 48.9l89.6 89.7a405.46 405.46 0 0 1-86.4 127.3c-36.7 36.9-79.6 66-127.2 86.6l-89.6-89.7c-13-13-30.4-20.3-48.8-20.3a68.2 68.2 0 0 0-48.8 20.3L132.3 673c-13 13-20.3 30.5-20.3 48.9 0 18.5 7.2 35.8 20.3 48.9l106.4 106.4c22.2 22.2 52.8 34.9 84.2 34.9 6.5 0 12.8-.5 19.2-1.6 132.4-21.8 263.8-92.3 369.9-198.3C818 606 888.4 474.6 910.4 342.1c6.3-37.6-6.3-76.3-33.3-103.4zm-37.6 91.5c-19.5 117.9-82.9 235.5-178.4 331s-213 158.9-330.9 178.4c-14.8 2.5-30-2.5-40.8-13.2L184.9 721.9 295.7 611l119.8 120 .9.9 21.6-8a481.29 481.29 0 0 0 285.7-285.8l8-21.6-120.8-120.7 110.8-110.9 104.5 104.5c10.8 10.8 15.8 26 13.3 40.8z',
           ]
         );
       })),
@@ -19075,23 +19492,6 @@
           ]
         );
       })),
-      (t.PrinterTwoTone = u('printer', a, function(e, t) {
-        return l(
-          o,
-          [
-            t,
-            'M360 180h304v152H360zm492 220H172c-6.6 0-12 5.4-12 12v292h132V500h440v204h132V412c0-6.6-5.4-12-12-12zm-24 84c0 4.4-3.6 8-8 8h-40c-4.4 0-8-3.6-8-8v-40c0-4.4 3.6-8 8-8h40c4.4 0 8 3.6 8 8v40z',
-          ],
-          [
-            e,
-            'M852 332H732V120c0-4.4-3.6-8-8-8H300c-4.4 0-8 3.6-8 8v212H172c-44.2 0-80 35.8-80 80v328c0 17.7 14.3 32 32 32h168v132c0 4.4 3.6 8 8 8h424c4.4 0 8-3.6 8-8V772h168c17.7 0 32-14.3 32-32V412c0-44.2-35.8-80-80-80zM360 180h304v152H360V180zm304 664H360V568h304v276zm200-140H732V500H292v204H160V412c0-6.6 5.4-12 12-12h680c6.6 0 12 5.4 12 12v292z',
-          ],
-          [
-            e,
-            'M820 436h-40c-4.4 0-8 3.6-8 8v40c0 4.4 3.6 8 8 8h40c4.4 0 8-3.6 8-8v-40c0-4.4-3.6-8-8-8z',
-          ]
-        );
-      })),
       (t.PoundCircleTwoTone = u('pound-circle', a, function(e, t) {
         return l(
           o,
@@ -19109,6 +19509,23 @@
           ]
         );
       })),
+      (t.PrinterTwoTone = u('printer', a, function(e, t) {
+        return l(
+          o,
+          [
+            t,
+            'M360 180h304v152H360zm492 220H172c-6.6 0-12 5.4-12 12v292h132V500h440v204h132V412c0-6.6-5.4-12-12-12zm-24 84c0 4.4-3.6 8-8 8h-40c-4.4 0-8-3.6-8-8v-40c0-4.4 3.6-8 8-8h40c4.4 0 8 3.6 8 8v40z',
+          ],
+          [
+            e,
+            'M852 332H732V120c0-4.4-3.6-8-8-8H300c-4.4 0-8 3.6-8 8v212H172c-44.2 0-80 35.8-80 80v328c0 17.7 14.3 32 32 32h168v132c0 4.4 3.6 8 8 8h424c4.4 0 8-3.6 8-8V772h168c17.7 0 32-14.3 32-32V412c0-44.2-35.8-80-80-80zM360 180h304v152H360V180zm304 664H360V568h304v276zm200-140H732V500H292v204H160V412c0-6.6 5.4-12 12-12h680c6.6 0 12 5.4 12 12v292z',
+          ],
+          [
+            e,
+            'M820 436h-40c-4.4 0-8 3.6-8 8v40c0 4.4 3.6 8 8 8h40c4.4 0 8-3.6 8-8v-40c0-4.4-3.6-8-8-8z',
+          ]
+        );
+      })),
       (t.ProfileTwoTone = u('profile', a, function(e, t) {
         return l(
           o,
@@ -19122,7 +19539,7 @@
           ],
           [
             e,
-            'M340 656a40 40 0 1 0 80 0 40 40 0 1 0-80 0zM340 512a40 40 0 1 0 80 0 40 40 0 1 0-80 0zM340 368a40 40 0 1 0 80 0 40 40 0 1 0-80 0zM492 688h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H492c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8zm0-144h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H492c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8zm0-144h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H492c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8z',
+            'M340 656a40 40 0 1 0 80 0 40 40 0 1 0-80 0zm0-144a40 40 0 1 0 80 0 40 40 0 1 0-80 0zm0-144a40 40 0 1 0 80 0 40 40 0 1 0-80 0zm152 320h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H492c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8zm0-144h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H492c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8zm0-144h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H492c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8z',
           ]
         );
       })),
@@ -19140,19 +19557,6 @@
           [
             e,
             'M280 752h80c4.4 0 8-3.6 8-8V280c0-4.4-3.6-8-8-8h-80c-4.4 0-8 3.6-8 8v464c0 4.4 3.6 8 8 8zm192-280h80c4.4 0 8-3.6 8-8V280c0-4.4-3.6-8-8-8h-80c-4.4 0-8 3.6-8 8v184c0 4.4 3.6 8 8 8zm192 72h80c4.4 0 8-3.6 8-8V280c0-4.4-3.6-8-8-8h-80c-4.4 0-8 3.6-8 8v256c0 4.4 3.6 8 8 8z',
-          ]
-        );
-      })),
-      (t.PushpinTwoTone = u('pushpin', a, function(e, t) {
-        return l(
-          o,
-          [
-            t,
-            'M474.8 357.7l-24.5 24.5-34.4-3.8c-9.6-1.1-19.3-1.6-28.9-1.6-29 0-57.5 4.7-84.7 14.1-14 4.8-27.4 10.8-40.3 17.9l353.1 353.3a259.92 259.92 0 0 0 30.4-153.9l-3.8-34.4 24.5-24.5L800 415.5 608.5 224 474.8 357.7z',
-          ],
-          [
-            e,
-            'M878.3 392.1L631.9 145.7c-6.5-6.5-15-9.7-23.5-9.7s-17 3.2-23.5 9.7L423.8 306.9c-12.2-1.4-24.5-2-36.8-2-73.2 0-146.4 24.1-206.5 72.3a33.23 33.23 0 0 0-2.7 49.4l181.7 181.7-215.4 215.2a15.8 15.8 0 0 0-4.6 9.8l-3.4 37.2c-.9 9.4 6.6 17.4 15.9 17.4.5 0 1 0 1.5-.1l37.2-3.4c3.7-.3 7.2-2 9.8-4.6l215.4-215.4 181.7 181.7c6.5 6.5 15 9.7 23.5 9.7 9.7 0 19.3-4.2 25.9-12.4 56.3-70.3 79.7-158.3 70.2-243.4l161.1-161.1c12.9-12.8 12.9-33.8 0-46.8zM666.2 549.3l-24.5 24.5 3.8 34.4a259.92 259.92 0 0 1-30.4 153.9L262 408.8c12.9-7.1 26.3-13.1 40.3-17.9 27.2-9.4 55.7-14.1 84.7-14.1 9.6 0 19.3.5 28.9 1.6l34.4 3.8 24.5-24.5L608.5 224 800 415.5 666.2 549.3z',
           ]
         );
       })),
@@ -19186,7 +19590,20 @@
           ],
           [
             e,
-            'M472 732a40 40 0 1 0 80 0 40 40 0 1 0-80 0zM623.6 316.7C593.6 290.5 554 276 512 276s-81.6 14.4-111.6 40.7C369.2 344 352 380.7 352 420v7.6c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V420c0-44.1 43.1-80 96-80s96 35.9 96 80c0 31.1-22 59.6-56 72.7-21.2 8.1-39.2 22.3-52.1 40.9-13.2 19-19.9 41.8-19.9 64.9V620c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8v-22.7a48.3 48.3 0 0 1 30.9-44.8c59-22.7 97.1-74.7 97.1-132.5 0-39.3-17.2-76-48.4-103.3z',
+            'M472 732a40 40 0 1 0 80 0 40 40 0 1 0-80 0zm151.6-415.3C593.6 290.5 554 276 512 276s-81.6 14.4-111.6 40.7C369.2 344 352 380.7 352 420v7.6c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V420c0-44.1 43.1-80 96-80s96 35.9 96 80c0 31.1-22 59.6-56 72.7-21.2 8.1-39.2 22.3-52.1 40.9-13.2 19-19.9 41.8-19.9 64.9V620c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8v-22.7a48.3 48.3 0 0 1 30.9-44.8c59-22.7 97.1-74.7 97.1-132.5 0-39.3-17.2-76-48.4-103.3z',
+          ]
+        );
+      })),
+      (t.PushpinTwoTone = u('pushpin', a, function(e, t) {
+        return l(
+          o,
+          [
+            t,
+            'M474.8 357.7l-24.5 24.5-34.4-3.8c-9.6-1.1-19.3-1.6-28.9-1.6-29 0-57.5 4.7-84.7 14.1-14 4.8-27.4 10.8-40.3 17.9l353.1 353.3a259.92 259.92 0 0 0 30.4-153.9l-3.8-34.4 24.5-24.5L800 415.5 608.5 224 474.8 357.7z',
+          ],
+          [
+            e,
+            'M878.3 392.1L631.9 145.7c-6.5-6.5-15-9.7-23.5-9.7s-17 3.2-23.5 9.7L423.8 306.9c-12.2-1.4-24.5-2-36.8-2-73.2 0-146.4 24.1-206.5 72.3a33.23 33.23 0 0 0-2.7 49.4l181.7 181.7-215.4 215.2a15.8 15.8 0 0 0-4.6 9.8l-3.4 37.2c-.9 9.4 6.6 17.4 15.9 17.4.5 0 1 0 1.5-.1l37.2-3.4c3.7-.3 7.2-2 9.8-4.6l215.4-215.4 181.7 181.7c6.5 6.5 15 9.7 23.5 9.7 9.7 0 19.3-4.2 25.9-12.4 56.3-70.3 79.7-158.3 70.2-243.4l161.1-161.1c12.9-12.8 12.9-33.8 0-46.8zM666.2 549.3l-24.5 24.5 3.8 34.4a259.92 259.92 0 0 1-30.4 153.9L262 408.8c12.9-7.1 26.3-13.1 40.3-17.9 27.2-9.4 55.7-14.1 84.7-14.1 9.6 0 19.3.5 28.9 1.6l34.4 3.8 24.5-24.5L608.5 224 800 415.5 666.2 549.3z',
           ]
         );
       })),
@@ -19230,40 +19647,6 @@
           ]
         );
       })),
-      (t.RestTwoTone = u('rest', a, function(e, t) {
-        return l(
-          o,
-          [
-            t,
-            'M326.4 844h363.2l44.3-520H282l44.4 520zM508 416c79.5 0 144 64.5 144 144s-64.5 144-144 144-144-64.5-144-144 64.5-144 144-144z',
-          ],
-          [
-            e,
-            'M508 704c79.5 0 144-64.5 144-144s-64.5-144-144-144-144 64.5-144 144 64.5 144 144 144zm0-224c44.2 0 80 35.8 80 80s-35.8 80-80 80-80-35.8-80-80 35.8-80 80-80z',
-          ],
-          [
-            e,
-            'M832 256h-28.1l-35.7-120.9c-4-13.7-16.5-23.1-30.7-23.1h-451c-14.3 0-26.8 9.4-30.7 23.1L220.1 256H192c-17.7 0-32 14.3-32 32v28c0 4.4 3.6 8 8 8h45.8l47.7 558.7a32 32 0 0 0 31.9 29.3h429.2a32 32 0 0 0 31.9-29.3L802.2 324H856c4.4 0 8-3.6 8-8v-28c0-17.7-14.3-32-32-32zm-518.6-76h397.2l22.4 76H291l22.4-76zm376.2 664H326.4L282 324h451.9l-44.3 520z',
-          ]
-        );
-      })),
-      (t.RightSquareTwoTone = u('right-square', a, function(e, t) {
-        return l(
-          o,
-          [
-            e,
-            'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-40 728H184V184h656v656z',
-          ],
-          [
-            t,
-            'M184 840h656V184H184v656zm216-196.9c0-10.2 4.9-19.9 13.2-25.9L558.6 512 413.2 406.8c-8.3-6-13.2-15.6-13.2-25.9V334c0-6.5 7.4-10.3 12.7-6.5l246 178c4.4 3.2 4.4 9.7 0 12.9l-246 178c-5.3 3.9-12.7.1-12.7-6.4v-46.9z',
-          ],
-          [
-            e,
-            'M412.7 696.4l246-178c4.4-3.2 4.4-9.7 0-12.9l-246-178c-5.3-3.8-12.7 0-12.7 6.5v46.9c0 10.3 4.9 19.9 13.2 25.9L558.6 512 413.2 617.2c-8.3 6-13.2 15.7-13.2 25.9V690c0 6.5 7.4 10.3 12.7 6.4z',
-          ]
-        );
-      })),
       (t.RightCircleTwoTone = u('right-circle', a, function(e, t) {
         return l(
           o,
@@ -19281,6 +19664,23 @@
           ]
         );
       })),
+      (t.RestTwoTone = u('rest', a, function(e, t) {
+        return l(
+          o,
+          [
+            t,
+            'M326.4 844h363.2l44.3-520H282l44.4 520zM508 416c79.5 0 144 64.5 144 144s-64.5 144-144 144-144-64.5-144-144 64.5-144 144-144z',
+          ],
+          [
+            e,
+            'M508 704c79.5 0 144-64.5 144-144s-64.5-144-144-144-144 64.5-144 144 64.5 144 144 144zm0-224c44.2 0 80 35.8 80 80s-35.8 80-80 80-80-35.8-80-80 35.8-80 80-80z',
+          ],
+          [
+            e,
+            'M832 256h-28.1l-35.7-120.9c-4-13.7-16.5-23.1-30.7-23.1h-451c-14.3 0-26.8 9.4-30.7 23.1L220.1 256H192c-17.7 0-32 14.3-32 32v28c0 4.4 3.6 8 8 8h45.8l47.7 558.7a32 32 0 0 0 31.9 29.3h429.2a32 32 0 0 0 31.9-29.3L802.2 324H856c4.4 0 8-3.6 8-8v-28c0-17.7-14.3-32-32-32zm-518.6-76h397.2l22.4 76H291l22.4-76zm376.2 664H326.4L282 324h451.9l-44.3 520z',
+          ]
+        );
+      })),
       (t.RocketTwoTone = u('rocket', a, function(e, t) {
         return l(
           o,
@@ -19295,20 +19695,20 @@
           [e, 'M464 400a48 48 0 1 0 96 0 48 48 0 1 0-96 0z']
         );
       })),
-      (t.SafetyCertificateTwoTone = u('safety-certificate', a, function(e, t) {
+      (t.RightSquareTwoTone = u('right-square', a, function(e, t) {
         return l(
           o,
           [
             e,
-            'M866.9 169.9L527.1 54.1C523 52.7 517.5 52 512 52s-11 .7-15.1 2.1L157.1 169.9c-8.3 2.8-15.1 12.4-15.1 21.2v482.4c0 8.8 5.7 20.4 12.6 25.9L499.3 968c3.5 2.7 8 4.1 12.6 4.1s9.2-1.4 12.6-4.1l344.7-268.6c6.9-5.4 12.6-17 12.6-25.9V191.1c.2-8.8-6.6-18.3-14.9-21.2zM810 654.3L512 886.5 214 654.3V226.7l298-101.6 298 101.6v427.6z',
+            'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-40 728H184V184h656v656z',
           ],
           [
             t,
-            'M214 226.7v427.6l298 232.2 298-232.2V226.7L512 125.1 214 226.7zM632.8 328H688c6.5 0 10.3 7.4 6.5 12.7L481.9 633.4a16.1 16.1 0 0 1-26 0l-126.4-174c-3.8-5.3 0-12.7 6.5-12.7h55.2c5.2 0 10 2.5 13 6.6l64.7 89.1 150.9-207.8c3-4.1 7.9-6.6 13-6.6z',
+            'M184 840h656V184H184v656zm216-196.9c0-10.2 4.9-19.9 13.2-25.9L558.6 512 413.2 406.8c-8.3-6-13.2-15.6-13.2-25.9V334c0-6.5 7.4-10.3 12.7-6.5l246 178c4.4 3.2 4.4 9.7 0 12.9l-246 178c-5.3 3.9-12.7.1-12.7-6.4v-46.9z',
           ],
           [
             e,
-            'M404.2 453.3c-3-4.1-7.8-6.6-13-6.6H336c-6.5 0-10.3 7.4-6.5 12.7l126.4 174a16.1 16.1 0 0 0 26 0l212.6-292.7c3.8-5.3 0-12.7-6.5-12.7h-55.2c-5.1 0-10 2.5-13 6.6L468.9 542.4l-64.7-89.1z',
+            'M412.7 696.4l246-178c4.4-3.2 4.4-9.7 0-12.9l-246-178c-5.3-3.8-12.7 0-12.7 6.5v46.9c0 10.3 4.9 19.9 13.2 25.9L558.6 512 413.2 617.2c-8.3 6-13.2 15.7-13.2 25.9V690c0 6.5 7.4 10.3 12.7 6.4z',
           ]
         );
       })),
@@ -19350,6 +19750,23 @@
           ]
         );
       })),
+      (t.SafetyCertificateTwoTone = u('safety-certificate', a, function(e, t) {
+        return l(
+          o,
+          [
+            e,
+            'M866.9 169.9L527.1 54.1C523 52.7 517.5 52 512 52s-11 .7-15.1 2.1L157.1 169.9c-8.3 2.8-15.1 12.4-15.1 21.2v482.4c0 8.8 5.7 20.4 12.6 25.9L499.3 968c3.5 2.7 8 4.1 12.6 4.1s9.2-1.4 12.6-4.1l344.7-268.6c6.9-5.4 12.6-17 12.6-25.9V191.1c.2-8.8-6.6-18.3-14.9-21.2zM810 654.3L512 886.5 214 654.3V226.7l298-101.6 298 101.6v427.6z',
+          ],
+          [
+            t,
+            'M214 226.7v427.6l298 232.2 298-232.2V226.7L512 125.1 214 226.7zM632.8 328H688c6.5 0 10.3 7.4 6.5 12.7L481.9 633.4a16.1 16.1 0 0 1-26 0l-126.4-174c-3.8-5.3 0-12.7 6.5-12.7h55.2c5.2 0 10 2.5 13 6.6l64.7 89.1 150.9-207.8c3-4.1 7.9-6.6 13-6.6z',
+          ],
+          [
+            e,
+            'M404.2 453.3c-3-4.1-7.8-6.6-13-6.6H336c-6.5 0-10.3 7.4-6.5 12.7l126.4 174a16.1 16.1 0 0 0 26 0l212.6-292.7c3.8-5.3 0-12.7-6.5-12.7h-55.2c-5.1 0-10 2.5-13 6.6L468.9 542.4l-64.7-89.1z',
+          ]
+        );
+      })),
       (t.SecurityScanTwoTone = u('security-scan', a, function(e, t) {
         return l(
           o,
@@ -19357,7 +19774,7 @@
             e,
             'M866.9 169.9L527.1 54.1C523 52.7 517.5 52 512 52s-11 .7-15.1 2.1L157.1 169.9c-8.3 2.8-15.1 12.4-15.1 21.2v482.4c0 8.8 5.7 20.4 12.6 25.9L499.3 968c3.5 2.7 8 4.1 12.6 4.1s9.2-1.4 12.6-4.1l344.7-268.6c6.9-5.4 12.6-17 12.6-25.9V191.1c.2-8.8-6.6-18.3-14.9-21.2zM810 654.3L512 886.5 214 654.3V226.7l298-101.6 298 101.6v427.6z',
           ],
-          [t, 'M460.69999999999993 451.1a80.1 80.1 0 1 0 160.2 0 80.1 80.1 0 1 0-160.2 0z'],
+          [t, 'M460.7 451.1a80.1 80.1 0 1 0 160.2 0 80.1 80.1 0 1 0-160.2 0z'],
           [
             t,
             'M214 226.7v427.6l298 232.2 298-232.2V226.7L512 125.1 214 226.7zm428.7 122.5c56.3 56.3 56.3 147.5 0 203.8-48.5 48.5-123 55.2-178.6 20.1l-77.5 77.5a8.03 8.03 0 0 1-11.3 0l-34-34a8.03 8.03 0 0 1 0-11.3l77.5-77.5c-35.1-55.7-28.4-130.1 20.1-178.6 56.3-56.3 147.5-56.3 203.8 0z',
@@ -19415,19 +19832,6 @@
           ]
         );
       })),
-      (t.SkinTwoTone = u('skin', a, function(e, t) {
-        return l(
-          o,
-          [
-            t,
-            'M512 318c-79.2 0-148.5-48.8-176.7-120H182v196h119v432h422V394h119V198H688.7c-28.2 71.2-97.5 120-176.7 120z',
-          ],
-          [
-            e,
-            'M870 126H663.8c-17.4 0-32.9 11.9-37 29.3C614.3 208.1 567 246 512 246s-102.3-37.9-114.8-90.7a37.93 37.93 0 0 0-37-29.3H154a44 44 0 0 0-44 44v252a44 44 0 0 0 44 44h75v388a44 44 0 0 0 44 44h478a44 44 0 0 0 44-44V466h75a44 44 0 0 0 44-44V170a44 44 0 0 0-44-44zm-28 268H723v432H301V394H182V198h153.3c28.2 71.2 97.5 120 176.7 120s148.5-48.8 176.7-120H842v196z',
-          ]
-        );
-      })),
       (t.SlidersTwoTone = u('sliders', a, function(e, t) {
         return l(
           o,
@@ -19454,17 +19858,20 @@
           ],
           [
             e,
-            'M288 421a48 48 0 1 0 96 0 48 48 0 1 0-96 0zM664 533h-48.1c-4.2 0-7.8 3.2-8.1 7.4-3.7 49.5-45.3 88.6-95.8 88.6s-92-39.1-95.8-88.6c-.3-4.2-3.9-7.4-8.1-7.4H360a8 8 0 0 0-8 8.4c4.4 84.3 74.5 151.6 160 151.6s155.6-67.3 160-151.6a8 8 0 0 0-8-8.4zM640 421a48 48 0 1 0 96 0 48 48 0 1 0-96 0z',
+            'M288 421a48 48 0 1 0 96 0 48 48 0 1 0-96 0zm376 112h-48.1c-4.2 0-7.8 3.2-8.1 7.4-3.7 49.5-45.3 88.6-95.8 88.6s-92-39.1-95.8-88.6c-.3-4.2-3.9-7.4-8.1-7.4H360a8 8 0 0 0-8 8.4c4.4 84.3 74.5 151.6 160 151.6s155.6-67.3 160-151.6a8 8 0 0 0-8-8.4zm-24-112a48 48 0 1 0 96 0 48 48 0 1 0-96 0z',
           ]
         );
       })),
-      (t.SnippetsTwoTone = u('snippets', a, function(e, t) {
+      (t.SkinTwoTone = u('skin', a, function(e, t) {
         return l(
           o,
-          [t, 'M450 510V336H232v552h432V550H490c-22.1 0-40-17.9-40-40z'],
+          [
+            t,
+            'M512 318c-79.2 0-148.5-48.8-176.7-120H182v196h119v432h422V394h119V198H688.7c-28.2 71.2-97.5 120-176.7 120z',
+          ],
           [
             e,
-            'M832 112H724V72c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v40H500V72c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v40H320c-17.7 0-32 14.3-32 32v120h-96c-17.7 0-32 14.3-32 32v632c0 17.7 14.3 32 32 32h512c17.7 0 32-14.3 32-32v-96h96c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zM664 888H232V336h218v174c0 22.1 17.9 40 40 40h174v338zm0-402H514V336h.2L664 485.8v.2zm128 274h-56V456L544 264H360v-80h68v32c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-32h152v32c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-32h68v576z',
+            'M870 126H663.8c-17.4 0-32.9 11.9-37 29.3C614.3 208.1 567 246 512 246s-102.3-37.9-114.8-90.7a37.93 37.93 0 0 0-37-29.3H154a44 44 0 0 0-44 44v252a44 44 0 0 0 44 44h75v388a44 44 0 0 0 44 44h478a44 44 0 0 0 44-44V466h75a44 44 0 0 0 44-44V170a44 44 0 0 0-44-44zm-28 268H723v432H301V394H182V198h153.3c28.2 71.2 97.5 120 176.7 120s148.5-48.8 176.7-120H842v196z',
           ]
         );
       })),
@@ -19478,19 +19885,6 @@
           ]
         );
       })),
-      (t.StopTwoTone = u('stop', a, function(e, t) {
-        return l(
-          o,
-          [
-            e,
-            'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm288.5 682.8L277.7 224C258 240 240 258 224 277.7l522.8 522.8C682.8 852.7 601 884 512 884c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372c0 89-31.3 170.8-83.5 234.8z',
-          ],
-          [
-            t,
-            'M512 140c-205.4 0-372 166.6-372 372s166.6 372 372 372c89 0 170.8-31.3 234.8-83.5L224 277.7c16-19.7 34-37.7 53.7-53.7l522.8 522.8C852.7 682.8 884 601 884 512c0-205.4-166.6-372-372-372z',
-          ]
-        );
-      })),
       (t.StarTwoTone = u('star', a, function(e, t) {
         return l(
           o,
@@ -19501,6 +19895,16 @@
           [
             e,
             'M908.6 352.8l-253.9-36.9L541.2 85.8c-3.1-6.3-8.2-11.4-14.5-14.5-15.8-7.8-35-1.3-42.9 14.5L370.3 315.9l-253.9 36.9c-7 1-13.4 4.3-18.3 9.3a32.05 32.05 0 0 0 .6 45.3l183.7 179.1L239 839.4a31.95 31.95 0 0 0 46.4 33.7l227.1-119.4 227.1 119.4c6.2 3.3 13.4 4.4 20.3 3.2 17.4-3 29.1-19.5 26.1-36.9l-43.4-252.9 183.7-179.1c5-4.9 8.3-11.3 9.3-18.3 2.7-17.5-9.5-33.7-27-36.3zM665.3 561.3l36.1 210.3-188.9-99.2-188.9 99.3 36.1-210.3-152.8-149 211.2-30.7 94.4-191.3 94.4 191.3 211.2 30.7-152.8 148.9z',
+          ]
+        );
+      })),
+      (t.SnippetsTwoTone = u('snippets', a, function(e, t) {
+        return l(
+          o,
+          [t, 'M450 510V336H232v552h432V550H490c-22.1 0-40-17.9-40-40z'],
+          [
+            e,
+            'M832 112H724V72c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v40H500V72c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v40H320c-17.7 0-32 14.3-32 32v120h-96c-17.7 0-32 14.3-32 32v632c0 17.7 14.3 32 32 32h512c17.7 0 32-14.3 32-32v-96h96c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zM664 888H232V336h218v174c0 22.1 17.9 40 40 40h174v338zm0-402H514V336h.2L664 485.8v.2zm128 274h-56V456L544 264H360v-80h68v32c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-32h152v32c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-32h68v576z',
           ]
         );
       })),
@@ -19533,6 +19937,19 @@
           [e, 'M472 784a40 40 0 1 0 80 0 40 40 0 1 0-80 0z']
         );
       })),
+      (t.StopTwoTone = u('stop', a, function(e, t) {
+        return l(
+          o,
+          [
+            e,
+            'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm288.5 682.8L277.7 224C258 240 240 258 224 277.7l522.8 522.8C682.8 852.7 601 884 512 884c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372c0 89-31.3 170.8-83.5 234.8z',
+          ],
+          [
+            t,
+            'M512 140c-205.4 0-372 166.6-372 372s166.6 372 372 372c89 0 170.8-31.3 234.8-83.5L224 277.7c16-19.7 34-37.7 53.7-53.7l522.8 522.8C852.7 682.8 884 601 884 512c0-205.4-166.6-372-372-372z',
+          ]
+        );
+      })),
       (t.TagsTwoTone = u('tags', a, function(e, t) {
         return l(
           o,
@@ -19551,6 +19968,19 @@
           [
             e,
             'M137.7 444.8a8.03 8.03 0 0 0 0 11.3l334.2 334.2c1.3 1.3 2.9 2.1 4.7 2.3 2.4.3 4.8-.5 6.6-2.3L861.4 412c1.7-1.7 2.5-4 2.3-6.3l-25.5-301.4c-.7-7.8-6.8-13.9-14.6-14.6L522.2 64.3h-1.6c-1.8.2-3.4 1-4.7 2.3L137.7 444.8zm408.1-306.2l224.6 19 19 224.6L477.5 694 233.9 450.5l311.9-311.9z',
+          ]
+        );
+      })),
+      (t.ToolTwoTone = u('tool', a, function(e, t) {
+        return l(
+          o,
+          [
+            t,
+            'M706.8 488.7a32.05 32.05 0 0 1-45.3 0L537 364.2a32.05 32.05 0 0 1 0-45.3l132.9-132.8a184.2 184.2 0 0 0-144 53.5c-58.1 58.1-69.3 145.3-33.6 214.6L439.5 507c-.1 0-.1-.1-.1-.1L209.3 737l79.2 79.2 274-274.1.1.1 8.8-8.8c69.3 35.7 156.5 24.5 214.6-33.6 39.2-39.1 57.3-92.1 53.6-143.9L706.8 488.7z',
+          ],
+          [
+            e,
+            'M876.6 239.5c-.5-.9-1.2-1.8-2-2.5-5-5-13.1-5-18.1 0L684.2 409.3l-67.9-67.9L788.7 169c.8-.8 1.4-1.6 2-2.5 3.6-6.1 1.6-13.9-4.5-17.5-98.2-58-226.8-44.7-311.3 39.7-67 67-89.2 162-66.5 247.4l-293 293c-3 3-2.8 7.9.3 11l169.7 169.7c3.1 3.1 8.1 3.3 11 .3l292.9-292.9c85.5 22.8 180.5.7 247.6-66.4 84.4-84.5 97.7-213.1 39.7-311.3zM786 499.8c-58.1 58.1-145.3 69.3-214.6 33.6l-8.8 8.8-.1-.1-274 274.1-79.2-79.2 230.1-230.1s0 .1.1.1l52.8-52.8c-35.7-69.3-24.5-156.5 33.6-214.6a184.2 184.2 0 0 1 144-53.5L537 318.9a32.05 32.05 0 0 0 0 45.3l124.5 124.5a32.05 32.05 0 0 0 45.3 0l132.8-132.8c3.7 51.8-14.4 104.8-53.6 143.9z',
           ]
         );
       })),
@@ -19578,19 +20008,6 @@
           [
             e,
             'M848.1 359.3H627.8L825.9 109c4.1-5.3.4-13-6.3-13H436.1c-2.8 0-5.5 1.5-6.9 4L170.1 547.5c-3.1 5.3.7 12 6.9 12h174.4L262 917.1c-1.9 7.8 7.5 13.3 13.3 7.7L853.6 373c5.2-4.9 1.7-13.7-5.5-13.7zM378.3 732.5l60.3-241H281.2l189.6-327.4h224.6L487.1 427.4h211L378.3 732.5z',
-          ]
-        );
-      })),
-      (t.ToolTwoTone = u('tool', a, function(e, t) {
-        return l(
-          o,
-          [
-            t,
-            'M706.8 488.7a32.05 32.05 0 0 1-45.3 0L537 364.2a32.05 32.05 0 0 1 0-45.3l132.9-132.8a184.2 184.2 0 0 0-144 53.5c-58.1 58.1-69.3 145.3-33.6 214.6L439.5 507c-.1 0-.1-.1-.1-.1L209.3 737l79.2 79.2 274-274.1.1.1 8.8-8.8c69.3 35.7 156.5 24.5 214.6-33.6 39.2-39.1 57.3-92.1 53.6-143.9L706.8 488.7z',
-          ],
-          [
-            e,
-            'M876.6 239.5c-.5-.9-1.2-1.8-2-2.5-5-5-13.1-5-18.1 0L684.2 409.3l-67.9-67.9L788.7 169c.8-.8 1.4-1.6 2-2.5 3.6-6.1 1.6-13.9-4.5-17.5-98.2-58-226.8-44.7-311.3 39.7-67 67-89.2 162-66.5 247.4l-293 293c-3 3-2.8 7.9.3 11l169.7 169.7c3.1 3.1 8.1 3.3 11 .3l292.9-292.9c85.5 22.8 180.5.7 247.6-66.4 84.4-84.5 97.7-213.1 39.7-311.3zM786 499.8c-58.1 58.1-145.3 69.3-214.6 33.6l-8.8 8.8-.1-.1-274 274.1-79.2-79.2 230.1-230.1s0 .1.1.1l52.8-52.8c-35.7-69.3-24.5-156.5 33.6-214.6a184.2 184.2 0 0 1 144-53.5L537 318.9a32.05 32.05 0 0 0 0 45.3l124.5 124.5a32.05 32.05 0 0 0 45.3 0l132.8-132.8c3.7 51.8-14.4 104.8-53.6 143.9z',
           ]
         );
       })),
@@ -19625,6 +20042,23 @@
           ]
         );
       })),
+      (t.UpSquareTwoTone = u('up-square', a, function(e, t) {
+        return l(
+          o,
+          [
+            e,
+            'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-40 728H184V184h656v656z',
+          ],
+          [
+            t,
+            'M184 840h656V184H184v656zm143.5-228.7l178-246c3.2-4.4 9.7-4.4 12.9 0l178 246c3.9 5.3.1 12.7-6.4 12.7h-46.9c-10.2 0-19.9-4.9-25.9-13.2L512 465.4 406.8 610.8c-6 8.3-15.6 13.2-25.9 13.2H334c-6.5 0-10.3-7.4-6.5-12.7z',
+          ],
+          [
+            e,
+            'M334 624h46.9c10.3 0 19.9-4.9 25.9-13.2L512 465.4l105.2 145.4c6 8.3 15.7 13.2 25.9 13.2H690c6.5 0 10.3-7.4 6.4-12.7l-178-246a7.95 7.95 0 0 0-12.9 0l-178 246c-3.8 5.3 0 12.7 6.5 12.7z',
+          ]
+        );
+      })),
       (t.UnlockTwoTone = u('unlock', a, function(e, t) {
         return l(
           o,
@@ -19653,23 +20087,6 @@
           [
             e,
             'M518.4 360.3a7.95 7.95 0 0 0-12.9 0l-178 246c-3.8 5.3 0 12.7 6.5 12.7h46.9c10.3 0 19.9-4.9 25.9-13.2L512 460.4l105.2 145.4c6 8.3 15.7 13.2 25.9 13.2H690c6.5 0 10.3-7.4 6.4-12.7l-178-246z',
-          ]
-        );
-      })),
-      (t.UpSquareTwoTone = u('up-square', a, function(e, t) {
-        return l(
-          o,
-          [
-            e,
-            'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-40 728H184V184h656v656z',
-          ],
-          [
-            t,
-            'M184 840h656V184H184v656zm143.5-228.7l178-246c3.2-4.4 9.7-4.4 12.9 0l178 246c3.9 5.3.1 12.7-6.4 12.7h-46.9c-10.2 0-19.9-4.9-25.9-13.2L512 465.4 406.8 610.8c-6 8.3-15.6 13.2-25.9 13.2H334c-6.5 0-10.3-7.4-6.5-12.7z',
-          ],
-          [
-            e,
-            'M334 624h46.9c10.3 0 19.9-4.9 25.9-13.2L512 465.4l105.2 145.4c6 8.3 15.7 13.2 25.9 13.2H690c6.5 0 10.3-7.4 6.4-12.7l-178-246a7.95 7.95 0 0 0-12.9 0l-178 246c-3.8 5.3 0 12.7 6.5 12.7z',
           ]
         );
       })),
@@ -19722,20 +20139,20 @@
           ]
         );
       })),
-      (t.WarningTwoTone = u('warning', a, function(e, t) {
+      (t.CopyrightTwoTone = u('copyright', a, function(e, t) {
         return l(
           o,
           [
             e,
-            'M955.7 856l-416-720c-6.2-10.7-16.9-16-27.7-16s-21.6 5.3-27.7 16l-416 720C56 877.4 71.4 904 96 904h832c24.6 0 40-26.6 27.7-48zm-783.5-27.9L512 239.9l339.8 588.2H172.2z',
+            'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z',
           ],
           [
             t,
-            'M172.2 828.1h679.6L512 239.9 172.2 828.1zM560 720a48.01 48.01 0 0 1-96 0 48.01 48.01 0 0 1 96 0zm-16-304v184c0 4.4-3.6 8-8 8h-48c-4.4 0-8-3.6-8-8V416c0-4.4 3.6-8 8-8h48c4.4 0 8 3.6 8 8z',
+            'M512 140c-205.4 0-372 166.6-372 372s166.6 372 372 372 372-166.6 372-372-166.6-372-372-372zm5.5 533c52.9 0 88.8-31.7 93-77.8.4-4.1 3.8-7.3 8-7.3h56.8c2.6 0 4.7 2.1 4.7 4.7 0 82.6-68.7 141.4-162.7 141.4C407.4 734 344 660.8 344 539.1v-52.3C344 364.2 407.4 290 517.3 290c94.3 0 162.7 60.7 162.7 147.4 0 2.6-2.1 4.7-4.7 4.7h-56.7c-4.2 0-7.7-3.2-8-7.4-4-49.6-40-83.4-93-83.4-65.2 0-102.1 48.5-102.2 135.5v52.6c0 85.7 36.8 133.6 102.1 133.6z',
           ],
           [
             e,
-            'M464 720a48 48 0 1 0 96 0 48 48 0 1 0-96 0zM480 416v184c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V416c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8z',
+            'M517.6 351.3c53 0 89 33.8 93 83.4.3 4.2 3.8 7.4 8 7.4h56.7c2.6 0 4.7-2.1 4.7-4.7 0-86.7-68.4-147.4-162.7-147.4C407.4 290 344 364.2 344 486.8v52.3C344 660.8 407.4 734 517.3 734c94 0 162.7-58.8 162.7-141.4 0-2.6-2.1-4.7-4.7-4.7h-56.8c-4.2 0-7.6 3.2-8 7.3-4.2 46.1-40.1 77.8-93 77.8-65.3 0-102.1-47.9-102.1-133.6v-52.6c.1-87 37-135.5 102.2-135.5z',
           ]
         );
       })),
@@ -19753,23 +20170,6 @@
           [
             e,
             'M730 311.9h-50.4c-4.4 0-8 3.6-8 8v384.2c0 4.4 3.6 8 8 8H730c4.4 0 8-3.6 8-8V319.9c0-4.4-3.6-8-8-8zm-281.4 49.6c49.5 0 83.1 31.5 87 77.6.4 4.2 3.8 7.4 8 7.4h52.6c2.4 0 4.4-2 4.4-4.4 0-81.2-64-138.1-152.3-138.1C345.4 304 286 373.5 286 488.4v49c0 114 59.4 182.6 162.3 182.6 88 0 152.3-55.1 152.3-132.5 0-2.4-2-4.4-4.4-4.4h-52.7c-4.2 0-7.6 3.2-8 7.3-4.2 43-37.7 72.4-87 72.4-61.1 0-95.6-44.9-95.6-125.2v-49.3c.1-81.4 34.6-126.8 95.7-126.8z',
-          ]
-        );
-      })),
-      (t.CopyrightTwoTone = u('copyright', a, function(e, t) {
-        return l(
-          o,
-          [
-            e,
-            'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z',
-          ],
-          [
-            t,
-            'M512 140c-205.4 0-372 166.6-372 372s166.6 372 372 372 372-166.6 372-372-166.6-372-372-372zm5.5 533c52.9 0 88.8-31.7 93-77.8.4-4.1 3.8-7.3 8-7.3h56.8c2.6 0 4.7 2.1 4.7 4.7 0 82.6-68.7 141.4-162.7 141.4C407.4 734 344 660.8 344 539.1v-52.3C344 364.2 407.4 290 517.3 290c94.3 0 162.7 60.7 162.7 147.4 0 2.6-2.1 4.7-4.7 4.7h-56.7c-4.2 0-7.7-3.2-8-7.4-4-49.6-40-83.4-93-83.4-65.2 0-102.1 48.5-102.2 135.5v52.6c0 85.7 36.8 133.6 102.1 133.6z',
-          ],
-          [
-            e,
-            'M517.6 351.3c53 0 89 33.8 93 83.4.3 4.2 3.8 7.4 8 7.4h56.7c2.6 0 4.7-2.1 4.7-4.7 0-86.7-68.4-147.4-162.7-147.4C407.4 290 344 364.2 344 486.8v52.3C344 660.8 407.4 734 517.3 734c94 0 162.7-58.8 162.7-141.4 0-2.6-2.1-4.7-4.7-4.7h-56.8c-4.2 0-7.6 3.2-8 7.3-4.2 46.1-40.1 77.8-93 77.8-65.3 0-102.1-47.9-102.1-133.6v-52.6c.1-87 37-135.5 102.2-135.5z',
           ]
         );
       })),
@@ -19791,6 +20191,23 @@
           [
             e,
             'M559.7 488.8l-25.4-5.9V348.6c38 5.2 61.5 29 65.5 58.2.5 4 3.9 6.9 7.9 6.9h44.9c4.7 0 8.4-4.1 8-8.8-6.1-62.3-57.4-102.3-125.9-109.2V263c0-4.4-3.6-8-8-8h-28.1c-4.4 0-8 3.6-8 8v33c-70.8 6.9-126.2 46-126.2 119 0 67.6 49.8 100.2 102.1 112.7l24.7 6.3v142.7c-44.2-5.9-69-29.5-74.1-61.3-.6-3.8-4-6.6-7.9-6.6H363c-4.7 0-8.4 4-8 8.7 4.5 55 46.2 105.6 135.2 112.1V761c0 4.4 3.6 8 8 8h28.4c4.4 0 8-3.6 8-8.1l-.2-31.7c78.3-6.9 134.3-48.8 134.3-124-.1-69.4-44.2-100.4-109-116.4zm-68.6-16.2c-5.6-1.6-10.3-3.1-15-5-33.8-12.2-49.5-31.9-49.5-57.3 0-36.3 27.5-57 64.5-61.7v124zM534.3 677V543.3c3.1.9 5.9 1.6 8.8 2.2 47.3 14.4 63.2 34.4 63.2 65.1 0 39.1-29.4 62.6-72 66.4z',
+          ]
+        );
+      })),
+      (t.WarningTwoTone = u('warning', a, function(e, t) {
+        return l(
+          o,
+          [
+            e,
+            'M955.7 856l-416-720c-6.2-10.7-16.9-16-27.7-16s-21.6 5.3-27.7 16l-416 720C56 877.4 71.4 904 96 904h832c24.6 0 40-26.6 27.7-48zm-783.5-27.9L512 239.9l339.8 588.2H172.2z',
+          ],
+          [
+            t,
+            'M172.2 828.1h679.6L512 239.9 172.2 828.1zM560 720a48.01 48.01 0 0 1-96 0 48.01 48.01 0 0 1 96 0zm-16-304v184c0 4.4-3.6 8-8 8h-48c-4.4 0-8-3.6-8-8V416c0-4.4 3.6-8 8-8h48c4.4 0 8 3.6 8 8z',
+          ],
+          [
+            e,
+            'M464 720a48 48 0 1 0 96 0 48 48 0 1 0-96 0zm16-304v184c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V416c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8z',
           ]
         );
       })),
@@ -19834,19 +20251,6 @@
           [
             e,
             'M880 184H712v-64c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v64H384v-64c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v64H144c-17.7 0-32 14.3-32 32v664c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V216c0-17.7-14.3-32-32-32zm-40 656H184V460h656v380zm0-448H184V256h128v48c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-48h256v48c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-48h128v136z',
-          ]
-        );
-      })),
-      (t.PhoneTwoTone = u('phone', a, function(e, t) {
-        return l(
-          o,
-          [
-            t,
-            'M721.7 184.9L610.9 295.8l120.8 120.7-8 21.6A481.29 481.29 0 0 1 438 723.9l-21.6 8-.9-.9-119.8-120-110.8 110.9 104.5 104.5c10.8 10.7 26 15.7 40.8 13.2 117.9-19.5 235.4-82.9 330.9-178.4s158.9-213.1 178.4-331c2.5-14.8-2.5-30-13.3-40.8L721.7 184.9z',
-          ],
-          [
-            e,
-            'M877.1 238.7L770.6 132.3c-13-13-30.4-20.3-48.8-20.3s-35.8 7.2-48.8 20.3L558.3 246.8c-13 13-20.3 30.5-20.3 48.9 0 18.5 7.2 35.8 20.3 48.9l89.6 89.7a405.46 405.46 0 0 1-86.4 127.3c-36.7 36.9-79.6 66-127.2 86.6l-89.6-89.7c-13-13-30.4-20.3-48.8-20.3a68.2 68.2 0 0 0-48.8 20.3L132.3 673c-13 13-20.3 30.5-20.3 48.9 0 18.5 7.2 35.8 20.3 48.9l106.4 106.4c22.2 22.2 52.8 34.9 84.2 34.9 6.5 0 12.8-.5 19.2-1.6 132.4-21.8 263.8-92.3 369.9-198.3C818 606 888.4 474.6 910.4 342.1c6.3-37.6-6.3-76.3-33.3-103.4zm-37.6 91.5c-19.5 117.9-82.9 235.5-178.4 331s-213 158.9-330.9 178.4c-14.8 2.5-30-2.5-40.8-13.2L184.9 721.9 295.7 611l119.8 120 .9.9 21.6-8a481.29 481.29 0 0 0 285.7-285.8l8-21.6-120.8-120.7 110.8-110.9 104.5 104.5c10.8 10.8 15.8 26 13.3 40.8z',
           ]
         );
       }));
@@ -20552,7 +20956,7 @@
         ? ((w = i.filter), (n = w('', n)))
         : Array.isArray(i.filter) && ((w = i.filter), (z = w));
       var _,
-        H = [];
+        x = [];
       if ('object' !== typeof n || null === n) return '';
       _ =
         i.arrayFormat in c
@@ -20562,17 +20966,17 @@
               ? 'indices'
               : 'repeat'
             : 'indices';
-      var x = c[_];
+      var H = c[_];
       z || (z = Object.keys(n)), v && z.sort(v);
       for (var O = 0; O < z.length; ++O) {
         var k = z[O];
-        (h && null === n[k]) || l(H, f(n[k], k, x, u, h, p ? d : null, w, v, m, y, M, g, b));
+        (h && null === n[k]) || l(x, f(n[k], k, H, u, h, p ? d : null, w, v, m, y, M, g, b));
       }
-      var L = H.join(a),
-        S = !0 === i.addQueryPrefix ? '?' : '';
+      var S = x.join(a),
+        L = !0 === i.addQueryPrefix ? '?' : '';
       return (
-        i.charsetSentinel && (S += 'iso-8859-1' === b ? 'utf8=%26%2310003%3B&' : 'utf8=%E2%9C%93&'),
-        L.length > 0 ? S + L : ''
+        i.charsetSentinel && (L += 'iso-8859-1' === b ? 'utf8=%26%2310003%3B&' : 'utf8=%E2%9C%93&'),
+        S.length > 0 ? L + S : ''
       );
     };
   },
@@ -21043,27 +21447,47 @@
     });
   },
   SRfc: function(e, t, n) {
-    n('IU+Z')('match', 1, function(e, t, n) {
+    'use strict';
+    var r = n('y3w9'),
+      o = n('ne8i'),
+      c = n('A5AN'),
+      i = n('Xxuz');
+    n('IU+Z')('match', 1, function(e, t, n, a) {
       return [
         function(n) {
-          'use strict';
           var r = e(this),
             o = void 0 == n ? void 0 : n[t];
           return void 0 !== o ? o.call(n, r) : new RegExp(n)[t](String(r));
         },
-        n,
+        function(e) {
+          var t = a(n, e, this);
+          if (t.done) return t.value;
+          var l = r(e),
+            u = String(this);
+          if (!l.global) return i(l, u);
+          var s = l.unicode;
+          l.lastIndex = 0;
+          var f,
+            h = [],
+            p = 0;
+          while (null !== (f = i(l, u))) {
+            var d = String(f[0]);
+            (h[p] = d), '' === d && (l.lastIndex = c(u, o(l.lastIndex), s)), p++;
+          }
+          return 0 === p ? null : h;
+        },
       ];
     });
   },
   SftL: function(e, t, n) {
     'use strict';
-    Object.defineProperty(t, '__esModule', { value: !0 });
-    var r = n('Jrzw'),
-      o = c(r);
-    function c(e) {
+    Object.defineProperty(t, '__esModule', { value: !0 }), (t['default'] = void 0);
+    var r = o(n('Jrzw'));
+    function o(e) {
       return e && e.__esModule ? e : { default: e };
     }
-    (t['default'] = o['default']), (e.exports = t['default']);
+    var c = r['default'];
+    t['default'] = c;
   },
   SlkY: function(e, t, n) {
     var r = n('m0Pp'),
@@ -21193,31 +21617,30 @@
           },
           i = function() {
             var t = function(e) {
-                if (
-                  (Object.defineProperty(this, '_entries', { writable: !0, value: {} }),
-                  'string' === typeof e)
-                )
-                  '' !== e && this._fromString(e);
+                Object.defineProperty(this, '_entries', { writable: !0, value: {} });
+                var n = typeof e;
+                if ('undefined' === n);
+                else if ('string' === n) '' !== e && this._fromString(e);
                 else if (e instanceof t) {
-                  var n = this;
+                  var r = this;
                   e.forEach(function(e, t) {
-                    n.append(t, e);
+                    r.append(t, e);
                   });
                 } else {
-                  if (null === e || 'object' !== typeof e)
+                  if (null === e || 'object' !== n)
                     throw new TypeError("Unsupported input's type for URLSearchParams");
                   if ('[object Array]' === Object.prototype.toString.call(e))
-                    for (var r = 0; r < e.length; r++) {
-                      var o = e[r];
-                      if ('[object Array]' !== Object.prototype.toString.call(o) && 2 === o.length)
+                    for (var o = 0; o < e.length; o++) {
+                      var c = e[o];
+                      if ('[object Array]' !== Object.prototype.toString.call(c) && 2 === c.length)
                         throw new TypeError(
                           'Expected [string, any] as entry at index ' +
-                            r +
+                            o +
                             " of URLSearchParams's input"
                         );
-                      this.append(o[0], o[1]);
+                      this.append(c[0], c[1]);
                     }
-                  else for (var c in e) e.hasOwnProperty(c) && this.append(c, e[c]);
+                  else for (var i in e) e.hasOwnProperty(i) && this.append(i, e[i]);
                 }
               },
               c = t.prototype;
@@ -21311,14 +21734,17 @@
               value: function(e) {
                 if (this._entries) this._entries = {};
                 else {
-                  var t = this;
-                  this.searchParams.forEach(function(e, n) {
-                    t.delete(n);
+                  var t = [];
+                  this.forEach(function(e, n) {
+                    t.push(n);
                   });
+                  for (var n = 0; n < t.length; n++) this.delete(t[n]);
                 }
                 e = e.replace(/^\?/, '');
-                for (var n, r = e.split('&'), o = 0; o < r.length; o++)
-                  (n = r[o].split('=')), this.append(c(n[0]), n.length > 1 ? c(n[1]) : '');
+                var r,
+                  o = e.split('&');
+                for (n = 0; n < o.length; n++)
+                  (r = o[n].split('=')), this.append(c(r[0]), r.length > 1 ? c(r[1]) : '');
               },
             });
       })(
@@ -21806,6 +22232,43 @@
   UbbE: function(e, t, n) {
     n('o8NH'), (e.exports = n('WEpk').Object.assign);
   },
+  Ugos: function(e, t, n) {
+    'use strict';
+    var r = n('C/va'),
+      o = RegExp.prototype.exec,
+      c = String.prototype.replace,
+      i = o,
+      a = 'lastIndex',
+      l = (function() {
+        var e = /a/,
+          t = /b*/g;
+        return o.call(e, 'a'), o.call(t, 'a'), 0 !== e[a] || 0 !== t[a];
+      })(),
+      u = void 0 !== /()??/.exec('')[1],
+      s = l || u;
+    s &&
+      (i = function(e) {
+        var t,
+          n,
+          i,
+          s,
+          f = this;
+        return (
+          u && (n = new RegExp('^' + f.source + '$(?!\\s)', r.call(f))),
+          l && (t = f[a]),
+          (i = o.call(f, e)),
+          l && i && (f[a] = f.global ? i.index + i[0].length : t),
+          u &&
+            i &&
+            i.length > 1 &&
+            c.call(i[0], n, function() {
+              for (s = 1; s < arguments.length - 2; s++) void 0 === arguments[s] && (i[s] = void 0);
+            }),
+          i
+        );
+      }),
+      (e.exports = i);
+  },
   Ugw8: function(e, t) {
     function n() {
       throw new TypeError('Invalid attempt to spread non-iterable instance');
@@ -21950,22 +22413,22 @@
       w = n('ol8x'),
       M = n('vKrd'),
       _ = 'Promise',
-      H = l.TypeError,
-      x = l.process,
-      O = x && x.versions,
+      x = l.TypeError,
+      H = l.process,
+      O = H && H.versions,
       k = (O && O.v8) || '',
-      L = l[_],
-      S = 'process' == s(x),
+      S = l[_],
+      L = 'process' == s(H),
       C = function() {},
       V = (o = b.f),
       T = !!(function() {
         try {
-          var e = L.resolve(1),
+          var e = S.resolve(1),
             t = ((e.constructor = {})[n('K0xU')('species')] = function(e) {
               e(C, C);
             });
           return (
-            (S || 'function' == typeof PromiseRejectionEvent) &&
+            (L || 'function' == typeof PromiseRejectionEvent) &&
             e.then(C) instanceof t &&
             0 !== k.indexOf('6.6') &&
             -1 === w.indexOf('Chrome/66')
@@ -21997,7 +22460,7 @@
                     ? (o || (2 == e._h && F(e), (e._h = 1)),
                       !0 === a ? (n = r) : (s && s.enter(), (n = a(r)), s && (s.exit(), (i = !0))),
                       n === t.promise
-                        ? u(H('Promise-chain cycle'))
+                        ? u(x('Promise-chain cycle'))
                         : (c = E(n))
                           ? c.call(n, l, u)
                           : l(n))
@@ -22021,13 +22484,13 @@
           if (
             (c &&
               ((t = z(function() {
-                S
-                  ? x.emit('unhandledRejection', o, e)
+                L
+                  ? H.emit('unhandledRejection', o, e)
                   : (n = l.onunhandledrejection)
                     ? n({ promise: e, reason: o })
                     : (r = l.console) && r.error && r.error('Unhandled promise rejection', o);
               })),
-              (e._h = S || j(e) ? 2 : 1)),
+              (e._h = L || j(e) ? 2 : 1)),
             (e._a = void 0),
             c && t.e)
           )
@@ -22040,8 +22503,8 @@
       F = function(e) {
         y.call(l, function() {
           var t;
-          S
-            ? x.emit('rejectionHandled', e)
+          L
+            ? H.emit('rejectionHandled', e)
             : (t = l.onrejectionhandled) && t({ promise: e, reason: e._v });
         });
       },
@@ -22061,7 +22524,7 @@
         if (!n._d) {
           (n._d = !0), (n = n._w || n);
           try {
-            if (n === e) throw H("Promise can't be resolved itself");
+            if (n === e) throw x("Promise can't be resolved itself");
             (t = E(e))
               ? g(function() {
                   var r = { _w: n, _d: !1 };
@@ -22078,8 +22541,8 @@
         }
       };
     T ||
-      ((L = function(e) {
-        d(this, L, _, '_h'), p(e), r.call(this);
+      ((S = function(e) {
+        d(this, S, _, '_h'), p(e), r.call(this);
         try {
           e(u(N, this, 1), u(R, this, 1));
         } catch (e) {
@@ -22095,13 +22558,13 @@
           (this._h = 0),
           (this._n = !1);
       }),
-      (r.prototype = n('3Lyj')(L.prototype, {
+      (r.prototype = n('3Lyj')(S.prototype, {
         then: function(e, t) {
-          var n = V(m(this, L));
+          var n = V(m(this, S));
           return (
             (n.ok = 'function' != typeof e || e),
             (n.fail = 'function' == typeof t && t),
-            (n.domain = S ? x.domain : void 0),
+            (n.domain = L ? H.domain : void 0),
             this._c.push(n),
             this._a && this._a.push(n),
             this._s && P(this, !1),
@@ -22117,10 +22580,10 @@
         (this.promise = e), (this.resolve = u(N, e, 1)), (this.reject = u(R, e, 1));
       }),
       (b.f = V = function(e) {
-        return e === L || e === i ? new c(e) : o(e);
+        return e === S || e === i ? new c(e) : o(e);
       })),
-      f(f.G + f.W + f.F * !T, { Promise: L }),
-      n('fyDq')(L, _),
+      f(f.G + f.W + f.F * !T, { Promise: S }),
+      n('fyDq')(S, _),
       n('elZq')(_),
       (i = n('g3g5')[_]),
       f(f.S + f.F * !T, _, {
@@ -22132,7 +22595,7 @@
       }),
       f(f.S + f.F * (a || !T), _, {
         resolve: function(e) {
-          return M(a && this === i ? L : this, e);
+          return M(a && this === i ? S : this, e);
         },
       }),
       f(
@@ -22141,7 +22604,7 @@
             !(
               T &&
               n('XMVh')(function(e) {
-                L.all(e)['catch'](C);
+                S.all(e)['catch'](C);
               })
             ),
         _,
@@ -22289,25 +22752,108 @@
   W9HT: function(e, t, n) {
     'use strict';
     n.r(t);
-    var r = n('QbLZ'),
-      o = n.n(r),
-      c = n('YEIV'),
+    var r = n('q1tI'),
+      o = n('17x9'),
+      c = n('TSYQ'),
       i = n.n(c),
-      a = n('iCc5'),
-      l = n.n(a),
-      u = n('V7oC'),
-      s = n.n(u),
-      f = n('FYw3'),
-      h = n.n(f),
-      p = n('mRg0'),
-      d = n.n(p),
-      v = n('q1tI'),
-      m = n('17x9'),
-      y = n('TSYQ'),
-      g = n.n(y),
-      b = n('MFj2'),
-      z = n('BGR+'),
-      w = function(e, t) {
+      a = n('BGR+');
+    function l(e) {
+      return (
+        (l =
+          'function' === typeof Symbol && 'symbol' === typeof Symbol.iterator
+            ? function(e) {
+                return typeof e;
+              }
+            : function(e) {
+                return e &&
+                  'function' === typeof Symbol &&
+                  e.constructor === Symbol &&
+                  e !== Symbol.prototype
+                  ? 'symbol'
+                  : typeof e;
+              }),
+        l(e)
+      );
+    }
+    function u() {
+      return (
+        (u =
+          Object.assign ||
+          function(e) {
+            for (var t = 1; t < arguments.length; t++) {
+              var n = arguments[t];
+              for (var r in n) Object.prototype.hasOwnProperty.call(n, r) && (e[r] = n[r]);
+            }
+            return e;
+          }),
+        u.apply(this, arguments)
+      );
+    }
+    function s(e, t, n) {
+      return (
+        t in e
+          ? Object.defineProperty(e, t, {
+              value: n,
+              enumerable: !0,
+              configurable: !0,
+              writable: !0,
+            })
+          : (e[t] = n),
+        e
+      );
+    }
+    function f(e, t) {
+      if (!(e instanceof t)) throw new TypeError('Cannot call a class as a function');
+    }
+    function h(e, t) {
+      for (var n = 0; n < t.length; n++) {
+        var r = t[n];
+        (r.enumerable = r.enumerable || !1),
+          (r.configurable = !0),
+          'value' in r && (r.writable = !0),
+          Object.defineProperty(e, r.key, r);
+      }
+    }
+    function p(e, t, n) {
+      return t && h(e.prototype, t), n && h(e, n), e;
+    }
+    function d(e, t) {
+      return !t || ('object' !== l(t) && 'function' !== typeof t) ? v(e) : t;
+    }
+    function v(e) {
+      if (void 0 === e)
+        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+      return e;
+    }
+    function m(e) {
+      return (
+        (m = Object.setPrototypeOf
+          ? Object.getPrototypeOf
+          : function(e) {
+              return e.__proto__ || Object.getPrototypeOf(e);
+            }),
+        m(e)
+      );
+    }
+    function y(e, t) {
+      if ('function' !== typeof t && null !== t)
+        throw new TypeError('Super expression must either be null or a function');
+      (e.prototype = Object.create(t && t.prototype, {
+        constructor: { value: e, writable: !0, configurable: !0 },
+      })),
+        t && g(e, t);
+    }
+    function g(e, t) {
+      return (
+        (g =
+          Object.setPrototypeOf ||
+          function(e, t) {
+            return (e.__proto__ = t), e;
+          }),
+        g(e, t)
+      );
+    }
+    var b = function(e, t) {
         var n = {};
         for (var r in e)
           Object.prototype.hasOwnProperty.call(e, r) && t.indexOf(r) < 0 && (n[r] = e[r]);
@@ -22318,57 +22864,49 @@
         }
         return n;
       },
-      M = null;
-    function _(e) {
+      z = null;
+    function w(e) {
       var t = e.prefixCls,
         n = e.indicator,
-        r = t + '-dot';
-      return v['isValidElement'](n)
-        ? v['cloneElement'](n, { className: g()(n.props.className, r) })
-        : v['isValidElement'](M)
-          ? v['cloneElement'](M, { className: g()(M.props.className, r) })
-          : v['createElement'](
+        o = ''.concat(t, '-dot');
+      return r['isValidElement'](n)
+        ? r['cloneElement'](n, { className: i()(n.props.className, o) })
+        : r['isValidElement'](z)
+          ? r['cloneElement'](z, { className: i()(z.props.className, o) })
+          : r['createElement'](
               'span',
-              { className: g()(r, t + '-dot-spin') },
-              v['createElement']('i', null),
-              v['createElement']('i', null),
-              v['createElement']('i', null),
-              v['createElement']('i', null)
+              { className: i()(o, ''.concat(t, '-dot-spin')) },
+              r['createElement']('i', null),
+              r['createElement']('i', null),
+              r['createElement']('i', null),
+              r['createElement']('i', null)
             );
     }
-    function H(e, t) {
+    function M(e, t) {
       return !!e && !!t && !isNaN(Number(t));
     }
-    var x = (function(e) {
+    var _ = (function(e) {
       function t(e) {
-        l()(this, t);
-        var n = h()(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, e));
-        n.delayUpdateSpinning = function() {
-          var e = n.props.spinning;
-          n.state.spinning !== e && n.setState({ spinning: e });
-        };
+        var n;
+        f(this, t),
+          (n = d(this, m(t).call(this, e))),
+          (n.delayUpdateSpinning = function() {
+            var e = n.props.spinning;
+            n.state.spinning !== e && n.setState({ spinning: e });
+          });
         var r = e.spinning,
           o = e.delay;
-        return (n.state = { spinning: r && !H(r, o) }), n;
+        return (n.state = { spinning: r && !M(r, o) }), n;
       }
       return (
-        d()(t, e),
-        s()(
+        y(t, e),
+        p(
           t,
           [
             {
               key: 'isNestedPattern',
               value: function() {
                 return !(!this.props || !this.props.children);
-              },
-            },
-            {
-              key: 'componentDidMount',
-              value: function() {
-                var e = this.props,
-                  t = e.spinning,
-                  n = e.delay;
-                H(t, n) && (this.delayTimeout = window.setTimeout(this.delayUpdateSpinning, n));
               },
             },
             {
@@ -22392,7 +22930,7 @@
                           return e.setState({ spinning: n });
                         }, 200)),
                         this.delayTimeout && clearTimeout(this.delayTimeout))
-                      : H(n, r)
+                      : M(n, r)
                         ? (this.delayTimeout && clearTimeout(this.delayTimeout),
                           (this.delayTimeout = window.setTimeout(this.delayUpdateSpinning, r)))
                         : this.setState({ spinning: n });
@@ -22405,51 +22943,44 @@
                 var e,
                   t = this.props,
                   n = t.className,
-                  r = t.size,
+                  o = t.size,
                   c = t.prefixCls,
-                  a = t.tip,
-                  l = t.wrapperClassName,
-                  u = w(t, ['className', 'size', 'prefixCls', 'tip', 'wrapperClassName']),
-                  s = this.state.spinning,
-                  f = g()(
+                  l = t.tip,
+                  f = t.wrapperClassName,
+                  h = t.style,
+                  p = b(t, ['className', 'size', 'prefixCls', 'tip', 'wrapperClassName', 'style']),
+                  d = this.state.spinning,
+                  v = i()(
                     c,
                     ((e = {}),
-                    i()(e, c + '-sm', 'small' === r),
-                    i()(e, c + '-lg', 'large' === r),
-                    i()(e, c + '-spinning', s),
-                    i()(e, c + '-show-text', !!a),
+                    s(e, ''.concat(c, '-sm'), 'small' === o),
+                    s(e, ''.concat(c, '-lg'), 'large' === o),
+                    s(e, ''.concat(c, '-spinning'), d),
+                    s(e, ''.concat(c, '-show-text'), !!l),
                     e),
                     n
                   ),
-                  h = Object(z['default'])(u, ['spinning', 'delay', 'indicator']),
-                  p = v['createElement'](
+                  m = Object(a['default'])(p, ['spinning', 'delay', 'indicator']),
+                  y = r['createElement'](
                     'div',
-                    o()({}, h, { className: f }),
-                    _(this.props),
-                    a ? v['createElement']('div', { className: c + '-text' }, a) : null
+                    u({}, m, { style: h, className: v }),
+                    w(this.props),
+                    l ? r['createElement']('div', { className: ''.concat(c, '-text') }, l) : null
                   );
                 if (this.isNestedPattern()) {
-                  var d,
-                    m = c + '-nested-loading';
-                  l && (m += ' ' + l);
-                  var y = g()(((d = {}), i()(d, c + '-container', !0), i()(d, c + '-blur', s), d));
-                  return v['createElement'](
-                    b['default'],
-                    o()({}, h, {
-                      component: 'div',
-                      className: m,
-                      style: null,
-                      transitionName: 'fade',
-                    }),
-                    s && v['createElement']('div', { key: 'loading' }, p),
-                    v['createElement'](
+                  var g = i()(''.concat(c, '-container'), s({}, ''.concat(c, '-blur'), d));
+                  return r['createElement'](
+                    'div',
+                    u({}, m, { className: i()(''.concat(c, '-nested-loading'), f) }),
+                    d && r['createElement']('div', { key: 'loading' }, y),
+                    r['createElement'](
                       'div',
-                      { className: y, key: 'container' },
+                      { className: g, key: 'container' },
                       this.props.children
                     )
                   );
                 }
-                return p;
+                return y;
               },
             },
           ],
@@ -22457,32 +22988,32 @@
             {
               key: 'setDefaultIndicator',
               value: function(e) {
-                M = e;
+                z = e;
               },
             },
           ]
         ),
         t
       );
-    })(v['Component']);
-    (x.defaultProps = {
+    })(r['Component']);
+    (_.defaultProps = {
       prefixCls: 'ant-spin',
       spinning: !0,
       size: 'default',
       wrapperClassName: '',
     }),
-      (x.propTypes = {
-        prefixCls: m['string'],
-        className: m['string'],
-        spinning: m['bool'],
-        size: m['oneOf'](['small', 'default', 'large']),
-        wrapperClassName: m['string'],
-        indicator: m['node'],
+      (_.propTypes = {
+        prefixCls: o['string'],
+        className: o['string'],
+        spinning: o['bool'],
+        size: o['oneOf'](['small', 'default', 'large']),
+        wrapperClassName: o['string'],
+        indicator: o['node'],
       }),
-      (t['default'] = x);
+      (t['default'] = _);
   },
   WEpk: function(e, t) {
-    var n = (e.exports = { version: '2.5.7' });
+    var n = (e.exports = { version: '2.6.1' });
     'number' == typeof __e && (__e = n);
   },
   WLL4: function(e, t, n) {
@@ -22501,7 +23032,7 @@
       (t.queryEditTask = g),
       (t.queryRemoveTask = z),
       (t.queryTasksForFilter = M),
-      (t.queryTokenLists = H),
+      (t.queryTokenLists = x),
       (t.queryCreateToken = O);
     var o = r(n('o0o1')),
       c = r(n('yXPU')),
@@ -22784,12 +23315,12 @@
         _.apply(this, arguments)
       );
     }
-    function H(e) {
-      return x.apply(this, arguments);
+    function x(e) {
+      return H.apply(this, arguments);
     }
-    function x() {
+    function H() {
       return (
-        (x = (0, c.default)(
+        (H = (0, c.default)(
           o.default.mark(function e(t) {
             var n, r, c, l, u;
             return o.default.wrap(
@@ -22815,7 +23346,7 @@
             );
           })
         )),
-        x.apply(this, arguments)
+        H.apply(this, arguments)
       );
     }
     function O(e) {
@@ -22867,24 +23398,35 @@
   },
   WmZF: function(e, t, n) {
     'use strict';
-    Object.defineProperty(t, '__esModule', { value: !0 });
-    var r = n('QbLZ'),
-      o = u(r),
-      c = n('aYrm'),
-      i = u(c),
-      a = n('kM4J'),
-      l = u(a);
-    function u(e) {
+    Object.defineProperty(t, '__esModule', { value: !0 }), (t['default'] = void 0);
+    var r = c(n('aYrm')),
+      o = c(n('kM4J'));
+    function c(e) {
       return e && e.__esModule ? e : { default: e };
     }
-    var s = {
-      lang: (0, o['default'])(
-        { placeholder: 'Select date', rangePlaceholder: ['Start date', 'End date'] },
-        i['default']
-      ),
-      timePickerLocale: (0, o['default'])({}, l['default']),
-    };
-    (t['default'] = s), (e.exports = t['default']);
+    function i() {
+      return (
+        (i =
+          Object.assign ||
+          function(e) {
+            for (var t = 1; t < arguments.length; t++) {
+              var n = arguments[t];
+              for (var r in n) Object.prototype.hasOwnProperty.call(n, r) && (e[r] = n[r]);
+            }
+            return e;
+          }),
+        i.apply(this, arguments)
+      );
+    }
+    var a = {
+        lang: i(
+          { placeholder: 'Select date', rangePlaceholder: ['Start date', 'End date'] },
+          r['default']
+        ),
+        timePickerLocale: i({}, o['default']),
+      },
+      l = a;
+    t['default'] = l;
   },
   X7BR: function(e, t, n) {
     'use strict';
@@ -23311,6 +23853,22 @@
       );
     }
   },
+  Xxuz: function(e, t, n) {
+    'use strict';
+    var r = n('I8a+'),
+      o = RegExp.prototype.exec;
+    e.exports = function(e, t) {
+      var n = e.exec;
+      if ('function' === typeof n) {
+        var c = n.call(e, t);
+        if ('object' !== typeof c)
+          throw new TypeError('RegExp exec method returned something other than an Object or null');
+        return c;
+      }
+      if ('RegExp' !== r(e)) throw new TypeError('RegExp#exec called on incompatible receiver');
+      return o.call(e, t);
+    };
+  },
   Y7ZC: function(e, t, n) {
     var r = n('5T2Y'),
       o = n('WEpk'),
@@ -23494,27 +24052,39 @@
   },
   Z0Lh: function(e, t, n) {
     'use strict';
-    Object.defineProperty(t, '__esModule', { value: !0 });
-    var r = n('QbLZ'),
-      o = u(r),
-      c = n('mR6P'),
-      i = u(c),
-      a = n('Z6rY'),
-      l = u(a);
-    function u(e) {
+    Object.defineProperty(t, '__esModule', { value: !0 }), (t['default'] = void 0);
+    var r = c(n('mR6P')),
+      o = c(n('Z6rY'));
+    function c(e) {
       return e && e.__esModule ? e : { default: e };
     }
-    var s = {
-      lang: (0, o['default'])(
+    function i() {
+      return (
+        (i =
+          Object.assign ||
+          function(e) {
+            for (var t = 1; t < arguments.length; t++) {
+              var n = arguments[t];
+              for (var r in n) Object.prototype.hasOwnProperty.call(n, r) && (e[r] = n[r]);
+            }
+            return e;
+          }),
+        i.apply(this, arguments)
+      );
+    }
+    var a = {
+      lang: i(
         {
           placeholder: '\u8bf7\u9009\u62e9\u65e5\u671f',
           rangePlaceholder: ['\u5f00\u59cb\u65e5\u671f', '\u7ed3\u675f\u65e5\u671f'],
         },
-        i['default']
+        r['default']
       ),
-      timePickerLocale: (0, o['default'])({}, l['default']),
+      timePickerLocale: i({}, o['default']),
     };
-    (s.lang.ok = '\u786e \u5b9a'), (t['default'] = s), (e.exports = t['default']);
+    a.lang.ok = '\u786e \u5b9a';
+    var l = a;
+    t['default'] = l;
   },
   Z2Ku: function(e, t, n) {
     'use strict';
@@ -23529,9 +24099,10 @@
   },
   Z6rY: function(e, t, n) {
     'use strict';
-    Object.defineProperty(t, '__esModule', { value: !0 });
-    var r = { placeholder: '\u8bf7\u9009\u62e9\u65f6\u95f4' };
-    (t['default'] = r), (e.exports = t['default']);
+    Object.defineProperty(t, '__esModule', { value: !0 }), (t['default'] = void 0);
+    var r = { placeholder: '\u8bf7\u9009\u62e9\u65f6\u95f4' },
+      o = r;
+    t['default'] = o;
   },
   Z6vF: function(e, t, n) {
     var r = n('ylqs')('meta'),
@@ -23906,10 +24477,10 @@
         var n = h(e).toHsl();
         return (n.s += t / 100), (n.s = D(n.s)), h(n);
       }
-      function H(e) {
+      function x(e) {
         return h(e).desaturate(100);
       }
-      function x(e, t) {
+      function H(e, t) {
         t = 0 === t ? 0 : t || 10;
         var n = h(e).toHsl();
         return (n.l += t / 100), (n.l = D(n.l)), h(n);
@@ -23929,12 +24500,12 @@
         var n = h(e).toHsl();
         return (n.l -= t / 100), (n.l = D(n.l)), h(n);
       }
-      function L(e, t) {
+      function S(e, t) {
         var n = h(e).toHsl(),
           r = (n.h + t) % 360;
         return (n.h = r < 0 ? 360 + r : r), h(n);
       }
-      function S(e) {
+      function L(e) {
         var t = h(e).toHsl();
         return (t.h = (t.h + 180) % 360), h(t);
       }
@@ -24170,7 +24741,7 @@
           return (this._r = n._r), (this._g = n._g), (this._b = n._b), this.setAlpha(n._a), this;
         },
         lighten: function() {
-          return this._applyModification(x, arguments);
+          return this._applyModification(H, arguments);
         },
         brighten: function() {
           return this._applyModification(O, arguments);
@@ -24185,10 +24756,10 @@
           return this._applyModification(_, arguments);
         },
         greyscale: function() {
-          return this._applyModification(H, arguments);
+          return this._applyModification(x, arguments);
         },
         spin: function() {
-          return this._applyModification(L, arguments);
+          return this._applyModification(S, arguments);
         },
         _applyCombination: function(e, t) {
           return e.apply(null, [this].concat([].slice.call(t)));
@@ -24197,7 +24768,7 @@
           return this._applyCombination(E, arguments);
         },
         complement: function() {
-          return this._applyCombination(S, arguments);
+          return this._applyCombination(L, arguments);
         },
         monochromatic: function() {
           return this._applyCombination(P, arguments);
@@ -24791,17 +25362,17 @@
           var w = null != v && null != d && d !== v,
             M = '+' === b || '*' === b,
             _ = '?' === b || '*' === b,
-            H = n[2] || l,
-            x = y || g;
+            x = n[2] || l,
+            H = y || g;
           r.push({
             name: m || c++,
             prefix: v || '',
-            delimiter: H,
+            delimiter: x,
             optional: _,
             repeat: M,
             partial: w,
             asterisk: !!z,
-            pattern: x ? f(x) : z ? '.*' : '[^' + s(H) + ']+?',
+            pattern: H ? f(H) : z ? '.*' : '[^' + s(x) + ']+?',
           });
         }
       }
@@ -25072,7 +25643,7 @@
         return _;
       }),
       n.d(t, 'DOMException', function() {
-        return x;
+        return H;
       }),
       n.d(t, 'fetch', function() {
         return O;
@@ -25387,27 +25958,27 @@
         var e = new _(null, { status: 0, statusText: '' });
         return (e.type = 'error'), e;
       });
-    var H = [301, 302, 303, 307, 308];
+    var x = [301, 302, 303, 307, 308];
     _.redirect = function(e, t) {
-      if (-1 === H.indexOf(t)) throw new RangeError('Invalid status code');
+      if (-1 === x.indexOf(t)) throw new RangeError('Invalid status code');
       return new _(null, { status: t, headers: { location: e } });
     };
-    var x = self.DOMException;
+    var H = self.DOMException;
     try {
-      new x();
+      new H();
     } catch (e) {
-      (x = function(e, t) {
+      (H = function(e, t) {
         (this.message = e), (this.name = t);
         var n = Error(e);
         this.stack = n.stack;
       }),
-        (x.prototype = Object.create(Error.prototype)),
-        (x.prototype.constructor = x);
+        (H.prototype = Object.create(Error.prototype)),
+        (H.prototype.constructor = H);
     }
     function O(e, t) {
       return new Promise(function(n, o) {
         var c = new z(e, t);
-        if (c.signal && c.signal.aborted) return o(new x('Aborted', 'AbortError'));
+        if (c.signal && c.signal.aborted) return o(new H('Aborted', 'AbortError'));
         var i = new XMLHttpRequest();
         function a() {
           i.abort();
@@ -25429,7 +26000,7 @@
             o(new TypeError('Network request failed'));
           }),
           (i.onabort = function() {
-            o(new x('Aborted', 'AbortError'));
+            o(new H('Aborted', 'AbortError'));
           }),
           i.open(c.method, c.url, !0),
           'include' === c.credentials
@@ -26253,9 +26824,9 @@
       (t.addRule = g),
       (t.updateRule = z),
       (t.fakeSubmitForm = M),
-      (t.fakeChartData = H),
+      (t.fakeChartData = x),
       (t.queryTags = O),
-      (t.queryBasicProfile = L),
+      (t.queryBasicProfile = S),
       (t.queryAdvancedProfile = C),
       (t.queryFakeList = T),
       (t.removeFakeList = P),
@@ -26474,12 +27045,12 @@
         _.apply(this, arguments)
       );
     }
-    function H() {
-      return x.apply(this, arguments);
-    }
     function x() {
+      return H.apply(this, arguments);
+    }
+    function H() {
       return (
-        (x = (0, a.default)(
+        (H = (0, a.default)(
           i.default.mark(function e() {
             return i.default.wrap(
               function(e) {
@@ -26497,7 +27068,7 @@
             );
           })
         )),
-        x.apply(this, arguments)
+        H.apply(this, arguments)
       );
     }
     function O() {
@@ -26526,12 +27097,12 @@
         k.apply(this, arguments)
       );
     }
-    function L() {
-      return S.apply(this, arguments);
-    }
     function S() {
+      return L.apply(this, arguments);
+    }
+    function L() {
       return (
-        (S = (0, a.default)(
+        (L = (0, a.default)(
           i.default.mark(function e() {
             return i.default.wrap(
               function(e) {
@@ -26549,7 +27120,7 @@
             );
           })
         )),
-        S.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
     function C() {
@@ -26919,8 +27490,8 @@
       (t.createMockTask = b),
       (t.autoInc = z),
       (t.makeIterator = _),
-      (t.log = H),
-      (t.deprecate = x);
+      (t.log = x),
+      (t.deprecate = H);
     var c = (t.sym = function(e) {
         return '@@redux-saga/' + e;
       }),
@@ -26941,7 +27512,7 @@
         return e;
       });
     function f(e, t, n) {
-      if (!t(e)) throw (H('error', 'uncaught at check', n), new Error(n));
+      if (!t(e)) throw (x('error', 'uncaught at check', n), new Error(n));
     }
     var h = Object.prototype.hasOwnProperty;
     function p(e, t) {
@@ -27103,13 +27674,13 @@
         o
       );
     }
-    function H(e, t) {
+    function x(e, t) {
       var n = arguments.length > 2 && void 0 !== arguments[2] ? arguments[2] : '';
       'undefined' === typeof window
         ? console.log('redux-saga ' + e + ': ' + t + '\n' + ((n && n.stack) || n))
         : console[e](t, n);
     }
-    function x(e, t) {
+    function H(e, t) {
       return function() {
         return e.apply(void 0, arguments);
       };
@@ -27659,7 +28230,7 @@
       },
       M = n('ck9s'),
       _ = n.n(M),
-      H =
+      x =
         Object.assign ||
         function(e) {
           for (var t = 1; t < arguments.length; t++) {
@@ -27668,11 +28239,11 @@
           }
           return e;
         },
-      x = function(e, t, n, r) {
+      H = function(e, t, n, r) {
         var o = void 0;
         'string' === typeof e
           ? ((o = z(e)), (o.query = o.search ? _.a.parse(o.search) : {}), (o.state = t))
-          : ((o = H({}, e)),
+          : ((o = x({}, e)),
             void 0 === o.pathname && (o.pathname = ''),
             o.search
               ? ('?' !== o.search.charAt(0) && (o.search = '?' + o.search),
@@ -27760,8 +28331,8 @@
           };
         return { setPrompt: t, confirmTransitionTo: n, appendListener: o, notifyListeners: c };
       },
-      L = k,
-      S = !('undefined' === typeof window || !window.document || !window.document.createElement),
+      S = k,
+      L = !('undefined' === typeof window || !window.document || !window.document.createElement),
       C = function(e, t) {
         return t(window.confirm(e));
       },
@@ -27817,7 +28388,7 @@
       },
       D = function() {
         var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {};
-        h()(S, 'Browser history needs a DOM');
+        h()(L, 'Browser history needs a DOM');
         var t = window.history,
           n = V(),
           r = !T(),
@@ -27847,7 +28418,7 @@
                   '".'
               ),
               f && (l = g(l, f)),
-              x(l, r, n)
+              H(l, r, n)
             );
           },
           d = function() {
@@ -27855,7 +28426,7 @@
               .toString(36)
               .substr(2, u);
           },
-          m = L(),
+          m = S(),
           z = function(e) {
             j(J, e), (J.length = t.length), m.notifyListeners(J.location, J.action);
           },
@@ -27865,9 +28436,9 @@
           _ = function() {
             O(p(N()));
           },
-          H = !1,
+          x = !1,
           O = function(e) {
-            if (H) (H = !1), z();
+            if (x) (x = !1), z();
             else {
               var t = 'POP';
               m.confirmTransitionTo(e, t, a, function(n) {
@@ -27882,7 +28453,7 @@
             var r = D.indexOf(e.key);
             -1 === r && (r = 0);
             var o = n - r;
-            o && ((H = !0), Y(o));
+            o && ((x = !0), Y(o));
           },
           E = p(N()),
           D = [E.key],
@@ -27899,7 +28470,7 @@
               'You should avoid providing a 2nd state argument to push when the 1st argument is a location-like object that already has state; it is ignored'
             );
             var o = 'PUSH',
-              i = x(e, r, d(), J.location);
+              i = H(e, r, d(), J.location);
             m.confirmTransitionTo(i, o, a, function(e) {
               if (e) {
                 var r = I(i),
@@ -27931,7 +28502,7 @@
               'You should avoid providing a 2nd state argument to replace when the 1st argument is a location-like object that already has state; it is ignored'
             );
             var o = 'REPLACE',
-              i = x(e, r, d(), J.location);
+              i = H(e, r, d(), J.location);
             m.confirmTransitionTo(i, o, a, function(e) {
               if (e) {
                 var r = I(i),
@@ -28042,7 +28613,7 @@
       },
       G = function() {
         var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {};
-        h()(S, 'Hash history needs a DOM');
+        h()(L, 'Hash history needs a DOM');
         var t = window.history,
           n = E(),
           r = e.getUserConfirmation,
@@ -28065,10 +28636,10 @@
                   '".'
               ),
               a && (e = g(e, a)),
-              x(e)
+              H(e)
             );
           },
-          d = L(),
+          d = S(),
           m = function(e) {
             U($, e), ($.length = t.length), d.notifyListeners($.location, $.action);
           },
@@ -28083,10 +28654,10 @@
                 r = $.location;
               if (!z && O(r, n)) return;
               if (M === w(n)) return;
-              (M = null), H(n);
+              (M = null), x(n);
             }
           },
-          H = function(e) {
+          x = function(e) {
             if (z) (z = !1), m();
             else {
               var t = 'POP';
@@ -28115,7 +28686,7 @@
           F = function(e, t) {
             s()(void 0 === t, 'Hash history cannot push state; it is ignored');
             var n = 'PUSH',
-              r = x(e, void 0, void 0, $.location);
+              r = H(e, void 0, void 0, $.location);
             d.confirmTransitionTo(r, n, o, function(e) {
               if (e) {
                 var t = w(r),
@@ -28138,7 +28709,7 @@
           R = function(e, t) {
             s()(void 0 === t, 'Hash history cannot replace state; it is ignored');
             var n = 'REPLACE',
-              r = x(e, void 0, void 0, $.location);
+              r = H(e, void 0, void 0, $.location);
             d.confirmTransitionTo(r, n, o, function(e) {
               if (e) {
                 var t = w(r),
@@ -28234,9 +28805,9 @@
           c = void 0 === o ? 0 : o,
           i = e.keyLength,
           a = void 0 === i ? 6 : i,
-          l = L(),
+          l = S(),
           u = function(e) {
-            Q(H, e), (H.length = H.entries.length), l.notifyListeners(H.location, H.action);
+            Q(x, e), (x.length = x.entries.length), l.notifyListeners(x.location, x.action);
           },
           f = function() {
             return Math.random()
@@ -28245,7 +28816,7 @@
           },
           h = J(c, 0, r.length - 1),
           p = r.map(function(e) {
-            return x(e, void 0, 'string' === typeof e ? f() : e.key || f());
+            return H(e, void 0, 'string' === typeof e ? f() : e.key || f());
           }),
           d = w,
           v = function(e, n) {
@@ -28258,12 +28829,12 @@
               'You should avoid providing a 2nd state argument to push when the 1st argument is a location-like object that already has state; it is ignored'
             );
             var r = 'PUSH',
-              o = x(e, n, f(), H.location);
+              o = H(e, n, f(), x.location);
             l.confirmTransitionTo(o, r, t, function(e) {
               if (e) {
-                var t = H.index,
+                var t = x.index,
                   n = t + 1,
-                  c = H.entries.slice(0);
+                  c = x.entries.slice(0);
                 c.length > n ? c.splice(n, c.length - n, o) : c.push(o),
                   u({ action: r, location: o, index: n, entries: c });
               }
@@ -28279,15 +28850,15 @@
               'You should avoid providing a 2nd state argument to replace when the 1st argument is a location-like object that already has state; it is ignored'
             );
             var r = 'REPLACE',
-              o = x(e, n, f(), H.location);
+              o = H(e, n, f(), x.location);
             l.confirmTransitionTo(o, r, t, function(e) {
-              e && ((H.entries[H.index] = o), u({ action: r, location: o }));
+              e && ((x.entries[x.index] = o), u({ action: r, location: o }));
             });
           },
           y = function(e) {
-            var n = J(H.index + e, 0, H.entries.length - 1),
+            var n = J(x.index + e, 0, x.entries.length - 1),
               r = 'POP',
-              o = H.entries[n];
+              o = x.entries[n];
             l.confirmTransitionTo(o, r, t, function(e) {
               e ? u({ action: r, location: o, index: n }) : u();
             });
@@ -28299,8 +28870,8 @@
             return y(1);
           },
           z = function(e) {
-            var t = H.index + e;
-            return t >= 0 && t < H.entries.length;
+            var t = x.index + e;
+            return t >= 0 && t < x.entries.length;
           },
           M = function() {
             var e = arguments.length > 0 && void 0 !== arguments[0] && arguments[0];
@@ -28309,7 +28880,7 @@
           _ = function(e) {
             return l.appendListener(e);
           },
-          H = {
+          x = {
             length: p.length,
             action: 'POP',
             location: p[h],
@@ -28325,7 +28896,7 @@
             block: M,
             listen: _,
           };
-        return H;
+        return x;
       },
       ee = $,
       te = n('nr6O'),
@@ -28497,7 +29068,7 @@
             h()(this.context.router, 'You should not use <Link> outside a <Router>'),
               h()(void 0 !== t, 'You must specify the "to" property');
             var o = this.context.router.history,
-              c = 'string' === typeof t ? x(t, null, null, o.location) : t,
+              c = 'string' === typeof t ? H(t, null, null, o.location) : t,
               a = o.createHref(c);
             return i.a.createElement(
               'a',
@@ -28540,7 +29111,7 @@
       })),
         t && (Object.setPrototypeOf ? Object.setPrototypeOf(e, t) : (e.__proto__ = t));
     }
-    var He = (function(e) {
+    var xe = (function(e) {
       function t() {
         var n, r, o;
         we(this, t);
@@ -28570,17 +29141,17 @@
         t
       );
     })(i.a.Component);
-    He.propTypes = {
+    xe.propTypes = {
       initialEntries: l.a.array,
       initialIndex: l.a.number,
       getUserConfirmation: l.a.func,
       keyLength: l.a.number,
       children: l.a.node,
     };
-    var xe = He,
-      Oe = xe,
+    var He = xe,
+      Oe = He,
       ke = n('SsKX'),
-      Le =
+      Se =
         Object.assign ||
         function(e) {
           for (var t = 1; t < arguments.length; t++) {
@@ -28589,7 +29160,7 @@
           }
           return e;
         };
-    function Se(e, t) {
+    function Le(e, t) {
       if (!(e instanceof t)) throw new TypeError('Cannot call a class as a function');
     }
     function Ce(e, t) {
@@ -28610,7 +29181,7 @@
       Ee = (function(e) {
         function t() {
           var n, r, o;
-          Se(this, t);
+          Le(this, t);
           for (var c = arguments.length, i = Array(c), a = 0; a < c; a++) i[a] = arguments[a];
           return (
             (r = Ce(this, e.call.apply(e, [this].concat(i)))),
@@ -28624,7 +29195,7 @@
           Ve(t, e),
           (t.prototype.getChildContext = function() {
             return {
-              router: Le({}, this.context.router, {
+              router: Se({}, this.context.router, {
                 route: {
                   location: this.props.location || this.context.router.route.location,
                   match: this.state.match,
@@ -28931,8 +29502,8 @@
           this.isStatic() || this.perform();
         }),
         (t.prototype.componentDidUpdate = function(e) {
-          var t = x(e.to),
-            n = x(this.props.to);
+          var t = H(e.to),
+            n = H(this.props.to);
           O(t, n)
             ? o()(
                 !1,
@@ -29047,13 +29618,13 @@
               var t = r.props,
                 n = t.basename,
                 o = t.context;
-              (o.action = 'PUSH'), (o.location = dt(n, x(e))), (o.url = mt(o.location));
+              (o.action = 'PUSH'), (o.location = dt(n, H(e))), (o.url = mt(o.location));
             }),
             (r.handleReplace = function(e) {
               var t = r.props,
                 n = t.basename,
                 o = t.context;
-              (o.action = 'REPLACE'), (o.location = dt(n, x(e))), (o.url = mt(o.location));
+              (o.action = 'REPLACE'), (o.location = dt(n, H(e))), (o.url = mt(o.location));
             }),
             (r.handleListen = function() {
               return gt;
@@ -29084,7 +29655,7 @@
               o = {
                 createHref: this.createHref,
                 action: 'POP',
-                location: vt(t, x(n)),
+                location: vt(t, H(n)),
                 push: this.handlePush,
                 replace: this.handleReplace,
                 go: yt('go'),
@@ -29114,7 +29685,7 @@
       if (!e) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
       return !t || ('object' !== typeof t && 'function' !== typeof t) ? e : t;
     }
-    function Ht(e, t) {
+    function xt(e, t) {
       if ('function' !== typeof t && null !== t)
         throw new TypeError('Super expression must either be null or a function, not ' + typeof t);
       (e.prototype = Object.create(t && t.prototype, {
@@ -29122,12 +29693,12 @@
       })),
         t && (Object.setPrototypeOf ? Object.setPrototypeOf(e, t) : (e.__proto__ = t));
     }
-    var xt = (function(e) {
+    var Ht = (function(e) {
       function t() {
         return Mt(this, t), _t(this, e.apply(this, arguments));
       }
       return (
-        Ht(t, e),
+        xt(t, e),
         (t.prototype.componentWillMount = function() {
           h()(this.context.router, 'You should not use <Switch> outside a <Router>');
         }),
@@ -29171,12 +29742,12 @@
         t
       );
     })(i.a.Component);
-    (xt.contextTypes = { router: l.a.shape({ route: l.a.object.isRequired }).isRequired }),
-      (xt.propTypes = { children: l.a.node, location: l.a.object });
-    var Ot = xt,
+    (Ht.contextTypes = { router: l.a.shape({ route: l.a.object.isRequired }).isRequired }),
+      (Ht.propTypes = { children: l.a.node, location: l.a.object });
+    var Ot = Ht,
       kt = Ot,
-      Lt = et,
-      St = ke['a'],
+      St = et,
+      Lt = ke['a'],
       Ct = n('2mql'),
       Vt = n.n(Ct),
       Tt =
@@ -29247,10 +29818,10 @@
         return kt;
       }),
       n.d(t, 'generatePath', function() {
-        return Lt;
+        return St;
       }),
       n.d(t, 'matchPath', function() {
-        return St;
+        return Lt;
       }),
       n.d(t, 'withRouter', function() {
         return jt;
@@ -29687,12 +30258,12 @@
         M = arguments.length > 7 && void 0 !== arguments[7] ? arguments[7] : 'anonymous',
         _ = arguments[8];
       (0, c.check)(e, c.is.iterator, f);
-      var H = '[...effects]',
-        x = (0, c.deprecate)(X, (0, c.updateIncentive)(H, 'all(' + H + ')')),
+      var x = '[...effects]',
+        H = (0, c.deprecate)(X, (0, c.updateIncentive)(x, 'all(' + x + ')')),
         O = z.sagaMonitor,
         k = z.logger,
-        L = z.onError,
-        S = k || c.log,
+        S = z.onError,
+        L = k || c.log,
         C = function(e) {
           var t = e.sagaStack;
           !t &&
@@ -29701,7 +30272,7 @@
               -1 !== e.stack.split('\n')[0].indexOf(e.message)
                 ? e.stack
                 : 'Error: ' + e.message + '\n' + e.stack),
-            S('error', 'uncaught at ' + M, t || e.message || e);
+            L('error', 'uncaught at ' + M, t || e.message || e);
         },
         V = (0, l.stdChannel)(t),
         T = Object.create(d);
@@ -29741,7 +30312,7 @@
                   value: 'at ' + M + ' \n ' + (t.sagaStack || t.stack),
                   configurable: !0,
                 }),
-              E.cont || (t instanceof Error && L ? L(t) : C(t)),
+              E.cont || (t instanceof Error && S ? S(t) : C(t)),
               (e._error = t),
               (e._isAborted = !0),
               e._deferredEnd && e._deferredEnd.reject(t))
@@ -29785,7 +30356,7 @@
             : c.is.iterator(e)
               ? U(e, o, M, l)
               : c.is.array(e)
-                ? x(e, o, l)
+                ? H(e, o, l)
                 : (u = a.asEffect.take(e))
                   ? q(u, l)
                   : (u = a.asEffect.put(e))
@@ -30365,67 +30936,134 @@
   },
   g0mS: function(e, t, n) {
     'use strict';
-    var r = n('iCc5'),
-      o = n.n(r),
-      c = n('V7oC'),
-      i = n.n(c),
-      a = n('FYw3'),
+    var r,
+      o = n('q1tI'),
+      c = n('i8i4'),
+      i = n('/dDc'),
+      a = n('xEkU'),
       l = n.n(a),
-      u = n('mRg0'),
-      s = n.n(u),
-      f = n('q1tI'),
-      h = n('i8i4'),
-      p = n('/dDc'),
-      d = n('xEkU'),
-      v = n.n(d),
-      m = 0,
-      y = {};
-    function g(e) {
+      u = 0,
+      s = {};
+    function f(e) {
       var t = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 1,
-        n = m++,
+        n = u++,
         r = t;
       function o() {
-        (r -= 1), r <= 0 ? (e(), delete y[m]) : (y[m] = v()(o));
+        (r -= 1), r <= 0 ? (e(), delete s[u]) : (s[u] = l()(o));
       }
-      return (y[m] = v()(o)), n;
+      return (s[u] = l()(o)), n;
     }
-    g.cancel = function(e) {
-      v.a.cancel(y[e]), delete y[e];
-    };
-    var b = void 0;
+    function h(e) {
+      return (
+        (h =
+          'function' === typeof Symbol && 'symbol' === typeof Symbol.iterator
+            ? function(e) {
+                return typeof e;
+              }
+            : function(e) {
+                return e &&
+                  'function' === typeof Symbol &&
+                  e.constructor === Symbol &&
+                  e !== Symbol.prototype
+                  ? 'symbol'
+                  : typeof e;
+              }),
+        h(e)
+      );
+    }
+    function p(e, t) {
+      if (!(e instanceof t)) throw new TypeError('Cannot call a class as a function');
+    }
+    function d(e, t) {
+      for (var n = 0; n < t.length; n++) {
+        var r = t[n];
+        (r.enumerable = r.enumerable || !1),
+          (r.configurable = !0),
+          'value' in r && (r.writable = !0),
+          Object.defineProperty(e, r.key, r);
+      }
+    }
+    function v(e, t, n) {
+      return t && d(e.prototype, t), n && d(e, n), e;
+    }
+    function m(e, t) {
+      return !t || ('object' !== h(t) && 'function' !== typeof t) ? z(e) : t;
+    }
+    function y(e) {
+      return (
+        (y = Object.setPrototypeOf
+          ? Object.getPrototypeOf
+          : function(e) {
+              return e.__proto__ || Object.getPrototypeOf(e);
+            }),
+        y(e)
+      );
+    }
+    function g(e, t) {
+      if ('function' !== typeof t && null !== t)
+        throw new TypeError('Super expression must either be null or a function');
+      (e.prototype = Object.create(t && t.prototype, {
+        constructor: { value: e, writable: !0, configurable: !0 },
+      })),
+        t && b(e, t);
+    }
+    function b(e, t) {
+      return (
+        (b =
+          Object.setPrototypeOf ||
+          function(e, t) {
+            return (e.__proto__ = t), e;
+          }),
+        b(e, t)
+      );
+    }
     function z(e) {
+      if (void 0 === e)
+        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+      return e;
+    }
+    function w(e) {
       return !e || null === e.offsetParent;
     }
-    var w = (function(e) {
+    (f.cancel = function(e) {
+      l.a.cancel(s[e]), delete s[e];
+    }),
+      n.d(t, 'a', function() {
+        return M;
+      });
+    var M = (function(e) {
       function t() {
-        o()(this, t);
-        var e = l()(this, (t.__proto__ || Object.getPrototypeOf(t)).apply(this, arguments));
+        var e;
         return (
+          p(this, t),
+          (e = m(this, y(t).apply(this, arguments))),
           (e.animationStart = !1),
           (e.destroy = !1),
           (e.onClick = function(t, n) {
-            if (!(!t || z(t) || t.className.indexOf('-leave') >= 0)) {
-              var r = e.props.insertExtraNode;
+            if (!(!t || w(t) || t.className.indexOf('-leave') >= 0)) {
+              var o = e.props.insertExtraNode;
               e.extraNode = document.createElement('div');
-              var o = e.extraNode;
-              o.className = 'ant-click-animating-node';
-              var c = e.getAttributeName();
-              t.removeAttribute(c),
-                t.setAttribute(c, 'true'),
-                (b = b || document.createElement('style')),
+              var c = e.extraNode;
+              c.className = 'ant-click-animating-node';
+              var a = e.getAttributeName();
+              t.removeAttribute(a),
+                t.setAttribute(a, 'true'),
+                (r = r || document.createElement('style')),
                 n &&
                   '#ffffff' !== n &&
                   'rgb(255, 255, 255)' !== n &&
                   e.isNotGrey(n) &&
                   !/rgba\(\d*, \d*, \d*, 0\)/.test(n) &&
                   'transparent' !== n &&
-                  ((o.style.borderColor = n),
-                  (b.innerHTML =
-                    '[ant-click-animating-without-extra-node]:after { border-color: ' + n + '; }'),
-                  document.body.contains(b) || document.body.appendChild(b)),
-                r && t.appendChild(o),
-                p['a'].addStartEventListener(t, e.onTransitionStart),
-                p['a'].addEndEventListener(t, e.onTransitionEnd);
+                  ((c.style.borderColor = n),
+                  (r.innerHTML = '[ant-click-animating-without-extra-node]:after { border-color: '.concat(
+                    n,
+                    '; }'
+                  )),
+                  document.body.contains(r) || document.body.appendChild(r)),
+                o && t.appendChild(c),
+                i['a'].addStartEventListener(t, e.onTransitionStart),
+                i['a'].addEndEventListener(t, e.onTransitionEnd);
             }
           }),
           (e.bindAnimationEvent = function(t) {
@@ -30436,7 +31074,7 @@
               !(t.className.indexOf('disabled') >= 0)
             ) {
               var n = function(n) {
-                if ('INPUT' !== n.target.tagName && !z(n.target)) {
+                if ('INPUT' !== n.target.tagName && !w(n.target)) {
                   e.resetEffect(t);
                   var r =
                     getComputedStyle(t).getPropertyValue('border-top-color') ||
@@ -30445,9 +31083,9 @@
                   (e.clickWaveTimeoutId = window.setTimeout(function() {
                     return e.onClick(t, r);
                   }, 0)),
-                    g.cancel(e.animationStartId),
+                    f.cancel(e.animationStartId),
                     (e.animationStart = !0),
-                    (e.animationStartId = g(function() {
+                    (e.animationStartId = f(function() {
                       e.animationStart = !1;
                     }, 10));
                 }
@@ -30464,7 +31102,7 @@
           }),
           (e.onTransitionStart = function(t) {
             if (!e.destroy) {
-              var n = Object(h['findDOMNode'])(e);
+              var n = Object(c['findDOMNode'])(z(z(e)));
               t && t.target === n && (e.animationStart || e.resetEffect(n));
             }
           }),
@@ -30475,8 +31113,8 @@
         );
       }
       return (
-        s()(t, e),
-        i()(t, [
+        g(t, e),
+        v(t, [
           {
             key: 'isNotGrey',
             value: function(e) {
@@ -30494,7 +31132,7 @@
           {
             key: 'resetEffect',
             value: function(e) {
-              if (e && e !== this.extraNode) {
+              if (e && e !== this.extraNode && e instanceof Element) {
                 var t = this.props.insertExtraNode,
                   n = this.getAttributeName();
                 e.removeAttribute(n),
@@ -30503,21 +31141,21 @@
                     this.extraNode &&
                     e.contains(this.extraNode) &&
                     e.removeChild(this.extraNode),
-                  p['a'].removeStartEventListener(e, this.onTransitionStart),
-                  p['a'].removeEndEventListener(e, this.onTransitionEnd);
+                  i['a'].removeStartEventListener(e, this.onTransitionStart),
+                  i['a'].removeEndEventListener(e, this.onTransitionEnd);
               }
             },
           },
           {
             key: 'removeExtraStyleNode',
             value: function() {
-              b && (b.innerHTML = '');
+              r && (r.innerHTML = '');
             },
           },
           {
             key: 'componentDidMount',
             value: function() {
-              var e = Object(h['findDOMNode'])(this);
+              var e = Object(c['findDOMNode'])(this);
               1 === e.nodeType && (this.instance = this.bindAnimationEvent(e));
             },
           },
@@ -30538,11 +31176,10 @@
         ]),
         t
       );
-    })(f['Component']);
-    t['a'] = w;
+    })(o['Component']);
   },
   g3g5: function(e, t) {
-    var n = (e.exports = { version: '2.5.7' });
+    var n = (e.exports = { version: '2.6.1' });
     'number' == typeof __e && (__e = n);
   },
   g4EE: function(e, t, n) {
@@ -31386,13 +32023,13 @@
       w = n('apmT'),
       M = n('RjD/'),
       _ = n('Kuth'),
-      H = n('e7yV'),
-      x = n('EemH'),
+      x = n('e7yV'),
+      H = n('EemH'),
       O = n('hswa'),
       k = n('DVgA'),
-      L = x.f,
-      S = O.f,
-      C = H.f,
+      S = H.f,
+      L = O.f,
+      C = x.f,
       V = r.Symbol,
       T = r.JSON,
       E = T && T.stringify,
@@ -31413,19 +32050,19 @@
           return (
             7 !=
             _(
-              S({}, 'a', {
+              L({}, 'a', {
                 get: function() {
-                  return S(this, 'a', { value: 7 }).a;
+                  return L(this, 'a', { value: 7 }).a;
                 },
               })
             ).a
           );
         })
           ? function(e, t, n) {
-              var r = L(I, t);
-              r && delete I[t], S(e, t, n), r && e !== I && S(I, t, r);
+              var r = S(I, t);
+              r && delete I[t], L(e, t, n), r && e !== I && L(I, t, r);
             }
-          : S,
+          : L,
       B = function(e) {
         var t = (N[e] = _(V[P]));
         return (t._k = e), t;
@@ -31447,9 +32084,9 @@
           o(N, t)
             ? (n.enumerable
                 ? (o(e, A) && e[A][t] && (e[A][t] = !1), (n = _(n, { enumerable: M(0, !1) })))
-                : (o(e, A) || S(e, A, M(1, {})), (e[A][t] = !0)),
+                : (o(e, A) || L(e, A, M(1, {})), (e[A][t] = !0)),
               W(e, t, n))
-            : S(e, t, n)
+            : L(e, t, n)
         );
       },
       Z = function(e, t) {
@@ -31473,7 +32110,7 @@
       },
       J = function(e, t) {
         if (((e = z(e)), (t = w(t, !0)), e !== I || !o(N, t) || o(D, t))) {
-          var n = L(e, t);
+          var n = S(e, t);
           return !n || !o(N, t) || (o(e, A) && e[A][t]) || (n.enumerable = !0), n;
         }
       },
@@ -31508,9 +32145,9 @@
       a(V[P], 'toString', function() {
         return this._k;
       }),
-      (x.f = J),
+      (H.f = J),
       (O.f = G),
-      (n('kJMx').f = H.f = $),
+      (n('kJMx').f = x.f = $),
       (n('UqcF').f = Q),
       (n('JiEa').f = ee),
       c && !n('LQAc') && a(I, 'propertyIsEnumerable', Q, !0),
@@ -31833,7 +32470,7 @@
           r.effects && o.runSaga(w._getSaga(r.effects, r, t, z.get('onEffect'))),
           r.subscriptions && (n[r.namespace] = (0, y.run)(r.subscriptions, r, w, t));
       }
-      function H(e, t, n, r) {
+      function x(e, t, n, r) {
         var o = w._store;
         delete o.asyncReducers[r],
           delete t[r],
@@ -31845,7 +32482,7 @@
             return e.namespace !== r;
           }));
       }
-      function x(e, t, n, r, o) {
+      function H(e, t, n, r, o) {
         var c = w._store,
           i = o.namespace,
           a = (0, g.findIndex)(w._models, function(e) {
@@ -31880,8 +32517,8 @@
           O = !1,
           k = void 0;
         try {
-          for (var L, S = (0, c.default)(w._models); !(M = (L = S.next()).done); M = !0) {
-            var C = L.value;
+          for (var S, L = (0, c.default)(w._models); !(M = (S = L.next()).done); M = !0) {
+            var C = S.value;
             (b[C.namespace] = (0, v.default)(C.reducers, C.state, z._handleActions)),
               C.effects && g.push(w._getSaga(C.effects, C, r, z.get('onEffect')));
           }
@@ -31889,7 +32526,7 @@
           (O = !0), (k = e);
         } finally {
           try {
-            M || null == S.return || S.return();
+            M || null == L.return || L.return();
           } finally {
             if (O) throw k;
           }
@@ -31965,8 +32602,8 @@
           );
         }
         (w.model = _.bind(w, G, r, I)),
-          (w.unmodel = H.bind(w, G, b, I)),
-          (w.replaceModel = x.bind(w, G, b, I, r));
+          (w.unmodel = x.bind(w, G, b, I)),
+          (w.replaceModel = H.bind(w, G, b, I, r));
       }
     }
   },
@@ -32082,9 +32719,10 @@
   },
   kM4J: function(e, t, n) {
     'use strict';
-    Object.defineProperty(t, '__esModule', { value: !0 });
-    var r = { placeholder: 'Select time' };
-    (t['default'] = r), (e.exports = t['default']);
+    Object.defineProperty(t, '__esModule', { value: !0 }), (t['default'] = void 0);
+    var r = { placeholder: 'Select time' },
+      o = r;
+    t['default'] = o;
   },
   kOqb: function(e, t, n) {
     'use strict';
@@ -32332,10 +32970,10 @@
         var y = Object.getPrototypeOf,
           g = y && y(y(T([])));
         g && g !== r && o.call(g, i) && (m = g);
-        var b = (H.prototype = M.prototype = Object.create(m));
-        (_.prototype = b.constructor = H),
-          (H.constructor = _),
-          (H[l] = _.displayName = 'GeneratorFunction'),
+        var b = (x.prototype = M.prototype = Object.create(m));
+        (_.prototype = b.constructor = x),
+          (x.constructor = _),
+          (x[l] = _.displayName = 'GeneratorFunction'),
           (s.isGeneratorFunction = function(e) {
             var t = 'function' === typeof e && e.constructor;
             return !!t && (t === _ || 'GeneratorFunction' === (t.displayName || t.name));
@@ -32343,8 +32981,8 @@
           (s.mark = function(e) {
             return (
               Object.setPrototypeOf
-                ? Object.setPrototypeOf(e, H)
-                : ((e.__proto__ = H), l in e || (e[l] = 'GeneratorFunction')),
+                ? Object.setPrototypeOf(e, x)
+                : ((e.__proto__ = x), l in e || (e[l] = 'GeneratorFunction')),
               (e.prototype = Object.create(b)),
               e
             );
@@ -32352,7 +32990,7 @@
           (s.awrap = function(e) {
             return { __await: e };
           }),
-          x(O.prototype),
+          H(O.prototype),
           (O.prototype[a] = function() {
             return this;
           }),
@@ -32365,7 +33003,7 @@
                   return e.done ? e.value : o.next();
                 });
           }),
-          x(b),
+          H(b),
           (b[l] = 'Generator'),
           (b[i] = function() {
             return this;
@@ -32520,8 +33158,8 @@
       }
       function M() {}
       function _() {}
-      function H() {}
-      function x(e) {
+      function x() {}
+      function H(e) {
         ['next', 'throw', 'return'].forEach(function(t) {
           e[t] = function(e) {
             return this._invoke(t, e);
@@ -32577,7 +33215,7 @@
           while (1) {
             var i = n.delegate;
             if (i) {
-              var a = L(i, n);
+              var a = S(i, n);
               if (a) {
                 if (a === v) continue;
                 return a;
@@ -32598,13 +33236,13 @@
           }
         };
       }
-      function L(e, t) {
+      function S(e, t) {
         var r = e.iterator[t.method];
         if (r === n) {
           if (((t.delegate = null), 'throw' === t.method)) {
             if (
               e.iterator.return &&
-              ((t.method = 'return'), (t.arg = n), L(e, t), 'throw' === t.method)
+              ((t.method = 'return'), (t.arg = n), S(e, t), 'throw' === t.method)
             )
               return v;
             (t.method = 'throw'),
@@ -32629,7 +33267,7 @@
             (t.delegate = null),
             v);
       }
-      function S(e) {
+      function L(e) {
         var t = { tryLoc: e[0] };
         1 in e && (t.catchLoc = e[1]),
           2 in e && ((t.finallyLoc = e[2]), (t.afterLoc = e[3])),
@@ -32640,7 +33278,7 @@
         (t.type = 'normal'), delete t.arg, (e.completion = t);
       }
       function V(e) {
-        (this.tryEntries = [{ tryLoc: 'root' }]), e.forEach(S, this), this.reset(!0);
+        (this.tryEntries = [{ tryLoc: 'root' }]), e.forEach(L, this), this.reset(!0);
       }
       function T(e) {
         if (e) {
@@ -32767,22 +33405,6 @@
       return function() {
         return e.apply(t, arguments);
       };
-    };
-  },
-  m1cH: function(e, t, n) {
-    'use strict';
-    t.__esModule = !0;
-    var r = n('rfXi'),
-      o = c(r);
-    function c(e) {
-      return e && e.__esModule ? e : { default: e };
-    }
-    t.default = function(e) {
-      if (Array.isArray(e)) {
-        for (var t = 0, n = Array(e.length); t < e.length; t++) n[t] = e[t];
-        return n;
-      }
-      return (0, o.default)(e);
     };
   },
   mGWK: function(e, t, n) {
@@ -33039,13 +33661,13 @@
   },
   ncmp: function(e, t, n) {
     'use strict';
-    Object.defineProperty(t, '__esModule', { value: !0 });
-    var r = n('WmZF'),
-      o = c(r);
-    function c(e) {
+    Object.defineProperty(t, '__esModule', { value: !0 }), (t['default'] = void 0);
+    var r = o(n('WmZF'));
+    function o(e) {
       return e && e.__esModule ? e : { default: e };
     }
-    (t['default'] = o['default']), (e.exports = t['default']);
+    var c = r['default'];
+    t['default'] = c;
   },
   ne8i: function(e, t, n) {
     var r = n('RYi7'),
@@ -33504,7 +34126,7 @@
       var o = this.ch,
         c = this.ch_u,
         i = this.ch_f || '',
-        a = this.ch_d || '',
+        a = this.ch_d || '.',
         l = o.charAt(0),
         u = n.int,
         s = n.decimal,
@@ -33529,11 +34151,9 @@
             var v = (n.length / 4) >> 0,
               m = n.length % 4;
             while (0 == m || !c.charAt(3 + v)) (m += 4), v--;
-            u =
-              e(n.substr(0, m), s) +
-              c.charAt(3 + v) +
-              (~n.substr(m - 1, 2).indexOf('0') ? l : '') +
-              e(n.substr(m), s);
+            var y = n.substr(0, m),
+              g = n.substr(m);
+            u = e(y, s) + c.charAt(3 + v) + ('0' == g.charAt(0) ? l : '') + e(g, s);
           }
           return (u = r.clearZero(u, l)), u;
         };
@@ -33644,7 +34264,7 @@
           c = { start: Ce },
           i = Ce,
           a = function(e) {
-            return { type: 'messageFormatPattern', elements: e, location: xe() };
+            return { type: 'messageFormatPattern', elements: e, location: He() };
           },
           l = function(e) {
             var t,
@@ -33658,7 +34278,7 @@
             return i;
           },
           u = function(e) {
-            return { type: 'messageTextElement', value: e, location: xe() };
+            return { type: 'messageTextElement', value: e, location: He() };
           },
           s = /^[^ \t\n\r,.+={}#]/,
           f = { type: 'class', value: '[^ \\t\\n\\r,.+={}#]', description: '[^ \\t\\n\\r,.+={}#]' },
@@ -33669,29 +34289,29 @@
           m = '}',
           y = { type: 'literal', value: '}', description: '"}"' },
           g = function(e, t) {
-            return { type: 'argumentElement', id: e, format: t && t[2], location: xe() };
+            return { type: 'argumentElement', id: e, format: t && t[2], location: He() };
           },
           b = 'number',
           z = { type: 'literal', value: 'number', description: '"number"' },
           w = 'date',
           M = { type: 'literal', value: 'date', description: '"date"' },
           _ = 'time',
-          H = { type: 'literal', value: 'time', description: '"time"' },
-          x = function(e, t) {
-            return { type: e + 'Format', style: t && t[2], location: xe() };
+          x = { type: 'literal', value: 'time', description: '"time"' },
+          H = function(e, t) {
+            return { type: e + 'Format', style: t && t[2], location: He() };
           },
           O = 'plural',
           k = { type: 'literal', value: 'plural', description: '"plural"' },
-          L = function(e) {
+          S = function(e) {
             return {
               type: e.type,
               ordinal: !1,
               offset: e.offset || 0,
               options: e.options,
-              location: xe(),
+              location: He(),
             };
           },
-          S = 'selectordinal',
+          L = 'selectordinal',
           C = { type: 'literal', value: 'selectordinal', description: '"selectordinal"' },
           V = function(e) {
             return {
@@ -33699,18 +34319,18 @@
               ordinal: !0,
               offset: e.offset || 0,
               options: e.options,
-              location: xe(),
+              location: He(),
             };
           },
           T = 'select',
           E = { type: 'literal', value: 'select', description: '"select"' },
           P = function(e) {
-            return { type: 'selectFormat', options: e, location: xe() };
+            return { type: 'selectFormat', options: e, location: He() };
           },
           A = '=',
           j = { type: 'literal', value: '=', description: '"="' },
           F = function(e, t) {
-            return { type: 'optionalFormatPattern', selector: e, value: t, location: xe() };
+            return { type: 'optionalFormatPattern', selector: e, value: t, location: He() };
           },
           R = 'offset:',
           N = { type: 'literal', value: 'offset:', description: '"offset:"' },
@@ -33718,7 +34338,7 @@
             return e;
           },
           I = function(e, t) {
-            return { type: 'pluralFormat', offset: e, options: t, location: xe() };
+            return { type: 'pluralFormat', offset: e, options: t, location: He() };
           },
           U = { type: 'other', description: 'whitespace' },
           q = /^[ \t\n\r]/,
@@ -33774,13 +34394,13 @@
           we = [{ line: 1, column: 1, seenCR: !1 }],
           Me = 0,
           _e = [],
-          He = 0;
+          xe = 0;
         if ('startRule' in r) {
           if (!(r.startRule in c))
             throw new Error('Can\'t start parsing from rule "' + r.startRule + '".');
           i = c[r.startRule];
         }
-        function xe() {
+        function He() {
           return ke(ze, be);
         }
         function Oe(t) {
@@ -33809,10 +34429,10 @@
             end: { offset: t, line: r.line, column: r.column },
           };
         }
-        function Le(e) {
+        function Se(e) {
           be < Me || (be > Me && ((Me = be), (_e = [])), _e.push(e));
         }
-        function Se(e, n, r, o) {
+        function Le(e, n, r, o) {
           function c(e) {
             var t = 1;
             e.sort(function(e, t) {
@@ -33919,12 +34539,12 @@
             if (
               ((t = be),
               (n = []),
-              s.test(e.charAt(be)) ? ((r = e.charAt(be)), be++) : ((r = o), 0 === He && Le(f)),
+              s.test(e.charAt(be)) ? ((r = e.charAt(be)), be++) : ((r = o), 0 === xe && Se(f)),
               r !== o)
             )
               while (r !== o)
                 n.push(r),
-                  s.test(e.charAt(be)) ? ((r = e.charAt(be)), be++) : ((r = o), 0 === He && Le(f));
+                  s.test(e.charAt(be)) ? ((r = e.charAt(be)), be++) : ((r = o), 0 === xe && Se(f));
             else n = o;
             t = n !== o ? e.substring(t, be) : n;
           }
@@ -33934,7 +34554,7 @@
           var t, n, r, c, i, a, l, u, s;
           return (
             (t = be),
-            123 === e.charCodeAt(be) ? ((n = h), be++) : ((n = o), 0 === He && Le(p)),
+            123 === e.charCodeAt(be) ? ((n = h), be++) : ((n = o), 0 === xe && Se(p)),
             n !== o
               ? ((r = Ke()),
                 r !== o
@@ -33945,7 +34565,7 @@
                           ? ((a = be),
                             44 === e.charCodeAt(be)
                               ? ((l = d), be++)
-                              : ((l = o), 0 === He && Le(v)),
+                              : ((l = o), 0 === xe && Se(v)),
                             l !== o
                               ? ((u = Ke()),
                                 u !== o
@@ -33959,7 +34579,7 @@
                                 l !== o
                                   ? (125 === e.charCodeAt(be)
                                       ? ((u = m), be++)
-                                      : ((u = o), 0 === He && Le(y)),
+                                      : ((u = o), 0 === xe && Se(y)),
                                     u !== o
                                       ? ((ze = t), (n = g(c, a)), (t = n))
                                       : ((be = t), (t = o)))
@@ -33982,16 +34602,16 @@
           var t, n, r, c, i, a, l;
           return (
             (t = be),
-            e.substr(be, 6) === b ? ((n = b), (be += 6)) : ((n = o), 0 === He && Le(z)),
+            e.substr(be, 6) === b ? ((n = b), (be += 6)) : ((n = o), 0 === xe && Se(z)),
             n === o &&
-              (e.substr(be, 4) === w ? ((n = w), (be += 4)) : ((n = o), 0 === He && Le(M)),
+              (e.substr(be, 4) === w ? ((n = w), (be += 4)) : ((n = o), 0 === xe && Se(M)),
               n === o &&
-                (e.substr(be, 4) === _ ? ((n = _), (be += 4)) : ((n = o), 0 === He && Le(H)))),
+                (e.substr(be, 4) === _ ? ((n = _), (be += 4)) : ((n = o), 0 === xe && Se(x)))),
             n !== o
               ? ((r = Ke()),
                 r !== o
                   ? ((c = be),
-                    44 === e.charCodeAt(be) ? ((i = d), be++) : ((i = o), 0 === He && Le(v)),
+                    44 === e.charCodeAt(be) ? ((i = d), be++) : ((i = o), 0 === xe && Se(v)),
                     i !== o
                       ? ((a = Ke()),
                         a !== o
@@ -33999,7 +34619,7 @@
                           : ((be = c), (c = o)))
                       : ((be = c), (c = o)),
                     c === o && (c = null),
-                    c !== o ? ((ze = t), (n = x(n, c)), (t = n)) : ((be = t), (t = o)))
+                    c !== o ? ((ze = t), (n = H(n, c)), (t = n)) : ((be = t), (t = o)))
                   : ((be = t), (t = o)))
               : ((be = t), (t = o)),
             t
@@ -34009,16 +34629,16 @@
           var t, n, r, c, i, a;
           return (
             (t = be),
-            e.substr(be, 6) === O ? ((n = O), (be += 6)) : ((n = o), 0 === He && Le(k)),
+            e.substr(be, 6) === O ? ((n = O), (be += 6)) : ((n = o), 0 === xe && Se(k)),
             n !== o
               ? ((r = Ke()),
                 r !== o
-                  ? (44 === e.charCodeAt(be) ? ((c = d), be++) : ((c = o), 0 === He && Le(v)),
+                  ? (44 === e.charCodeAt(be) ? ((c = d), be++) : ((c = o), 0 === xe && Se(v)),
                     c !== o
                       ? ((i = Ke()),
                         i !== o
                           ? ((a = We()),
-                            a !== o ? ((ze = t), (n = L(a)), (t = n)) : ((be = t), (t = o)))
+                            a !== o ? ((ze = t), (n = S(a)), (t = n)) : ((be = t), (t = o)))
                           : ((be = t), (t = o)))
                       : ((be = t), (t = o)))
                   : ((be = t), (t = o)))
@@ -34030,11 +34650,11 @@
           var t, n, r, c, i, a;
           return (
             (t = be),
-            e.substr(be, 13) === S ? ((n = S), (be += 13)) : ((n = o), 0 === He && Le(C)),
+            e.substr(be, 13) === L ? ((n = L), (be += 13)) : ((n = o), 0 === xe && Se(C)),
             n !== o
               ? ((r = Ke()),
                 r !== o
-                  ? (44 === e.charCodeAt(be) ? ((c = d), be++) : ((c = o), 0 === He && Le(v)),
+                  ? (44 === e.charCodeAt(be) ? ((c = d), be++) : ((c = o), 0 === xe && Se(v)),
                     c !== o
                       ? ((i = Ke()),
                         i !== o
@@ -34051,12 +34671,12 @@
           var t, n, r, c, i, a, l;
           if (
             ((t = be),
-            e.substr(be, 6) === T ? ((n = T), (be += 6)) : ((n = o), 0 === He && Le(E)),
+            e.substr(be, 6) === T ? ((n = T), (be += 6)) : ((n = o), 0 === xe && Se(E)),
             n !== o)
           )
             if (((r = Ke()), r !== o))
               if (
-                (44 === e.charCodeAt(be) ? ((c = d), be++) : ((c = o), 0 === He && Le(v)), c !== o)
+                (44 === e.charCodeAt(be) ? ((c = d), be++) : ((c = o), 0 === xe && Se(v)), c !== o)
               )
                 if (((i = Ke()), i !== o)) {
                   if (((a = []), (l = qe()), l !== o)) while (l !== o) a.push(l), (l = qe());
@@ -34073,7 +34693,7 @@
           return (
             (t = be),
             (n = be),
-            61 === e.charCodeAt(be) ? ((r = A), be++) : ((r = o), 0 === He && Le(j)),
+            61 === e.charCodeAt(be) ? ((r = A), be++) : ((r = o), 0 === xe && Se(j)),
             r !== o
               ? ((c = Xe()), c !== o ? ((r = [r, c]), (n = r)) : ((be = n), (n = o)))
               : ((be = n), (n = o)),
@@ -34092,7 +34712,7 @@
                 r !== o
                   ? ((c = Ke()),
                     c !== o
-                      ? (123 === e.charCodeAt(be) ? ((i = h), be++) : ((i = o), 0 === He && Le(p)),
+                      ? (123 === e.charCodeAt(be) ? ((i = h), be++) : ((i = o), 0 === xe && Se(p)),
                         i !== o
                           ? ((a = Ke()),
                             a !== o
@@ -34102,7 +34722,7 @@
                                     u !== o
                                       ? (125 === e.charCodeAt(be)
                                           ? ((s = m), be++)
-                                          : ((s = o), 0 === He && Le(y)),
+                                          : ((s = o), 0 === xe && Se(y)),
                                         s !== o
                                           ? ((ze = t), (n = F(r, l)), (t = n))
                                           : ((be = t), (t = o)))
@@ -34120,7 +34740,7 @@
           var t, n, r, c;
           return (
             (t = be),
-            e.substr(be, 7) === R ? ((n = R), (be += 7)) : ((n = o), 0 === He && Le(N)),
+            e.substr(be, 7) === R ? ((n = R), (be += 7)) : ((n = o), 0 === xe && Se(N)),
             n !== o
               ? ((r = Ke()),
                 r !== o
@@ -34144,48 +34764,48 @@
         function Be() {
           var t, n;
           if (
-            (He++,
+            (xe++,
             (t = []),
-            q.test(e.charAt(be)) ? ((n = e.charAt(be)), be++) : ((n = o), 0 === He && Le(Y)),
+            q.test(e.charAt(be)) ? ((n = e.charAt(be)), be++) : ((n = o), 0 === xe && Se(Y)),
             n !== o)
           )
             while (n !== o)
               t.push(n),
-                q.test(e.charAt(be)) ? ((n = e.charAt(be)), be++) : ((n = o), 0 === He && Le(Y));
+                q.test(e.charAt(be)) ? ((n = e.charAt(be)), be++) : ((n = o), 0 === xe && Se(Y));
           else t = o;
-          return He--, t === o && ((n = o), 0 === He && Le(U)), t;
+          return xe--, t === o && ((n = o), 0 === xe && Se(U)), t;
         }
         function Ke() {
           var t, n, r;
-          He++, (t = be), (n = []), (r = Be());
+          xe++, (t = be), (n = []), (r = Be());
           while (r !== o) n.push(r), (r = Be());
           return (
-            (t = n !== o ? e.substring(t, be) : n), He--, t === o && ((n = o), 0 === He && Le(W)), t
+            (t = n !== o ? e.substring(t, be) : n), xe--, t === o && ((n = o), 0 === xe && Se(W)), t
           );
         }
         function Ge() {
           var t;
           return (
-            B.test(e.charAt(be)) ? ((t = e.charAt(be)), be++) : ((t = o), 0 === He && Le(K)), t
+            B.test(e.charAt(be)) ? ((t = e.charAt(be)), be++) : ((t = o), 0 === xe && Se(K)), t
           );
         }
         function Ze() {
           var t;
           return (
-            G.test(e.charAt(be)) ? ((t = e.charAt(be)), be++) : ((t = o), 0 === He && Le(Z)), t
+            G.test(e.charAt(be)) ? ((t = e.charAt(be)), be++) : ((t = o), 0 === xe && Se(Z)), t
           );
         }
         function Xe() {
           var t, n, r, c, i, a;
           if (
             ((t = be),
-            48 === e.charCodeAt(be) ? ((n = X), be++) : ((n = o), 0 === He && Le(Q)),
+            48 === e.charCodeAt(be) ? ((n = X), be++) : ((n = o), 0 === xe && Se(Q)),
             n === o)
           ) {
             if (
               ((n = be),
               (r = be),
-              J.test(e.charAt(be)) ? ((c = e.charAt(be)), be++) : ((c = o), 0 === He && Le($)),
+              J.test(e.charAt(be)) ? ((c = e.charAt(be)), be++) : ((c = o), 0 === xe && Se($)),
               c !== o)
             ) {
               (i = []), (a = Ge());
@@ -34199,32 +34819,32 @@
         function Qe() {
           var t, n, r, c, i, a, l, u;
           return (
-            te.test(e.charAt(be)) ? ((t = e.charAt(be)), be++) : ((t = o), 0 === He && Le(ne)),
+            te.test(e.charAt(be)) ? ((t = e.charAt(be)), be++) : ((t = o), 0 === xe && Se(ne)),
             t === o &&
               ((t = be),
-              e.substr(be, 2) === re ? ((n = re), (be += 2)) : ((n = o), 0 === He && Le(oe)),
+              e.substr(be, 2) === re ? ((n = re), (be += 2)) : ((n = o), 0 === xe && Se(oe)),
               n !== o && ((ze = t), (n = ce())),
               (t = n),
               t === o &&
                 ((t = be),
-                e.substr(be, 2) === ie ? ((n = ie), (be += 2)) : ((n = o), 0 === He && Le(ae)),
+                e.substr(be, 2) === ie ? ((n = ie), (be += 2)) : ((n = o), 0 === xe && Se(ae)),
                 n !== o && ((ze = t), (n = le())),
                 (t = n),
                 t === o &&
                   ((t = be),
-                  e.substr(be, 2) === ue ? ((n = ue), (be += 2)) : ((n = o), 0 === He && Le(se)),
+                  e.substr(be, 2) === ue ? ((n = ue), (be += 2)) : ((n = o), 0 === xe && Se(se)),
                   n !== o && ((ze = t), (n = fe())),
                   (t = n),
                   t === o &&
                     ((t = be),
-                    e.substr(be, 2) === he ? ((n = he), (be += 2)) : ((n = o), 0 === He && Le(pe)),
+                    e.substr(be, 2) === he ? ((n = he), (be += 2)) : ((n = o), 0 === xe && Se(pe)),
                     n !== o && ((ze = t), (n = de())),
                     (t = n),
                     t === o &&
                       ((t = be),
                       e.substr(be, 2) === ve
                         ? ((n = ve), (be += 2))
-                        : ((n = o), 0 === He && Le(me)),
+                        : ((n = o), 0 === xe && Se(me)),
                       n !== o
                         ? ((r = be),
                           (c = be),
@@ -34252,8 +34872,8 @@
           return t !== o && ((ze = e), (t = ge(t))), (e = t), e;
         }
         if (((n = i()), n !== o && be === e.length)) return n;
-        throw (n !== o && be < e.length && Le({ type: 'end', description: 'end of input' }),
-        Se(
+        throw (n !== o && be < e.length && Se({ type: 'end', description: 'end of input' }),
+        Le(
           null,
           _e,
           Me < e.length ? e.charAt(Me) : null,
@@ -34516,16 +35136,106 @@
     }
   },
   pIFo: function(e, t, n) {
-    n('IU+Z')('replace', 2, function(e, t, n) {
+    'use strict';
+    var r = n('y3w9'),
+      o = n('S/j/'),
+      c = n('ne8i'),
+      i = n('RYi7'),
+      a = n('A5AN'),
+      l = n('Xxuz'),
+      u = Math.max,
+      s = Math.min,
+      f = Math.floor,
+      h = /\$([$&`']|\d\d?|<[^>]*>)/g,
+      p = /\$([$&`']|\d\d?)/g,
+      d = function(e) {
+        return void 0 === e ? e : String(e);
+      };
+    n('IU+Z')('replace', 2, function(e, t, n, v) {
       return [
         function(r, o) {
-          'use strict';
           var c = e(this),
             i = void 0 == r ? void 0 : r[t];
           return void 0 !== i ? i.call(r, c, o) : n.call(String(c), r, o);
         },
-        n,
+        function(e, t) {
+          var o = v(n, e, this, t);
+          if (o.done) return o.value;
+          var f = r(e),
+            h = String(this),
+            p = 'function' === typeof t;
+          p || (t = String(t));
+          var y = f.global;
+          if (y) {
+            var g = f.unicode;
+            f.lastIndex = 0;
+          }
+          var b = [];
+          while (1) {
+            var z = l(f, h);
+            if (null === z) break;
+            if ((b.push(z), !y)) break;
+            var w = String(z[0]);
+            '' === w && (f.lastIndex = a(h, c(f.lastIndex), g));
+          }
+          for (var M = '', _ = 0, x = 0; x < b.length; x++) {
+            z = b[x];
+            for (
+              var H = String(z[0]), O = u(s(i(z.index), h.length), 0), k = [], S = 1;
+              S < z.length;
+              S++
+            )
+              k.push(d(z[S]));
+            var L = z.groups;
+            if (p) {
+              var C = [H].concat(k, O, h);
+              void 0 !== L && C.push(L);
+              var V = String(t.apply(void 0, C));
+            } else V = m(H, h, O, k, L, t);
+            O >= _ && ((M += h.slice(_, O) + V), (_ = O + H.length));
+          }
+          return M + h.slice(_);
+        },
       ];
+      function m(e, t, r, c, i, a) {
+        var l = r + e.length,
+          u = c.length,
+          s = p;
+        return (
+          void 0 !== i && ((i = o(i)), (s = h)),
+          n.call(a, s, function(n, o) {
+            var a;
+            switch (o.charAt(0)) {
+              case '$':
+                return '$';
+              case '&':
+                return e;
+              case '`':
+                return t.slice(0, r);
+              case "'":
+                return t.slice(l);
+              case '<':
+                a = i[o.slice(1, -1)];
+                break;
+              default:
+                var s = +o;
+                if (0 === s) return o;
+                if (s > u) {
+                  var h = f(s / 10);
+                  return 0 === h
+                    ? o
+                    : h <= u
+                      ? void 0 === c[h - 1]
+                        ? o.charAt(1)
+                        : c[h - 1] + o.charAt(1)
+                      : o;
+                }
+                a = c[s - 1];
+            }
+            return void 0 === a ? '' : a;
+          })
+        );
+      }
     });
   },
   pVnL: function(e, t) {
@@ -34589,11 +35299,11 @@
     (t.__esModule = !0),
       (t.asEffect = t.takem = t.detach = void 0),
       (t.take = _),
-      (t.put = H),
-      (t.all = x),
+      (t.put = x),
+      (t.all = H),
       (t.race = O),
-      (t.call = L),
-      (t.apply = S),
+      (t.call = S),
+      (t.apply = L),
       (t.cps = C),
       (t.fork = V),
       (t.spawn = T),
@@ -34657,7 +35367,7 @@
       return (e[c].maybe = !0), e;
     };
     t.takem = (0, r.deprecate)(_.maybe, (0, r.updateIncentive)('takem', 'take.maybe'));
-    function H(e, t) {
+    function x(e, t) {
       return (
         arguments.length > 1
           ? ((0, r.check)(e, r.is.notUndef, 'put(channel, action): argument channel is undefined'),
@@ -34673,7 +35383,7 @@
         w(i, { channel: e, action: t })
       );
     }
-    function x(e) {
+    function H(e) {
       return w(a, e);
     }
     function O(e) {
@@ -34695,12 +35405,12 @@
         { context: o, fn: t, args: n }
       );
     }
-    function L(e) {
+    function S(e) {
       for (var t = arguments.length, n = Array(t > 1 ? t - 1 : 0), r = 1; r < t; r++)
         n[r - 1] = arguments[r];
       return w(u, k('call', e, n));
     }
-    function S(e, t) {
+    function L(e, t) {
       var n = arguments.length > 2 && void 0 !== arguments[2] ? arguments[2] : [];
       return w(u, k('apply', { context: e, fn: t }, n));
     }
@@ -34722,7 +35432,7 @@
     function E() {
       for (var e = arguments.length, t = Array(e), n = 0; n < e; n++) t[n] = arguments[n];
       if (t.length > 1)
-        return x(
+        return H(
           t.map(function(e) {
             return E(e);
           })
@@ -34741,7 +35451,7 @@
     function P() {
       for (var e = arguments.length, t = Array(e), n = 0; n < e; n++) t[n] = arguments[n];
       if (t.length > 1)
-        return x(
+        return H(
           t.map(function(e) {
             return P(e);
           })
@@ -34812,11 +35522,11 @@
     function D(e) {
       return (0, r.check)(e, r.is.object, (0, r.createSetContextWarning)(null, e)), w(b, e);
     }
-    (H.resolve = function() {
-      var e = H.apply(void 0, arguments);
+    (x.resolve = function() {
+      var e = x.apply(void 0, arguments);
       return (e[i].resolve = !0), e;
     }),
-      (H.sync = (0, r.deprecate)(H.resolve, (0, r.updateIncentive)('put.sync', 'put.resolve')));
+      (x.sync = (0, r.deprecate)(x.resolve, (0, r.updateIncentive)('put.sync', 'put.resolve')));
     var I = function(e) {
         return function(t) {
           return t && t[o] && t[e];
@@ -35097,9 +35807,6 @@
         for (m in r) z[m] || c(z, m, r[m], !0);
     }
   },
-  rfXi: function(e, t, n) {
-    e.exports = { default: n('0tVQ'), __esModule: !0 };
-  },
   rr1i: function(e, t) {
     e.exports = function(e, t) {
       return { enumerable: !(1 & e), configurable: !(2 & e), writable: !(4 & e), value: t };
@@ -35130,6 +35837,11 @@
         return e(this, t, n, r);
       };
     });
+  },
+  sMXx: function(e, t, n) {
+    'use strict';
+    var r = n('Ugos');
+    n('XKFU')({ target: 'RegExp', proto: !0, forced: r !== /./.exec }, { exec: r });
   },
   sNwI: function(e, t, n) {
     var r = n('5K7Z');
@@ -35529,14 +36241,14 @@
       var i = (t & r) ^ (t & c) ^ (r & c);
       return i < 0 && (i += 4294967296), i;
     }
-    function H(e, t) {
+    function x(e, t) {
       var n = i(e, t, 28),
         r = i(t, e, 2),
         o = i(t, e, 7),
         c = n ^ r ^ o;
       return c < 0 && (c += 4294967296), c;
     }
-    function x(e, t) {
+    function H(e, t) {
       var n = a(e, t, 28),
         r = a(t, e, 2),
         o = a(t, e, 7),
@@ -35557,14 +36269,14 @@
         c = n ^ r ^ o;
       return c < 0 && (c += 4294967296), c;
     }
-    function L(e, t) {
+    function S(e, t) {
       var n = i(e, t, 1),
         r = i(e, t, 8),
         o = l(e, t, 7),
         c = n ^ r ^ o;
       return c < 0 && (c += 4294967296), c;
     }
-    function S(e, t) {
+    function L(e, t) {
       var n = a(e, t, 1),
         r = a(e, t, 8),
         o = u(e, t, 7),
@@ -35598,8 +36310,8 @@
             c = V(n[r - 4], n[r - 3]),
             i = n[r - 14],
             a = n[r - 13],
-            l = L(n[r - 30], n[r - 29]),
-            u = S(n[r - 30], n[r - 29]),
+            l = S(n[r - 30], n[r - 29]),
+            u = L(n[r - 30], n[r - 29]),
             s = n[r - 32],
             f = n[r - 31];
           (n[r] = p(o, c, i, a, l, u, s, f)), (n[r + 1] = d(o, c, i, a, l, u, s, f));
@@ -35619,8 +36331,8 @@
           y = this.h[8],
           g = this.h[9],
           b = this.h[10],
-          L = this.h[11],
-          S = this.h[12],
+          S = this.h[11],
+          L = this.h[12],
           C = this.h[13],
           V = this.h[14],
           T = this.h[15];
@@ -35630,23 +36342,23 @@
             A = T,
             j = O(y, g),
             F = k(y, g),
-            R = z(y, g, b, L, S, C),
-            N = w(y, g, b, L, S, C),
+            R = z(y, g, b, S, L, C),
+            N = w(y, g, b, S, L, C),
             D = this.k[E],
             I = this.k[E + 1],
             U = n[E],
             q = n[E + 1],
             Y = v(P, A, j, F, R, N, D, I, U, q),
             W = m(P, A, j, F, R, N, D, I, U, q);
-          (P = H(r, o)), (A = x(r, o)), (j = M(r, o, i, a, l, u)), (F = _(r, o, i, a, l, u));
+          (P = x(r, o)), (A = H(r, o)), (j = M(r, o, i, a, l, u)), (F = _(r, o, i, a, l, u));
           var B = f(P, A, j, F),
             K = h(P, A, j, F);
-          (V = S),
+          (V = L),
             (T = C),
-            (S = b),
-            (C = L),
+            (L = b),
+            (C = S),
             (b = y),
-            (L = g),
+            (S = g),
             (y = f(p, d, Y, W)),
             (g = h(d, d, Y, W)),
             (p = l),
@@ -35663,8 +36375,8 @@
           s(this.h, 4, l, u),
           s(this.h, 6, p, d),
           s(this.h, 8, y, g),
-          s(this.h, 10, b, L),
-          s(this.h, 12, S, C),
+          s(this.h, 10, b, S),
+          s(this.h, 12, L, C),
           s(this.h, 14, V, T);
       }),
       (b.prototype._digest = function(e) {
@@ -35695,9 +36407,9 @@
       w = n('i8i4'),
       M = n.n(w),
       _ = n('MFj2'),
-      H = n('2GS6'),
-      x = n('TSYQ'),
-      O = n.n(x),
+      x = n('2GS6'),
+      H = n('TSYQ'),
+      O = n.n(H),
       k = (function(e) {
         function t() {
           var e, n, r, o;
@@ -35771,6 +36483,7 @@
                     style: t.style,
                     onMouseEnter: this.clearCloseTimer,
                     onMouseLeave: this.startCloseTimer,
+                    onClick: t.onClick,
                   },
                   o.a.createElement('div', { className: n + '-content' }, t.children),
                   t.closable
@@ -35800,11 +36513,11 @@
         duration: 1.5,
         style: { right: '50%' },
       });
-    var L = k,
-      S = 0,
+    var S = k,
+      L = 0,
       C = Date.now();
     function V() {
-      return 'rcNotification_' + C + '_' + S++;
+      return 'rcNotification_' + C + '_' + L++;
     }
     var T = (function(e) {
       function t() {
@@ -35872,13 +36585,14 @@
                 c = r.map(function(e, c) {
                   var i = Boolean(c === r.length - 1 && e.updateKey),
                     a = e.updateKey ? e.updateKey : e.key,
-                    l = Object(H['a'])(t.remove.bind(t, e.key), e.onClose);
+                    l = Object(x['a'])(t.remove.bind(t, e.key), e.onClose);
                   return o.a.createElement(
-                    L,
+                    S,
                     s()({ prefixCls: n.prefixCls }, e, {
                       key: a,
                       update: i,
                       onClose: l,
+                      onClick: e.onClick,
                       closeIcon: n.closeIcon,
                     }),
                     e.content
@@ -35937,29 +36651,29 @@
         }
         M.a.render(o.a.createElement(T, s()({}, c, { ref: f })), a);
       });
-    var E = T,
-      P = E,
-      A = n('CtXQ'),
-      j = 3,
-      F = void 0,
-      R = void 0,
-      N = 1,
-      D = 'ant-message',
-      I = 'move-up',
-      U = void 0,
-      q = void 0;
+    var E,
+      P,
+      A,
+      j,
+      F = T,
+      R = F,
+      N = n('CtXQ'),
+      D = 3,
+      I = 1,
+      U = 'ant-message',
+      q = 'move-up';
     function Y(e) {
-      R
-        ? e(R)
-        : P.newInstance(
-            { prefixCls: D, transitionName: I, style: { top: F }, getContainer: U, maxCount: q },
+      P
+        ? e(P)
+        : R.newInstance(
+            { prefixCls: U, transitionName: q, style: { top: E }, getContainer: A, maxCount: j },
             function(t) {
-              R ? e(R) : ((R = t), e(t));
+              P ? e(P) : ((P = t), e(t));
             }
           );
     }
     function W(e) {
-      var t = void 0 !== e.duration ? e.duration : j,
+      var t = void 0 !== e.duration ? e.duration : D,
         n = {
           info: 'info-circle',
           success: 'check-circle',
@@ -35967,13 +36681,13 @@
           warning: 'exclamation-circle',
           loading: 'loading',
         }[e.type],
-        o = N++,
+        o = I++,
         c = new Promise(function(c) {
           var i = function() {
             return 'function' === typeof e.onClose && e.onClose(), c(!0);
           };
           Y(function(c) {
-            var a = r['createElement'](A['default'], {
+            var a = r['createElement'](N['default'], {
               type: n,
               theme: 'loading' === n ? 'outlined' : 'filled',
             });
@@ -35983,7 +36697,11 @@
               style: {},
               content: r['createElement'](
                 'div',
-                { className: D + '-custom-content' + (e.type ? ' ' + D + '-' + e.type : '') },
+                {
+                  className: ''
+                    .concat(U, '-custom-content')
+                    .concat(e.type ? ' '.concat(U, '-').concat(e.type) : ''),
+                },
                 e.icon ? e.icon : n ? a : '',
                 r['createElement']('span', null, e.content)
               ),
@@ -35992,7 +36710,7 @@
           });
         }),
         i = function() {
-          R && R.removeNotice(o);
+          P && P.removeNotice(o);
         };
       return (
         (i.then = function(e, t) {
@@ -36005,15 +36723,15 @@
     var B = {
       open: W,
       config: function(e) {
-        void 0 !== e.top && ((F = e.top), (R = null)),
-          void 0 !== e.duration && (j = e.duration),
-          void 0 !== e.prefixCls && (D = e.prefixCls),
-          void 0 !== e.getContainer && (U = e.getContainer),
-          void 0 !== e.transitionName && ((I = e.transitionName), (R = null)),
-          void 0 !== e.maxCount && ((q = e.maxCount), (R = null));
+        void 0 !== e.top && ((E = e.top), (P = null)),
+          void 0 !== e.duration && (D = e.duration),
+          void 0 !== e.prefixCls && (U = e.prefixCls),
+          void 0 !== e.getContainer && (A = e.getContainer),
+          void 0 !== e.transitionName && ((q = e.transitionName), (P = null)),
+          void 0 !== e.maxCount && ((j = e.maxCount), (P = null));
       },
       destroy: function() {
-        R && (R.destroy(), (R = null));
+        P && (P.destroy(), (P = null));
       },
     };
     ['success', 'info', 'warning', 'error', 'loading'].forEach(function(e) {
@@ -36104,25 +36822,25 @@
           _ < 80;
           _++
         ) {
-          var H = i(c(l(n, f(_, r, o, u), e[d[_] + t], h(_)), m[_]), s);
+          var x = i(c(l(n, f(_, r, o, u), e[d[_] + t], h(_)), m[_]), s);
           (n = s),
             (s = u),
             (u = c(o, 10)),
             (o = r),
-            (r = H),
-            (H = i(c(l(g, f(79 - _, b, z, w), e[v[_] + t], p(_)), y[_]), M)),
+            (r = x),
+            (x = i(c(l(g, f(79 - _, b, z, w), e[v[_] + t], p(_)), y[_]), M)),
             (g = M),
             (M = w),
             (w = c(z, 10)),
             (z = b),
-            (b = H);
+            (b = x);
         }
-        (H = a(this.h[1], o, w)),
+        (x = a(this.h[1], o, w)),
           (this.h[1] = a(this.h[2], u, M)),
           (this.h[2] = a(this.h[3], s, g)),
           (this.h[3] = a(this.h[4], n, b)),
           (this.h[4] = a(this.h[0], r, z)),
-          (this.h[0] = H);
+          (this.h[0] = x);
       }),
       (s.prototype._digest = function(e) {
         return 'hex' === e ? r.toHex32(this.h, 'little') : r.split32(this.h, 'little');
@@ -36559,20 +37277,32 @@
   ul5b: function(e, t, n) {
     'use strict';
     n.d(t, 'a', function() {
-      return a;
+      return i;
     }),
       n.d(t, 'b', function() {
-        return l;
+        return a;
       });
-    var r = n('QbLZ'),
-      o = n.n(r),
-      c = n('Kz+r'),
-      i = o()({}, c['a'].Modal);
-    function a(e) {
-      i = e ? o()({}, i, e) : o()({}, c['a'].Modal);
+    var r = n('Kz+r');
+    function o() {
+      return (
+        (o =
+          Object.assign ||
+          function(e) {
+            for (var t = 1; t < arguments.length; t++) {
+              var n = arguments[t];
+              for (var r in n) Object.prototype.hasOwnProperty.call(n, r) && (e[r] = n[r]);
+            }
+            return e;
+          }),
+        o.apply(this, arguments)
+      );
     }
-    function l() {
-      return i;
+    var c = o({}, r['a'].Modal);
+    function i(e) {
+      c = e ? o({}, c, e) : o({}, r['a'].Modal);
+    }
+    function a() {
+      return c;
     }
   },
   upKx: function(e, t, n) {
@@ -36767,7 +37497,7 @@
       (this.props = e), (this.context = t), (this.refs = w), (this.updater = n || z);
     }
     function _() {}
-    function H(e, t, n) {
+    function x(e, t, n) {
       (this.props = e), (this.context = t), (this.refs = w), (this.updater = n || z);
     }
     (M.prototype.isReactComponent = {}),
@@ -36779,19 +37509,19 @@
         this.updater.enqueueForceUpdate(this, e, 'forceUpdate');
       }),
       (_.prototype = M.prototype);
-    var x = (H.prototype = new _());
-    (x.constructor = H), r(x, M.prototype), (x.isPureReactComponent = !0);
+    var H = (x.prototype = new _());
+    (H.constructor = x), r(H, M.prototype), (H.isPureReactComponent = !0);
     var O = { current: null, currentDispatcher: null },
       k = Object.prototype.hasOwnProperty,
-      L = { key: !0, ref: !0, __self: !0, __source: !0 };
-    function S(e, t, n) {
+      S = { key: !0, ref: !0, __self: !0, __source: !0 };
+    function L(e, t, n) {
       var r = void 0,
         o = {},
         i = null,
         a = null;
       if (null != t)
         for (r in (void 0 !== t.ref && (a = t.ref), void 0 !== t.key && (i = '' + t.key), t))
-          k.call(t, r) && !L.hasOwnProperty(r) && (o[r] = t[r]);
+          k.call(t, r) && !S.hasOwnProperty(r) && (o[r] = t[r]);
       var l = arguments.length - 2;
       if (1 === l) o.children = n;
       else if (1 < l) {
@@ -36909,105 +37639,107 @@
       null != n && (c = ('' + n).replace(E, '$&/') + '/'), (t = A(t, c, r, o)), R(e, I, t), j(t);
     }
     var q = {
-      Children: {
-        map: function(e, t, n) {
-          if (null == e) return e;
-          var r = [];
-          return U(e, r, null, t, n), r;
+        Children: {
+          map: function(e, t, n) {
+            if (null == e) return e;
+            var r = [];
+            return U(e, r, null, t, n), r;
+          },
+          forEach: function(e, t, n) {
+            if (null == e) return e;
+            (t = A(null, null, t, n)), R(e, D, t), j(t);
+          },
+          count: function(e) {
+            return R(
+              e,
+              function() {
+                return null;
+              },
+              null
+            );
+          },
+          toArray: function(e) {
+            var t = [];
+            return (
+              U(e, t, null, function(e) {
+                return e;
+              }),
+              t
+            );
+          },
+          only: function(e) {
+            return V(e) || b('143'), e;
+          },
         },
-        forEach: function(e, t, n) {
-          if (null == e) return e;
-          (t = A(null, null, t, n)), R(e, D, t), j(t);
+        createRef: function() {
+          return { current: null };
         },
-        count: function(e) {
-          return R(
-            e,
-            function() {
-              return null;
-            },
-            null
-          );
-        },
-        toArray: function(e) {
-          var t = [];
+        Component: M,
+        PureComponent: x,
+        createContext: function(e, t) {
           return (
-            U(e, t, null, function(e) {
-              return e;
+            void 0 === t && (t = null),
+            (e = {
+              $$typeof: f,
+              _calculateChangedBits: t,
+              _currentValue: e,
+              _currentValue2: e,
+              _threadCount: 0,
+              Provider: null,
+              Consumer: null,
             }),
-            t
+            (e.Provider = { $$typeof: s, _context: e }),
+            (e.Consumer = e)
           );
         },
-        only: function(e) {
-          return V(e) || b('143'), e;
+        forwardRef: function(e) {
+          return { $$typeof: p, render: e };
         },
+        lazy: function(e) {
+          return { $$typeof: m, _ctor: e, _status: -1, _result: null };
+        },
+        memo: function(e, t) {
+          return { $$typeof: v, type: e, compare: void 0 === t ? null : t };
+        },
+        Fragment: a,
+        StrictMode: l,
+        Suspense: d,
+        createElement: L,
+        cloneElement: function(e, t, n) {
+          (null === e || void 0 === e) && b('267', e);
+          var o = void 0,
+            i = r({}, e.props),
+            a = e.key,
+            l = e.ref,
+            u = e._owner;
+          if (null != t) {
+            void 0 !== t.ref && ((l = t.ref), (u = O.current)),
+              void 0 !== t.key && (a = '' + t.key);
+            var s = void 0;
+            for (o in (e.type && e.type.defaultProps && (s = e.type.defaultProps), t))
+              k.call(t, o) &&
+                !S.hasOwnProperty(o) &&
+                (i[o] = void 0 === t[o] && void 0 !== s ? s[o] : t[o]);
+          }
+          if (((o = arguments.length - 2), 1 === o)) i.children = n;
+          else if (1 < o) {
+            s = Array(o);
+            for (var f = 0; f < o; f++) s[f] = arguments[f + 2];
+            i.children = s;
+          }
+          return { $$typeof: c, type: e.type, key: a, ref: l, props: i, _owner: u };
+        },
+        createFactory: function(e) {
+          var t = L.bind(null, e);
+          return (t.type = e), t;
+        },
+        isValidElement: V,
+        version: '16.7.0',
+        unstable_ConcurrentMode: h,
+        unstable_Profiler: u,
+        __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED: { ReactCurrentOwner: O, assign: r },
       },
-      createRef: function() {
-        return { current: null };
-      },
-      Component: M,
-      PureComponent: H,
-      createContext: function(e, t) {
-        return (
-          void 0 === t && (t = null),
-          (e = {
-            $$typeof: f,
-            _calculateChangedBits: t,
-            _currentValue: e,
-            _currentValue2: e,
-            _threadCount: 0,
-            Provider: null,
-            Consumer: null,
-          }),
-          (e.Provider = { $$typeof: s, _context: e }),
-          (e.Consumer = e)
-        );
-      },
-      forwardRef: function(e) {
-        return { $$typeof: p, render: e };
-      },
-      lazy: function(e) {
-        return { $$typeof: m, _ctor: e, _status: -1, _result: null };
-      },
-      memo: function(e, t) {
-        return { $$typeof: v, type: e, compare: void 0 === t ? null : t };
-      },
-      Fragment: a,
-      StrictMode: l,
-      Suspense: d,
-      createElement: S,
-      cloneElement: function(e, t, n) {
-        (null === e || void 0 === e) && b('267', e);
-        var o = void 0,
-          i = r({}, e.props),
-          a = e.key,
-          l = e.ref,
-          u = e._owner;
-        if (null != t) {
-          void 0 !== t.ref && ((l = t.ref), (u = O.current)), void 0 !== t.key && (a = '' + t.key);
-          var s = void 0;
-          for (o in (e.type && e.type.defaultProps && (s = e.type.defaultProps), t))
-            k.call(t, o) &&
-              !L.hasOwnProperty(o) &&
-              (i[o] = void 0 === t[o] && void 0 !== s ? s[o] : t[o]);
-        }
-        if (((o = arguments.length - 2), 1 === o)) i.children = n;
-        else if (1 < o) {
-          s = Array(o);
-          for (var f = 0; f < o; f++) s[f] = arguments[f + 2];
-          i.children = s;
-        }
-        return { $$typeof: c, type: e.type, key: a, ref: l, props: i, _owner: u };
-      },
-      createFactory: function(e) {
-        var t = S.bind(null, e);
-        return (t.type = e), t;
-      },
-      isValidElement: V,
-      version: '16.6.3',
-      __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED: { ReactCurrentOwner: O, assign: r },
-    };
-    (q.unstable_ConcurrentMode = h), (q.unstable_Profiler = u);
-    var Y = { default: q },
+      Y = { default: q },
       W = (Y && q) || Y;
     e.exports = W.default || W;
   },
@@ -37141,6 +37873,12 @@
     var r = n('2j6C'),
       o = n('P7XM');
     function c(e, t) {
+      return (
+        55296 === (64512 & e.charCodeAt(t)) &&
+        (!(t < 0 || t + 1 >= e.length) && 56320 === (64512 & e.charCodeAt(t + 1)))
+      );
+    }
+    function i(e, t) {
       if (Array.isArray(e)) return e.slice();
       if (!e) return [];
       var n = [];
@@ -37148,40 +37886,50 @@
         if (t) {
           if ('hex' === t)
             for (
-              e = e.replace(/[^a-z0-9]+/gi, ''), e.length % 2 !== 0 && (e = '0' + e), r = 0;
-              r < e.length;
-              r += 2
+              e = e.replace(/[^a-z0-9]+/gi, ''), e.length % 2 !== 0 && (e = '0' + e), o = 0;
+              o < e.length;
+              o += 2
             )
-              n.push(parseInt(e[r] + e[r + 1], 16));
+              n.push(parseInt(e[o] + e[o + 1], 16));
         } else
-          for (var r = 0; r < e.length; r++) {
-            var o = e.charCodeAt(r),
-              c = o >> 8,
-              i = 255 & o;
-            c ? n.push(c, i) : n.push(i);
+          for (var r = 0, o = 0; o < e.length; o++) {
+            var i = e.charCodeAt(o);
+            i < 128
+              ? (n[r++] = i)
+              : i < 2048
+                ? ((n[r++] = (i >> 6) | 192), (n[r++] = (63 & i) | 128))
+                : c(e, o)
+                  ? ((i = 65536 + ((1023 & i) << 10) + (1023 & e.charCodeAt(++o))),
+                    (n[r++] = (i >> 18) | 240),
+                    (n[r++] = ((i >> 12) & 63) | 128),
+                    (n[r++] = ((i >> 6) & 63) | 128),
+                    (n[r++] = (63 & i) | 128))
+                  : ((n[r++] = (i >> 12) | 224),
+                    (n[r++] = ((i >> 6) & 63) | 128),
+                    (n[r++] = (63 & i) | 128));
           }
-      else for (r = 0; r < e.length; r++) n[r] = 0 | e[r];
+      else for (o = 0; o < e.length; o++) n[o] = 0 | e[o];
       return n;
     }
-    function i(e) {
-      for (var t = '', n = 0; n < e.length; n++) t += u(e[n].toString(16));
+    function a(e) {
+      for (var t = '', n = 0; n < e.length; n++) t += s(e[n].toString(16));
       return t;
     }
-    function a(e) {
+    function l(e) {
       var t = (e >>> 24) | ((e >>> 8) & 65280) | ((e << 8) & 16711680) | ((255 & e) << 24);
       return t >>> 0;
     }
-    function l(e, t) {
+    function u(e, t) {
       for (var n = '', r = 0; r < e.length; r++) {
         var o = e[r];
-        'little' === t && (o = a(o)), (n += s(o.toString(16)));
+        'little' === t && (o = l(o)), (n += f(o.toString(16)));
       }
       return n;
     }
-    function u(e) {
+    function s(e) {
       return 1 === e.length ? '0' + e : e;
     }
-    function s(e) {
+    function f(e) {
       return 7 === e.length
         ? '0' + e
         : 6 === e.length
@@ -37198,7 +37946,7 @@
                     ? '0000000' + e
                     : e;
     }
-    function f(e, t, n, o) {
+    function h(e, t, n, o) {
       var c = n - t;
       r(c % 4 === 0);
       for (var i = new Array(c / 4), a = 0, l = t; a < i.length; a++, l += 4) {
@@ -37211,7 +37959,7 @@
       }
       return i;
     }
-    function h(e, t) {
+    function p(e, t) {
       for (var n = new Array(4 * e.length), r = 0, o = 0; r < e.length; r++, o += 4) {
         var c = e[r];
         'big' === t
@@ -37226,41 +37974,41 @@
       }
       return n;
     }
-    function p(e, t) {
+    function d(e, t) {
       return (e >>> t) | (e << (32 - t));
     }
-    function d(e, t) {
+    function v(e, t) {
       return (e << t) | (e >>> (32 - t));
     }
-    function v(e, t) {
+    function m(e, t) {
       return (e + t) >>> 0;
     }
-    function m(e, t, n) {
+    function y(e, t, n) {
       return (e + t + n) >>> 0;
     }
-    function y(e, t, n, r) {
+    function g(e, t, n, r) {
       return (e + t + n + r) >>> 0;
     }
-    function g(e, t, n, r, o) {
+    function b(e, t, n, r, o) {
       return (e + t + n + r + o) >>> 0;
     }
-    function b(e, t, n, r) {
+    function z(e, t, n, r) {
       var o = e[t],
         c = e[t + 1],
         i = (r + c) >>> 0,
         a = (i < r ? 1 : 0) + n + o;
       (e[t] = a >>> 0), (e[t + 1] = i);
     }
-    function z(e, t, n, r) {
+    function w(e, t, n, r) {
       var o = (t + r) >>> 0,
         c = (o < t ? 1 : 0) + e + n;
       return c >>> 0;
     }
-    function w(e, t, n, r) {
+    function M(e, t, n, r) {
       var o = t + r;
       return o >>> 0;
     }
-    function M(e, t, n, r, o, c, i, a) {
+    function _(e, t, n, r, o, c, i, a) {
       var l = 0,
         u = t;
       (u = (u + r) >>> 0),
@@ -37272,7 +38020,7 @@
       var s = e + n + o + i + l;
       return s >>> 0;
     }
-    function _(e, t, n, r, o, c, i, a) {
+    function x(e, t, n, r, o, c, i, a) {
       var l = t + r + c + a;
       return l >>> 0;
     }
@@ -37290,51 +38038,51 @@
       var h = e + n + o + i + l + s;
       return h >>> 0;
     }
-    function x(e, t, n, r, o, c, i, a, l, u) {
+    function O(e, t, n, r, o, c, i, a, l, u) {
       var s = t + r + c + a + u;
       return s >>> 0;
     }
-    function O(e, t, n) {
+    function k(e, t, n) {
       var r = (t << (32 - n)) | (e >>> n);
       return r >>> 0;
     }
-    function k(e, t, n) {
+    function S(e, t, n) {
       var r = (e << (32 - n)) | (t >>> n);
       return r >>> 0;
     }
     function L(e, t, n) {
       return e >>> n;
     }
-    function S(e, t, n) {
+    function C(e, t, n) {
       var r = (e << (32 - n)) | (t >>> n);
       return r >>> 0;
     }
     (t.inherits = o),
-      (t.toArray = c),
-      (t.toHex = i),
-      (t.htonl = a),
-      (t.toHex32 = l),
-      (t.zero2 = u),
-      (t.zero8 = s),
-      (t.join32 = f),
-      (t.split32 = h),
-      (t.rotr32 = p),
-      (t.rotl32 = d),
-      (t.sum32 = v),
-      (t.sum32_3 = m),
-      (t.sum32_4 = y),
-      (t.sum32_5 = g),
-      (t.sum64 = b),
-      (t.sum64_hi = z),
-      (t.sum64_lo = w),
-      (t.sum64_4_hi = M),
-      (t.sum64_4_lo = _),
+      (t.toArray = i),
+      (t.toHex = a),
+      (t.htonl = l),
+      (t.toHex32 = u),
+      (t.zero2 = s),
+      (t.zero8 = f),
+      (t.join32 = h),
+      (t.split32 = p),
+      (t.rotr32 = d),
+      (t.rotl32 = v),
+      (t.sum32 = m),
+      (t.sum32_3 = y),
+      (t.sum32_4 = g),
+      (t.sum32_5 = b),
+      (t.sum64 = z),
+      (t.sum64_hi = w),
+      (t.sum64_lo = M),
+      (t.sum64_4_hi = _),
+      (t.sum64_4_lo = x),
       (t.sum64_5_hi = H),
-      (t.sum64_5_lo = x),
-      (t.rotr64_hi = O),
-      (t.rotr64_lo = k),
+      (t.sum64_5_lo = O),
+      (t.rotr64_hi = k),
+      (t.rotr64_lo = S),
       (t.shr64_hi = L),
-      (t.shr64_lo = S);
+      (t.shr64_lo = C);
   },
   wCsR: function(e, t, n) {
     'use strict';
@@ -37504,20 +38252,20 @@
         function _(e) {
           return e instanceof M || (null != e && null != e._isAMomentObject);
         }
-        function H(e) {
+        function x(e) {
           return e < 0 ? Math.ceil(e) || 0 : Math.floor(e);
         }
-        function x(e) {
+        function H(e) {
           var t = +e,
             n = 0;
-          return 0 !== t && isFinite(t) && (n = H(t)), n;
+          return 0 !== t && isFinite(t) && (n = x(t)), n;
         }
         function O(e, t, n) {
           var r,
             o = Math.min(e.length, t.length),
             c = Math.abs(e.length - t.length),
             i = 0;
-          for (r = 0; r < o; r++) ((n && e[r] !== t[r]) || (!n && x(e[r]) !== x(t[r]))) && i++;
+          for (r = 0; r < o; r++) ((n && e[r] !== t[r]) || (!n && H(e[r]) !== H(t[r]))) && i++;
           return i + c;
         }
         function k(e) {
@@ -37526,7 +38274,7 @@
             console.warn &&
             console.warn('Deprecation warning: ' + e);
         }
-        function L(e, t) {
+        function S(e, t) {
           var n = !0;
           return p(function() {
             if ((null != r.deprecationHandler && r.deprecationHandler(null, e), n)) {
@@ -37550,7 +38298,7 @@
             return t.apply(this, arguments);
           }, t);
         }
-        var S,
+        var L,
           C = {};
         function V(e, t) {
           null != r.deprecationHandler && r.deprecationHandler(e, t), C[e] || (k(t), (C[e] = !0));
@@ -37586,7 +38334,7 @@
         }
         (r.suppressDeprecationWarnings = !1),
           (r.deprecationHandler = null),
-          (S = Object.keys
+          (L = Object.keys
             ? Object.keys
             : function(e) {
                 var t,
@@ -37760,20 +38508,20 @@
           we = /[+-]?\d{1,6}/,
           Me = /\d+/,
           _e = /[+-]?\d+/,
-          He = /Z|[+-]\d\d:?\d\d/gi,
-          xe = /Z|[+-]\d\d(?::?\d\d)?/gi,
+          xe = /Z|[+-]\d\d:?\d\d/gi,
+          He = /Z|[+-]\d\d(?::?\d\d)?/gi,
           Oe = /[+-]?\d+(\.\d{1,3})?/,
           ke = /[0-9]{0,256}['a-z\u00A0-\u05FF\u0700-\uD7FF\uF900-\uFDCF\uFDF0-\uFF07\uFF10-\uFFEF]{1,256}|[\u0600-\u06FF\/]{1,256}(\s*?[\u0600-\u06FF]{1,256}){1,2}/i,
-          Le = {};
-        function Se(e, t, n) {
-          Le[e] = T(t)
+          Se = {};
+        function Le(e, t, n) {
+          Se[e] = T(t)
             ? t
             : function(e, r) {
                 return e && n ? n : t;
               };
         }
         function Ce(e, t) {
-          return h(Le, e) ? Le[e](t._strict, t._locale) : new RegExp(Ve(e));
+          return h(Se, e) ? Se[e](t._strict, t._locale) : new RegExp(Ve(e));
         }
         function Ve(e) {
           return Te(
@@ -37795,7 +38543,7 @@
             'string' === typeof e && (e = [e]),
               u(t) &&
                 (r = function(e, n) {
-                  n[t] = x(e);
+                  n[t] = H(e);
                 }),
               n = 0;
             n < e.length;
@@ -37838,14 +38586,14 @@
           ie(0, ['YYYYYY', 6, !0], 0, 'year'),
           Z('year', 'y'),
           $('year', 1),
-          Se('Y', _e),
-          Se('YY', me, he),
-          Se('YYYY', ze, de),
-          Se('YYYYY', we, ve),
-          Se('YYYYYY', we, ve),
+          Le('Y', _e),
+          Le('YY', me, he),
+          Le('YYYY', ze, de),
+          Le('YYYYY', we, ve),
+          Le('YYYYYY', we, ve),
           Pe(['YYYYY', 'YYYYYY'], Fe),
           Pe('YYYY', function(e, t) {
-            t[Fe] = 2 === e.length ? r.parseTwoDigitYear(e) : x(e);
+            t[Fe] = 2 === e.length ? r.parseTwoDigitYear(e) : H(e);
           }),
           Pe('YY', function(e, t) {
             t[Fe] = r.parseTwoDigitYear(e);
@@ -37854,7 +38602,7 @@
             t[Fe] = parseInt(e, 10);
           }),
           (r.parseTwoDigitYear = function(e) {
-            return x(e) + (x(e) > 68 ? 1900 : 2e3);
+            return H(e) + (H(e) > 68 ? 1900 : 2e3);
           });
         var Ge,
           Ze = Qe('FullYear', !0);
@@ -37912,16 +38660,16 @@
           }),
           Z('month', 'M'),
           $('month', 8),
-          Se('M', me),
-          Se('MM', me, he),
-          Se('MMM', function(e, t) {
+          Le('M', me),
+          Le('MM', me, he),
+          Le('MMM', function(e, t) {
             return t.monthsShortRegex(e);
           }),
-          Se('MMMM', function(e, t) {
+          Le('MMMM', function(e, t) {
             return t.monthsRegex(e);
           }),
           Pe(['M', 'MM'], function(e, t) {
-            t[Re] = x(e) - 1;
+            t[Re] = H(e) - 1;
           }),
           Pe(['MMM', 'MMMM'], function(e, t, n, r) {
             var o = n._locale.monthsParse(e, r, n._strict);
@@ -38018,7 +38766,7 @@
           var n;
           if (!e.isValid()) return e;
           if ('string' === typeof t)
-            if (/^\d+$/.test(t)) t = x(t);
+            if (/^\d+$/.test(t)) t = H(t);
             else if (((t = e.localeData().monthsParse(t)), !u(t))) return e;
           return (
             (n = Math.min(e.date(), rt(e.year(), t))),
@@ -38108,19 +38856,19 @@
             i = Math.floor((e.dayOfYear() - c - 1) / 7) + 1;
           return (
             i < 1
-              ? ((o = e.year() - 1), (r = i + Ht(o, t, n)))
-              : i > Ht(e.year(), t, n)
-                ? ((r = i - Ht(e.year(), t, n)), (o = e.year() + 1))
+              ? ((o = e.year() - 1), (r = i + xt(o, t, n)))
+              : i > xt(e.year(), t, n)
+                ? ((r = i - xt(e.year(), t, n)), (o = e.year() + 1))
                 : ((o = e.year()), (r = i)),
             { week: r, year: o }
           );
         }
-        function Ht(e, t, n) {
+        function xt(e, t, n) {
           var r = wt(e, t, n),
             o = wt(e + 1, t, n);
           return (Be(e) - r + o) / 7;
         }
-        function xt(e) {
+        function Ht(e) {
           return _t(e, this._week.dow, this._week.doy).week;
         }
         ie('w', ['ww', 2], 'wo', 'week'),
@@ -38129,21 +38877,21 @@
           Z('isoWeek', 'W'),
           $('week', 5),
           $('isoWeek', 5),
-          Se('w', me),
-          Se('ww', me, he),
-          Se('W', me),
-          Se('WW', me, he),
+          Le('w', me),
+          Le('ww', me, he),
+          Le('W', me),
+          Le('WW', me, he),
           Ae(['w', 'ww', 'W', 'WW'], function(e, t, n, r) {
-            t[r.substr(0, 1)] = x(e);
+            t[r.substr(0, 1)] = H(e);
           });
         var Ot = { dow: 0, doy: 6 };
         function kt() {
           return this._week.dow;
         }
-        function Lt() {
+        function St() {
           return this._week.doy;
         }
-        function St(e) {
+        function Lt(e) {
           var t = this.localeData().week(this);
           return null == e ? t : this.add(7 * (e - t), 'd');
         }
@@ -38179,16 +38927,16 @@
           $('day', 11),
           $('weekday', 11),
           $('isoWeekday', 11),
-          Se('d', me),
-          Se('e', me),
-          Se('E', me),
-          Se('dd', function(e, t) {
+          Le('d', me),
+          Le('e', me),
+          Le('E', me),
+          Le('dd', function(e, t) {
             return t.weekdaysMinRegex(e);
           }),
-          Se('ddd', function(e, t) {
+          Le('ddd', function(e, t) {
             return t.weekdaysShortRegex(e);
           }),
-          Se('dddd', function(e, t) {
+          Le('dddd', function(e, t) {
             return t.weekdaysRegex(e);
           }),
           Ae(['dd', 'ddd', 'dddd'], function(e, t, n, r) {
@@ -38196,7 +38944,7 @@
             null != o ? (t.d = o) : (m(n).invalidWeekday = e);
           }),
           Ae(['d', 'e', 'E'], function(e, t, n, r) {
-            t[r] = x(e);
+            t[r] = H(e);
           });
         var Et = 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_');
         function Pt(e, t) {
@@ -38423,49 +39171,49 @@
           $t('A', !1),
           Z('hour', 'h'),
           $('hour', 13),
-          Se('a', en),
-          Se('A', en),
-          Se('H', me),
-          Se('h', me),
-          Se('k', me),
-          Se('HH', me, he),
-          Se('hh', me, he),
-          Se('kk', me, he),
-          Se('hmm', ye),
-          Se('hmmss', ge),
-          Se('Hmm', ye),
-          Se('Hmmss', ge),
+          Le('a', en),
+          Le('A', en),
+          Le('H', me),
+          Le('h', me),
+          Le('k', me),
+          Le('HH', me, he),
+          Le('hh', me, he),
+          Le('kk', me, he),
+          Le('hmm', ye),
+          Le('hmmss', ge),
+          Le('Hmm', ye),
+          Le('Hmmss', ge),
           Pe(['H', 'HH'], De),
           Pe(['k', 'kk'], function(e, t, n) {
-            var r = x(e);
+            var r = H(e);
             t[De] = 24 === r ? 0 : r;
           }),
           Pe(['a', 'A'], function(e, t, n) {
             (n._isPm = n._locale.isPM(e)), (n._meridiem = e);
           }),
           Pe(['h', 'hh'], function(e, t, n) {
-            (t[De] = x(e)), (m(n).bigHour = !0);
+            (t[De] = H(e)), (m(n).bigHour = !0);
           }),
           Pe('hmm', function(e, t, n) {
             var r = e.length - 2;
-            (t[De] = x(e.substr(0, r))), (t[Ie] = x(e.substr(r))), (m(n).bigHour = !0);
+            (t[De] = H(e.substr(0, r))), (t[Ie] = H(e.substr(r))), (m(n).bigHour = !0);
           }),
           Pe('hmmss', function(e, t, n) {
             var r = e.length - 4,
               o = e.length - 2;
-            (t[De] = x(e.substr(0, r))),
-              (t[Ie] = x(e.substr(r, 2))),
-              (t[Ue] = x(e.substr(o))),
+            (t[De] = H(e.substr(0, r))),
+              (t[Ie] = H(e.substr(r, 2))),
+              (t[Ue] = H(e.substr(o))),
               (m(n).bigHour = !0);
           }),
           Pe('Hmm', function(e, t, n) {
             var r = e.length - 2;
-            (t[De] = x(e.substr(0, r))), (t[Ie] = x(e.substr(r)));
+            (t[De] = H(e.substr(0, r))), (t[Ie] = H(e.substr(r)));
           }),
           Pe('Hmmss', function(e, t, n) {
             var r = e.length - 4,
               o = e.length - 2;
-            (t[De] = x(e.substr(0, r))), (t[Ie] = x(e.substr(r, 2))), (t[Ue] = x(e.substr(o)));
+            (t[De] = H(e.substr(0, r))), (t[Ie] = H(e.substr(r, 2))), (t[Ue] = H(e.substr(o)));
           });
         var nn = /[ap]\.?m?\.?/i;
         function rn(e, t, n) {
@@ -38597,7 +39345,7 @@
           return fn(e);
         }
         function yn() {
-          return S(ln);
+          return L(ln);
         }
         function gn(e) {
           var t,
@@ -38692,15 +39440,15 @@
                   ? ((o = t.e + c), (t.e < 0 || t.e > 6) && (l = !0))
                   : (o = c);
           }
-          r < 1 || r > Ht(n, c, i)
+          r < 1 || r > xt(n, c, i)
             ? (m(e)._overflowWeeks = !0)
             : null != l
               ? (m(e)._overflowWeekday = !0)
               : ((a = Mt(n, r, o, c, i)), (e._a[Fe] = a.year), (e._dayOfYear = a.dayOfYear));
         }
         var _n = /^\s*((?:[+-]\d{6}|\d{4})-(?:\d\d-\d\d|W\d\d-\d|W\d\d|\d\d\d|\d\d))(?:(T| )(\d\d(?::\d\d(?::\d\d(?:[.,]\d+)?)?)?)([\+\-]\d\d(?::?\d\d)?|\s*Z)?)?$/,
-          Hn = /^\s*((?:[+-]\d{6}|\d{4})(?:\d\d\d\d|W\d\d\d|W\d\d|\d\d\d|\d\d))(?:(T| )(\d\d(?:\d\d(?:\d\d(?:[.,]\d+)?)?)?)([\+\-]\d\d(?::?\d\d)?|\s*Z)?)?$/,
-          xn = /Z|[+-]\d\d(?::?\d\d)?/,
+          xn = /^\s*((?:[+-]\d{6}|\d{4})(?:\d\d\d\d|W\d\d\d|W\d\d|\d\d\d|\d\d))(?:(T| )(\d\d(?:\d\d(?:\d\d(?:[.,]\d+)?)?)?)([\+\-]\d\d(?::?\d\d)?|\s*Z)?)?$/,
+          Hn = /Z|[+-]\d\d(?::?\d\d)?/,
           On = [
             ['YYYYYY-MM-DD', /[+-]\d{6}-\d\d-\d\d/],
             ['YYYY-MM-DD', /\d{4}-\d\d-\d\d/],
@@ -38725,8 +39473,8 @@
             ['HHmm', /\d\d\d\d/],
             ['HH', /\d\d/],
           ],
-          Ln = /^\/?Date\((\-?\d+)/i;
-        function Sn(e) {
+          Sn = /^\/?Date\((\-?\d+)/i;
+        function Ln(e) {
           var t,
             n,
             r,
@@ -38734,7 +39482,7 @@
             c,
             i,
             a = e._i,
-            l = _n.exec(a) || Hn.exec(a);
+            l = _n.exec(a) || xn.exec(a);
           if (l) {
             for (m(e).iso = !0, t = 0, n = On.length; t < n; t++)
               if (On[t][1].exec(l[1])) {
@@ -38752,7 +39500,7 @@
             }
             if (!r && null != c) return void (e._isValid = !1);
             if (l[4]) {
-              if (!xn.exec(l[4])) return void (e._isValid = !1);
+              if (!Hn.exec(l[4])) return void (e._isValid = !1);
               i = 'Z';
             }
             (e._f = o + (c || '') + (i || '')), Nn(e);
@@ -38815,9 +39563,9 @@
           } else e._isValid = !1;
         }
         function Rn(e) {
-          var t = Ln.exec(e._i);
+          var t = Sn.exec(e._i);
           null === t
-            ? (Sn(e),
+            ? (Ln(e),
               !1 === e._isValid &&
                 (delete e._isValid,
                 Fn(e),
@@ -38856,7 +39604,7 @@
                 wn(e),
                 gn(e);
             } else Fn(e);
-          else Sn(e);
+          else Ln(e);
         }
         function Dn(e, t, n) {
           var r;
@@ -38951,7 +39699,7 @@
         function Kn(e, t, n, r) {
           return Bn(e, t, n, r, !1);
         }
-        (r.createFromInputFallback = L(
+        (r.createFromInputFallback = S(
           'value provided is not in a recognized RFC2822 or ISO format. moment construction falls back to js Date(), which is not reliable across all browsers and versions. Non RFC2822/ISO date formats are discouraged and will be removed in an upcoming major release. Please refer to http://momentjs.com/guides/#/warnings/js-date/ for more info.',
           function(e) {
             e._d = new Date(e._i + (e._useUTC ? ' UTC' : ''));
@@ -38959,14 +39707,14 @@
         )),
           (r.ISO_8601 = function() {}),
           (r.RFC_2822 = function() {});
-        var Gn = L(
+        var Gn = S(
             'moment().min is deprecated, use moment.max instead. http://momentjs.com/guides/#/warnings/min-max/',
             function() {
               var e = Kn.apply(null, arguments);
               return this.isValid() && e.isValid() ? (e < this ? this : e) : g();
             }
           ),
-          Zn = L(
+          Zn = S(
             'moment().max is deprecated, use moment.min instead. http://momentjs.com/guides/#/warnings/min-max/',
             function() {
               var e = Kn.apply(null, arguments);
@@ -39006,7 +39754,7 @@
           for (var n = !1, r = 0; r < er.length; ++r)
             if (e[er[r]]) {
               if (n) return !1;
-              parseFloat(e[er[r]]) !== x(e[er[r]]) && (n = !0);
+              parseFloat(e[er[r]]) !== H(e[er[r]]) && (n = !0);
             }
           return !0;
         }
@@ -39014,14 +39762,14 @@
           return this._isValid;
         }
         function rr() {
-          return xr(NaN);
+          return Hr(NaN);
         }
         function or(e) {
           var t = Q(e),
             n = t.year || 0,
             r = t.quarter || 0,
             o = t.month || 0,
-            c = t.week || 0,
+            c = t.week || t.isoWeek || 0,
             i = t.day || 0,
             a = t.hour || 0,
             l = t.minute || 0,
@@ -39050,10 +39798,10 @@
         }
         ar('Z', ':'),
           ar('ZZ', ''),
-          Se('Z', xe),
-          Se('ZZ', xe),
+          Le('Z', He),
+          Le('ZZ', He),
           Pe(['Z', 'ZZ'], function(e, t, n) {
-            (n._useUTC = !0), (n._tzm = ur(xe, e));
+            (n._useUTC = !0), (n._tzm = ur(He, e));
           });
         var lr = /([\+\-]|\d\d)/gi;
         function ur(e, t) {
@@ -39061,7 +39809,7 @@
           if (null === n) return null;
           var r = n[n.length - 1] || [],
             o = (r + '').match(lr) || ['-', 0, 0],
-            c = 60 * o[1] + x(o[2]);
+            c = 60 * o[1] + H(o[2]);
           return 0 === c ? 0 : '+' === o[0] ? c : -c;
         }
         function sr(e, t) {
@@ -39083,7 +39831,7 @@
           if (!this.isValid()) return null != e ? this : NaN;
           if (null != e) {
             if ('string' === typeof e) {
-              if (((e = ur(xe, e)), null === e)) return this;
+              if (((e = ur(He, e)), null === e)) return this;
             } else Math.abs(e) < 16 && !n && (e *= 60);
             return (
               !this._isUTC && t && (o = fr(this)),
@@ -39092,7 +39840,7 @@
               null != o && this.add(o, 'm'),
               c !== e &&
                 (!t || this._changeInProgress
-                  ? Cr(this, xr(e - c, 'm'), 1, !1)
+                  ? Cr(this, Hr(e - c, 'm'), 1, !1)
                   : this._changeInProgress ||
                     ((this._changeInProgress = !0),
                     r.updateOffset(this, !0),
@@ -39120,7 +39868,7 @@
         function mr() {
           if (null != this._tzm) this.utcOffset(this._tzm, !1, !0);
           else if ('string' === typeof this._i) {
-            var e = ur(He, this._i);
+            var e = ur(xe, this._i);
             null != e ? this.utcOffset(e) : this.utcOffset(0, !0);
           }
           return this;
@@ -39162,8 +39910,8 @@
         }
         r.updateOffset = function() {};
         var _r = /^(\-|\+)?(?:(\d*)[. ])?(\d+)\:(\d+)(?:\:(\d+)(\.\d*)?)?$/,
-          Hr = /^(-|\+)?P(?:([-+]?[0-9,.]*)Y)?(?:([-+]?[0-9,.]*)M)?(?:([-+]?[0-9,.]*)W)?(?:([-+]?[0-9,.]*)D)?(?:T(?:([-+]?[0-9,.]*)H)?(?:([-+]?[0-9,.]*)M)?(?:([-+]?[0-9,.]*)S)?)?$/;
-        function xr(e, t) {
+          xr = /^(-|\+)?P(?:([-+]?[0-9,.]*)Y)?(?:([-+]?[0-9,.]*)M)?(?:([-+]?[0-9,.]*)W)?(?:([-+]?[0-9,.]*)D)?(?:T(?:([-+]?[0-9,.]*)H)?(?:([-+]?[0-9,.]*)M)?(?:([-+]?[0-9,.]*)S)?)?$/;
+        function Hr(e, t) {
           var n,
             r,
             o,
@@ -39178,14 +39926,14 @@
                   ? ((n = '-' === i[1] ? -1 : 1),
                     (c = {
                       y: 0,
-                      d: x(i[Ne]) * n,
-                      h: x(i[De]) * n,
-                      m: x(i[Ie]) * n,
-                      s: x(i[Ue]) * n,
-                      ms: x(ir(1e3 * i[qe])) * n,
+                      d: H(i[Ne]) * n,
+                      h: H(i[De]) * n,
+                      m: H(i[Ie]) * n,
+                      s: H(i[Ue]) * n,
+                      ms: H(ir(1e3 * i[qe])) * n,
                     }))
-                  : (i = Hr.exec(e))
-                    ? ((n = '-' === i[1] ? -1 : (i[1], 1)),
+                  : (i = xr.exec(e))
+                    ? ((n = '-' === i[1] ? -1 : 1),
                       (c = {
                         y: Or(i[2], n),
                         M: Or(i[3], n),
@@ -39199,7 +39947,7 @@
                       ? (c = {})
                       : 'object' === typeof c &&
                         ('from' in c || 'to' in c) &&
-                        ((o = Lr(Kn(c.from), Kn(c.to))),
+                        ((o = Sr(Kn(c.from), Kn(c.to))),
                         (c = {}),
                         (c.ms = o.milliseconds),
                         (c.M = o.months)),
@@ -39224,7 +39972,7 @@
             n
           );
         }
-        function Lr(e, t) {
+        function Sr(e, t) {
           var n;
           return e.isValid() && t.isValid()
             ? ((t = sr(t, e)),
@@ -39234,7 +39982,7 @@
               n)
             : { milliseconds: 0, months: 0 };
         }
-        function Sr(e, t) {
+        function Lr(e, t) {
           return function(n, r) {
             var o, c;
             return (
@@ -39252,7 +40000,7 @@
                 (n = r),
                 (r = c)),
               (n = 'string' === typeof n ? +n : n),
-              (o = xr(n, r)),
+              (o = Hr(n, r)),
               Cr(this, o, e),
               this
             );
@@ -39269,9 +40017,9 @@
             c && e._d.setTime(e._d.valueOf() + c * n),
             o && r.updateOffset(e, i || a));
         }
-        (xr.fn = or.prototype), (xr.invalid = rr);
-        var Vr = Sr(1, 'add'),
-          Tr = Sr(-1, 'subtract');
+        (Hr.fn = or.prototype), (Hr.invalid = rr);
+        var Vr = Lr(1, 'add'),
+          Tr = Lr(-1, 'subtract');
         function Er(e, t) {
           var n = e.diff(t, 'days', !0);
           return n < -6
@@ -39302,7 +40050,7 @@
           var n = _(e) ? e : Kn(e);
           return (
             !(!this.isValid() || !n.isValid()) &&
-            ((t = X(l(t) ? 'millisecond' : t)),
+            ((t = X(t) || 'millisecond'),
             'millisecond' === t
               ? this.valueOf() > n.valueOf()
               : n.valueOf() <
@@ -39315,7 +40063,7 @@
           var n = _(e) ? e : Kn(e);
           return (
             !(!this.isValid() || !n.isValid()) &&
-            ((t = X(l(t) ? 'millisecond' : t)),
+            ((t = X(t) || 'millisecond'),
             'millisecond' === t
               ? this.valueOf() < n.valueOf()
               : this.clone()
@@ -39324,10 +40072,13 @@
           );
         }
         function Rr(e, t, n, r) {
+          var o = _(e) ? e : Kn(e),
+            c = _(t) ? t : Kn(t);
           return (
-            (r = r || '()'),
-            ('(' === r[0] ? this.isAfter(e, n) : !this.isBefore(e, n)) &&
-              (')' === r[1] ? this.isBefore(t, n) : !this.isAfter(t, n))
+            !!(this.isValid() && o.isValid() && c.isValid()) &&
+            ((r = r || '()'),
+            ('(' === r[0] ? this.isAfter(o, n) : !this.isBefore(o, n)) &&
+              (')' === r[1] ? this.isBefore(c, n) : !this.isAfter(c, n)))
           );
         }
         function Nr(e, t) {
@@ -39335,7 +40086,7 @@
             r = _(e) ? e : Kn(e);
           return (
             !(!this.isValid() || !r.isValid()) &&
-            ((t = X(t || 'millisecond')),
+            ((t = X(t) || 'millisecond'),
             'millisecond' === t
               ? this.valueOf() === r.valueOf()
               : ((n = r.valueOf()),
@@ -39386,7 +40137,7 @@
             default:
               c = this - r;
           }
-          return n ? c : H(c);
+          return n ? c : x(c);
         }
         function qr(e, t) {
           var n,
@@ -39438,7 +40189,7 @@
         }
         function Gr(e, t) {
           return this.isValid() && ((_(e) && e.isValid()) || Kn(e).isValid())
-            ? xr({ to: this, from: e })
+            ? Hr({ to: this, from: e })
                 .locale(this.locale())
                 .humanize(!t)
             : this.localeData().invalidDate();
@@ -39448,7 +40199,7 @@
         }
         function Xr(e, t) {
           return this.isValid() && ((_(e) && e.isValid()) || Kn(e).isValid())
-            ? xr({ from: this, to: e })
+            ? Hr({ from: this, to: e })
                 .locale(this.locale())
                 .humanize(!t)
             : this.localeData().invalidDate();
@@ -39463,7 +40214,7 @@
             : ((t = mn(e)), null != t && (this._locale = t), this);
         }
         (r.defaultFormat = 'YYYY-MM-DDTHH:mm:ssZ'), (r.defaultFormatUtc = 'YYYY-MM-DDTHH:mm:ss[Z]');
-        var $r = L(
+        var $r = S(
           'moment().lang() is deprecated. Instead, use moment().localeData() to get the language configuration. Use moment().locale() to change languages.',
           function(e) {
             return void 0 === e ? this.localeData() : this.locale(e);
@@ -39572,17 +40323,17 @@
           return bo.call(this, e, this.isoWeek(), this.isoWeekday(), 1, 4);
         }
         function yo() {
-          return Ht(this.year(), 1, 4);
+          return xt(this.year(), 1, 4);
         }
         function go() {
           var e = this.localeData()._week;
-          return Ht(this.year(), e.dow, e.doy);
+          return xt(this.year(), e.dow, e.doy);
         }
         function bo(e, t, n, r, o) {
           var c;
           return null == e
             ? _t(this, r, o).year
-            : ((c = Ht(e, r, o)), t > c && (t = c), zo.call(this, e, t, n, r, o));
+            : ((c = xt(e, r, o)), t > c && (t = c), zo.call(this, e, t, n, r, o));
         }
         function zo(e, t, n, r, o) {
           var c = Mt(e, t, n, r, o),
@@ -39613,16 +40364,16 @@
           Z('isoWeekYear', 'GG'),
           $('weekYear', 1),
           $('isoWeekYear', 1),
-          Se('G', _e),
-          Se('g', _e),
-          Se('GG', me, he),
-          Se('gg', me, he),
-          Se('GGGG', ze, de),
-          Se('gggg', ze, de),
-          Se('GGGGG', we, ve),
-          Se('ggggg', we, ve),
+          Le('G', _e),
+          Le('g', _e),
+          Le('GG', me, he),
+          Le('gg', me, he),
+          Le('GGGG', ze, de),
+          Le('gggg', ze, de),
+          Le('GGGGG', we, ve),
+          Le('ggggg', we, ve),
           Ae(['gggg', 'ggggg', 'GGGG', 'GGGGG'], function(e, t, n, r) {
-            t[r.substr(0, 2)] = x(e);
+            t[r.substr(0, 2)] = H(e);
           }),
           Ae(['gg', 'GG'], function(e, t, n, o) {
             t[o] = r.parseTwoDigitYear(e);
@@ -39630,23 +40381,23 @@
           ie('Q', 0, 'Qo', 'quarter'),
           Z('quarter', 'Q'),
           $('quarter', 7),
-          Se('Q', fe),
+          Le('Q', fe),
           Pe('Q', function(e, t) {
-            t[Re] = 3 * (x(e) - 1);
+            t[Re] = 3 * (H(e) - 1);
           }),
           ie('D', ['DD', 2], 'Do', 'date'),
           Z('date', 'D'),
           $('date', 9),
-          Se('D', me),
-          Se('DD', me, he),
-          Se('Do', function(e, t) {
+          Le('D', me),
+          Le('DD', me, he),
+          Le('Do', function(e, t) {
             return e
               ? t._dayOfMonthOrdinalParse || t._ordinalParse
               : t._dayOfMonthOrdinalParseLenient;
           }),
           Pe(['D', 'DD'], Ne),
           Pe('Do', function(e, t) {
-            t[Ne] = x(e.match(me)[0]);
+            t[Ne] = H(e.match(me)[0]);
           });
         var Mo = Qe('Date', !0);
         function _o(e) {
@@ -39657,25 +40408,25 @@
         ie('DDD', ['DDDD', 3], 'DDDo', 'dayOfYear'),
           Z('dayOfYear', 'DDD'),
           $('dayOfYear', 4),
-          Se('DDD', be),
-          Se('DDDD', pe),
+          Le('DDD', be),
+          Le('DDDD', pe),
           Pe(['DDD', 'DDDD'], function(e, t, n) {
-            n._dayOfYear = x(e);
+            n._dayOfYear = H(e);
           }),
           ie('m', ['mm', 2], 0, 'minute'),
           Z('minute', 'm'),
           $('minute', 14),
-          Se('m', me),
-          Se('mm', me, he),
+          Le('m', me),
+          Le('mm', me, he),
           Pe(['m', 'mm'], Ie);
-        var Ho = Qe('Minutes', !1);
+        var xo = Qe('Minutes', !1);
         ie('s', ['ss', 2], 0, 'second'),
           Z('second', 's'),
           $('second', 15),
-          Se('s', me),
-          Se('ss', me, he),
+          Le('s', me),
+          Le('ss', me, he),
           Pe(['s', 'ss'], Ue);
-        var xo,
+        var Ho,
           Oo = Qe('Seconds', !1);
         for (
           ie('S', 0, 0, function() {
@@ -39705,20 +40456,20 @@
             }),
             Z('millisecond', 'ms'),
             $('millisecond', 16),
-            Se('S', be, fe),
-            Se('SS', be, he),
-            Se('SSS', be, pe),
-            xo = 'SSSS';
-          xo.length <= 9;
-          xo += 'S'
+            Le('S', be, fe),
+            Le('SS', be, he),
+            Le('SSS', be, pe),
+            Ho = 'SSSS';
+          Ho.length <= 9;
+          Ho += 'S'
         )
-          Se(xo, Me);
+          Le(Ho, Me);
         function ko(e, t) {
-          t[qe] = x(1e3 * ('0.' + e));
+          t[qe] = H(1e3 * ('0.' + e));
         }
-        for (xo = 'S'; xo.length <= 9; xo += 'S') Pe(xo, ko);
-        var Lo = Qe('Milliseconds', !1);
-        function So() {
+        for (Ho = 'S'; Ho.length <= 9; Ho += 'S') Pe(Ho, ko);
+        var So = Qe('Milliseconds', !1);
+        function Lo() {
           return this._isUTC ? 'UTC' : '';
         }
         function Co() {
@@ -39780,7 +40531,7 @@
           (Vo.quarter = Vo.quarters = wo),
           (Vo.month = ht),
           (Vo.daysInMonth = pt),
-          (Vo.week = Vo.weeks = St),
+          (Vo.week = Vo.weeks = Lt),
           (Vo.isoWeek = Vo.isoWeeks = Ct),
           (Vo.weeksInYear = go),
           (Vo.isoWeeksInYear = yo),
@@ -39790,9 +40541,9 @@
           (Vo.isoWeekday = qt),
           (Vo.dayOfYear = _o),
           (Vo.hour = Vo.hours = cn),
-          (Vo.minute = Vo.minutes = Ho),
+          (Vo.minute = Vo.minutes = xo),
           (Vo.second = Vo.seconds = Oo),
-          (Vo.millisecond = Vo.milliseconds = Lo),
+          (Vo.millisecond = Vo.milliseconds = So),
           (Vo.utcOffset = hr),
           (Vo.utc = dr),
           (Vo.local = vr),
@@ -39803,16 +40554,16 @@
           (Vo.isUtcOffset = wr),
           (Vo.isUtc = Mr),
           (Vo.isUTC = Mr),
-          (Vo.zoneAbbr = So),
+          (Vo.zoneAbbr = Lo),
           (Vo.zoneName = Co),
-          (Vo.dates = L('dates accessor is deprecated. Use date instead.', Mo)),
-          (Vo.months = L('months accessor is deprecated. Use month instead', ht)),
-          (Vo.years = L('years accessor is deprecated. Use year instead', Ze)),
-          (Vo.zone = L(
+          (Vo.dates = S('dates accessor is deprecated. Use date instead.', Mo)),
+          (Vo.months = S('months accessor is deprecated. Use month instead', ht)),
+          (Vo.years = S('years accessor is deprecated. Use year instead', Ze)),
+          (Vo.zone = S(
             'moment().zone is deprecated, use moment().utcOffset instead. http://momentjs.com/guides/#/warnings/zone/',
             pr
           )),
-          (Vo.isDSTShifted = L(
+          (Vo.isDSTShifted = S(
             'isDSTShifted is deprecated. See http://momentjs.com/guides/#/warnings/dst-shifted/ for more information',
             br
           ));
@@ -39871,8 +40622,8 @@
           (Ao.monthsParse = st),
           (Ao.monthsRegex = yt),
           (Ao.monthsShortRegex = vt),
-          (Ao.week = xt),
-          (Ao.firstDayOfYear = Lt),
+          (Ao.week = Ht),
+          (Ao.firstDayOfYear = St),
           (Ao.firstDayOfWeek = kt),
           (Ao.weekdays = Pt),
           (Ao.weekdaysMin = Rt),
@@ -39888,7 +40639,7 @@
             ordinal: function(e) {
               var t = e % 10,
                 n =
-                  1 === x((e % 100) / 10)
+                  1 === H((e % 100) / 10)
                     ? 'th'
                     : 1 === t
                       ? 'st'
@@ -39900,8 +40651,8 @@
               return e + n;
             },
           }),
-          (r.lang = L('moment.lang is deprecated. Use moment.locale instead.', pn)),
-          (r.langData = L('moment.langData is deprecated. Use moment.localeData instead.', mn));
+          (r.lang = S('moment.lang is deprecated. Use moment.locale instead.', pn)),
+          (r.langData = S('moment.langData is deprecated. Use moment.localeData instead.', mn));
         var Yo = Math.abs;
         function Wo() {
           var e = this._data;
@@ -39919,7 +40670,7 @@
           );
         }
         function Bo(e, t, n, r) {
-          var o = xr(t, n);
+          var o = Hr(t, n);
           return (
             (e._milliseconds += r * o._milliseconds),
             (e._days += r * o._days),
@@ -39951,17 +40702,17 @@
               (c <= 0 && i <= 0 && a <= 0) ||
               ((c += 864e5 * Zo(Jo(a) + i)), (i = 0), (a = 0)),
             (l.milliseconds = c % 1e3),
-            (e = H(c / 1e3)),
+            (e = x(c / 1e3)),
             (l.seconds = e % 60),
-            (t = H(e / 60)),
+            (t = x(e / 60)),
             (l.minutes = t % 60),
-            (n = H(t / 60)),
+            (n = x(t / 60)),
             (l.hours = n % 24),
-            (i += H(n / 24)),
-            (o = H(Qo(i))),
+            (i += x(n / 24)),
+            (o = x(Qo(i))),
             (a += o),
             (i -= Zo(Jo(o))),
-            (r = H(a / 12)),
+            (r = x(a / 12)),
             (a %= 12),
             (l.days = i),
             (l.months = a),
@@ -40006,7 +40757,7 @@
             ? this._milliseconds +
                 864e5 * this._days +
                 (this._months % 12) * 2592e6 +
-                31536e6 * x(this._months / 12)
+                31536e6 * H(this._months / 12)
             : NaN;
         }
         function tc(e) {
@@ -40023,7 +40774,7 @@
           lc = tc('M'),
           uc = tc('y');
         function sc() {
-          return xr(this);
+          return Hr(this);
         }
         function fc(e) {
           return (e = X(e)), this.isValid() ? this[e + 's']() : NaN;
@@ -40041,15 +40792,15 @@
           gc = hc('months'),
           bc = hc('years');
         function zc() {
-          return H(this.days() / 7);
+          return x(this.days() / 7);
         }
         var wc = Math.round,
           Mc = { ss: 44, s: 45, m: 45, h: 22, d: 26, M: 11 };
         function _c(e, t, n, r, o) {
           return o.relativeTime(t || 1, !!n, e, r);
         }
-        function Hc(e, t, n) {
-          var r = xr(e).abs(),
+        function xc(e, t, n) {
+          var r = Hr(e).abs(),
             o = wc(r.as('s')),
             c = wc(r.as('m')),
             i = wc(r.as('h')),
@@ -40069,7 +40820,7 @@
               (u <= 1 && ['y']) || ['yy', u];
           return (s[2] = t), (s[3] = +e > 0), (s[4] = n), _c.apply(null, s);
         }
-        function xc(e) {
+        function Hc(e) {
           return void 0 === e ? wc : 'function' === typeof e && ((wc = e), !0);
         }
         function Oc(e, t) {
@@ -40081,11 +40832,11 @@
         function kc(e) {
           if (!this.isValid()) return this.localeData().invalidDate();
           var t = this.localeData(),
-            n = Hc(this, !e, t);
+            n = xc(this, !e, t);
           return e && (n = t.pastFuture(+this, n)), t.postformat(n);
         }
-        var Lc = Math.abs;
-        function Sc(e) {
+        var Sc = Math.abs;
+        function Lc(e) {
           return (e > 0) - (e < 0) || +e;
         }
         function Cc() {
@@ -40093,10 +40844,10 @@
           var e,
             t,
             n,
-            r = Lc(this._milliseconds) / 1e3,
-            o = Lc(this._days),
-            c = Lc(this._months);
-          (e = H(r / 60)), (t = H(e / 60)), (r %= 60), (e %= 60), (n = H(c / 12)), (c %= 12);
+            r = Sc(this._milliseconds) / 1e3,
+            o = Sc(this._days),
+            c = Sc(this._months);
+          (e = x(r / 60)), (t = x(e / 60)), (r %= 60), (e %= 60), (n = x(c / 12)), (c %= 12);
           var i = n,
             a = c,
             l = o,
@@ -40106,9 +40857,9 @@
             h = this.asSeconds();
           if (!h) return 'P0D';
           var p = h < 0 ? '-' : '',
-            d = Sc(this._months) !== Sc(h) ? '-' : '',
-            v = Sc(this._days) !== Sc(h) ? '-' : '',
-            m = Sc(this._milliseconds) !== Sc(h) ? '-' : '';
+            d = Lc(this._months) !== Lc(h) ? '-' : '',
+            v = Lc(this._days) !== Lc(h) ? '-' : '',
+            m = Lc(this._milliseconds) !== Lc(h) ? '-' : '';
           return (
             p +
             'P' +
@@ -40154,22 +40905,22 @@
           (Vc.toJSON = Cc),
           (Vc.locale = Jr),
           (Vc.localeData = eo),
-          (Vc.toIsoString = L(
+          (Vc.toIsoString = S(
             'toIsoString() is deprecated. Please use toISOString() instead (notice the capitals)',
             Cc
           )),
           (Vc.lang = $r),
           ie('X', 0, 0, 'unix'),
           ie('x', 0, 0, 'valueOf'),
-          Se('x', _e),
-          Se('X', Oe),
+          Le('x', _e),
+          Le('X', Oe),
           Pe('X', function(e, t, n) {
             n._d = new Date(1e3 * parseFloat(e, 10));
           }),
           Pe('x', function(e, t, n) {
-            n._d = new Date(x(e));
+            n._d = new Date(H(e));
           }),
-          (r.version = '2.22.2'),
+          (r.version = '2.23.0'),
           o(Kn),
           (r.fn = Vo),
           (r.min = Qn),
@@ -40181,7 +40932,7 @@
           (r.isDate = s),
           (r.locale = pn),
           (r.invalid = g),
-          (r.duration = xr),
+          (r.duration = Hr),
           (r.isMoment = _),
           (r.weekdays = Io),
           (r.parseZone = Eo),
@@ -40194,7 +40945,7 @@
           (r.locales = yn),
           (r.weekdaysShort = Uo),
           (r.normalizeUnits = X),
-          (r.relativeTimeRounding = xc),
+          (r.relativeTimeRounding = Hc),
           (r.relativeTimeThreshold = Oc),
           (r.calendarFormat = Er),
           (r.prototype = Vo),
@@ -40206,7 +40957,7 @@
             TIME: 'HH:mm',
             TIME_SECONDS: 'HH:mm:ss',
             TIME_MS: 'HH:mm:ss.SSS',
-            WEEK: 'YYYY-[W]WW',
+            WEEK: 'GGGG-[W]WW',
             MONTH: 'YYYY-MM',
           }),
           r
@@ -40499,24 +41250,21 @@
   },
   'xc/l': function(e, t, n) {
     'use strict';
-    Object.defineProperty(t, '__esModule', { value: !0 });
-    var r = n('7Pqi'),
-      o = f(r),
-      c = n('Z0Lh'),
-      i = f(c),
-      a = n('Z6rY'),
-      l = f(a),
-      u = n('7+IK'),
-      s = f(u);
-    function f(e) {
+    Object.defineProperty(t, '__esModule', { value: !0 }), (t['default'] = void 0);
+    var r = a(n('7Pqi')),
+      o = a(n('Z0Lh')),
+      c = a(n('Z6rY')),
+      i = a(n('7+IK'));
+    function a(e) {
       return e && e.__esModule ? e : { default: e };
     }
-    (t['default'] = {
+    var l = {
       locale: 'zh-cn',
-      Pagination: o['default'],
-      DatePicker: i['default'],
-      TimePicker: l['default'],
-      Calendar: s['default'],
+      Pagination: r['default'],
+      DatePicker: o['default'],
+      TimePicker: c['default'],
+      Calendar: i['default'],
+      global: { placeholder: '\u8bf7\u9009\u62e9' },
       Table: {
         filterTitle: '\u7b5b\u9009',
         filterConfirm: '\u786e\u5b9a',
@@ -40545,8 +41293,8 @@
         uploadError: '\u4e0a\u4f20\u9519\u8bef',
         previewFile: '\u9884\u89c8\u6587\u4ef6',
       },
-    }),
-      (e.exports = t['default']);
+    };
+    t['default'] = l;
   },
   xfY5: function(e, t, n) {
     'use strict';
@@ -40893,14 +41641,14 @@
       w = {},
       M = {},
       _ = {},
-      H = null,
       x = null,
+      H = null,
       O = null;
     function k(e, t, n) {
       var r = e.type || 'unknown-event';
       (e.currentTarget = O(n)), v(r, t, void 0, e), (e.currentTarget = null);
     }
-    function L(e, t) {
+    function S(e, t) {
       return (
         null == t && a('30'),
         null == e
@@ -40914,7 +41662,7 @@
               : [e, t]
       );
     }
-    function S(e, t, n) {
+    function L(e, t, n) {
       Array.isArray(e) ? e.forEach(t, n) : e && t.call(n, e);
     }
     var C = null;
@@ -40948,7 +41696,7 @@
     function E(e, t) {
       var n = e.stateNode;
       if (!n) return null;
-      var r = H(n);
+      var r = x(n);
       if (!r) return null;
       n = r[t];
       e: switch (t) {
@@ -40973,7 +41721,7 @@
       return e ? null : (n && 'function' !== typeof n && a('231', t, typeof n), n);
     }
     function P(e) {
-      if ((null !== e && (C = L(C, e)), (e = C), (C = null), e && (S(e, V), C && a('95'), f)))
+      if ((null !== e && (C = S(C, e)), (e = C), (C = null), e && (L(e, V), C && a('95'), f)))
         throw ((e = h), (f = !1), (h = null), e);
     }
     var A = Math.random()
@@ -41007,8 +41755,8 @@
     }
     function q(e, t, n) {
       (t = E(e, n.dispatchConfig.phasedRegistrationNames[t])) &&
-        ((n._dispatchListeners = L(n._dispatchListeners, t)),
-        (n._dispatchInstances = L(n._dispatchInstances, e)));
+        ((n._dispatchListeners = S(n._dispatchListeners, t)),
+        (n._dispatchInstances = S(n._dispatchInstances, e)));
     }
     function Y(e) {
       if (e && e.dispatchConfig.phasedRegistrationNames) {
@@ -41022,14 +41770,14 @@
         n &&
         n.dispatchConfig.registrationName &&
         (t = E(e, n.dispatchConfig.registrationName)) &&
-        ((n._dispatchListeners = L(n._dispatchListeners, t)),
-        (n._dispatchInstances = L(n._dispatchInstances, e)));
+        ((n._dispatchListeners = S(n._dispatchListeners, t)),
+        (n._dispatchInstances = S(n._dispatchInstances, e)));
     }
     function B(e) {
       e && e.dispatchConfig.registrationName && W(e._targetInst, null, e);
     }
     function K(e) {
-      S(e, Y);
+      L(e, Y);
     }
     var G = !('undefined' === typeof window || !window.document || !window.document.createElement);
     function Z(e, t) {
@@ -41227,8 +41975,8 @@
           dependencies: 'blur compositionupdate keydown keypress keyup mousedown'.split(' '),
         },
       },
-      He = !1;
-    function xe(e, t) {
+      xe = !1;
+    function He(e, t) {
       switch (e) {
         case 'keyup':
           return -1 !== ye.indexOf(t.keyCode);
@@ -41246,21 +41994,21 @@
       return (e = e.detail), 'object' === typeof e && 'data' in e ? e.data : null;
     }
     var ke = !1;
-    function Le(e, t) {
+    function Se(e, t) {
       switch (e) {
         case 'compositionend':
           return Oe(t);
         case 'keypress':
-          return 32 !== t.which ? null : ((He = !0), Me);
+          return 32 !== t.which ? null : ((xe = !0), Me);
         case 'textInput':
-          return (e = t.data), e === Me && He ? null : e;
+          return (e = t.data), e === Me && xe ? null : e;
         default:
           return null;
       }
     }
-    function Se(e, t) {
+    function Le(e, t) {
       if (ke)
-        return 'compositionend' === e || (!ge && xe(e, t))
+        return 'compositionend' === e || (!ge && He(e, t))
           ? ((e = le()), (ae = ie = ce = null), (ke = !1), e)
           : null;
       switch (e) {
@@ -41300,7 +42048,7 @@
             }
           else
             ke
-              ? xe(e, n) && (o = _e.compositionEnd)
+              ? He(e, n) && (o = _e.compositionEnd)
               : 'keydown' === e && 229 === n.keyCode && (o = _e.compositionStart);
           return (
             o
@@ -41314,7 +42062,7 @@
                 K(o),
                 (c = o))
               : (c = null),
-            (e = ze ? Le(e, n) : Se(e, n))
+            (e = ze ? Se(e, n) : Le(e, n))
               ? ((t = me.getPooled(_e.beforeInput, t, n, r)), (t.data = e), K(t))
               : (t = null),
             null === c ? t : null === t ? c : [c, t]
@@ -41325,9 +42073,9 @@
       Te = null,
       Ee = null;
     function Pe(e) {
-      if ((e = x(e))) {
+      if ((e = H(e))) {
         'function' !== typeof Ve && a('280');
-        var t = H(e.stateNode);
+        var t = x(e.stateNode);
         Ve(e.stateNode, e.type, t);
       }
     }
@@ -41516,29 +42264,28 @@
       var t = '';
       do {
         e: switch (e.tag) {
-          case 2:
-          case 16:
-          case 0:
-          case 1:
-          case 5:
-          case 8:
-          case 13:
-            var n = e._debugOwner,
-              r = e._debugSource,
-              o = pt(e.type),
-              c = null;
-            n && (c = pt(n.type)),
-              (n = o),
-              (o = ''),
-              r
-                ? (o = ' (at ' + r.fileName.replace(Qe, '') + ':' + r.lineNumber + ')')
-                : c && (o = ' (created by ' + c + ')'),
-              (c = '\n    in ' + (n || 'Unknown') + o);
+          case 3:
+          case 4:
+          case 6:
+          case 7:
+          case 10:
+          case 9:
+            var n = '';
             break e;
           default:
-            c = '';
+            var r = e._debugOwner,
+              o = e._debugSource,
+              c = pt(e.type);
+            (n = null),
+              r && (n = pt(r.type)),
+              (r = c),
+              (c = ''),
+              o
+                ? (c = ' (at ' + o.fileName.replace(Qe, '') + ':' + o.lineNumber + ')')
+                : n && (c = ' (created by ' + n + ')'),
+              (n = '\n    in ' + (r || 'Unknown') + c);
         }
-        (t += c), (e = e.return);
+        (t += n), (e = e.return);
       } while (e);
       return t;
     }
@@ -41632,8 +42379,8 @@
       ['rowSpan', 'start'].forEach(function(e) {
         _t[e] = new Mt(e, 5, !1, e.toLowerCase(), null);
       });
-    var Ht = /[\-:]([a-z])/g;
-    function xt(e) {
+    var xt = /[\-:]([a-z])/g;
+    function Ht(e) {
       return e[1].toUpperCase();
     }
     function Ot(e, t, n, r) {
@@ -41669,7 +42416,7 @@
           return '';
       }
     }
-    function Lt(e, t) {
+    function St(e, t) {
       var n = t.checked;
       return o({}, t, {
         defaultChecked: void 0,
@@ -41678,7 +42425,7 @@
         checked: null != n ? n : e._wrapperState.initialChecked,
       });
     }
-    function St(e, t) {
+    function Lt(e, t) {
       var n = null == t.defaultValue ? '' : t.defaultValue,
         r = null != t.checked ? t.checked : t.defaultChecked;
       (n = kt(null != t.value ? t.value : n)),
@@ -41730,17 +42477,17 @@
     'accent-height alignment-baseline arabic-form baseline-shift cap-height clip-path clip-rule color-interpolation color-interpolation-filters color-profile color-rendering dominant-baseline enable-background fill-opacity fill-rule flood-color flood-opacity font-family font-size font-size-adjust font-stretch font-style font-variant font-weight glyph-name glyph-orientation-horizontal glyph-orientation-vertical horiz-adv-x horiz-origin-x image-rendering letter-spacing lighting-color marker-end marker-mid marker-start overline-position overline-thickness paint-order panose-1 pointer-events rendering-intent shape-rendering stop-color stop-opacity strikethrough-position strikethrough-thickness stroke-dasharray stroke-dashoffset stroke-linecap stroke-linejoin stroke-miterlimit stroke-opacity stroke-width text-anchor text-decoration text-rendering underline-position underline-thickness unicode-bidi unicode-range units-per-em v-alphabetic v-hanging v-ideographic v-mathematical vector-effect vert-adv-y vert-origin-x vert-origin-y word-spacing writing-mode xmlns:xlink x-height'
       .split(' ')
       .forEach(function(e) {
-        var t = e.replace(Ht, xt);
+        var t = e.replace(xt, Ht);
         _t[t] = new Mt(t, 1, !1, e, null);
       }),
       'xlink:actuate xlink:arcrole xlink:href xlink:role xlink:show xlink:title xlink:type'
         .split(' ')
         .forEach(function(e) {
-          var t = e.replace(Ht, xt);
+          var t = e.replace(xt, Ht);
           _t[t] = new Mt(t, 1, !1, e, 'http://www.w3.org/1999/xlink');
         }),
       ['xml:base', 'xml:lang', 'xml:space'].forEach(function(e) {
-        var t = e.replace(Ht, xt);
+        var t = e.replace(xt, Ht);
         _t[t] = new Mt(t, 1, !1, e, 'http://www.w3.org/XML/1998/namespace');
       }),
       (_t.tabIndex = new Mt('tabIndex', 1, !1, 'tabindex', null));
@@ -42151,8 +42898,8 @@
         shiftKey: null,
         getModifierState: Jt,
       }),
-      Hn = fe.extend({ propertyName: null, elapsedTime: null, pseudoElement: null }),
-      xn = rn.extend({
+      xn = fe.extend({ propertyName: null, elapsedTime: null, pseudoElement: null }),
+      Hn = rn.extend({
         deltaX: function(e) {
           return 'deltaX' in e ? e.deltaX : 'wheelDeltaX' in e ? -e.wheelDeltaX : 0;
         },
@@ -42211,8 +42958,8 @@
         ['wheel', 'wheel'],
       ],
       kn = {},
-      Ln = {};
-    function Sn(e, t) {
+      Sn = {};
+    function Ln(e, t) {
       var n = e[0];
       e = e[1];
       var r = 'on' + (e[0].toUpperCase() + e.slice(1));
@@ -42222,7 +42969,7 @@
         isInteractive: t,
       }),
         (kn[e] = t),
-        (Ln[n] = t);
+        (Sn[n] = t);
     }
     [
       ['blur', 'blur'],
@@ -42260,18 +43007,18 @@
       ['touchstart', 'touchStart'],
       ['volumechange', 'volumeChange'],
     ].forEach(function(e) {
-      Sn(e, !0);
+      Ln(e, !0);
     }),
       On.forEach(function(e) {
-        Sn(e, !1);
+        Ln(e, !1);
       });
     var Cn = {
         eventTypes: kn,
         isInteractiveTopLevelEventType: function(e) {
-          return (e = Ln[e]), void 0 !== e && !0 === e.isInteractive;
+          return (e = Sn[e]), void 0 !== e && !0 === e.isInteractive;
         },
         extractEvents: function(e, t, n, r) {
-          var o = Ln[e];
+          var o = Sn[e];
           if (!o) return null;
           switch (e) {
             case 'keypress':
@@ -42318,13 +43065,13 @@
               e = vn;
               break;
             case re:
-              e = Hn;
+              e = xn;
               break;
             case 'scroll':
               e = Zt;
               break;
             case 'wheel':
-              e = xn;
+              e = Hn;
               break;
             case 'copy':
             case 'cut':
@@ -42368,7 +43115,7 @@
         r = e.topLevelType;
         for (var c = e.nativeEvent, i = null, a = 0; a < z.length; a++) {
           var l = z[a];
-          l && (l = l.extractEvents(r, t, c, o)) && (i = L(i, l));
+          l && (l = l.extractEvents(r, t, c, o)) && (i = S(i, l));
         }
         P(i);
       }
@@ -42638,8 +43385,8 @@
         ' '
       )
     ),
-      (H = I),
-      (x = N),
+      (x = I),
+      (H = N),
       (O = D),
       T.injectEventPluginsByName({
         SimpleEventPlugin: Cn,
@@ -42841,8 +43588,8 @@
         }
       }
     }
-    function Hr() {}
-    var xr = null,
+    function xr() {}
+    var Hr = null,
       Or = null;
     function kr(e, t) {
       switch (e) {
@@ -42854,7 +43601,7 @@
       }
       return !1;
     }
-    function Lr(e, t) {
+    function Sr(e, t) {
       return (
         'textarea' === e ||
         'option' === e ||
@@ -42866,32 +43613,67 @@
           null != t.dangerouslySetInnerHTML.__html)
       );
     }
-    var Sr = 'function' === typeof setTimeout ? setTimeout : void 0,
+    var Lr = 'function' === typeof setTimeout ? setTimeout : void 0,
       Cr = 'function' === typeof clearTimeout ? clearTimeout : void 0;
-    function Vr(e) {
+    function Vr(e, t, n, r, o) {
+      (e[F] = o),
+        'input' === n && 'radio' === o.type && null != o.name && Ct(e, o),
+        Mr(n, r),
+        (r = Mr(n, o));
+      for (var c = 0; c < t.length; c += 2) {
+        var i = t[c],
+          a = t[c + 1];
+        'style' === i
+          ? br(e, a)
+          : 'dangerouslySetInnerHTML' === i
+            ? dr(e, a)
+            : 'children' === i
+              ? vr(e, a)
+              : Ot(e, i, a, r);
+      }
+      switch (n) {
+        case 'input':
+          Vt(e, o);
+          break;
+        case 'textarea':
+          lr(e, o);
+          break;
+        case 'select':
+          (t = e._wrapperState.wasMultiple),
+            (e._wrapperState.wasMultiple = !!o.multiple),
+            (n = o.value),
+            null != n
+              ? cr(e, !!o.multiple, n, !1)
+              : t !== !!o.multiple &&
+                (null != o.defaultValue
+                  ? cr(e, !!o.multiple, o.defaultValue, !0)
+                  : cr(e, !!o.multiple, o.multiple ? [] : '', !1));
+      }
+    }
+    function Tr(e) {
       for (e = e.nextSibling; e && 1 !== e.nodeType && 3 !== e.nodeType; ) e = e.nextSibling;
       return e;
     }
-    function Tr(e) {
+    function Er(e) {
       for (e = e.firstChild; e && 1 !== e.nodeType && 3 !== e.nodeType; ) e = e.nextSibling;
       return e;
     }
     new Set();
-    var Er = [],
-      Pr = -1;
-    function Ar(e) {
-      0 > Pr || ((e.current = Er[Pr]), (Er[Pr] = null), Pr--);
+    var Pr = [],
+      Ar = -1;
+    function jr(e) {
+      0 > Ar || ((e.current = Pr[Ar]), (Pr[Ar] = null), Ar--);
     }
-    function jr(e, t) {
-      Pr++, (Er[Pr] = e.current), (e.current = t);
+    function Fr(e, t) {
+      Ar++, (Pr[Ar] = e.current), (e.current = t);
     }
-    var Fr = {},
-      Rr = { current: Fr },
-      Nr = { current: !1 },
-      Dr = Fr;
-    function Ir(e, t) {
+    var Rr = {},
+      Nr = { current: Rr },
+      Dr = { current: !1 },
+      Ir = Rr;
+    function Ur(e, t) {
       var n = e.type.contextTypes;
-      if (!n) return Fr;
+      if (!n) return Rr;
       var r = e.stateNode;
       if (r && r.__reactInternalMemoizedUnmaskedChildContext === t)
         return r.__reactInternalMemoizedMaskedChildContext;
@@ -42906,71 +43688,71 @@
         c
       );
     }
-    function Ur(e) {
+    function qr(e) {
       return (e = e.childContextTypes), null !== e && void 0 !== e;
     }
-    function qr(e) {
-      Ar(Nr, e), Ar(Rr, e);
-    }
     function Yr(e) {
-      Ar(Nr, e), Ar(Rr, e);
+      jr(Dr, e), jr(Nr, e);
     }
-    function Wr(e, t, n) {
-      Rr.current !== Fr && a('168'), jr(Rr, t, e), jr(Nr, n, e);
+    function Wr(e) {
+      jr(Dr, e), jr(Nr, e);
     }
     function Br(e, t, n) {
+      Nr.current !== Rr && a('168'), Fr(Nr, t, e), Fr(Dr, n, e);
+    }
+    function Kr(e, t, n) {
       var r = e.stateNode;
       if (((e = t.childContextTypes), 'function' !== typeof r.getChildContext)) return n;
       for (var c in ((r = r.getChildContext()), r)) c in e || a('108', pt(t) || 'Unknown', c);
       return o({}, n, r);
     }
-    function Kr(e) {
+    function Gr(e) {
       var t = e.stateNode;
       return (
-        (t = (t && t.__reactInternalMemoizedMergedChildContext) || Fr),
-        (Dr = Rr.current),
-        jr(Rr, t, e),
-        jr(Nr, Nr.current, e),
+        (t = (t && t.__reactInternalMemoizedMergedChildContext) || Rr),
+        (Ir = Nr.current),
+        Fr(Nr, t, e),
+        Fr(Dr, Dr.current, e),
         !0
       );
     }
-    function Gr(e, t, n) {
+    function Zr(e, t, n) {
       var r = e.stateNode;
       r || a('169'),
         n
-          ? ((t = Br(e, t, Dr)),
+          ? ((t = Kr(e, t, Ir)),
             (r.__reactInternalMemoizedMergedChildContext = t),
-            Ar(Nr, e),
-            Ar(Rr, e),
-            jr(Rr, t, e))
-          : Ar(Nr, e),
-        jr(Nr, n, e);
+            jr(Dr, e),
+            jr(Nr, e),
+            Fr(Nr, t, e))
+          : jr(Dr, e),
+        Fr(Dr, n, e);
     }
-    var Zr = null,
-      Xr = null;
-    function Qr(e) {
+    var Xr = null,
+      Qr = null;
+    function Jr(e) {
       return function(t) {
         try {
           return e(t);
         } catch (e) {}
       };
     }
-    function Jr(e) {
+    function $r(e) {
       if ('undefined' === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__) return !1;
       var t = __REACT_DEVTOOLS_GLOBAL_HOOK__;
       if (t.isDisabled || !t.supportsFiber) return !0;
       try {
         var n = t.inject(e);
-        (Zr = Qr(function(e) {
+        (Xr = Jr(function(e) {
           return t.onCommitFiberRoot(n, e);
         })),
-          (Xr = Qr(function(e) {
+          (Qr = Jr(function(e) {
             return t.onCommitFiberUnmount(n, e);
           }));
       } catch (e) {}
       return !0;
     }
-    function $r(e, t, n, r) {
+    function eo(e, t, n, r) {
       (this.tag = e),
         (this.key = n),
         (this.sibling = this.child = this.return = this.stateNode = this.type = this.elementType = null),
@@ -42984,25 +43766,25 @@
         (this.childExpirationTime = this.expirationTime = 0),
         (this.alternate = null);
     }
-    function eo(e, t, n, r) {
-      return new $r(e, t, n, r);
-    }
-    function to(e) {
-      return (e = e.prototype), !(!e || !e.isReactComponent);
+    function to(e, t, n, r) {
+      return new eo(e, t, n, r);
     }
     function no(e) {
-      if ('function' === typeof e) return to(e) ? 1 : 0;
+      return (e = e.prototype), !(!e || !e.isReactComponent);
+    }
+    function ro(e) {
+      if ('function' === typeof e) return no(e) ? 1 : 0;
       if (void 0 !== e && null !== e) {
         if (((e = e.$$typeof), e === at)) return 11;
         if (e === ut) return 14;
       }
       return 2;
     }
-    function ro(e, t) {
+    function oo(e, t) {
       var n = e.alternate;
       return (
         null === n
-          ? ((n = eo(e.tag, t, e.key, e.mode)),
+          ? ((n = to(e.tag, t, e.key, e.mode)),
             (n.elementType = e.elementType),
             (n.type = e.type),
             (n.stateNode = e.stateNode),
@@ -43026,21 +43808,21 @@
         n
       );
     }
-    function oo(e, t, n, r, o, c) {
+    function co(e, t, n, r, o, c) {
       var i = 2;
-      if (((r = e), 'function' === typeof e)) to(e) && (i = 1);
+      if (((r = e), 'function' === typeof e)) no(e) && (i = 1);
       else if ('string' === typeof e) i = 5;
       else
         e: switch (e) {
           case tt:
-            return co(n.children, o, c, t);
+            return io(n.children, o, c, t);
           case it:
-            return io(n, 3 | o, c, t);
+            return ao(n, 3 | o, c, t);
           case nt:
-            return io(n, 2 | o, c, t);
+            return ao(n, 2 | o, c, t);
           case rt:
             return (
-              (e = eo(12, n, t, 4 | o)),
+              (e = to(12, n, t, 4 | o)),
               (e.elementType = rt),
               (e.type = rt),
               (e.expirationTime = c),
@@ -43048,7 +43830,7 @@
             );
           case lt:
             return (
-              (e = eo(13, n, t, o)), (e.elementType = lt), (e.type = lt), (e.expirationTime = c), e
+              (e = to(13, n, t, o)), (e.elementType = lt), (e.type = lt), (e.expirationTime = c), e
             );
           default:
             if ('object' === typeof e && null !== e)
@@ -43071,14 +43853,14 @@
               }
             a('130', null == e ? e : typeof e, '');
         }
-      return (t = eo(i, n, t, o)), (t.elementType = e), (t.type = r), (t.expirationTime = c), t;
-    }
-    function co(e, t, n, r) {
-      return (e = eo(7, e, r, t)), (e.expirationTime = n), e;
+      return (t = to(i, n, t, o)), (t.elementType = e), (t.type = r), (t.expirationTime = c), t;
     }
     function io(e, t, n, r) {
+      return (e = to(7, e, r, t)), (e.expirationTime = n), e;
+    }
+    function ao(e, t, n, r) {
       return (
-        (e = eo(8, e, r, t)),
+        (e = to(8, e, r, t)),
         (t = 0 === (1 & t) ? nt : it),
         (e.elementType = t),
         (e.type = t),
@@ -43086,12 +43868,12 @@
         e
       );
     }
-    function ao(e, t, n) {
-      return (e = eo(6, e, null, t)), (e.expirationTime = n), e;
-    }
     function lo(e, t, n) {
+      return (e = to(6, e, null, t)), (e.expirationTime = n), e;
+    }
+    function uo(e, t, n) {
       return (
-        (t = eo(4, null !== e.children ? e.children : [], e.key, t)),
+        (t = to(4, null !== e.children ? e.children : [], e.key, t)),
         (t.expirationTime = n),
         (t.stateNode = {
           containerInfo: e.containerInfo,
@@ -43101,7 +43883,7 @@
         t
       );
     }
-    function uo(e, t) {
+    function so(e, t) {
       e.didError = !1;
       var n = e.earliestPendingTime;
       0 === n
@@ -43109,13 +43891,12 @@
         : n < t
           ? (e.earliestPendingTime = t)
           : e.latestPendingTime > t && (e.latestPendingTime = t),
-        ho(t, e);
+        po(t, e);
     }
-    function so(e, t) {
-      e.didError = !1;
-      var n = e.latestPingedTime;
-      0 !== n && n >= t && (e.latestPingedTime = 0), (n = e.earliestPendingTime);
-      var r = e.latestPendingTime;
+    function fo(e, t) {
+      (e.didError = !1), e.latestPingedTime >= t && (e.latestPingedTime = 0);
+      var n = e.earliestPendingTime,
+        r = e.latestPendingTime;
       n === t
         ? (e.earliestPendingTime = r === t ? (e.latestPendingTime = 0) : r)
         : r === t && (e.latestPendingTime = n),
@@ -43126,13 +43907,13 @@
           : n < t
             ? (e.earliestSuspendedTime = t)
             : r > t && (e.latestSuspendedTime = t),
-        ho(t, e);
+        po(t, e);
     }
-    function fo(e, t) {
+    function ho(e, t) {
       var n = e.earliestPendingTime;
       return (e = e.earliestSuspendedTime), n > t && (t = n), e > t && (t = e), t;
     }
-    function ho(e, t) {
+    function po(e, t) {
       var n = t.earliestSuspendedTime,
         r = t.latestSuspendedTime,
         o = t.earliestPendingTime,
@@ -43144,8 +43925,8 @@
         (t.nextExpirationTimeToWorkOn = o),
         (t.expirationTime = e);
     }
-    var po = !1;
-    function vo(e) {
+    var vo = !1;
+    function mo(e) {
       return {
         baseState: e,
         firstUpdate: null,
@@ -43158,7 +43939,7 @@
         lastCapturedEffect: null,
       };
     }
-    function mo(e) {
+    function yo(e) {
       return {
         baseState: e.baseState,
         firstUpdate: e.firstUpdate,
@@ -43171,7 +43952,7 @@
         lastCapturedEffect: null,
       };
     }
-    function yo(e) {
+    function go(e) {
       return {
         expirationTime: e,
         tag: 0,
@@ -43181,44 +43962,44 @@
         nextEffect: null,
       };
     }
-    function go(e, t) {
+    function bo(e, t) {
       null === e.lastUpdate
         ? (e.firstUpdate = e.lastUpdate = t)
         : ((e.lastUpdate.next = t), (e.lastUpdate = t));
     }
-    function bo(e, t) {
+    function zo(e, t) {
       var n = e.alternate;
       if (null === n) {
         var r = e.updateQueue,
           o = null;
-        null === r && (r = e.updateQueue = vo(e.memoizedState));
+        null === r && (r = e.updateQueue = mo(e.memoizedState));
       } else
         (r = e.updateQueue),
           (o = n.updateQueue),
           null === r
             ? null === o
-              ? ((r = e.updateQueue = vo(e.memoizedState)),
-                (o = n.updateQueue = vo(n.memoizedState)))
-              : (r = e.updateQueue = mo(o))
-            : null === o && (o = n.updateQueue = mo(r));
+              ? ((r = e.updateQueue = mo(e.memoizedState)),
+                (o = n.updateQueue = mo(n.memoizedState)))
+              : (r = e.updateQueue = yo(o))
+            : null === o && (o = n.updateQueue = yo(r));
       null === o || r === o
-        ? go(r, t)
+        ? bo(r, t)
         : null === r.lastUpdate || null === o.lastUpdate
-          ? (go(r, t), go(o, t))
-          : (go(r, t), (o.lastUpdate = t));
+          ? (bo(r, t), bo(o, t))
+          : (bo(r, t), (o.lastUpdate = t));
     }
-    function zo(e, t) {
+    function wo(e, t) {
       var n = e.updateQueue;
-      (n = null === n ? (e.updateQueue = vo(e.memoizedState)) : wo(e, n)),
+      (n = null === n ? (e.updateQueue = mo(e.memoizedState)) : Mo(e, n)),
         null === n.lastCapturedUpdate
           ? (n.firstCapturedUpdate = n.lastCapturedUpdate = t)
           : ((n.lastCapturedUpdate.next = t), (n.lastCapturedUpdate = t));
     }
-    function wo(e, t) {
+    function Mo(e, t) {
       var n = e.alternate;
-      return null !== n && t === n.updateQueue && (t = e.updateQueue = mo(t)), t;
+      return null !== n && t === n.updateQueue && (t = e.updateQueue = yo(t)), t;
     }
-    function Mo(e, t, n, r, c, i) {
+    function _o(e, t, n, r, c, i) {
       switch (n.tag) {
         case 1:
           return (e = n.payload), 'function' === typeof e ? e.call(i, r, c) : e;
@@ -43233,17 +44014,17 @@
             break;
           return o({}, r, c);
         case 2:
-          po = !0;
+          vo = !0;
       }
       return r;
     }
-    function _o(e, t, n, r, o) {
-      (po = !1), (t = wo(e, t));
+    function xo(e, t, n, r, o) {
+      (vo = !1), (t = Mo(e, t));
       for (var c = t.baseState, i = null, a = 0, l = t.firstUpdate, u = c; null !== l; ) {
         var s = l.expirationTime;
         s < o
           ? (null === i && ((i = l), (c = u)), a < s && (a = s))
-          : ((u = Mo(e, t, l, u, n, r)),
+          : ((u = _o(e, t, l, u, n, r)),
             null !== l.callback &&
               ((e.effectTag |= 32),
               (l.nextEffect = null),
@@ -43256,7 +44037,7 @@
         var f = l.expirationTime;
         f < o
           ? (null === s && ((s = l), null === i && (c = u)), a < f && (a = f))
-          : ((u = Mo(e, t, l, u, n, r)),
+          : ((u = _o(e, t, l, u, n, r)),
             null !== l.callback &&
               ((e.effectTag |= 32),
               (l.nextEffect = null),
@@ -43279,12 +44060,12 @@
         (null !== t.lastUpdate &&
           ((t.lastUpdate.next = t.firstCapturedUpdate), (t.lastUpdate = t.lastCapturedUpdate)),
         (t.firstCapturedUpdate = t.lastCapturedUpdate = null)),
-        xo(t.firstEffect, n),
+        Oo(t.firstEffect, n),
         (t.firstEffect = t.lastEffect = null),
-        xo(t.firstCapturedEffect, n),
+        Oo(t.firstCapturedEffect, n),
         (t.firstCapturedEffect = t.lastCapturedEffect = null);
     }
-    function xo(e, t) {
+    function Oo(e, t) {
       for (; null !== e; ) {
         var n = e.callback;
         if (null !== n) {
@@ -43295,46 +44076,46 @@
         e = e.nextEffect;
       }
     }
-    function Oo(e, t) {
+    function ko(e, t) {
       return { value: e, source: t, stack: dt(t) };
     }
-    var ko = { current: null },
+    var So = { current: null },
       Lo = null,
-      So = null,
-      Co = null;
-    function Vo(e, t) {
+      Co = null,
+      Vo = null;
+    function To(e, t) {
       var n = e.type._context;
-      jr(ko, n._currentValue, e), (n._currentValue = t);
-    }
-    function To(e) {
-      var t = ko.current;
-      Ar(ko, e), (e.type._context._currentValue = t);
+      Fr(So, n._currentValue, e), (n._currentValue = t);
     }
     function Eo(e) {
-      (Lo = e), (Co = So = null), (e.firstContextDependency = null);
+      var t = So.current;
+      jr(So, e), (e.type._context._currentValue = t);
     }
-    function Po(e, t) {
+    function Po(e) {
+      (Lo = e), (Vo = Co = null), (e.firstContextDependency = null);
+    }
+    function Ao(e, t) {
       return (
-        Co !== e &&
+        Vo !== e &&
           !1 !== t &&
           0 !== t &&
-          (('number' === typeof t && 1073741823 !== t) || ((Co = e), (t = 1073741823)),
+          (('number' === typeof t && 1073741823 !== t) || ((Vo = e), (t = 1073741823)),
           (t = { context: e, observedBits: t, next: null }),
-          null === So
-            ? (null === Lo && a('293'), (Lo.firstContextDependency = So = t))
-            : (So = So.next = t)),
+          null === Co
+            ? (null === Lo && a('293'), (Lo.firstContextDependency = Co = t))
+            : (Co = Co.next = t)),
         e._currentValue
       );
     }
-    var Ao = {},
-      jo = { current: Ao },
-      Fo = { current: Ao },
-      Ro = { current: Ao };
-    function No(e) {
-      return e === Ao && a('174'), e;
+    var jo = {},
+      Fo = { current: jo },
+      Ro = { current: jo },
+      No = { current: jo };
+    function Do(e) {
+      return e === jo && a('174'), e;
     }
-    function Do(e, t) {
-      jr(Ro, t, e), jr(Fo, e, e), jr(jo, Ao, e);
+    function Io(e, t) {
+      Fr(No, t, e), Fr(Ro, e, e), Fr(Fo, jo, e);
       var n = t.nodeType;
       switch (n) {
         case 9:
@@ -43347,26 +44128,26 @@
             (n = n.tagName),
             (t = hr(t, n));
       }
-      Ar(jo, e), jr(jo, t, e);
-    }
-    function Io(e) {
-      Ar(jo, e), Ar(Fo, e), Ar(Ro, e);
+      jr(Fo, e), Fr(Fo, t, e);
     }
     function Uo(e) {
-      No(Ro.current);
-      var t = No(jo.current),
-        n = hr(t, e.type);
-      t !== n && (jr(Fo, e, e), jr(jo, n, e));
+      jr(Fo, e), jr(Ro, e), jr(No, e);
     }
     function qo(e) {
-      Fo.current === e && (Ar(jo, e), Ar(Fo, e));
+      Do(No.current);
+      var t = Do(Fo.current),
+        n = hr(t, e.type);
+      t !== n && (Fr(Ro, e, e), Fr(Fo, n, e));
     }
-    function Yo(e, t) {
+    function Yo(e) {
+      Ro.current === e && (jr(Fo, e), jr(Ro, e));
+    }
+    function Wo(e, t) {
       if (e && e.defaultProps)
         for (var n in ((t = o({}, t)), (e = e.defaultProps), e)) void 0 === t[n] && (t[n] = e[n]);
       return t;
     }
-    function Wo(e) {
+    function Bo(e) {
       var t = e._result;
       switch (e._status) {
         case 1:
@@ -43391,9 +44172,9 @@
           t);
       }
     }
-    var Bo = Xe.ReactCurrentOwner,
-      Ko = new r.Component().refs;
-    function Go(e, t, n, r) {
+    var Ko = Xe.ReactCurrentOwner,
+      Go = new r.Component().refs;
+    function Zo(e, t, n, r) {
       (t = e.memoizedState),
         (n = n(r, t)),
         (n = null === n || void 0 === n ? t : o({}, t, n)),
@@ -43401,38 +44182,38 @@
         (r = e.updateQueue),
         null !== r && 0 === e.expirationTime && (r.baseState = n);
     }
-    var Zo = {
+    var Xo = {
       isMounted: function(e) {
         return !!(e = e._reactInternalFiber) && 2 === fn(e);
       },
       enqueueSetState: function(e, t, n) {
         e = e._reactInternalFiber;
-        var r = Ni();
-        r = si(r, e);
-        var o = yo(r);
-        (o.payload = t), void 0 !== n && null !== n && (o.callback = n), ci(), bo(e, o), pi(e, r);
+        var r = Yi();
+        r = di(r, e);
+        var o = go(r);
+        (o.payload = t), void 0 !== n && null !== n && (o.callback = n), ui(), zo(e, o), gi(e, r);
       },
       enqueueReplaceState: function(e, t, n) {
         e = e._reactInternalFiber;
-        var r = Ni();
-        r = si(r, e);
-        var o = yo(r);
+        var r = Yi();
+        r = di(r, e);
+        var o = go(r);
         (o.tag = 1),
           (o.payload = t),
           void 0 !== n && null !== n && (o.callback = n),
-          ci(),
-          bo(e, o),
-          pi(e, r);
+          ui(),
+          zo(e, o),
+          gi(e, r);
       },
       enqueueForceUpdate: function(e, t) {
         e = e._reactInternalFiber;
-        var n = Ni();
-        n = si(n, e);
-        var r = yo(n);
-        (r.tag = 2), void 0 !== t && null !== t && (r.callback = t), ci(), bo(e, r), pi(e, n);
+        var n = Yi();
+        n = di(n, e);
+        var r = go(n);
+        (r.tag = 2), void 0 !== t && null !== t && (r.callback = t), ui(), zo(e, r), gi(e, n);
       },
     };
-    function Xo(e, t, n, r, o, c, i) {
+    function Qo(e, t, n, r, o, c, i) {
       return (
         (e = e.stateNode),
         'function' === typeof e.shouldComponentUpdate
@@ -43440,19 +44221,19 @@
           : !t.prototype || !t.prototype.isPureReactComponent || (!sn(n, r) || !sn(o, c))
       );
     }
-    function Qo(e, t, n) {
+    function Jo(e, t, n) {
       var r = !1,
-        o = Fr,
+        o = Rr,
         c = t.contextType;
       return (
         'object' === typeof c && null !== c
-          ? (c = Bo.currentDispatcher.readContext(c))
-          : ((o = Ur(t) ? Dr : Rr.current),
+          ? (c = Ko.currentDispatcher.readContext(c))
+          : ((o = qr(t) ? Ir : Nr.current),
             (r = t.contextTypes),
-            (c = (r = null !== r && void 0 !== r) ? Ir(e, o) : Fr)),
+            (c = (r = null !== r && void 0 !== r) ? Ur(e, o) : Rr)),
         (t = new t(n, c)),
         (e.memoizedState = null !== t.state && void 0 !== t.state ? t.state : null),
-        (t.updater = Zo),
+        (t.updater = Xo),
         (e.stateNode = t),
         (t._reactInternalFiber = e),
         r &&
@@ -43462,24 +44243,24 @@
         t
       );
     }
-    function Jo(e, t, n, r) {
+    function $o(e, t, n, r) {
       (e = t.state),
         'function' === typeof t.componentWillReceiveProps && t.componentWillReceiveProps(n, r),
         'function' === typeof t.UNSAFE_componentWillReceiveProps &&
           t.UNSAFE_componentWillReceiveProps(n, r),
-        t.state !== e && Zo.enqueueReplaceState(t, t.state, null);
+        t.state !== e && Xo.enqueueReplaceState(t, t.state, null);
     }
-    function $o(e, t, n, r) {
+    function ec(e, t, n, r) {
       var o = e.stateNode;
-      (o.props = n), (o.state = e.memoizedState), (o.refs = Ko);
+      (o.props = n), (o.state = e.memoizedState), (o.refs = Go);
       var c = t.contextType;
       'object' === typeof c && null !== c
-        ? (o.context = Bo.currentDispatcher.readContext(c))
-        : ((c = Ur(t) ? Dr : Rr.current), (o.context = Ir(e, c))),
+        ? (o.context = Ko.currentDispatcher.readContext(c))
+        : ((c = qr(t) ? Ir : Nr.current), (o.context = Ur(e, c))),
         (c = e.updateQueue),
-        null !== c && (_o(e, c, n, o, r), (o.state = e.memoizedState)),
+        null !== c && (xo(e, c, n, o, r), (o.state = e.memoizedState)),
         (c = t.getDerivedStateFromProps),
-        'function' === typeof c && (Go(e, t, c, n), (o.state = e.memoizedState)),
+        'function' === typeof c && (Zo(e, t, c, n), (o.state = e.memoizedState)),
         'function' === typeof t.getDerivedStateFromProps ||
           'function' === typeof o.getSnapshotBeforeUpdate ||
           ('function' !== typeof o.UNSAFE_componentWillMount &&
@@ -43487,13 +44268,13 @@
           ((t = o.state),
           'function' === typeof o.componentWillMount && o.componentWillMount(),
           'function' === typeof o.UNSAFE_componentWillMount && o.UNSAFE_componentWillMount(),
-          t !== o.state && Zo.enqueueReplaceState(o, o.state, null),
+          t !== o.state && Xo.enqueueReplaceState(o, o.state, null),
           (c = e.updateQueue),
-          null !== c && (_o(e, c, n, o, r), (o.state = e.memoizedState))),
+          null !== c && (xo(e, c, n, o, r), (o.state = e.memoizedState))),
         'function' === typeof o.componentDidMount && (e.effectTag |= 4);
     }
-    var ec = Array.isArray;
-    function tc(e, t, n) {
+    var tc = Array.isArray;
+    function nc(e, t, n) {
       if (((e = n.ref), null !== e && 'function' !== typeof e && 'object' !== typeof e)) {
         if (n._owner) {
           n = n._owner;
@@ -43507,7 +44288,7 @@
             ? t.ref
             : ((t = function(e) {
                 var t = r.refs;
-                t === Ko && (t = r.refs = {}), null === e ? delete t[o] : (t[o] = e);
+                t === Go && (t = r.refs = {}), null === e ? delete t[o] : (t[o] = e);
               }),
               (t._stringRef = o),
               t);
@@ -43516,7 +44297,7 @@
       }
       return e;
     }
-    function nc(e, t) {
+    function rc(e, t) {
       'textarea' !== e.type &&
         a(
           '31',
@@ -43526,7 +44307,7 @@
           ''
         );
     }
-    function rc(e) {
+    function oc(e) {
       function t(t, n) {
         if (e) {
           var r = t.lastEffect;
@@ -43548,7 +44329,7 @@
         return e;
       }
       function o(e, t, n) {
-        return (e = ro(e, t, n)), (e.index = 0), (e.sibling = null), e;
+        return (e = oo(e, t, n)), (e.index = 0), (e.sibling = null), e;
       }
       function c(t, n, r) {
         return (
@@ -43566,14 +44347,14 @@
       }
       function l(e, t, n, r) {
         return null === t || 6 !== t.tag
-          ? ((t = ao(n, e.mode, r)), (t.return = e), t)
+          ? ((t = lo(n, e.mode, r)), (t.return = e), t)
           : ((t = o(t, n, r)), (t.return = e), t);
       }
       function u(e, t, n, r) {
         return null !== t && t.elementType === n.type
-          ? ((r = o(t, n.props, r)), (r.ref = tc(e, t, n)), (r.return = e), r)
-          : ((r = oo(n.type, n.key, n.props, null, e.mode, r)),
-            (r.ref = tc(e, t, n)),
+          ? ((r = o(t, n.props, r)), (r.ref = nc(e, t, n)), (r.return = e), r)
+          : ((r = co(n.type, n.key, n.props, null, e.mode, r)),
+            (r.ref = nc(e, t, n)),
             (r.return = e),
             r);
       }
@@ -43582,31 +44363,31 @@
           4 !== t.tag ||
           t.stateNode.containerInfo !== n.containerInfo ||
           t.stateNode.implementation !== n.implementation
-          ? ((t = lo(n, e.mode, r)), (t.return = e), t)
+          ? ((t = uo(n, e.mode, r)), (t.return = e), t)
           : ((t = o(t, n.children || [], r)), (t.return = e), t);
       }
       function f(e, t, n, r, c) {
         return null === t || 7 !== t.tag
-          ? ((t = co(n, e.mode, r, c)), (t.return = e), t)
+          ? ((t = io(n, e.mode, r, c)), (t.return = e), t)
           : ((t = o(t, n, r)), (t.return = e), t);
       }
       function h(e, t, n) {
         if ('string' === typeof t || 'number' === typeof t)
-          return (t = ao('' + t, e.mode, n)), (t.return = e), t;
+          return (t = lo('' + t, e.mode, n)), (t.return = e), t;
         if ('object' === typeof t && null !== t) {
           switch (t.$$typeof) {
             case $e:
               return (
-                (n = oo(t.type, t.key, t.props, null, e.mode, n)),
-                (n.ref = tc(e, null, t)),
+                (n = co(t.type, t.key, t.props, null, e.mode, n)),
+                (n.ref = nc(e, null, t)),
                 (n.return = e),
                 n
               );
             case et:
-              return (t = lo(t, e.mode, n)), (t.return = e), t;
+              return (t = uo(t, e.mode, n)), (t.return = e), t;
           }
-          if (ec(t) || ht(t)) return (t = co(t, e.mode, n, null)), (t.return = e), t;
-          nc(e, t);
+          if (tc(t) || ht(t)) return (t = io(t, e.mode, n, null)), (t.return = e), t;
+          rc(e, t);
         }
         return null;
       }
@@ -43625,8 +44406,8 @@
             case et:
               return n.key === o ? s(e, t, n, r) : null;
           }
-          if (ec(n) || ht(n)) return null !== o ? null : f(e, t, n, r, null);
-          nc(e, n);
+          if (tc(n) || ht(n)) return null !== o ? null : f(e, t, n, r, null);
+          rc(e, n);
         }
         return null;
       }
@@ -43643,8 +44424,8 @@
             case et:
               return (e = e.get(null === r.key ? n : r.key) || null), s(t, e, r, o);
           }
-          if (ec(r) || ht(r)) return (e = e.get(n) || null), f(t, e, r, o, null);
-          nc(t, r);
+          if (tc(r) || ht(r)) return (e = e.get(n) || null), f(t, e, r, o, null);
+          rc(t, r);
         }
         return null;
       }
@@ -43742,7 +44523,7 @@
                     if (7 === u.tag ? c.type === tt : u.elementType === c.type) {
                       n(e, u.sibling),
                         (r = o(u, c.type === tt ? c.props.children : c.props, l)),
-                        (r.ref = tc(e, u, c)),
+                        (r.ref = nc(e, u, c)),
                         (r.return = e),
                         (e = r);
                       break e;
@@ -43753,9 +44534,9 @@
                   t(e, u), (u = u.sibling);
                 }
                 c.type === tt
-                  ? ((r = co(c.props.children, e.mode, l, c.key)), (r.return = e), (e = r))
-                  : ((l = oo(c.type, c.key, c.props, null, e.mode, l)),
-                    (l.ref = tc(e, r, c)),
+                  ? ((r = io(c.props.children, e.mode, l, c.key)), (r.return = e), (e = r))
+                  : ((l = co(c.type, c.key, c.props, null, e.mode, l)),
+                    (l.ref = nc(e, r, c)),
                     (l.return = e),
                     (e = l));
               }
@@ -43777,7 +44558,7 @@
                   }
                   t(e, r), (r = r.sibling);
                 }
-                (r = lo(c, e.mode, l)), (r.return = e), (e = r);
+                (r = uo(c, e.mode, l)), (r.return = e), (e = r);
               }
               return i(e);
           }
@@ -43786,12 +44567,12 @@
             (c = '' + c),
             null !== r && 6 === r.tag
               ? (n(e, r.sibling), (r = o(r, c, l)), (r.return = e), (e = r))
-              : (n(e, r), (r = ao(c, e.mode, l)), (r.return = e), (e = r)),
+              : (n(e, r), (r = lo(c, e.mode, l)), (r.return = e), (e = r)),
             i(e)
           );
-        if (ec(c)) return v(e, r, c, l);
+        if (tc(c)) return v(e, r, c, l);
         if (ht(c)) return m(e, r, c, l);
-        if ((s && nc(e, c), 'undefined' === typeof c && !u))
+        if ((s && rc(e, c), 'undefined' === typeof c && !u))
           switch (e.tag) {
             case 1:
             case 0:
@@ -43800,13 +44581,13 @@
         return n(e, r);
       };
     }
-    var oc = rc(!0),
-      cc = rc(!1),
-      ic = null,
+    var cc = oc(!0),
+      ic = oc(!1),
       ac = null,
-      lc = !1;
-    function uc(e, t) {
-      var n = eo(5, null, null, 0);
+      lc = null,
+      uc = !1;
+    function sc(e, t) {
+      var n = to(5, null, null, 0);
       (n.elementType = 'DELETED'),
         (n.type = 'DELETED'),
         (n.stateNode = t),
@@ -43816,7 +44597,7 @@
           ? ((e.lastEffect.nextEffect = n), (e.lastEffect = n))
           : (e.firstEffect = e.lastEffect = n);
     }
-    function sc(e, t) {
+    function fc(e, t) {
       switch (e.tag) {
         case 5:
           var n = e.type;
@@ -43833,52 +44614,56 @@
           return !1;
       }
     }
-    function fc(e) {
-      if (lc) {
-        var t = ac;
+    function hc(e) {
+      if (uc) {
+        var t = lc;
         if (t) {
           var n = t;
-          if (!sc(e, t)) {
-            if (((t = Vr(n)), !t || !sc(e, t))) return (e.effectTag |= 2), (lc = !1), void (ic = e);
-            uc(ic, n);
+          if (!fc(e, t)) {
+            if (((t = Tr(n)), !t || !fc(e, t))) return (e.effectTag |= 2), (uc = !1), void (ac = e);
+            sc(ac, n);
           }
-          (ic = e), (ac = Tr(t));
-        } else (e.effectTag |= 2), (lc = !1), (ic = e);
+          (ac = e), (lc = Er(t));
+        } else (e.effectTag |= 2), (uc = !1), (ac = e);
       }
     }
-    function hc(e) {
-      for (e = e.return; null !== e && 5 !== e.tag && 3 !== e.tag; ) e = e.return;
-      ic = e;
-    }
     function pc(e) {
-      if (e !== ic) return !1;
-      if (!lc) return hc(e), (lc = !0), !1;
+      for (e = e.return; null !== e && 5 !== e.tag && 3 !== e.tag; ) e = e.return;
+      ac = e;
+    }
+    function dc(e) {
+      if (e !== ac) return !1;
+      if (!uc) return pc(e), (uc = !0), !1;
       var t = e.type;
-      if (5 !== e.tag || ('head' !== t && 'body' !== t && !Lr(t, e.memoizedProps)))
-        for (t = ac; t; ) uc(e, t), (t = Vr(t));
-      return hc(e), (ac = ic ? Vr(e.stateNode) : null), !0;
+      if (5 !== e.tag || ('head' !== t && 'body' !== t && !Sr(t, e.memoizedProps)))
+        for (t = lc; t; ) sc(e, t), (t = Tr(t));
+      return pc(e), (lc = ac ? Tr(e.stateNode) : null), !0;
     }
-    function dc() {
-      (ac = ic = null), (lc = !1);
+    function vc() {
+      (lc = ac = null), (uc = !1);
     }
-    var vc = Xe.ReactCurrentOwner;
-    function mc(e, t, n, r) {
-      t.child = null === e ? cc(t, null, n, r) : oc(t, e.child, n, r);
+    var mc = Xe.ReactCurrentOwner;
+    function yc(e, t, n, r) {
+      t.child = null === e ? ic(t, null, n, r) : cc(t, e.child, n, r);
     }
-    function yc(e, t, n, r, o) {
+    function gc(e, t, n, r, o) {
       n = n.render;
       var c = t.ref;
-      return Eo(t, o), (r = n(r, c)), (t.effectTag |= 1), mc(e, t, r, o), t.child;
+      return Po(t, o), (r = n(r, c)), (t.effectTag |= 1), yc(e, t, r, o), t.child;
     }
-    function gc(e, t, n, r, o, c) {
+    function bc(e, t, n, r, o, c) {
       if (null === e) {
         var i = n.type;
-        return 'function' !== typeof i || to(i) || void 0 !== i.defaultProps || null !== n.compare
-          ? ((e = oo(n.type, null, r, null, t.mode, c)),
+        return 'function' !== typeof i ||
+          no(i) ||
+          void 0 !== i.defaultProps ||
+          null !== n.compare ||
+          void 0 !== n.defaultProps
+          ? ((e = co(n.type, null, r, null, t.mode, c)),
             (e.ref = t.ref),
             (e.return = t),
             (t.child = e))
-          : ((t.tag = 15), (t.type = i), bc(e, t, i, r, o, c));
+          : ((t.tag = 15), (t.type = i), zc(e, t, i, r, o, c));
       }
       return (
         (i = e.child),
@@ -43887,32 +44672,32 @@
         (n = n.compare),
         (n = null !== n ? n : sn),
         n(o, r) && e.ref === t.ref)
-          ? Oc(e, t, c)
-          : ((t.effectTag |= 1), (e = ro(i, r, c)), (e.ref = t.ref), (e.return = t), (t.child = e))
+          ? kc(e, t, c)
+          : ((t.effectTag |= 1), (e = oo(i, r, c)), (e.ref = t.ref), (e.return = t), (t.child = e))
       );
     }
-    function bc(e, t, n, r, o, c) {
+    function zc(e, t, n, r, o, c) {
       return null !== e && o < c && sn(e.memoizedProps, r) && e.ref === t.ref
-        ? Oc(e, t, c)
-        : wc(e, t, n, r, c);
+        ? kc(e, t, c)
+        : Mc(e, t, n, r, c);
     }
-    function zc(e, t) {
+    function wc(e, t) {
       var n = t.ref;
       ((null === e && null !== n) || (null !== e && e.ref !== n)) && (t.effectTag |= 128);
     }
-    function wc(e, t, n, r, o) {
-      var c = Ur(n) ? Dr : Rr.current;
-      return (c = Ir(t, c)), Eo(t, o), (n = n(r, c)), (t.effectTag |= 1), mc(e, t, n, o), t.child;
-    }
     function Mc(e, t, n, r, o) {
-      if (Ur(n)) {
+      var c = qr(n) ? Ir : Nr.current;
+      return (c = Ur(t, c)), Po(t, o), (n = n(r, c)), (t.effectTag |= 1), yc(e, t, n, o), t.child;
+    }
+    function _c(e, t, n, r, o) {
+      if (qr(n)) {
         var c = !0;
-        Kr(t);
+        Gr(t);
       } else c = !1;
-      if ((Eo(t, o), null === t.stateNode))
+      if ((Po(t, o), null === t.stateNode))
         null !== e && ((e.alternate = null), (t.alternate = null), (t.effectTag |= 2)),
-          Qo(t, n, r, o),
-          $o(t, n, r, o),
+          Jo(t, n, r, o),
+          ec(t, n, r, o),
           (r = !0);
       else if (null === e) {
         var i = t.stateNode,
@@ -43921,22 +44706,22 @@
         var l = i.context,
           u = n.contextType;
         'object' === typeof u && null !== u
-          ? (u = Bo.currentDispatcher.readContext(u))
-          : ((u = Ur(n) ? Dr : Rr.current), (u = Ir(t, u)));
+          ? (u = Ko.currentDispatcher.readContext(u))
+          : ((u = qr(n) ? Ir : Nr.current), (u = Ur(t, u)));
         var s = n.getDerivedStateFromProps,
           f = 'function' === typeof s || 'function' === typeof i.getSnapshotBeforeUpdate;
         f ||
           ('function' !== typeof i.UNSAFE_componentWillReceiveProps &&
             'function' !== typeof i.componentWillReceiveProps) ||
-          ((a !== r || l !== u) && Jo(t, i, r, u)),
-          (po = !1);
+          ((a !== r || l !== u) && $o(t, i, r, u)),
+          (vo = !1);
         var h = t.memoizedState;
         l = i.state = h;
         var p = t.updateQueue;
-        null !== p && (_o(t, p, r, i, o), (l = t.memoizedState)),
-          a !== r || h !== l || Nr.current || po
-            ? ('function' === typeof s && (Go(t, n, s, r), (l = t.memoizedState)),
-              (a = po || Xo(t, n, a, r, h, l, u))
+        null !== p && (xo(t, p, r, i, o), (l = t.memoizedState)),
+          a !== r || h !== l || Dr.current || vo
+            ? ('function' === typeof s && (Zo(t, n, s, r), (l = t.memoizedState)),
+              (a = vo || Qo(t, n, a, r, h, l, u))
                 ? (f ||
                     ('function' !== typeof i.UNSAFE_componentWillMount &&
                       'function' !== typeof i.componentWillMount) ||
@@ -43955,25 +44740,25 @@
       } else
         (i = t.stateNode),
           (a = t.memoizedProps),
-          (i.props = t.type === t.elementType ? a : Yo(t.type, a)),
+          (i.props = t.type === t.elementType ? a : Wo(t.type, a)),
           (l = i.context),
           (u = n.contextType),
           'object' === typeof u && null !== u
-            ? (u = Bo.currentDispatcher.readContext(u))
-            : ((u = Ur(n) ? Dr : Rr.current), (u = Ir(t, u))),
+            ? (u = Ko.currentDispatcher.readContext(u))
+            : ((u = qr(n) ? Ir : Nr.current), (u = Ur(t, u))),
           (s = n.getDerivedStateFromProps),
           (f = 'function' === typeof s || 'function' === typeof i.getSnapshotBeforeUpdate) ||
             ('function' !== typeof i.UNSAFE_componentWillReceiveProps &&
               'function' !== typeof i.componentWillReceiveProps) ||
-            ((a !== r || l !== u) && Jo(t, i, r, u)),
-          (po = !1),
+            ((a !== r || l !== u) && $o(t, i, r, u)),
+          (vo = !1),
           (l = t.memoizedState),
           (h = i.state = l),
           (p = t.updateQueue),
-          null !== p && (_o(t, p, r, i, o), (h = t.memoizedState)),
-          a !== r || l !== h || Nr.current || po
-            ? ('function' === typeof s && (Go(t, n, s, r), (h = t.memoizedState)),
-              (s = po || Xo(t, n, a, r, l, h, u))
+          null !== p && (xo(t, p, r, i, o), (h = t.memoizedState)),
+          a !== r || l !== h || Dr.current || vo
+            ? ('function' === typeof s && (Zo(t, n, s, r), (h = t.memoizedState)),
+              (s = vo || Qo(t, n, a, r, l, h, u))
                 ? (f ||
                     ('function' !== typeof i.UNSAFE_componentWillUpdate &&
                       'function' !== typeof i.componentWillUpdate) ||
@@ -44001,32 +44786,32 @@
                 (a === e.memoizedProps && l === e.memoizedState) ||
                 (t.effectTag |= 256),
               (r = !1));
-      return _c(e, t, n, r, c, o);
+      return xc(e, t, n, r, c, o);
     }
-    function _c(e, t, n, r, o, c) {
-      zc(e, t);
+    function xc(e, t, n, r, o, c) {
+      wc(e, t);
       var i = 0 !== (64 & t.effectTag);
-      if (!r && !i) return o && Gr(t, n, !1), Oc(e, t, c);
-      (r = t.stateNode), (vc.current = t);
+      if (!r && !i) return o && Zr(t, n, !1), kc(e, t, c);
+      (r = t.stateNode), (mc.current = t);
       var a = i && 'function' !== typeof n.getDerivedStateFromError ? null : r.render();
       return (
         (t.effectTag |= 1),
         null !== e && i
-          ? ((t.child = oc(t, e.child, null, c)), (t.child = oc(t, null, a, c)))
-          : mc(e, t, a, c),
+          ? ((t.child = cc(t, e.child, null, c)), (t.child = cc(t, null, a, c)))
+          : yc(e, t, a, c),
         (t.memoizedState = r.state),
-        o && Gr(t, n, !0),
+        o && Zr(t, n, !0),
         t.child
       );
     }
     function Hc(e) {
       var t = e.stateNode;
       t.pendingContext
-        ? Wr(e, t.pendingContext, t.pendingContext !== t.context)
-        : t.context && Wr(e, t.context, !1),
-        Do(e, t.containerInfo);
+        ? Br(e, t.pendingContext, t.pendingContext !== t.context)
+        : t.context && Br(e, t.context, !1),
+        Io(e, t.containerInfo);
     }
-    function xc(e, t, n) {
+    function Oc(e, t, n) {
       var r = t.mode,
         o = t.pendingProps,
         c = t.memoizedState;
@@ -44034,50 +44819,48 @@
         c = null;
         var i = !1;
       } else (c = { timedOutAt: null !== c ? c.timedOutAt : 0 }), (i = !0), (t.effectTag &= -65);
-      return (
-        null === e
-          ? i
-            ? ((i = o.fallback),
-              (o = co(null, r, 0, null)),
-              0 === (1 & t.mode) && (o.child = null !== t.memoizedState ? t.child.child : t.child),
-              (r = co(i, r, n, null)),
-              (o.sibling = r),
-              (n = o),
-              (n.return = r.return = t))
-            : (n = r = cc(t, null, o.children, n))
-          : null !== e.memoizedState
-            ? ((r = e.child),
-              (e = r.sibling),
-              i
-                ? ((n = o.fallback),
-                  (o = ro(r, r.pendingProps, 0)),
-                  0 === (1 & t.mode) &&
-                    ((i = null !== t.memoizedState ? t.child.child : t.child),
-                    i !== r.child && (o.child = i)),
-                  (r = o.sibling = ro(e, n, e.expirationTime)),
-                  (n = o),
-                  (o.childExpirationTime = 0),
-                  (n.return = r.return = t))
-                : (n = r = oc(t, r.child, o.children, n)))
-            : ((e = e.child),
-              i
-                ? ((i = o.fallback),
-                  (o = co(null, r, 0, null)),
-                  (o.child = e),
-                  0 === (1 & t.mode) &&
-                    (o.child = null !== t.memoizedState ? t.child.child : t.child),
-                  (r = o.sibling = co(i, r, n, null)),
-                  (r.effectTag |= 2),
-                  (n = o),
-                  (o.childExpirationTime = 0),
-                  (n.return = r.return = t))
-                : (r = n = oc(t, e, o.children, n))),
-        (t.memoizedState = c),
-        (t.child = n),
-        r
-      );
+      if (null === e)
+        if (i) {
+          var a = o.fallback;
+          (e = io(null, r, 0, null)),
+            0 === (1 & t.mode) && (e.child = null !== t.memoizedState ? t.child.child : t.child),
+            (r = io(a, r, n, null)),
+            (e.sibling = r),
+            (n = e),
+            (n.return = r.return = t);
+        } else n = r = ic(t, null, o.children, n);
+      else
+        null !== e.memoizedState
+          ? ((r = e.child),
+            (a = r.sibling),
+            i
+              ? ((n = o.fallback),
+                (o = oo(r, r.pendingProps, 0)),
+                0 === (1 & t.mode) &&
+                  ((i = null !== t.memoizedState ? t.child.child : t.child),
+                  i !== r.child && (o.child = i)),
+                (r = o.sibling = oo(a, n, a.expirationTime)),
+                (n = o),
+                (o.childExpirationTime = 0),
+                (n.return = r.return = t))
+              : (n = r = cc(t, r.child, o.children, n)))
+          : ((a = e.child),
+            i
+              ? ((i = o.fallback),
+                (o = io(null, r, 0, null)),
+                (o.child = a),
+                0 === (1 & t.mode) &&
+                  (o.child = null !== t.memoizedState ? t.child.child : t.child),
+                (r = o.sibling = io(i, r, n, null)),
+                (r.effectTag |= 2),
+                (n = o),
+                (o.childExpirationTime = 0),
+                (n.return = r.return = t))
+              : (r = n = cc(t, a, o.children, n))),
+          (t.stateNode = e.stateNode);
+      return (t.memoizedState = c), (t.child = n), r;
     }
-    function Oc(e, t, n) {
+    function kc(e, t, n) {
       if (
         (null !== e && (t.firstContextDependency = e.firstContextDependency),
         t.childExpirationTime < n)
@@ -44085,53 +44868,53 @@
         return null;
       if ((null !== e && t.child !== e.child && a('153'), null !== t.child)) {
         for (
-          e = t.child, n = ro(e, e.pendingProps, e.expirationTime), t.child = n, n.return = t;
+          e = t.child, n = oo(e, e.pendingProps, e.expirationTime), t.child = n, n.return = t;
           null !== e.sibling;
 
         )
           (e = e.sibling),
-            (n = n.sibling = ro(e, e.pendingProps, e.expirationTime)),
+            (n = n.sibling = oo(e, e.pendingProps, e.expirationTime)),
             (n.return = t);
         n.sibling = null;
       }
       return t.child;
     }
-    function kc(e, t, n) {
+    function Sc(e, t, n) {
       var r = t.expirationTime;
-      if (null !== e && e.memoizedProps === t.pendingProps && !Nr.current && r < n) {
+      if (null !== e && e.memoizedProps === t.pendingProps && !Dr.current && r < n) {
         switch (t.tag) {
           case 3:
-            Hc(t), dc();
+            Hc(t), vc();
             break;
           case 5:
-            Uo(t);
+            qo(t);
             break;
           case 1:
-            Ur(t.type) && Kr(t);
+            qr(t.type) && Gr(t);
             break;
           case 4:
-            Do(t, t.stateNode.containerInfo);
+            Io(t, t.stateNode.containerInfo);
             break;
           case 10:
-            Vo(t, t.memoizedProps.value);
+            To(t, t.memoizedProps.value);
             break;
           case 13:
             if (null !== t.memoizedState)
               return (
                 (r = t.child.childExpirationTime),
-                0 !== r && r >= n ? xc(e, t, n) : ((t = Oc(e, t, n)), null !== t ? t.sibling : null)
+                0 !== r && r >= n ? Oc(e, t, n) : ((t = kc(e, t, n)), null !== t ? t.sibling : null)
               );
         }
-        return Oc(e, t, n);
+        return kc(e, t, n);
       }
       switch (((t.expirationTime = 0), t.tag)) {
         case 2:
           (r = t.elementType),
             null !== e && ((e.alternate = null), (t.alternate = null), (t.effectTag |= 2)),
             (e = t.pendingProps);
-          var o = Ir(t, Rr.current);
+          var o = Ur(t, Nr.current);
           if (
-            (Eo(t, n),
+            (Po(t, n),
             (o = r(e, o)),
             (t.effectTag |= 1),
             'object' === typeof o &&
@@ -44139,61 +44922,61 @@
               'function' === typeof o.render &&
               void 0 === o.$$typeof)
           ) {
-            if (((t.tag = 1), Ur(r))) {
+            if (((t.tag = 1), qr(r))) {
               var c = !0;
-              Kr(t);
+              Gr(t);
             } else c = !1;
             t.memoizedState = null !== o.state && void 0 !== o.state ? o.state : null;
             var i = r.getDerivedStateFromProps;
-            'function' === typeof i && Go(t, r, i, e),
-              (o.updater = Zo),
+            'function' === typeof i && Zo(t, r, i, e),
+              (o.updater = Xo),
               (t.stateNode = o),
               (o._reactInternalFiber = t),
-              $o(t, r, e, n),
-              (t = _c(null, t, r, !0, c, n));
-          } else (t.tag = 0), mc(null, t, o, n), (t = t.child);
+              ec(t, r, e, n),
+              (t = xc(null, t, r, !0, c, n));
+          } else (t.tag = 0), yc(null, t, o, n), (t = t.child);
           return t;
         case 16:
           switch (
             ((o = t.elementType),
             null !== e && ((e.alternate = null), (t.alternate = null), (t.effectTag |= 2)),
             (c = t.pendingProps),
-            (e = Wo(o)),
+            (e = Bo(o)),
             (t.type = e),
-            (o = t.tag = no(e)),
-            (c = Yo(e, c)),
+            (o = t.tag = ro(e)),
+            (c = Wo(e, c)),
             (i = void 0),
             o)
           ) {
             case 0:
-              i = wc(null, t, e, c, n);
-              break;
-            case 1:
               i = Mc(null, t, e, c, n);
               break;
+            case 1:
+              i = _c(null, t, e, c, n);
+              break;
             case 11:
-              i = yc(null, t, e, c, n);
+              i = gc(null, t, e, c, n);
               break;
             case 14:
-              i = gc(null, t, e, Yo(e.type, c), r, n);
+              i = bc(null, t, e, Wo(e.type, c), r, n);
               break;
             default:
-              a('283', e);
+              a('306', e, '');
           }
           return i;
         case 0:
           return (
             (r = t.type),
             (o = t.pendingProps),
-            (o = t.elementType === r ? o : Yo(r, o)),
-            wc(e, t, r, o, n)
+            (o = t.elementType === r ? o : Wo(r, o)),
+            Mc(e, t, r, o, n)
           );
         case 1:
           return (
             (r = t.type),
             (o = t.pendingProps),
-            (o = t.elementType === r ? o : Yo(r, o)),
-            Mc(e, t, r, o, n)
+            (o = t.elementType === r ? o : Wo(r, o)),
+            _c(e, t, r, o, n)
           );
         case 3:
           return (
@@ -44202,56 +44985,56 @@
             null === r && a('282'),
             (o = t.memoizedState),
             (o = null !== o ? o.element : null),
-            _o(t, r, t.pendingProps, null, n),
+            xo(t, r, t.pendingProps, null, n),
             (r = t.memoizedState.element),
             r === o
-              ? (dc(), (t = Oc(e, t, n)))
+              ? (vc(), (t = kc(e, t, n)))
               : ((o = t.stateNode),
                 (o = (null === e || null === e.child) && o.hydrate) &&
-                  ((ac = Tr(t.stateNode.containerInfo)), (ic = t), (o = lc = !0)),
-                o ? ((t.effectTag |= 2), (t.child = cc(t, null, r, n))) : (mc(e, t, r, n), dc()),
+                  ((lc = Er(t.stateNode.containerInfo)), (ac = t), (o = uc = !0)),
+                o ? ((t.effectTag |= 2), (t.child = ic(t, null, r, n))) : (yc(e, t, r, n), vc()),
                 (t = t.child)),
             t
           );
         case 5:
           return (
-            Uo(t),
-            null === e && fc(t),
+            qo(t),
+            null === e && hc(t),
             (r = t.type),
             (o = t.pendingProps),
             (c = null !== e ? e.memoizedProps : null),
             (i = o.children),
-            Lr(r, o) ? (i = null) : null !== c && Lr(r, c) && (t.effectTag |= 16),
-            zc(e, t),
+            Sr(r, o) ? (i = null) : null !== c && Sr(r, c) && (t.effectTag |= 16),
+            wc(e, t),
             1 !== n && 1 & t.mode && o.hidden
               ? ((t.expirationTime = 1), (t = null))
-              : (mc(e, t, i, n), (t = t.child)),
+              : (yc(e, t, i, n), (t = t.child)),
             t
           );
         case 6:
-          return null === e && fc(t), null;
+          return null === e && hc(t), null;
         case 13:
-          return xc(e, t, n);
+          return Oc(e, t, n);
         case 4:
           return (
-            Do(t, t.stateNode.containerInfo),
+            Io(t, t.stateNode.containerInfo),
             (r = t.pendingProps),
-            null === e ? (t.child = oc(t, null, r, n)) : mc(e, t, r, n),
+            null === e ? (t.child = cc(t, null, r, n)) : yc(e, t, r, n),
             t.child
           );
         case 11:
           return (
             (r = t.type),
             (o = t.pendingProps),
-            (o = t.elementType === r ? o : Yo(r, o)),
-            yc(e, t, r, o, n)
+            (o = t.elementType === r ? o : Wo(r, o)),
+            gc(e, t, r, o, n)
           );
         case 7:
-          return mc(e, t, t.pendingProps, n), t.child;
+          return yc(e, t, t.pendingProps, n), t.child;
         case 8:
-          return mc(e, t, t.pendingProps.children, n), t.child;
+          return yc(e, t, t.pendingProps.children, n), t.child;
         case 12:
-          return mc(e, t, t.pendingProps.children, n), t.child;
+          return yc(e, t, t.pendingProps.children, n), t.child;
         case 10:
           e: {
             if (
@@ -44259,7 +45042,7 @@
               (o = t.pendingProps),
               (i = t.memoizedProps),
               (c = o.value),
-              Vo(t, c),
+              To(t, c),
               null !== i)
             ) {
               var l = i.value;
@@ -44273,8 +45056,8 @@
                         : 1073741823)),
                 0 === c)
               ) {
-                if (i.children === o.children && !Nr.current) {
-                  t = Oc(e, t, n);
+                if (i.children === o.children && !Dr.current) {
+                  t = kc(e, t, n);
                   break e;
                 }
               } else
@@ -44283,8 +45066,8 @@
                     do {
                       if (l.context === r && 0 !== (l.observedBits & c)) {
                         if (1 === i.tag) {
-                          var u = yo(n);
-                          (u.tag = 2), bo(i, u);
+                          var u = go(n);
+                          (u.tag = 2), zo(i, u);
                         }
                         i.expirationTime < n && (i.expirationTime = n),
                           (u = i.alternate),
@@ -44321,7 +45104,7 @@
                   i = u;
                 }
             }
-            mc(e, t, o.children, n), (t = t.child);
+            yc(e, t, o.children, n), (t = t.child);
           }
           return t;
         case 9:
@@ -44329,29 +45112,31 @@
             (o = t.type),
             (c = t.pendingProps),
             (r = c.children),
-            Eo(t, n),
-            (o = Po(o, c.unstable_observedBits)),
+            Po(t, n),
+            (o = Ao(o, c.unstable_observedBits)),
             (r = r(o)),
             (t.effectTag |= 1),
-            mc(e, t, r, n),
+            yc(e, t, r, n),
             t.child
           );
         case 14:
-          return (o = t.type), (c = Yo(o.type, t.pendingProps)), gc(e, t, o, c, r, n);
+          return (
+            (o = t.type), (c = Wo(o, t.pendingProps)), (c = Wo(o.type, c)), bc(e, t, o, c, r, n)
+          );
         case 15:
-          return bc(e, t, t.type, t.pendingProps, r, n);
+          return zc(e, t, t.type, t.pendingProps, r, n);
         case 17:
           return (
             (r = t.type),
             (o = t.pendingProps),
-            (o = t.elementType === r ? o : Yo(r, o)),
+            (o = t.elementType === r ? o : Wo(r, o)),
             null !== e && ((e.alternate = null), (t.alternate = null), (t.effectTag |= 2)),
             (t.tag = 1),
-            Ur(r) ? ((e = !0), Kr(t)) : (e = !1),
-            Eo(t, n),
-            Qo(t, r, o, n),
-            $o(t, r, o, n),
-            _c(null, t, r, !0, e, n)
+            qr(r) ? ((e = !0), Gr(t)) : (e = !1),
+            Po(t, n),
+            Jo(t, r, o, n),
+            ec(t, r, o, n),
+            xc(null, t, r, !0, e, n)
           );
         default:
           a('156');
@@ -44360,372 +45145,11 @@
     function Lc(e) {
       e.effectTag |= 4;
     }
-    var Sc = void 0,
-      Cc = void 0,
+    var Cc = void 0,
       Vc = void 0,
-      Tc = void 0;
-    function Ec(e, t) {
-      var n = t.source,
-        r = t.stack;
-      null === r && null !== n && (r = dt(n)),
-        null !== n && pt(n.type),
-        (t = t.value),
-        null !== e && 1 === e.tag && pt(e.type);
-      try {
-        console.error(t);
-      } catch (e) {
-        setTimeout(function() {
-          throw e;
-        });
-      }
-    }
-    function Pc(e) {
-      var t = e.ref;
-      if (null !== t)
-        if ('function' === typeof t)
-          try {
-            t(null);
-          } catch (t) {
-            ui(e, t);
-          }
-        else t.current = null;
-    }
-    function Ac(e) {
-      switch (('function' === typeof Xr && Xr(e), e.tag)) {
-        case 0:
-        case 11:
-        case 14:
-        case 15:
-          var t = e.updateQueue;
-          if (null !== t && ((t = t.lastEffect), null !== t)) {
-            var n = (t = t.next);
-            do {
-              var r = n.destroy;
-              if (null !== r) {
-                var o = e;
-                try {
-                  r();
-                } catch (e) {
-                  ui(o, e);
-                }
-              }
-              n = n.next;
-            } while (n !== t);
-          }
-          break;
-        case 1:
-          if ((Pc(e), (t = e.stateNode), 'function' === typeof t.componentWillUnmount))
-            try {
-              (t.props = e.memoizedProps), (t.state = e.memoizedState), t.componentWillUnmount();
-            } catch (t) {
-              ui(e, t);
-            }
-          break;
-        case 5:
-          Pc(e);
-          break;
-        case 4:
-          Rc(e);
-      }
-    }
-    function jc(e) {
-      return 5 === e.tag || 3 === e.tag || 4 === e.tag;
-    }
-    function Fc(e) {
-      e: {
-        for (var t = e.return; null !== t; ) {
-          if (jc(t)) {
-            var n = t;
-            break e;
-          }
-          t = t.return;
-        }
-        a('160'), (n = void 0);
-      }
-      var r = (t = void 0);
-      switch (n.tag) {
-        case 5:
-          (t = n.stateNode), (r = !1);
-          break;
-        case 3:
-          (t = n.stateNode.containerInfo), (r = !0);
-          break;
-        case 4:
-          (t = n.stateNode.containerInfo), (r = !0);
-          break;
-        default:
-          a('161');
-      }
-      16 & n.effectTag && (vr(t, ''), (n.effectTag &= -17));
-      e: t: for (n = e; ; ) {
-        for (; null === n.sibling; ) {
-          if (null === n.return || jc(n.return)) {
-            n = null;
-            break e;
-          }
-          n = n.return;
-        }
-        for (n.sibling.return = n.return, n = n.sibling; 5 !== n.tag && 6 !== n.tag; ) {
-          if (2 & n.effectTag) continue t;
-          if (null === n.child || 4 === n.tag) continue t;
-          (n.child.return = n), (n = n.child);
-        }
-        if (!(2 & n.effectTag)) {
-          n = n.stateNode;
-          break e;
-        }
-      }
-      for (var o = e; ; ) {
-        if (5 === o.tag || 6 === o.tag)
-          if (n)
-            if (r) {
-              var c = t,
-                i = o.stateNode,
-                l = n;
-              8 === c.nodeType ? c.parentNode.insertBefore(i, l) : c.insertBefore(i, l);
-            } else t.insertBefore(o.stateNode, n);
-          else
-            r
-              ? ((i = t),
-                (l = o.stateNode),
-                8 === i.nodeType
-                  ? ((c = i.parentNode), c.insertBefore(l, i))
-                  : ((c = i), c.appendChild(l)),
-                (i = i._reactRootContainer),
-                (null !== i && void 0 !== i) || null !== c.onclick || (c.onclick = Hr))
-              : t.appendChild(o.stateNode);
-        else if (4 !== o.tag && null !== o.child) {
-          (o.child.return = o), (o = o.child);
-          continue;
-        }
-        if (o === e) break;
-        for (; null === o.sibling; ) {
-          if (null === o.return || o.return === e) return;
-          o = o.return;
-        }
-        (o.sibling.return = o.return), (o = o.sibling);
-      }
-    }
-    function Rc(e) {
-      for (var t = e, n = !1, r = void 0, o = void 0; ; ) {
-        if (!n) {
-          n = t.return;
-          e: for (;;) {
-            switch ((null === n && a('160'), n.tag)) {
-              case 5:
-                (r = n.stateNode), (o = !1);
-                break e;
-              case 3:
-                (r = n.stateNode.containerInfo), (o = !0);
-                break e;
-              case 4:
-                (r = n.stateNode.containerInfo), (o = !0);
-                break e;
-            }
-            n = n.return;
-          }
-          n = !0;
-        }
-        if (5 === t.tag || 6 === t.tag) {
-          e: for (var c = t, i = c; ; )
-            if ((Ac(i), null !== i.child && 4 !== i.tag)) (i.child.return = i), (i = i.child);
-            else {
-              if (i === c) break;
-              for (; null === i.sibling; ) {
-                if (null === i.return || i.return === c) break e;
-                i = i.return;
-              }
-              (i.sibling.return = i.return), (i = i.sibling);
-            }
-          o
-            ? ((c = r),
-              (i = t.stateNode),
-              8 === c.nodeType ? c.parentNode.removeChild(i) : c.removeChild(i))
-            : r.removeChild(t.stateNode);
-        } else if (
-          (4 === t.tag ? ((r = t.stateNode.containerInfo), (o = !0)) : Ac(t), null !== t.child)
-        ) {
-          (t.child.return = t), (t = t.child);
-          continue;
-        }
-        if (t === e) break;
-        for (; null === t.sibling; ) {
-          if (null === t.return || t.return === e) return;
-          (t = t.return), 4 === t.tag && (n = !1);
-        }
-        (t.sibling.return = t.return), (t = t.sibling);
-      }
-    }
-    function Nc(e, t) {
-      switch (t.tag) {
-        case 0:
-        case 11:
-        case 14:
-        case 15:
-          break;
-        case 1:
-          break;
-        case 5:
-          var n = t.stateNode;
-          if (null != n) {
-            var r = t.memoizedProps,
-              o = null !== e ? e.memoizedProps : r;
-            e = t.type;
-            var c = t.updateQueue;
-            if (((t.updateQueue = null), null !== c)) {
-              for (
-                n[F] = r,
-                  'input' === e && 'radio' === r.type && null != r.name && Ct(n, r),
-                  Mr(e, o),
-                  t = Mr(e, r),
-                  o = 0;
-                o < c.length;
-                o += 2
-              ) {
-                var i = c[o],
-                  l = c[o + 1];
-                'style' === i
-                  ? br(n, l)
-                  : 'dangerouslySetInnerHTML' === i
-                    ? dr(n, l)
-                    : 'children' === i
-                      ? vr(n, l)
-                      : Ot(n, i, l, t);
-              }
-              switch (e) {
-                case 'input':
-                  Vt(n, r);
-                  break;
-                case 'textarea':
-                  lr(n, r);
-                  break;
-                case 'select':
-                  (t = n._wrapperState.wasMultiple),
-                    (n._wrapperState.wasMultiple = !!r.multiple),
-                    (e = r.value),
-                    null != e
-                      ? cr(n, !!r.multiple, e, !1)
-                      : t !== !!r.multiple &&
-                        (null != r.defaultValue
-                          ? cr(n, !!r.multiple, r.defaultValue, !0)
-                          : cr(n, !!r.multiple, r.multiple ? [] : '', !1));
-              }
-            }
-          }
-          break;
-        case 6:
-          null === t.stateNode && a('162'), (t.stateNode.nodeValue = t.memoizedProps);
-          break;
-        case 3:
-          break;
-        case 12:
-          break;
-        case 13:
-          if (
-            ((n = t.memoizedState),
-            (e = t),
-            null === n
-              ? (r = !1)
-              : ((r = !0), (e = t.child), 0 === n.timedOutAt && (n.timedOutAt = Ni())),
-            null !== e)
-          )
-            e: for (t = n = e; ; ) {
-              if (5 === t.tag)
-                (e = t.stateNode),
-                  r
-                    ? (e.style.display = 'none')
-                    : ((e = t.stateNode),
-                      (c = t.memoizedProps.style),
-                      (c =
-                        void 0 !== c && null !== c && c.hasOwnProperty('display')
-                          ? c.display
-                          : null),
-                      (e.style.display = gr('display', c)));
-              else if (6 === t.tag) t.stateNode.nodeValue = r ? '' : t.memoizedProps;
-              else {
-                if (13 === t.tag && null !== t.memoizedState) {
-                  (e = t.child.sibling), (e.return = t), (t = e);
-                  continue;
-                }
-                if (null !== t.child) {
-                  (t.child.return = t), (t = t.child);
-                  continue;
-                }
-              }
-              if (t === n) break e;
-              for (; null === t.sibling; ) {
-                if (null === t.return || t.return === n) break e;
-                t = t.return;
-              }
-              (t.sibling.return = t.return), (t = t.sibling);
-            }
-          break;
-        case 17:
-          break;
-        default:
-          a('163');
-      }
-    }
-    function Dc(e, t, n) {
-      (n = yo(n)), (n.tag = 3), (n.payload = { element: null });
-      var r = t.value;
-      return (
-        (n.callback = function() {
-          Zi(r), Ec(e, t);
-        }),
-        n
-      );
-    }
-    function Ic(e, t, n) {
-      (n = yo(n)), (n.tag = 3);
-      var r = e.type.getDerivedStateFromError;
-      if ('function' === typeof r) {
-        var o = t.value;
-        n.payload = function() {
-          return r(o);
-        };
-      }
-      var c = e.stateNode;
-      return (
-        null !== c &&
-          'function' === typeof c.componentDidCatch &&
-          (n.callback = function() {
-            'function' !== typeof r && (null === ri ? (ri = new Set([this])) : ri.add(this));
-            var n = t.value,
-              o = t.stack;
-            Ec(e, t), this.componentDidCatch(n, { componentStack: null !== o ? o : '' });
-          }),
-        n
-      );
-    }
-    function Uc(e) {
-      switch (e.tag) {
-        case 1:
-          Ur(e.type) && qr(e);
-          var t = e.effectTag;
-          return 2048 & t ? ((e.effectTag = (-2049 & t) | 64), e) : null;
-        case 3:
-          return (
-            Io(e),
-            Yr(e),
-            (t = e.effectTag),
-            0 !== (64 & t) && a('285'),
-            (e.effectTag = (-2049 & t) | 64),
-            e
-          );
-        case 5:
-          return qo(e), null;
-        case 13:
-          return (t = e.effectTag), 2048 & t ? ((e.effectTag = (-2049 & t) | 64), e) : null;
-        case 4:
-          return Io(e), null;
-        case 10:
-          return To(e), null;
-        default:
-          return null;
-      }
-    }
-    (Sc = function(e, t) {
+      Tc = void 0,
+      Ec = void 0;
+    (Cc = function(e, t) {
       for (var n = t.child; null !== n; ) {
         if (5 === n.tag || 6 === n.tag) e.appendChild(n.stateNode);
         else if (4 !== n.tag && null !== n.child) {
@@ -44740,14 +45164,14 @@
         (n.sibling.return = n.return), (n = n.sibling);
       }
     }),
-      (Cc = function() {}),
-      (Vc = function(e, t, n, r, c) {
+      (Vc = function() {}),
+      (Tc = function(e, t, n, r, c) {
         var i = e.memoizedProps;
         if (i !== r) {
           var a = t.stateNode;
-          switch ((No(jo.current), (e = null), n)) {
+          switch ((Do(Fo.current), (e = null), n)) {
             case 'input':
-              (i = Lt(a, i)), (r = Lt(a, r)), (e = []);
+              (i = St(a, i)), (r = St(a, r)), (e = []);
               break;
             case 'option':
               (i = or(a, i)), (r = or(a, r)), (e = []);
@@ -44761,7 +45185,7 @@
             default:
               'function' !== typeof i.onClick &&
                 'function' === typeof r.onClick &&
-                (a.onclick = Hr);
+                (a.onclick = xr);
           }
           wr(n, r), (a = n = void 0);
           var l = null;
@@ -44810,63 +45234,399 @@
           l && (e = e || []).push('style', l), (c = e), (t.updateQueue = c) && Lc(t);
         }
       }),
-      (Tc = function(e, t, n, r) {
+      (Ec = function(e, t, n, r) {
         n !== r && Lc(t);
       });
-    var qc = { readContext: Po },
-      Yc = Xe.ReactCurrentOwner,
-      Wc = 1073741822,
-      Bc = 0,
-      Kc = !1,
-      Gc = null,
-      Zc = null,
+    var Pc = 'function' === typeof WeakSet ? WeakSet : Set;
+    function Ac(e, t) {
+      var n = t.source,
+        r = t.stack;
+      null === r && null !== n && (r = dt(n)),
+        null !== n && pt(n.type),
+        (t = t.value),
+        null !== e && 1 === e.tag && pt(e.type);
+      try {
+        console.error(t);
+      } catch (e) {
+        setTimeout(function() {
+          throw e;
+        });
+      }
+    }
+    function jc(e) {
+      var t = e.ref;
+      if (null !== t)
+        if ('function' === typeof t)
+          try {
+            t(null);
+          } catch (t) {
+            pi(e, t);
+          }
+        else t.current = null;
+    }
+    function Fc(e, t) {
+      for (var n = e; ; ) {
+        if (5 === n.tag) {
+          var r = n.stateNode;
+          if (t) r.style.display = 'none';
+          else {
+            r = n.stateNode;
+            var o = n.memoizedProps.style;
+            (o = void 0 !== o && null !== o && o.hasOwnProperty('display') ? o.display : null),
+              (r.style.display = gr('display', o));
+          }
+        } else if (6 === n.tag) n.stateNode.nodeValue = t ? '' : n.memoizedProps;
+        else {
+          if (13 === n.tag && null !== n.memoizedState) {
+            (r = n.child.sibling), (r.return = n), (n = r);
+            continue;
+          }
+          if (null !== n.child) {
+            (n.child.return = n), (n = n.child);
+            continue;
+          }
+        }
+        if (n === e) break;
+        for (; null === n.sibling; ) {
+          if (null === n.return || n.return === e) return;
+          n = n.return;
+        }
+        (n.sibling.return = n.return), (n = n.sibling);
+      }
+    }
+    function Rc(e) {
+      switch (('function' === typeof Qr && Qr(e), e.tag)) {
+        case 0:
+        case 11:
+        case 14:
+        case 15:
+          var t = e.updateQueue;
+          if (null !== t && ((t = t.lastEffect), null !== t)) {
+            var n = (t = t.next);
+            do {
+              var r = n.destroy;
+              if (null !== r) {
+                var o = e;
+                try {
+                  r();
+                } catch (e) {
+                  pi(o, e);
+                }
+              }
+              n = n.next;
+            } while (n !== t);
+          }
+          break;
+        case 1:
+          if ((jc(e), (t = e.stateNode), 'function' === typeof t.componentWillUnmount))
+            try {
+              (t.props = e.memoizedProps), (t.state = e.memoizedState), t.componentWillUnmount();
+            } catch (t) {
+              pi(e, t);
+            }
+          break;
+        case 5:
+          jc(e);
+          break;
+        case 4:
+          Ic(e);
+      }
+    }
+    function Nc(e) {
+      return 5 === e.tag || 3 === e.tag || 4 === e.tag;
+    }
+    function Dc(e) {
+      e: {
+        for (var t = e.return; null !== t; ) {
+          if (Nc(t)) {
+            var n = t;
+            break e;
+          }
+          t = t.return;
+        }
+        a('160'), (n = void 0);
+      }
+      var r = (t = void 0);
+      switch (n.tag) {
+        case 5:
+          (t = n.stateNode), (r = !1);
+          break;
+        case 3:
+          (t = n.stateNode.containerInfo), (r = !0);
+          break;
+        case 4:
+          (t = n.stateNode.containerInfo), (r = !0);
+          break;
+        default:
+          a('161');
+      }
+      16 & n.effectTag && (vr(t, ''), (n.effectTag &= -17));
+      e: t: for (n = e; ; ) {
+        for (; null === n.sibling; ) {
+          if (null === n.return || Nc(n.return)) {
+            n = null;
+            break e;
+          }
+          n = n.return;
+        }
+        for (n.sibling.return = n.return, n = n.sibling; 5 !== n.tag && 6 !== n.tag; ) {
+          if (2 & n.effectTag) continue t;
+          if (null === n.child || 4 === n.tag) continue t;
+          (n.child.return = n), (n = n.child);
+        }
+        if (!(2 & n.effectTag)) {
+          n = n.stateNode;
+          break e;
+        }
+      }
+      for (var o = e; ; ) {
+        if (5 === o.tag || 6 === o.tag)
+          if (n)
+            if (r) {
+              var c = t,
+                i = o.stateNode,
+                l = n;
+              8 === c.nodeType ? c.parentNode.insertBefore(i, l) : c.insertBefore(i, l);
+            } else t.insertBefore(o.stateNode, n);
+          else
+            r
+              ? ((i = t),
+                (l = o.stateNode),
+                8 === i.nodeType
+                  ? ((c = i.parentNode), c.insertBefore(l, i))
+                  : ((c = i), c.appendChild(l)),
+                (i = i._reactRootContainer),
+                (null !== i && void 0 !== i) || null !== c.onclick || (c.onclick = xr))
+              : t.appendChild(o.stateNode);
+        else if (4 !== o.tag && null !== o.child) {
+          (o.child.return = o), (o = o.child);
+          continue;
+        }
+        if (o === e) break;
+        for (; null === o.sibling; ) {
+          if (null === o.return || o.return === e) return;
+          o = o.return;
+        }
+        (o.sibling.return = o.return), (o = o.sibling);
+      }
+    }
+    function Ic(e) {
+      for (var t = e, n = !1, r = void 0, o = void 0; ; ) {
+        if (!n) {
+          n = t.return;
+          e: for (;;) {
+            switch ((null === n && a('160'), n.tag)) {
+              case 5:
+                (r = n.stateNode), (o = !1);
+                break e;
+              case 3:
+                (r = n.stateNode.containerInfo), (o = !0);
+                break e;
+              case 4:
+                (r = n.stateNode.containerInfo), (o = !0);
+                break e;
+            }
+            n = n.return;
+          }
+          n = !0;
+        }
+        if (5 === t.tag || 6 === t.tag) {
+          e: for (var c = t, i = c; ; )
+            if ((Rc(i), null !== i.child && 4 !== i.tag)) (i.child.return = i), (i = i.child);
+            else {
+              if (i === c) break;
+              for (; null === i.sibling; ) {
+                if (null === i.return || i.return === c) break e;
+                i = i.return;
+              }
+              (i.sibling.return = i.return), (i = i.sibling);
+            }
+          o
+            ? ((c = r),
+              (i = t.stateNode),
+              8 === c.nodeType ? c.parentNode.removeChild(i) : c.removeChild(i))
+            : r.removeChild(t.stateNode);
+        } else if (
+          (4 === t.tag ? ((r = t.stateNode.containerInfo), (o = !0)) : Rc(t), null !== t.child)
+        ) {
+          (t.child.return = t), (t = t.child);
+          continue;
+        }
+        if (t === e) break;
+        for (; null === t.sibling; ) {
+          if (null === t.return || t.return === e) return;
+          (t = t.return), 4 === t.tag && (n = !1);
+        }
+        (t.sibling.return = t.return), (t = t.sibling);
+      }
+    }
+    function Uc(e, t) {
+      switch (t.tag) {
+        case 0:
+        case 11:
+        case 14:
+        case 15:
+          break;
+        case 1:
+          break;
+        case 5:
+          var n = t.stateNode;
+          if (null != n) {
+            var r = t.memoizedProps;
+            e = null !== e ? e.memoizedProps : r;
+            var o = t.type,
+              c = t.updateQueue;
+            (t.updateQueue = null), null !== c && Vr(n, c, o, e, r, t);
+          }
+          break;
+        case 6:
+          null === t.stateNode && a('162'), (t.stateNode.nodeValue = t.memoizedProps);
+          break;
+        case 3:
+          break;
+        case 12:
+          break;
+        case 13:
+          if (
+            ((n = t.memoizedState),
+            (r = void 0),
+            (e = t),
+            null === n
+              ? (r = !1)
+              : ((r = !0), (e = t.child), 0 === n.timedOutAt && (n.timedOutAt = Yi())),
+            null !== e && Fc(e, r),
+            (n = t.updateQueue),
+            null !== n)
+          ) {
+            t.updateQueue = null;
+            var i = t.stateNode;
+            null === i && (i = t.stateNode = new Pc()),
+              n.forEach(function(e) {
+                var n = mi.bind(null, t, e);
+                i.has(e) || (i.add(e), e.then(n, n));
+              });
+          }
+          break;
+        case 17:
+          break;
+        default:
+          a('163');
+      }
+    }
+    var qc = 'function' === typeof WeakMap ? WeakMap : Map;
+    function Yc(e, t, n) {
+      (n = go(n)), (n.tag = 3), (n.payload = { element: null });
+      var r = t.value;
+      return (
+        (n.callback = function() {
+          ea(r), Ac(e, t);
+        }),
+        n
+      );
+    }
+    function Wc(e, t, n) {
+      (n = go(n)), (n.tag = 3);
+      var r = e.type.getDerivedStateFromError;
+      if ('function' === typeof r) {
+        var o = t.value;
+        n.payload = function() {
+          return r(o);
+        };
+      }
+      var c = e.stateNode;
+      return (
+        null !== c &&
+          'function' === typeof c.componentDidCatch &&
+          (n.callback = function() {
+            'function' !== typeof r && (null === ai ? (ai = new Set([this])) : ai.add(this));
+            var n = t.value,
+              o = t.stack;
+            Ac(e, t), this.componentDidCatch(n, { componentStack: null !== o ? o : '' });
+          }),
+        n
+      );
+    }
+    function Bc(e) {
+      switch (e.tag) {
+        case 1:
+          qr(e.type) && Yr(e);
+          var t = e.effectTag;
+          return 2048 & t ? ((e.effectTag = (-2049 & t) | 64), e) : null;
+        case 3:
+          return (
+            Uo(e),
+            Wr(e),
+            (t = e.effectTag),
+            0 !== (64 & t) && a('285'),
+            (e.effectTag = (-2049 & t) | 64),
+            e
+          );
+        case 5:
+          return Yo(e), null;
+        case 13:
+          return (t = e.effectTag), 2048 & t ? ((e.effectTag = (-2049 & t) | 64), e) : null;
+        case 4:
+          return Uo(e), null;
+        case 10:
+          return Eo(e), null;
+        default:
+          return null;
+      }
+    }
+    var Kc = { readContext: Ao },
+      Gc = Xe.ReactCurrentOwner,
+      Zc = 1073741822,
       Xc = 0,
-      Qc = -1,
-      Jc = !1,
+      Qc = !1,
+      Jc = null,
       $c = null,
-      ei = !1,
-      ti = null,
-      ni = null,
-      ri = null;
-    function oi() {
-      if (null !== Gc)
-        for (var e = Gc.return; null !== e; ) {
+      ei = 0,
+      ti = -1,
+      ni = !1,
+      ri = null,
+      oi = !1,
+      ci = null,
+      ii = null,
+      ai = null;
+    function li() {
+      if (null !== Jc)
+        for (var e = Jc.return; null !== e; ) {
           var t = e;
           switch (t.tag) {
             case 1:
               var n = t.type.childContextTypes;
-              null !== n && void 0 !== n && qr(t);
+              null !== n && void 0 !== n && Yr(t);
               break;
             case 3:
-              Io(t), Yr(t);
+              Uo(t), Wr(t);
               break;
             case 5:
-              qo(t);
+              Yo(t);
               break;
             case 4:
-              Io(t);
+              Uo(t);
               break;
             case 10:
-              To(t);
+              Eo(t);
           }
           e = e.return;
         }
-      (Zc = null), (Xc = 0), (Qc = -1), (Jc = !1), (Gc = null);
+      ($c = null), (ei = 0), (ti = -1), (ni = !1), (Jc = null);
     }
-    function ci() {
-      null !== ni && (c.unstable_cancelCallback(ti), ni());
+    function ui() {
+      null !== ii && (c.unstable_cancelCallback(ci), ii());
     }
-    function ii(e) {
+    function si(e) {
       for (;;) {
         var t = e.alternate,
           n = e.return,
           r = e.sibling;
         if (0 === (1024 & e.effectTag)) {
-          Gc = e;
+          Jc = e;
           e: {
             var c = t;
             t = e;
-            var i = Xc,
+            var i = ei,
               l = t.pendingProps;
             switch (t.tag) {
               case 2:
@@ -44877,24 +45637,24 @@
               case 0:
                 break;
               case 1:
-                Ur(t.type) && qr(t);
+                qr(t.type) && Yr(t);
                 break;
               case 3:
-                Io(t),
-                  Yr(t),
+                Uo(t),
+                  Wr(t),
                   (l = t.stateNode),
                   l.pendingContext && ((l.context = l.pendingContext), (l.pendingContext = null)),
-                  (null !== c && null !== c.child) || (pc(t), (t.effectTag &= -3)),
-                  Cc(t);
+                  (null !== c && null !== c.child) || (dc(t), (t.effectTag &= -3)),
+                  Vc(t);
                 break;
               case 5:
-                qo(t);
-                var u = No(Ro.current);
+                Yo(t);
+                var u = Do(No.current);
                 if (((i = t.type), null !== c && null != t.stateNode))
-                  Vc(c, t, i, l, u), c.ref !== t.ref && (t.effectTag |= 128);
+                  Tc(c, t, i, l, u), c.ref !== t.ref && (t.effectTag |= 128);
                 else if (l) {
-                  var s = No(jo.current);
-                  if (pc(t)) {
+                  var s = Do(Fo.current);
+                  if (dc(t)) {
                     (l = t), (c = l.stateNode);
                     var f = l.type,
                       h = l.memoizedProps,
@@ -44923,7 +45683,7 @@
                         An('toggle', c);
                         break;
                       case 'input':
-                        St(c, h), An('invalid', c), _r(p, 'onChange');
+                        Lt(c, h), An('invalid', c), _r(p, 'onChange');
                         break;
                       case 'select':
                         (c._wrapperState = { wasMultiple: !!h.multiple }),
@@ -44954,7 +45714,7 @@
                       case 'option':
                         break;
                       default:
-                        'function' === typeof h.onClick && (c.onclick = Hr);
+                        'function' === typeof h.onClick && (c.onclick = xr);
                     }
                     (i = f), (l.updateQueue = i), (l = null !== i), l && Lc(t);
                   } else {
@@ -44976,7 +45736,7 @@
                       (c = f),
                       (c[j] = h),
                       (c[F] = l),
-                      Sc(c, t, !1, !1),
+                      Cc(c, t, !1, !1),
                       (p = c),
                       (f = i),
                       (h = l);
@@ -45007,7 +45767,7 @@
                         An('toggle', p), (u = h);
                         break;
                       case 'input':
-                        St(p, h), (u = Lt(p, h)), An('invalid', p), _r(d, 'onChange');
+                        Lt(p, h), (u = St(p, h)), An('invalid', p), _r(d, 'onChange');
                         break;
                       case 'option':
                         u = or(p, h);
@@ -45065,7 +45825,7 @@
                             : null != h.defaultValue && cr(u, !!h.multiple, h.defaultValue, !0);
                         break;
                       default:
-                        'function' === typeof u.onClick && (p.onclick = Hr);
+                        'function' === typeof u.onClick && (p.onclick = xr);
                     }
                     (l = kr(i, l)) && Lc(t), (t.stateNode = c);
                   }
@@ -45074,11 +45834,11 @@
                 break;
               case 6:
                 c && null != t.stateNode
-                  ? Tc(c, t, c.memoizedProps, l)
+                  ? Ec(c, t, c.memoizedProps, l)
                   : ('string' !== typeof l && (null === t.stateNode && a('166')),
-                    (c = No(Ro.current)),
-                    No(jo.current),
-                    pc(t)
+                    (c = Do(No.current)),
+                    Do(Fo.current),
+                    dc(t)
                       ? ((l = t),
                         (i = l.stateNode),
                         (c = l.memoizedProps),
@@ -45093,7 +45853,7 @@
                 break;
               case 13:
                 if (((l = t.memoizedState), 0 !== (64 & t.effectTag))) {
-                  (t.expirationTime = i), (Gc = t);
+                  (t.expirationTime = i), (Jc = t);
                   break e;
                 }
                 (l = null !== l),
@@ -45117,24 +45877,24 @@
               case 12:
                 break;
               case 4:
-                Io(t), Cc(t);
+                Uo(t), Vc(t);
                 break;
               case 10:
-                To(t);
+                Eo(t);
                 break;
               case 9:
                 break;
               case 14:
                 break;
               case 17:
-                Ur(t.type) && qr(t);
+                qr(t.type) && Yr(t);
                 break;
               default:
                 a('156');
             }
-            Gc = null;
+            Jc = null;
           }
-          if (((t = e), 1 === Xc || 1 !== t.childExpirationTime)) {
+          if (((t = e), 1 === ei || 1 !== t.childExpirationTime)) {
             for (l = 0, i = t.child; null !== i; )
               (c = i.expirationTime),
                 (u = i.childExpirationTime),
@@ -45143,7 +45903,7 @@
                 (i = i.sibling);
             t.childExpirationTime = l;
           }
-          if (null !== Gc) return Gc;
+          if (null !== Jc) return Jc;
           null !== n &&
             0 === (1024 & n.effectTag) &&
             (null === n.firstEffect && (n.firstEffect = e.firstEffect),
@@ -45154,7 +45914,7 @@
               (null !== n.lastEffect ? (n.lastEffect.nextEffect = e) : (n.firstEffect = e),
               (n.lastEffect = e)));
         } else {
-          if (((e = Uc(e, Xc)), null !== e)) return (e.effectTag &= 1023), e;
+          if (((e = Bc(e, ei)), null !== e)) return (e.effectTag &= 1023), e;
           null !== n && ((n.firstEffect = n.lastEffect = null), (n.effectTag |= 1024));
         }
         if (null !== r) return r;
@@ -45163,29 +45923,29 @@
       }
       return null;
     }
-    function ai(e) {
-      var t = kc(e.alternate, e, Xc);
-      return (e.memoizedProps = e.pendingProps), null === t && (t = ii(e)), (Yc.current = null), t;
+    function fi(e) {
+      var t = Sc(e.alternate, e, ei);
+      return (e.memoizedProps = e.pendingProps), null === t && (t = si(e)), (Gc.current = null), t;
     }
-    function li(e, t) {
-      Kc && a('243'), ci(), (Kc = !0), (Yc.currentDispatcher = qc);
+    function hi(e, t) {
+      Qc && a('243'), ui(), (Qc = !0), (Gc.currentDispatcher = Kc);
       var n = e.nextExpirationTimeToWorkOn;
-      (n === Xc && e === Zc && null !== Gc) ||
-        (oi(),
-        (Zc = e),
-        (Xc = n),
-        (Gc = ro(Zc.current, null, Xc)),
+      (n === ei && e === $c && null !== Jc) ||
+        (li(),
+        ($c = e),
+        (ei = n),
+        (Jc = oo($c.current, null, ei)),
         (e.pendingCommitExpirationTime = 0));
       var r = !1;
       do {
         try {
-          if (t) for (; null !== Gc && !qi(); ) Gc = ai(Gc);
-          else for (; null !== Gc; ) Gc = ai(Gc);
+          if (t) for (; null !== Jc && !Gi(); ) Jc = fi(Jc);
+          else for (; null !== Jc; ) Jc = fi(Jc);
         } catch (t) {
-          if (((Co = So = Lo = null), null === Gc)) (r = !0), Zi(t);
+          if (((Vo = Co = Lo = null), null === Jc)) (r = !0), ea(t);
           else {
-            null === Gc && a('271');
-            var o = Gc,
+            null === Jc && a('271');
+            var o = Jc,
               c = o.return;
             if (null !== c) {
               e: {
@@ -45194,7 +45954,7 @@
                   u = o,
                   s = t;
                 if (
-                  ((c = Xc),
+                  ((c = ei),
                   (u.effectTag |= 1024),
                   (u.firstEffect = u.lastEffect = null),
                   null !== s && 'object' === typeof s && 'function' === typeof s.then)
@@ -45224,20 +45984,28 @@
                       d)
                     ) {
                       if (
-                        ((l = fi.bind(null, i, s, u, 0 === (1 & s.mode) ? 1073741823 : c)),
-                        f.then(l, l),
+                        ((l = s.updateQueue),
+                        null === l ? (s.updateQueue = new Set([f])) : l.add(f),
                         0 === (1 & s.mode))
                       ) {
                         (s.effectTag |= 64),
                           (u.effectTag &= -1957),
-                          1 === u.tag && null === u.alternate && (u.tag = 17),
-                          (u.expirationTime = c);
+                          1 === u.tag &&
+                            (null === u.alternate
+                              ? (u.tag = 17)
+                              : ((c = go(1073741823)), (c.tag = 2), zo(u, c))),
+                          (u.expirationTime = 1073741823);
                         break e;
                       }
-                      -1 === h
-                        ? (i = 1073741823)
-                        : (-1 === p && (p = 10 * (1073741822 - fo(i, c)) - 5e3), (i = p + h)),
-                        0 <= i && Qc < i && (Qc = i),
+                      (u = i.pingCache),
+                        null === u
+                          ? ((u = i.pingCache = new qc()), (l = new Set()), u.set(f, l))
+                          : ((l = u.get(f)), void 0 === l && ((l = new Set()), u.set(f, l))),
+                        l.has(c) || (l.add(c), (u = vi.bind(null, i, f, c)), f.then(u, u)),
+                        -1 === h
+                          ? (i = 1073741823)
+                          : (-1 === p && (p = 10 * (1073741822 - ho(i, c)) - 5e3), (i = p + h)),
+                        0 <= i && ti < i && (ti = i),
                         (s.effectTag |= 2048),
                         (s.expirationTime = c);
                       break e;
@@ -45250,122 +46018,128 @@
                       dt(u)
                   );
                 }
-                (Jc = !0), (s = Oo(s, u)), (i = l);
+                (ni = !0), (s = ko(s, u)), (i = l);
                 do {
                   switch (i.tag) {
                     case 3:
-                      (u = s),
-                        (i.effectTag |= 2048),
-                        (i.expirationTime = c),
-                        (c = Dc(i, u, c)),
-                        zo(i, c);
+                      (i.effectTag |= 2048), (i.expirationTime = c), (c = Yc(i, s, c)), wo(i, c);
                       break e;
                     case 1:
                       if (
-                        ((u = s),
-                        (l = i.type),
-                        (f = i.stateNode),
+                        ((f = s),
+                        (h = i.type),
+                        (p = i.stateNode),
                         0 === (64 & i.effectTag) &&
-                          ('function' === typeof l.getDerivedStateFromError ||
-                            (null !== f &&
-                              'function' === typeof f.componentDidCatch &&
-                              (null === ri || !ri.has(f)))))
+                          ('function' === typeof h.getDerivedStateFromError ||
+                            (null !== p &&
+                              'function' === typeof p.componentDidCatch &&
+                              (null === ai || !ai.has(p)))))
                       ) {
-                        (i.effectTag |= 2048), (i.expirationTime = c), (c = Ic(i, u, c)), zo(i, c);
+                        (i.effectTag |= 2048), (i.expirationTime = c), (c = Wc(i, f, c)), wo(i, c);
                         break e;
                       }
                   }
                   i = i.return;
                 } while (null !== i);
               }
-              Gc = ii(o);
+              Jc = si(o);
               continue;
             }
-            (r = !0), Zi(t);
+            (r = !0), ea(t);
           }
         }
         break;
       } while (1);
-      if (((Kc = !1), (Co = So = Lo = Yc.currentDispatcher = null), r))
-        (Zc = null), (e.finishedWork = null);
-      else if (null !== Gc) e.finishedWork = null;
+      if (((Qc = !1), (Vo = Co = Lo = Gc.currentDispatcher = null), r))
+        ($c = null), (e.finishedWork = null);
+      else if (null !== Jc) e.finishedWork = null;
       else {
-        if (((r = e.current.alternate), null === r && a('281'), (Zc = null), Jc)) {
+        if (((r = e.current.alternate), null === r && a('281'), ($c = null), ni)) {
           if (
             ((o = e.latestPendingTime),
             (c = e.latestSuspendedTime),
             (i = e.latestPingedTime),
             (0 !== o && o < n) || (0 !== c && c < n) || (0 !== i && i < n))
           )
-            return so(e, n), void Fi(e, r, n, e.expirationTime, -1);
+            return fo(e, n), void Ui(e, r, n, e.expirationTime, -1);
           if (!e.didError && t)
             return (
               (e.didError = !0),
               (n = e.nextExpirationTimeToWorkOn = n),
               (t = e.expirationTime = 1073741823),
-              void Fi(e, r, n, t, -1)
+              void Ui(e, r, n, t, -1)
             );
         }
-        t && -1 !== Qc
-          ? (so(e, n),
-            (t = 10 * (1073741822 - fo(e, n))),
-            t < Qc && (Qc = t),
-            (t = 10 * (1073741822 - Ni())),
-            (t = Qc - t),
-            Fi(e, r, n, e.expirationTime, 0 > t ? 0 : t))
+        t && -1 !== ti
+          ? (fo(e, n),
+            (t = 10 * (1073741822 - ho(e, n))),
+            t < ti && (ti = t),
+            (t = 10 * (1073741822 - Yi())),
+            (t = ti - t),
+            Ui(e, r, n, e.expirationTime, 0 > t ? 0 : t))
           : ((e.pendingCommitExpirationTime = n), (e.finishedWork = r));
       }
     }
-    function ui(e, t) {
+    function pi(e, t) {
       for (var n = e.return; null !== n; ) {
         switch (n.tag) {
           case 1:
             var r = n.stateNode;
             if (
               'function' === typeof n.type.getDerivedStateFromError ||
-              ('function' === typeof r.componentDidCatch && (null === ri || !ri.has(r)))
+              ('function' === typeof r.componentDidCatch && (null === ai || !ai.has(r)))
             )
-              return (e = Oo(t, e)), (e = Ic(n, e, 1073741823)), bo(n, e), void pi(n, 1073741823);
+              return (e = ko(t, e)), (e = Wc(n, e, 1073741823)), zo(n, e), void gi(n, 1073741823);
             break;
           case 3:
-            return (e = Oo(t, e)), (e = Dc(n, e, 1073741823)), bo(n, e), void pi(n, 1073741823);
+            return (e = ko(t, e)), (e = Yc(n, e, 1073741823)), zo(n, e), void gi(n, 1073741823);
         }
         n = n.return;
       }
-      3 === e.tag && ((n = Oo(t, e)), (n = Dc(e, n, 1073741823)), bo(e, n), pi(e, 1073741823));
+      3 === e.tag && ((n = ko(t, e)), (n = Yc(e, n, 1073741823)), zo(e, n), gi(e, 1073741823));
     }
-    function si(e, t) {
+    function di(e, t) {
       return (
-        0 !== Bc
-          ? (e = Bc)
-          : Kc
-            ? (e = ei ? 1073741823 : Xc)
+        0 !== Xc
+          ? (e = Xc)
+          : Qc
+            ? (e = oi ? 1073741823 : ei)
             : 1 & t.mode
-              ? ((e = ki
+              ? ((e = Ti
                   ? 1073741822 - 10 * (1 + (((1073741822 - e + 15) / 10) | 0))
                   : 1073741822 - 25 * (1 + (((1073741822 - e + 500) / 25) | 0))),
-                null !== Zc && e === Xc && --e)
+                null !== $c && e === ei && --e)
               : (e = 1073741823),
-        ki && (0 === Mi || e < Mi) && (Mi = e),
+        Ti && (0 === ki || e < ki) && (ki = e),
         e
       );
     }
-    function fi(e, t, n, r) {
-      var o = e.earliestSuspendedTime,
-        c = e.latestSuspendedTime;
-      if (0 !== o && r <= o && r >= c) {
-        (c = o = r), (e.didError = !1);
-        var i = e.latestPingedTime;
-        (0 === i || i > c) && (e.latestPingedTime = c), ho(c, e);
-      } else (o = Ni()), (o = si(o, t)), uo(e, o);
-      0 !== (1 & t.mode) && e === Zc && Xc === r && (Zc = null),
-        hi(t, o),
-        0 === (1 & t.mode) &&
-          (hi(n, o), 1 === n.tag && null !== n.stateNode && ((t = yo(o)), (t.tag = 2), bo(n, t))),
-        (n = e.expirationTime),
-        0 !== n && Di(e, n);
+    function vi(e, t, n) {
+      var r = e.pingCache;
+      null !== r && r.delete(t),
+        null !== $c && ei === n
+          ? ($c = null)
+          : ((t = e.earliestSuspendedTime),
+            (r = e.latestSuspendedTime),
+            0 !== t &&
+              n <= t &&
+              n >= r &&
+              ((e.didError = !1),
+              (t = e.latestPingedTime),
+              (0 === t || t > n) && (e.latestPingedTime = n),
+              po(n, e),
+              (n = e.expirationTime),
+              0 !== n && Wi(e, n)));
     }
-    function hi(e, t) {
+    function mi(e, t) {
+      var n = e.stateNode;
+      null !== n && n.delete(t),
+        (t = Yi()),
+        (t = di(t, e)),
+        (e = yi(e, t)),
+        null !== e && (so(e, t), (t = e.expirationTime), 0 !== t && Wi(e, t));
+    }
+    function yi(e, t) {
       e.expirationTime < t && (e.expirationTime = t);
       var n = e.alternate;
       null !== n && n.expirationTime < t && (n.expirationTime = t);
@@ -45387,182 +46161,182 @@
         }
       return o;
     }
-    function pi(e, t) {
-      (e = hi(e, t)),
+    function gi(e, t) {
+      (e = yi(e, t)),
         null !== e &&
-          (!Kc && 0 !== Xc && t > Xc && oi(),
-          uo(e, t),
-          (Kc && !ei && Zc === e) || Di(e, e.expirationTime),
-          Ei > Ti && ((Ei = 0), a('185')));
+          (!Qc && 0 !== ei && t > ei && li(),
+          so(e, t),
+          (Qc && !oi && $c === e) || Wi(e, e.expirationTime),
+          Ri > Fi && ((Ri = 0), a('185')));
     }
-    function di(e, t, n, r, o) {
-      var c = Bc;
-      Bc = 1073741823;
+    function bi(e, t, n, r, o) {
+      var c = Xc;
+      Xc = 1073741823;
       try {
         return e(t, n, r, o);
       } finally {
-        Bc = c;
+        Xc = c;
       }
     }
-    var vi = null,
-      mi = null,
-      yi = 0,
-      gi = void 0,
-      bi = !1,
-      zi = null,
-      wi = 0,
+    var zi = null,
+      wi = null,
       Mi = 0,
-      _i = !1,
-      Hi = null,
+      _i = void 0,
       xi = !1,
-      Oi = !1,
-      ki = !1,
+      Hi = null,
+      Oi = 0,
+      ki = 0,
+      Si = !1,
       Li = null,
-      Si = c.unstable_now(),
-      Ci = 1073741822 - ((Si / 10) | 0),
-      Vi = Ci,
-      Ti = 50,
-      Ei = 0,
-      Pi = null;
-    function Ai() {
-      Ci = 1073741822 - (((c.unstable_now() - Si) / 10) | 0);
+      Ci = !1,
+      Vi = !1,
+      Ti = !1,
+      Ei = null,
+      Pi = c.unstable_now(),
+      Ai = 1073741822 - ((Pi / 10) | 0),
+      ji = Ai,
+      Fi = 50,
+      Ri = 0,
+      Ni = null;
+    function Di() {
+      Ai = 1073741822 - (((c.unstable_now() - Pi) / 10) | 0);
     }
-    function ji(e, t) {
-      if (0 !== yi) {
-        if (t < yi) return;
-        null !== gi && c.unstable_cancelCallback(gi);
+    function Ii(e, t) {
+      if (0 !== Mi) {
+        if (t < Mi) return;
+        null !== _i && c.unstable_cancelCallback(_i);
       }
-      (yi = t),
-        (e = c.unstable_now() - Si),
-        (gi = c.unstable_scheduleCallback(Yi, { timeout: 10 * (1073741822 - t) - e }));
+      (Mi = t),
+        (e = c.unstable_now() - Pi),
+        (_i = c.unstable_scheduleCallback(Zi, { timeout: 10 * (1073741822 - t) - e }));
     }
-    function Fi(e, t, n, r, o) {
+    function Ui(e, t, n, r, o) {
       (e.expirationTime = r),
-        0 !== o || qi()
-          ? 0 < o && (e.timeoutHandle = Sr(Ri.bind(null, e, t, n), o))
+        0 !== o || Gi()
+          ? 0 < o && (e.timeoutHandle = Lr(qi.bind(null, e, t, n), o))
           : ((e.pendingCommitExpirationTime = n), (e.finishedWork = t));
     }
-    function Ri(e, t, n) {
-      (e.pendingCommitExpirationTime = n), (e.finishedWork = t), Ai(), (Vi = Ci), Bi(e, n);
+    function qi(e, t, n) {
+      (e.pendingCommitExpirationTime = n), (e.finishedWork = t), Di(), (ji = Ai), Qi(e, n);
     }
-    function Ni() {
-      return bi ? Vi : (Ii(), (0 !== wi && 1 !== wi) || (Ai(), (Vi = Ci)), Vi);
+    function Yi() {
+      return xi ? ji : (Bi(), (0 !== Oi && 1 !== Oi) || (Di(), (ji = Ai)), ji);
     }
-    function Di(e, t) {
+    function Wi(e, t) {
       null === e.nextScheduledRoot
         ? ((e.expirationTime = t),
-          null === mi
-            ? ((vi = mi = e), (e.nextScheduledRoot = e))
-            : ((mi = mi.nextScheduledRoot = e), (mi.nextScheduledRoot = vi)))
+          null === wi
+            ? ((zi = wi = e), (e.nextScheduledRoot = e))
+            : ((wi = wi.nextScheduledRoot = e), (wi.nextScheduledRoot = zi)))
         : t > e.expirationTime && (e.expirationTime = t),
-        bi ||
-          (xi
-            ? Oi && ((zi = e), (wi = 1073741823), Ki(e, 1073741823, !1))
+        xi ||
+          (Ci
+            ? Vi && ((Hi = e), (Oi = 1073741823), Ji(e, 1073741823, !1))
             : 1073741823 === t
-              ? Wi(1073741823, !1)
-              : ji(e, t));
+              ? Xi(1073741823, !1)
+              : Ii(e, t));
     }
-    function Ii() {
+    function Bi() {
       var e = 0,
         t = null;
-      if (null !== mi)
-        for (var n = mi, r = vi; null !== r; ) {
+      if (null !== wi)
+        for (var n = wi, r = zi; null !== r; ) {
           var o = r.expirationTime;
           if (0 === o) {
-            if (((null === n || null === mi) && a('244'), r === r.nextScheduledRoot)) {
-              vi = mi = r.nextScheduledRoot = null;
+            if (((null === n || null === wi) && a('244'), r === r.nextScheduledRoot)) {
+              zi = wi = r.nextScheduledRoot = null;
               break;
             }
-            if (r === vi)
-              (vi = o = r.nextScheduledRoot),
-                (mi.nextScheduledRoot = o),
+            if (r === zi)
+              (zi = o = r.nextScheduledRoot),
+                (wi.nextScheduledRoot = o),
                 (r.nextScheduledRoot = null);
             else {
-              if (r === mi) {
-                (mi = n), (mi.nextScheduledRoot = vi), (r.nextScheduledRoot = null);
+              if (r === wi) {
+                (wi = n), (wi.nextScheduledRoot = zi), (r.nextScheduledRoot = null);
                 break;
               }
               (n.nextScheduledRoot = r.nextScheduledRoot), (r.nextScheduledRoot = null);
             }
             r = n.nextScheduledRoot;
           } else {
-            if ((o > e && ((e = o), (t = r)), r === mi)) break;
+            if ((o > e && ((e = o), (t = r)), r === wi)) break;
             if (1073741823 === e) break;
             (n = r), (r = r.nextScheduledRoot);
           }
         }
-      (zi = t), (wi = e);
+      (Hi = t), (Oi = e);
     }
-    var Ui = !1;
-    function qi() {
-      return !!Ui || (!!c.unstable_shouldYield() && (Ui = !0));
+    var Ki = !1;
+    function Gi() {
+      return !!Ki || (!!c.unstable_shouldYield() && (Ki = !0));
     }
-    function Yi() {
+    function Zi() {
       try {
-        if (!qi() && null !== vi) {
-          Ai();
-          var e = vi;
+        if (!Gi() && null !== zi) {
+          Di();
+          var e = zi;
           do {
             var t = e.expirationTime;
-            0 !== t && Ci <= t && (e.nextExpirationTimeToWorkOn = Ci), (e = e.nextScheduledRoot);
-          } while (e !== vi);
+            0 !== t && Ai <= t && (e.nextExpirationTimeToWorkOn = Ai), (e = e.nextScheduledRoot);
+          } while (e !== zi);
         }
-        Wi(0, !0);
+        Xi(0, !0);
       } finally {
-        Ui = !1;
+        Ki = !1;
       }
     }
-    function Wi(e, t) {
-      if ((Ii(), t))
-        for (Ai(), Vi = Ci; null !== zi && 0 !== wi && e <= wi && !(Ui && Ci > wi); )
-          Ki(zi, wi, Ci > wi), Ii(), Ai(), (Vi = Ci);
-      else for (; null !== zi && 0 !== wi && e <= wi; ) Ki(zi, wi, !1), Ii();
+    function Xi(e, t) {
+      if ((Bi(), t))
+        for (Di(), ji = Ai; null !== Hi && 0 !== Oi && e <= Oi && !(Ki && Ai > Oi); )
+          Ji(Hi, Oi, Ai > Oi), Bi(), Di(), (ji = Ai);
+      else for (; null !== Hi && 0 !== Oi && e <= Oi; ) Ji(Hi, Oi, !1), Bi();
       if (
-        (t && ((yi = 0), (gi = null)), 0 !== wi && ji(zi, wi), (Ei = 0), (Pi = null), null !== Li)
+        (t && ((Mi = 0), (_i = null)), 0 !== Oi && Ii(Hi, Oi), (Ri = 0), (Ni = null), null !== Ei)
       )
-        for (e = Li, Li = null, t = 0; t < e.length; t++) {
+        for (e = Ei, Ei = null, t = 0; t < e.length; t++) {
           var n = e[t];
           try {
             n._onComplete();
           } catch (e) {
-            _i || ((_i = !0), (Hi = e));
+            Si || ((Si = !0), (Li = e));
           }
         }
-      if (_i) throw ((e = Hi), (Hi = null), (_i = !1), e);
+      if (Si) throw ((e = Li), (Li = null), (Si = !1), e);
     }
-    function Bi(e, t) {
-      bi && a('253'), (zi = e), (wi = t), Ki(e, t, !1), Wi(1073741823, !1);
+    function Qi(e, t) {
+      xi && a('253'), (Hi = e), (Oi = t), Ji(e, t, !1), Xi(1073741823, !1);
     }
-    function Ki(e, t, n) {
-      if ((bi && a('245'), (bi = !0), n)) {
+    function Ji(e, t, n) {
+      if ((xi && a('245'), (xi = !0), n)) {
         var r = e.finishedWork;
         null !== r
-          ? Gi(e, r, t)
+          ? $i(e, r, t)
           : ((e.finishedWork = null),
             (r = e.timeoutHandle),
             -1 !== r && ((e.timeoutHandle = -1), Cr(r)),
-            li(e, n),
+            hi(e, n),
             (r = e.finishedWork),
-            null !== r && (qi() ? (e.finishedWork = r) : Gi(e, r, t)));
+            null !== r && (Gi() ? (e.finishedWork = r) : $i(e, r, t)));
       } else
         (r = e.finishedWork),
           null !== r
-            ? Gi(e, r, t)
+            ? $i(e, r, t)
             : ((e.finishedWork = null),
               (r = e.timeoutHandle),
               -1 !== r && ((e.timeoutHandle = -1), Cr(r)),
-              li(e, n),
+              hi(e, n),
               (r = e.finishedWork),
-              null !== r && Gi(e, r, t));
-      bi = !1;
+              null !== r && $i(e, r, t));
+      xi = !1;
     }
-    function Gi(e, t, n) {
+    function $i(e, t, n) {
       var r = e.firstBatch;
-      if (null !== r && r._expirationTime >= n && (null === Li ? (Li = [r]) : Li.push(r), r._defer))
+      if (null !== r && r._expirationTime >= n && (null === Ei ? (Ei = [r]) : Ei.push(r), r._defer))
         return (e.finishedWork = t), void (e.expirationTime = 0);
       (e.finishedWork = null),
-        e === Pi ? Ei++ : ((Pi = e), (Ei = 0)),
-        (ei = Kc = !0),
+        e === Ni ? Ri++ : ((Ni = e), (Ri = 0)),
+        (oi = Qc = !0),
         e.current === t && a('177'),
         (n = e.pendingCommitExpirationTime),
         0 === n && a('261'),
@@ -45578,28 +46352,29 @@
             (e.earliestSuspendedTime = 0),
             (e.latestSuspendedTime = 0),
             (e.latestPingedTime = 0))
-          : ((o = e.latestPendingTime),
+          : (r < e.latestPingedTime && (e.latestPingedTime = 0),
+            (o = e.latestPendingTime),
             0 !== o &&
               (o > r
                 ? (e.earliestPendingTime = e.latestPendingTime = 0)
                 : e.earliestPendingTime > r && (e.earliestPendingTime = e.latestPendingTime)),
             (o = e.earliestSuspendedTime),
             0 === o
-              ? uo(e, r)
+              ? so(e, r)
               : r < e.latestSuspendedTime
                 ? ((e.earliestSuspendedTime = 0),
                   (e.latestSuspendedTime = 0),
                   (e.latestPingedTime = 0),
-                  uo(e, r))
-                : r > o && uo(e, r)),
-        ho(0, e),
-        (Yc.current = null),
+                  so(e, r))
+                : r > o && so(e, r)),
+        po(0, e),
+        (Gc.current = null),
         1 < t.effectTag
           ? null !== t.lastEffect
             ? ((t.lastEffect.nextEffect = t), (r = t.firstEffect))
             : (r = t)
           : (r = t.firstEffect),
-        (xr = Pn),
+        (Hr = Pn),
         (o = Kn()),
         Gn(o))
       ) {
@@ -45654,14 +46429,14 @@
           }
         c = c || { start: 0, end: 0 };
       } else c = null;
-      for (Or = { focusedElem: o, selectionRange: c }, Pn = !1, $c = r; null !== $c; ) {
+      for (Or = { focusedElem: o, selectionRange: c }, Pn = !1, ri = r; null !== ri; ) {
         (o = !1), (c = void 0);
         try {
-          for (; null !== $c; ) {
-            if (256 & $c.effectTag)
+          for (; null !== ri; ) {
+            if (256 & ri.effectTag)
               e: {
-                var g = $c.alternate;
-                switch (((l = $c), l.tag)) {
+                var g = ri.alternate;
+                switch (((l = ri), l.tag)) {
                   case 0:
                   case 11:
                   case 15:
@@ -45672,7 +46447,7 @@
                         z = g.memoizedState,
                         w = l.stateNode,
                         M = w.getSnapshotBeforeUpdate(
-                          l.elementType === l.type ? b : Yo(l.type, b),
+                          l.elementType === l.type ? b : Wo(l.type, b),
                           z
                         );
                       w.__reactInternalSnapshotBeforeUpdate = M;
@@ -45688,136 +46463,143 @@
                     a('163');
                 }
               }
-            $c = $c.nextEffect;
+            ri = ri.nextEffect;
           }
         } catch (e) {
           (o = !0), (c = e);
         }
-        o && (null === $c && a('178'), ui($c, c), null !== $c && ($c = $c.nextEffect));
+        o && (null === ri && a('178'), pi(ri, c), null !== ri && (ri = ri.nextEffect));
       }
-      for ($c = r; null !== $c; ) {
+      for (ri = r; null !== ri; ) {
         (g = !1), (b = void 0);
         try {
-          for (; null !== $c; ) {
-            var _ = $c.effectTag;
-            if ((16 & _ && vr($c.stateNode, ''), 128 & _)) {
-              var H = $c.alternate;
-              if (null !== H) {
-                var x = H.ref;
-                null !== x && ('function' === typeof x ? x(null) : (x.current = null));
+          for (; null !== ri; ) {
+            var _ = ri.effectTag;
+            if ((16 & _ && vr(ri.stateNode, ''), 128 & _)) {
+              var x = ri.alternate;
+              if (null !== x) {
+                var H = x.ref;
+                null !== H && ('function' === typeof H ? H(null) : (H.current = null));
               }
             }
             switch (14 & _) {
               case 2:
-                Fc($c), ($c.effectTag &= -3);
+                Dc(ri), (ri.effectTag &= -3);
                 break;
               case 6:
-                Fc($c), ($c.effectTag &= -3), Nc($c.alternate, $c);
+                Dc(ri), (ri.effectTag &= -3), Uc(ri.alternate, ri);
                 break;
               case 4:
-                Nc($c.alternate, $c);
+                Uc(ri.alternate, ri);
                 break;
               case 8:
-                (z = $c),
-                  Rc(z),
+                (z = ri),
+                  Ic(z),
                   (z.return = null),
                   (z.child = null),
-                  z.alternate && ((z.alternate.child = null), (z.alternate.return = null));
+                  (z.memoizedState = null),
+                  (z.updateQueue = null);
+                var O = z.alternate;
+                null !== O &&
+                  ((O.return = null),
+                  (O.child = null),
+                  (O.memoizedState = null),
+                  (O.updateQueue = null));
             }
-            $c = $c.nextEffect;
+            ri = ri.nextEffect;
           }
         } catch (e) {
           (g = !0), (b = e);
         }
-        g && (null === $c && a('178'), ui($c, b), null !== $c && ($c = $c.nextEffect));
+        g && (null === ri && a('178'), pi(ri, b), null !== ri && (ri = ri.nextEffect));
       }
       if (
-        ((x = Or),
-        (H = Kn()),
-        (_ = x.focusedElem),
-        (b = x.selectionRange),
-        H !== _ && _ && _.ownerDocument && Bn(_.ownerDocument.documentElement, _))
+        ((H = Or),
+        (x = Kn()),
+        (_ = H.focusedElem),
+        (g = H.selectionRange),
+        x !== _ && _ && _.ownerDocument && Bn(_.ownerDocument.documentElement, _))
       ) {
-        null !== b &&
+        null !== g &&
           Gn(_) &&
-          ((H = b.start),
-          (x = b.end),
-          void 0 === x && (x = H),
+          ((x = g.start),
+          (H = g.end),
+          void 0 === H && (H = x),
           'selectionStart' in _
-            ? ((_.selectionStart = H), (_.selectionEnd = Math.min(x, _.value.length)))
-            : ((x = ((H = _.ownerDocument || document) && H.defaultView) || window),
-              x.getSelection &&
-                ((x = x.getSelection()),
-                (z = _.textContent.length),
-                (g = Math.min(b.start, z)),
-                (b = void 0 === b.end ? g : Math.min(b.end, z)),
-                !x.extend && g > b && ((z = b), (b = g), (g = z)),
+            ? ((_.selectionStart = x), (_.selectionEnd = Math.min(H, _.value.length)))
+            : ((H = ((x = _.ownerDocument || document) && x.defaultView) || window),
+              H.getSelection &&
+                ((H = H.getSelection()),
+                (b = _.textContent.length),
+                (O = Math.min(g.start, b)),
+                (g = void 0 === g.end ? O : Math.min(g.end, b)),
+                !H.extend && O > g && ((b = g), (g = O), (O = b)),
+                (b = Wn(_, O)),
                 (z = Wn(_, g)),
-                (w = Wn(_, b)),
-                z &&
-                  w &&
-                  (1 !== x.rangeCount ||
-                    x.anchorNode !== z.node ||
-                    x.anchorOffset !== z.offset ||
-                    x.focusNode !== w.node ||
-                    x.focusOffset !== w.offset) &&
-                  ((H = H.createRange()),
-                  H.setStart(z.node, z.offset),
-                  x.removeAllRanges(),
-                  g > b
-                    ? (x.addRange(H), x.extend(w.node, w.offset))
-                    : (H.setEnd(w.node, w.offset), x.addRange(H)))))),
-          (H = []);
-        for (x = _; (x = x.parentNode); )
-          1 === x.nodeType && H.push({ element: x, left: x.scrollLeft, top: x.scrollTop });
-        for ('function' === typeof _.focus && _.focus(), _ = 0; _ < H.length; _++)
-          (x = H[_]), (x.element.scrollLeft = x.left), (x.element.scrollTop = x.top);
+                b &&
+                  z &&
+                  (1 !== H.rangeCount ||
+                    H.anchorNode !== b.node ||
+                    H.anchorOffset !== b.offset ||
+                    H.focusNode !== z.node ||
+                    H.focusOffset !== z.offset) &&
+                  ((x = x.createRange()),
+                  x.setStart(b.node, b.offset),
+                  H.removeAllRanges(),
+                  O > g
+                    ? (H.addRange(x), H.extend(z.node, z.offset))
+                    : (x.setEnd(z.node, z.offset), H.addRange(x)))))),
+          (x = []);
+        for (H = _; (H = H.parentNode); )
+          1 === H.nodeType && x.push({ element: H, left: H.scrollLeft, top: H.scrollTop });
+        for ('function' === typeof _.focus && _.focus(), _ = 0; _ < x.length; _++)
+          (H = x[_]), (H.element.scrollLeft = H.left), (H.element.scrollTop = H.top);
       }
-      for (Or = null, Pn = !!xr, xr = null, e.current = t, $c = r; null !== $c; ) {
+      for (Or = null, Pn = !!Hr, Hr = null, e.current = t, ri = r; null !== ri; ) {
         (r = !1), (_ = void 0);
         try {
-          for (H = n; null !== $c; ) {
-            var O = $c.effectTag;
-            if (36 & O) {
-              var k = $c.alternate;
-              switch (((x = $c), (g = H), x.tag)) {
+          for (x = n; null !== ri; ) {
+            var k = ri.effectTag;
+            if (36 & k) {
+              var S = ri.alternate;
+              switch (((H = ri), (O = x), H.tag)) {
                 case 0:
                 case 11:
                 case 15:
                   break;
                 case 1:
-                  var L = x.stateNode;
-                  if (4 & x.effectTag)
-                    if (null === k) L.componentDidMount();
+                  var L = H.stateNode;
+                  if (4 & H.effectTag)
+                    if (null === S) L.componentDidMount();
                     else {
-                      var S =
-                        x.elementType === x.type ? k.memoizedProps : Yo(x.type, k.memoizedProps);
+                      var C =
+                        H.elementType === H.type ? S.memoizedProps : Wo(H.type, S.memoizedProps);
                       L.componentDidUpdate(
-                        S,
-                        k.memoizedState,
+                        C,
+                        S.memoizedState,
                         L.__reactInternalSnapshotBeforeUpdate
                       );
                     }
-                  var C = x.updateQueue;
-                  null !== C && Ho(x, C, L, g);
+                  var V = H.updateQueue;
+                  null !== V && Ho(H, V, L, O);
                   break;
                 case 3:
-                  var V = x.updateQueue;
-                  if (null !== V) {
-                    if (((b = null), null !== x.child))
-                      switch (x.child.tag) {
+                  var T = H.updateQueue;
+                  if (null !== T) {
+                    if (((g = null), null !== H.child))
+                      switch (H.child.tag) {
                         case 5:
-                          b = x.child.stateNode;
+                          g = H.child.stateNode;
                           break;
                         case 1:
-                          b = x.child.stateNode;
+                          g = H.child.stateNode;
                       }
-                    Ho(x, V, b, g);
+                    Ho(H, T, g, O);
                   }
                   break;
                 case 5:
-                  var T = x.stateNode;
-                  null === k && 4 & x.effectTag && kr(x.type, x.memoizedProps) && T.focus();
+                  var E = H.stateNode;
+                  null === S && 4 & H.effectTag && kr(H.type, H.memoizedProps) && E.focus();
                   break;
                 case 6:
                   break;
@@ -45833,72 +46615,72 @@
                   a('163');
               }
             }
-            if (128 & O) {
-              var E = $c.ref;
-              if (null !== E) {
-                var P = $c.stateNode;
-                switch ($c.tag) {
+            if (128 & k) {
+              var P = ri.ref;
+              if (null !== P) {
+                var A = ri.stateNode;
+                switch (ri.tag) {
                   case 5:
-                    var A = P;
+                    var j = A;
                     break;
                   default:
-                    A = P;
+                    j = A;
                 }
-                'function' === typeof E ? E(A) : (E.current = A);
+                'function' === typeof P ? P(j) : (P.current = j);
               }
             }
-            $c = $c.nextEffect;
+            ri = ri.nextEffect;
           }
         } catch (e) {
           (r = !0), (_ = e);
         }
-        r && (null === $c && a('178'), ui($c, _), null !== $c && ($c = $c.nextEffect));
+        r && (null === ri && a('178'), pi(ri, _), null !== ri && (ri = ri.nextEffect));
       }
-      (Kc = ei = !1),
-        'function' === typeof Zr && Zr(t.stateNode),
-        (O = t.expirationTime),
+      (Qc = oi = !1),
+        'function' === typeof Xr && Xr(t.stateNode),
+        (k = t.expirationTime),
         (t = t.childExpirationTime),
-        (t = t > O ? t : O),
-        0 === t && (ri = null),
+        (t = t > k ? t : k),
+        0 === t && (ai = null),
         (e.expirationTime = t),
         (e.finishedWork = null);
     }
-    function Zi(e) {
-      null === zi && a('246'), (zi.expirationTime = 0), _i || ((_i = !0), (Hi = e));
+    function ea(e) {
+      null === Hi && a('246'), (Hi.expirationTime = 0), Si || ((Si = !0), (Li = e));
     }
-    function Xi(e, t) {
-      var n = xi;
-      xi = !0;
+    function ta(e, t) {
+      var n = Ci;
+      Ci = !0;
       try {
         return e(t);
       } finally {
-        (xi = n) || bi || Wi(1073741823, !1);
+        (Ci = n) || xi || Xi(1073741823, !1);
       }
     }
-    function Qi(e, t) {
-      if (xi && !Oi) {
-        Oi = !0;
+    function na(e, t) {
+      if (Ci && !Vi) {
+        Vi = !0;
         try {
           return e(t);
         } finally {
-          Oi = !1;
+          Vi = !1;
         }
       }
       return e(t);
     }
-    function Ji(e, t, n) {
-      if (ki) return e(t, n);
-      xi || bi || 0 === Mi || (Wi(Mi, !1), (Mi = 0));
-      var r = ki,
-        o = xi;
-      xi = ki = !0;
+    function ra(e, t, n) {
+      if (Ti) return e(t, n);
+      Ci || xi || 0 === ki || (Xi(ki, !1), (ki = 0));
+      var r = Ti,
+        o = Ci;
+      Ci = Ti = !0;
       try {
         return e(t, n);
       } finally {
-        (ki = r), (xi = o) || bi || Wi(1073741823, !1);
+        (Ti = r), (Ci = o) || xi || Xi(1073741823, !1);
       }
     }
-    function $i(e, t, n, r, o) {
+    function oa(e, t, n, r, o) {
       var c = t.current;
       e: if (n) {
         n = n._reactInternalFiber;
@@ -45911,7 +46693,7 @@
                 i = i.stateNode.context;
                 break t;
               case 1:
-                if (Ur(i.type)) {
+                if (qr(i.type)) {
                   i = i.stateNode.__reactInternalMemoizedMergedChildContext;
                   break t;
                 }
@@ -45922,32 +46704,32 @@
         }
         if (1 === n.tag) {
           var l = n.type;
-          if (Ur(l)) {
-            n = Br(n, l, i);
+          if (qr(l)) {
+            n = Kr(n, l, i);
             break e;
           }
         }
         n = i;
-      } else n = Fr;
+      } else n = Rr;
       return (
         null === t.context ? (t.context = n) : (t.pendingContext = n),
         (t = o),
-        (o = yo(r)),
+        (o = go(r)),
         (o.payload = { element: e }),
         (t = void 0 === t ? null : t),
         null !== t && (o.callback = t),
-        ci(),
-        bo(c, o),
-        pi(c, r),
+        ui(),
+        zo(c, o),
+        gi(c, r),
         r
       );
     }
-    function ea(e, t, n, r) {
+    function ca(e, t, n, r) {
       var o = t.current,
-        c = Ni();
-      return (o = si(c, o)), $i(e, t, n, o, r);
+        c = Yi();
+      return (o = di(c, o)), oa(e, t, n, o, r);
     }
-    function ta(e) {
+    function ia(e) {
       if (((e = e.current), !e.child)) return null;
       switch (e.child.tag) {
         case 5:
@@ -45956,7 +46738,7 @@
           return e.child.stateNode;
       }
     }
-    function na(e, t, n) {
+    function aa(e, t, n) {
       var r = 3 < arguments.length && void 0 !== arguments[3] ? arguments[3] : null;
       return {
         $$typeof: et,
@@ -45966,27 +46748,28 @@
         implementation: n,
       };
     }
-    function ra(e) {
-      var t = 1073741822 - 25 * (1 + (((1073741822 - Ni() + 500) / 25) | 0));
-      t >= Wc && (t = Wc - 1),
-        (this._expirationTime = Wc = t),
+    function la(e) {
+      var t = 1073741822 - 25 * (1 + (((1073741822 - Yi() + 500) / 25) | 0));
+      t >= Zc && (t = Zc - 1),
+        (this._expirationTime = Zc = t),
         (this._root = e),
         (this._callbacks = this._next = null),
         (this._hasChildren = this._didComplete = !1),
         (this._children = null),
         (this._defer = !0);
     }
-    function oa() {
+    function ua() {
       (this._callbacks = null),
         (this._didCommit = !1),
         (this._onCommit = this._onCommit.bind(this));
     }
-    function ca(e, t, n) {
-      (t = eo(3, null, null, t ? 3 : 0)),
+    function sa(e, t, n) {
+      (t = to(3, null, null, t ? 3 : 0)),
         (e = {
           current: t,
           containerInfo: e,
           pendingChildren: null,
+          pingCache: null,
           earliestPendingTime: 0,
           latestPendingTime: 0,
           earliestSuspendedTime: 0,
@@ -46006,7 +46789,7 @@
         }),
         (this._internalRoot = t.stateNode = e);
     }
-    function ia(e) {
+    function fa(e) {
       return !(
         !e ||
         (1 !== e.nodeType &&
@@ -46015,7 +46798,7 @@
           (8 !== e.nodeType || ' react-mount-point-unstable ' !== e.nodeValue))
       );
     }
-    function aa(e, t) {
+    function ha(e, t) {
       if (
         (t ||
           ((t = e ? (9 === e.nodeType ? e.documentElement : e.firstChild) : null),
@@ -46023,37 +46806,37 @@
         !t)
       )
         for (var n; (n = e.lastChild); ) e.removeChild(n);
-      return new ca(e, !1, t);
+      return new sa(e, !1, t);
     }
-    function la(e, t, n, r, o) {
-      ia(n) || a('200');
+    function pa(e, t, n, r, o) {
+      fa(n) || a('200');
       var c = n._reactRootContainer;
       if (c) {
         if ('function' === typeof o) {
           var i = o;
           o = function() {
-            var e = ta(c._internalRoot);
+            var e = ia(c._internalRoot);
             i.call(e);
           };
         }
         null != e ? c.legacy_renderSubtreeIntoContainer(e, t, o) : c.render(t, o);
       } else {
-        if (((c = n._reactRootContainer = aa(n, r)), 'function' === typeof o)) {
+        if (((c = n._reactRootContainer = ha(n, r)), 'function' === typeof o)) {
           var l = o;
           o = function() {
-            var e = ta(c._internalRoot);
+            var e = ia(c._internalRoot);
             l.call(e);
           };
         }
-        Qi(function() {
+        na(function() {
           null != e ? c.legacy_renderSubtreeIntoContainer(e, t, o) : c.render(t, o);
         });
       }
-      return ta(c._internalRoot);
+      return ia(c._internalRoot);
     }
-    function ua(e, t) {
+    function da(e, t) {
       var n = 2 < arguments.length && void 0 !== arguments[2] ? arguments[2] : null;
-      return ia(t) || a('200'), na(e, t, null, n);
+      return fa(t) || a('200'), aa(e, t, null, n);
     }
     (Ve = function(e, t, n) {
       switch (t) {
@@ -46081,21 +46864,21 @@
           (t = n.value), null != t && cr(e, !!n.multiple, t, !1);
       }
     }),
-      (ra.prototype.render = function(e) {
+      (la.prototype.render = function(e) {
         this._defer || a('250'), (this._hasChildren = !0), (this._children = e);
         var t = this._root._internalRoot,
           n = this._expirationTime,
-          r = new oa();
-        return $i(e, t, null, n, r._onCommit), r;
+          r = new ua();
+        return oa(e, t, null, n, r._onCommit), r;
       }),
-      (ra.prototype.then = function(e) {
+      (la.prototype.then = function(e) {
         if (this._didComplete) e();
         else {
           var t = this._callbacks;
           null === t && (t = this._callbacks = []), t.push(e);
         }
       }),
-      (ra.prototype.commit = function() {
+      (la.prototype.commit = function() {
         var e = this._root._internalRoot,
           t = e.firstBatch;
         if (((this._defer && null !== t) || a('251'), this._hasChildren)) {
@@ -46107,28 +46890,28 @@
             null === r && a('251'), (r._next = o._next), (this._next = t), (e.firstBatch = this);
           }
           (this._defer = !1),
-            Bi(e, n),
+            Qi(e, n),
             (t = this._next),
             (this._next = null),
             (t = e.firstBatch = t),
             null !== t && t._hasChildren && t.render(t._children);
         } else (this._next = null), (this._defer = !1);
       }),
-      (ra.prototype._onComplete = function() {
+      (la.prototype._onComplete = function() {
         if (!this._didComplete) {
           this._didComplete = !0;
           var e = this._callbacks;
           if (null !== e) for (var t = 0; t < e.length; t++) (0, e[t])();
         }
       }),
-      (oa.prototype.then = function(e) {
+      (ua.prototype.then = function(e) {
         if (this._didCommit) e();
         else {
           var t = this._callbacks;
           null === t && (t = this._callbacks = []), t.push(e);
         }
       }),
-      (oa.prototype._onCommit = function() {
+      (ua.prototype._onCommit = function() {
         if (!this._didCommit) {
           this._didCommit = !0;
           var e = this._callbacks;
@@ -46139,27 +46922,27 @@
             }
         }
       }),
-      (ca.prototype.render = function(e, t) {
+      (sa.prototype.render = function(e, t) {
         var n = this._internalRoot,
-          r = new oa();
+          r = new ua();
         return (
-          (t = void 0 === t ? null : t), null !== t && r.then(t), ea(e, n, null, r._onCommit), r
+          (t = void 0 === t ? null : t), null !== t && r.then(t), ca(e, n, null, r._onCommit), r
         );
       }),
-      (ca.prototype.unmount = function(e) {
+      (sa.prototype.unmount = function(e) {
         var t = this._internalRoot,
-          n = new oa();
+          n = new ua();
         return (
-          (e = void 0 === e ? null : e), null !== e && n.then(e), ea(null, t, null, n._onCommit), n
+          (e = void 0 === e ? null : e), null !== e && n.then(e), ca(null, t, null, n._onCommit), n
         );
       }),
-      (ca.prototype.legacy_renderSubtreeIntoContainer = function(e, t, n) {
+      (sa.prototype.legacy_renderSubtreeIntoContainer = function(e, t, n) {
         var r = this._internalRoot,
-          o = new oa();
-        return (n = void 0 === n ? null : n), null !== n && o.then(n), ea(t, r, e, o._onCommit), o;
+          o = new ua();
+        return (n = void 0 === n ? null : n), null !== n && o.then(n), ca(t, r, e, o._onCommit), o;
       }),
-      (ca.prototype.createBatch = function() {
-        var e = new ra(this),
+      (sa.prototype.createBatch = function() {
+        var e = new la(this),
           t = e._expirationTime,
           n = this._internalRoot,
           r = n.firstBatch;
@@ -46170,13 +46953,13 @@
         }
         return e;
       }),
-      (Fe = Xi),
-      (Re = Ji),
+      (Fe = ta),
+      (Re = ra),
       (Ne = function() {
-        bi || 0 === Mi || (Wi(Mi, !1), (Mi = 0));
+        xi || 0 === ki || (Xi(ki, !1), (ki = 0));
       });
-    var sa = {
-      createPortal: ua,
+    var va = {
+      createPortal: da,
       findDOMNode: function(e) {
         if (null == e) return null;
         if (1 === e.nodeType) return e;
@@ -46189,20 +46972,20 @@
         );
       },
       hydrate: function(e, t, n) {
-        return la(null, e, t, !0, n);
+        return pa(null, e, t, !0, n);
       },
       render: function(e, t, n) {
-        return la(null, e, t, !1, n);
+        return pa(null, e, t, !1, n);
       },
       unstable_renderSubtreeIntoContainer: function(e, t, n, r) {
-        return (null == e || void 0 === e._reactInternalFiber) && a('38'), la(e, t, n, !1, r);
+        return (null == e || void 0 === e._reactInternalFiber) && a('38'), pa(e, t, n, !1, r);
       },
       unmountComponentAtNode: function(e) {
         return (
-          ia(e) || a('40'),
+          fa(e) || a('40'),
           !!e._reactRootContainer &&
-            (Qi(function() {
-              la(null, null, e, !1, function() {
+            (na(function() {
+              pa(null, null, e, !1, function() {
                 e._reactRootContainer = null;
               });
             }),
@@ -46210,27 +46993,28 @@
         );
       },
       unstable_createPortal: function() {
-        return ua.apply(void 0, arguments);
+        return da.apply(void 0, arguments);
       },
-      unstable_batchedUpdates: Xi,
-      unstable_interactiveUpdates: Ji,
+      unstable_batchedUpdates: ta,
+      unstable_interactiveUpdates: ra,
       flushSync: function(e, t) {
-        bi && a('187');
-        var n = xi;
-        xi = !0;
+        xi && a('187');
+        var n = Ci;
+        Ci = !0;
         try {
-          return di(e, t);
+          return bi(e, t);
         } finally {
-          (xi = n), Wi(1073741823, !1);
+          (Ci = n), Xi(1073741823, !1);
         }
       },
+      unstable_createRoot: ma,
       unstable_flushControlled: function(e) {
-        var t = xi;
-        xi = !0;
+        var t = Ci;
+        Ci = !0;
         try {
-          di(e);
+          bi(e);
         } finally {
-          (xi = t) || bi || Wi(1073741823, !1);
+          (Ci = t) || xi || Xi(1073741823, !1);
         }
       },
       __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED: {
@@ -46242,7 +47026,7 @@
           w,
           K,
           function(e) {
-            S(e, B);
+            L(e, B);
           },
           Ae,
           je,
@@ -46250,16 +47034,15 @@
           P,
         ],
       },
-      unstable_createRoot: function(e, t) {
-        return (
-          ia(e) || a('299', 'unstable_createRoot'), new ca(e, !0, null != t && !0 === t.hydrate)
-        );
-      },
     };
+    function ma(e, t) {
+      return fa(e) || a('299', 'unstable_createRoot'), new sa(e, !0, null != t && !0 === t.hydrate);
+    }
     (function(e) {
       var t = e.findFiberByHostInstance;
-      Jr(
+      $r(
         o({}, e, {
+          overrideProps: null,
           findHostInstanceByFiber: function(e) {
             return (e = dn(e)), null === e ? null : e.stateNode;
           },
@@ -46271,12 +47054,12 @@
     })({
       findFiberByHostInstance: R,
       bundleType: 0,
-      version: '16.6.3',
+      version: '16.7.0',
       rendererPackageName: 'react-dom',
     });
-    var fa = { default: sa },
-      ha = (fa && sa) || fa;
-    e.exports = ha.default || ha;
+    var ya = { default: va },
+      ga = (ya && va) || ya;
+    e.exports = ga.default || ga;
   },
   ylqs: function(e, t) {
     var n = 0,

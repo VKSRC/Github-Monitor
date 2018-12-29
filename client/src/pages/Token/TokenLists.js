@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, Form, Button, Table } from 'antd';
 import { connect } from 'dva';
+import { FormattedMessage } from 'umi/locale';
 import TokenAddModal from './TokenAddModal';
 
 const FormItem = Form.Item;
@@ -52,7 +53,9 @@ class TokenLists extends React.Component {
           <Form>
             <FormItem>
               <TokenAddModal onOk={this.createTokenHandler}>
-                <Button type="primary">添加Token</Button>
+                <Button type="primary">
+                  <FormattedMessage id="token.operation.add-token" />
+                </Button>
               </TokenAddModal>
             </FormItem>
           </Form>

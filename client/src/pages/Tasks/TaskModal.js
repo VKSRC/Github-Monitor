@@ -1,5 +1,6 @@
 import React from 'react';
 import { Modal, Form, Input, InputNumber } from 'antd';
+import { formatMessage } from 'umi/locale';
 
 const FormItem = Form.Item;
 const { TextArea } = Input;
@@ -62,38 +63,49 @@ class TaskModal extends React.Component {
       <span>
         <span onClick={this.showModalHandler}>{children}</span>
         <Modal
-          title={data ? '编辑任务' : '添加任务'}
+          title={
+            data
+              ? formatMessage({ id: 'task.modal.edit-task' })
+              : formatMessage({ id: 'task.modal.create-task' })
+          }
           visible={visible}
           onOk={this.okHandler}
           onCancel={this.hideModalHandler}
+          style={{ top: 20 }}
         >
           <Form layout="horizontal">
-            <FormItem {...formItemLayout} label="任务名称">
+            <FormItem
+              {...formItemLayout}
+              label={formatMessage({ id: 'task.modal.field.task-name' })}
+            >
               {getFieldDecorator('name', {
                 initialValue: name,
                 rules: [
                   {
                     required: true,
-                    message: '任务名称不可以为空!',
+                    message: formatMessage({ id: 'task.modal.field.task-name.required' }),
                   },
                 ],
               })(<Input />)}
             </FormItem>
-            <FormItem {...formItemLayout} label="关键词" help="支持多个关键词使用换行分隔">
+            <FormItem
+              {...formItemLayout}
+              label={formatMessage({ id: 'task.modal.field.keyword' })}
+              help={formatMessage({ id: 'task.modal.field.keyword.hint' })}
+            >
               {getFieldDecorator('keywords', {
                 initialValue: keywords,
                 rules: [
                   {
                     required: true,
-                    message: '关键词不可为空!',
                   },
                 ],
               })(<TextArea rows={4} />)}
             </FormItem>
             <FormItem
               {...formItemLayout}
-              label="忽略账号"
-              help="忽略指定账号下的仓库, 支持多个账号名使用换行分隔, 如VKSRC"
+              label={formatMessage({ id: 'task.modal.field.ignore-username' })}
+              help={formatMessage({ id: 'task.modal.field.ignore-username.hint' })}
             >
               {getFieldDecorator('ignore_org', {
                 initialValue: ignoreOrg,
@@ -101,28 +113,36 @@ class TaskModal extends React.Component {
             </FormItem>
             <FormItem
               {...formItemLayout}
-              label="忽略仓库"
-              help="忽略包含某些关键词的仓库, 支持多个关键词使用换行分隔, 如.github.io"
+              label={formatMessage({ id: 'task.modal.field.ignore-repo' })}
+              help={formatMessage({ id: 'task.modal.field.ignore-repo.hint' })}
             >
               {getFieldDecorator('ignore_repo', {
                 initialValue: ignoreRepo,
               })(<TextArea rows={3} />)}
             </FormItem>
-            <FormItem {...formItemLayout} label="邮箱" help="支持多个邮箱使用分号(;)分隔">
+            <FormItem
+              {...formItemLayout}
+              label={formatMessage({ id: 'task.modal.field.email' })}
+              help={formatMessage({ id: 'task.modal.field.email.hint' })}
+            >
               {getFieldDecorator('mail', {
                 initialValue: mail,
               })(<Input />)}
             </FormItem>
             <FormItem
               {...formItemLayout}
-              label="爬取页数"
-              help="默认为5页(一页50条记录); 0为搜索全部"
+              label={formatMessage({ id: 'task.modal.field.crawl-pages' })}
+              help={formatMessage({ id: 'task.modal.field.crawl-pages.hint' })}
             >
               {getFieldDecorator('pages', {
                 initialValue: pages,
               })(<InputNumber min={0} />)}
             </FormItem>
-            <FormItem {...formItemLayout} label="爬取间隔" help="单位: 分钟">
+            <FormItem
+              {...formItemLayout}
+              label={formatMessage({ id: 'task.modal.field.crawl-interval' })}
+              help={formatMessage({ id: 'task.modal.field.crawl-interval.hint' })}
+            >
               {getFieldDecorator('interval', {
                 initialValue: interval,
               })(<InputNumber min={0} />)}

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
-import { FormattedMessage } from 'umi/locale';
+import { FormattedMessage, formatMessage } from 'umi/locale';
 import Login from '@/components/Login';
 import { getAccountToken } from '@/utils/authority';
 import styles from './Login.less';
@@ -37,10 +37,13 @@ class LoginPage extends Component {
             this.loginForm = form;
           }}
         >
-          <UserName name="username" placeholder="请输入帐号" />
+          <UserName
+            name="username"
+            placeholder={formatMessage({ id: 'login.field.username.placeholder' })}
+          />
           <Password
             name="password"
-            placeholder="请输入密码"
+            placeholder={formatMessage({ id: 'login.field.password.placeholder' })}
             onPressEnter={() => this.loginForm.validateFields(this.handleSubmit)}
           />
           <Submit loading={submitting}>

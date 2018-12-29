@@ -10,28 +10,17 @@ RUN apt-get install -y python3 python3-dev python3-pip nginx supervisor libmysql
 
 # setup all the configfiles
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
-COPY docker/nginx-app.conf /etc/nginx/sites-available/default
-COPY docker/supervisor-app.conf /etc/supervisor/conf.d/
-
-# copy server and client code
-COPY client/dist/ /home/docker/Github-Monitor/client/
-COPY server/ /home/docker/Github-Monitor/server/
-
-# copy uwsgi.ini and uwsgi_params
-COPY docker/uwsgi.ini /home/docker/Github-Monitor/server/
-COPY docker/uwsgi_params /home/docker/Github-Monitor/server/
-
-# copy run.sh
-COPY docker/run.sh /home/docker/Github-Monitor/
-COPY docker/wait-for-it.sh /home/docker/Github-Monitor/
-RUN chmod +x /home/docker/Github-Monitor/wait-for-it.sh
+RUN rm -rf /etc/nginx/sites-enabled/default
+RUN sed -i '/include \/etc\/nginx\/sites-enabled\//a\\tinclude /home/docker/Github-Monitor/docker/nginx-app.conf;' /etc/nginx/nginx.conf
+RUN sed -i 's/\/etc\/supervisor\/conf.d\/\*.conf/\/home\/docker\/Github-Monitor\/docker\/supervisor-app.conf/g' /etc/supervisor/supervisord.conf
 
 # install requirement
-RUN pip3 install -r /home/docker/Github-Monitor/server/requirements.pip -i http://pypi.doubanio.com/simple --trusted-host pypi.doubanio.com
+COPY server/requirements.pip /requirement.txt
+RUN pip3 install -r /requirement.txt -i http://pypi.doubanio.com/simple --trusted-host pypi.doubanio.com
 
 # volumne
 VOLUME ["/var/lib/redis"]
-VOLUME ["/home/docker/Github-Monitor/.env"]
+VOLUME ["/home/docker/Github-Monitor/"]
 
 WORKDIR /home/docker/Github-Monitor/
 
@@ -39,4 +28,4 @@ ENV LANG C.UTF-8
 
 EXPOSE 80
 
-CMD ["/bin/bash", "run.sh"]
+CMD ["/bin/bash", "/home/docker/Github-Monitor/docker/run.sh"]

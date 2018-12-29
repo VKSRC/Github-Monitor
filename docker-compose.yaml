@@ -6,11 +6,9 @@ services:
       - "8001:80"
     volumes:
       - ./docker/data/redis/:/var/lib/redis/
-      - .env:/home/docker/Github-Monitor/.env
+      - ./:/home/docker/Github-Monitor/
     depends_on:
       - mysql
-    env_file:
-      - .env
   mysql:
     image: mysql:5.7
     restart: always

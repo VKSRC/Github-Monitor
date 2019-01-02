@@ -9,13 +9,14 @@
       a('miYZ');
       var n = s(a('tsqr')),
         u = s(a('o0o1')),
-        c = a('WMoM'),
+        c = a('LLXN'),
+        o = a('WMoM'),
         p = {
           namespace: 'task',
           state: { page: 1, pageSize: 10, tasks: [], total: 0 },
           effects: {
             fetchTasks: u.default.mark(function e(t, a) {
-              var s, r, n, p;
+              var s, r, n, c;
               return u.default.wrap(
                 function(e) {
                   while (1)
@@ -26,11 +27,11 @@
                           (r = a.call),
                           (n = a.put),
                           (e.next = 4),
-                          r(c.queryTaskLists, s)
+                          r(o.queryTaskLists, s)
                         );
                       case 4:
                         return (
-                          (p = e.sent), (e.next = 7), n({ type: 'show', response: p, payload: s })
+                          (c = e.sent), (e.next = 7), n({ type: 'show', response: c, payload: s })
                         );
                       case 7:
                       case 'end':
@@ -53,11 +54,13 @@
                           (r = a.call),
                           (p = a.put),
                           (e.next = 4),
-                          r(c.queryCreateTask, s)
+                          r(o.queryCreateTask, s)
                         );
                       case 4:
                         return (
-                          n.default.success('\u6dfb\u52a0\u4efb\u52a1\u6210\u529f!'),
+                          n.default.success(
+                            (0, c.formatMessage)({ id: 'task.operation.create-task-success' })
+                          ),
                           (e.next = 7),
                           p({ type: 'reload' })
                         );
@@ -71,7 +74,7 @@
               );
             }),
             editTask: u.default.mark(function e(t, a) {
-              var s, r, p, o;
+              var s, r, p, i;
               return u.default.wrap(
                 function(e) {
                   while (1)
@@ -81,15 +84,17 @@
                           (s = t.id),
                           (r = t.payload),
                           (p = a.call),
-                          (o = a.put),
+                          (i = a.put),
                           (e.next = 4),
-                          p(c.queryEditTask, s, r)
+                          p(o.queryEditTask, s, r)
                         );
                       case 4:
                         return (
-                          n.default.success('\u4fee\u6539\u4efb\u52a1\u6210\u529f!'),
+                          n.default.success(
+                            (0, c.formatMessage)({ id: 'task.operation.edit-task-success' })
+                          ),
                           (e.next = 7),
-                          o({ type: 'reload' })
+                          i({ type: 'reload' })
                         );
                       case 7:
                       case 'end':
@@ -112,11 +117,13 @@
                           (r = a.call),
                           (p = a.put),
                           (e.next = 4),
-                          r(c.queryRemoveTask, s)
+                          r(o.queryRemoveTask, s)
                         );
                       case 4:
                         return (
-                          n.default.success('\u5220\u9664\u4efb\u52a1\u6210\u529f!'),
+                          n.default.success(
+                            (0, c.formatMessage)({ id: 'task.operation.delete-task-success' })
+                          ),
                           (e.next = 7),
                           p({ type: 'reload' })
                         );
@@ -130,7 +137,7 @@
               );
             }),
             reload: u.default.mark(function e(t, a) {
-              var s, r, n, c, p, o;
+              var s, r, n, c, o, p;
               return u.default.wrap(
                 function(e) {
                   while (1)
@@ -141,10 +148,10 @@
                         return (
                           (n = e.sent),
                           (c = n.task),
-                          (p = c.page),
-                          (o = c.pageSize),
+                          (o = c.page),
+                          (p = c.pageSize),
                           (e.next = 8),
-                          s({ type: 'fetchTasks', payload: { page: p, pageSize: o } })
+                          s({ type: 'fetchTasks', payload: { page: o, pageSize: p } })
                         );
                       case 8:
                       case 'end':

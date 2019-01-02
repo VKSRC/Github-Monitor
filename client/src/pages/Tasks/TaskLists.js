@@ -1,7 +1,8 @@
 import React from 'react';
-import { Card, Table, Badge, Form, Button, Divider, Popconfirm } from 'antd';
+import { Card, Table, Badge, Form, Button, Divider, Popconfirm, Tooltip } from 'antd';
 import { connect } from 'dva';
 import Link from 'umi/link';
+import { FormattedMessage, formatMessage } from 'umi/locale';
 import { taskStatus } from '@/constants';
 import TaskModal from './TaskModal';
 
@@ -20,63 +21,75 @@ class TaskLists extends React.Component {
         dataIndex: 'id',
       },
       {
-        title: '任务名称',
+        title: formatMessage({ id: 'task.table.columns.task-name' }),
         dataIndex: 'name',
         render: (record, obj) => <Link to={`/list/?taskId=${obj.id}`}>{record}</Link>,
       },
       {
-        title: '关键词',
+        title: formatMessage({ id: 'task.table.columns.keyword' }),
         dataIndex: 'keywords',
       },
       {
-        title: '爬取页数',
+        title: formatMessage({ id: 'task.table.columns.crawl-pages' }),
         dataIndex: 'pages',
       },
       {
-        title: '爬取间隔',
+        title: formatMessage({ id: 'task.table.columns.crawl-interval' }),
         dataIndex: 'interval',
-        render: record => `${record}分钟`,
+        render: record => `${record} ${formatMessage({ id: 'task.table.columns.minutes' })}`,
       },
       {
-        title: '状态',
+        title: formatMessage({ id: 'task.table.columns.status' }),
         dataIndex: 'status',
         render: record => {
           switch (taskStatus[record]) {
             case '等待中':
-              return <Badge status="default" text={taskStatus[record]} />;
+              return <Badge status="default" text={formatMessage({ id: 'task.status.waiting' })} />;
             case '运行中':
-              return <Badge status="processing" text={taskStatus[record]} />;
+              return (
+                <Badge status="processing" text={formatMessage({ id: 'task.status.running' })} />
+              );
             default:
-              return <Badge status="success" text={taskStatus[record]} />;
+              return (
+                <Badge status="success" text={formatMessage({ id: 'task.status.finished' })} />
+              );
           }
         },
       },
       {
-        title: '开始时间',
+        title: formatMessage({ id: 'task.table.columns.start-time' }),
         dataIndex: 'start_time',
       },
       {
-        title: '完成时间',
+        title: formatMessage({ id: 'task.table.columns.finished-time' }),
         dataIndex: 'finished_time',
       },
       {
-        title: '操作',
+        title: formatMessage({ id: 'task.table.columns.operation' }),
         key: 'action',
         render: obj => (
           <span>
             {obj.status === 1 ? (
-              '无'
+              <Tooltip title={formatMessage({ id: 'task.operation.no-operations-hint' })}>
+                <span>
+                  <FormattedMessage id="task.operation.no-operations" />
+                </span>
+              </Tooltip>
             ) : (
               <div>
                 <TaskModal data={obj} onOk={this.editTaskHandler}>
-                  <a>编辑</a>
+                  <a>
+                    <FormattedMessage id="task.operation.edit" />
+                  </a>
                 </TaskModal>
                 <Divider type="vertical" />
                 <Popconfirm
-                  title="是否要删除该任务？"
+                  title={formatMessage({ id: 'task.operation.delete-hint' })}
                   onConfirm={() => this.removeTaskHandler(obj.id)}
                 >
-                  <a>删除</a>
+                  <a>
+                    <FormattedMessage id="task.operation.delete" />
+                  </a>
                 </Popconfirm>
               </div>
             )}
@@ -142,7 +155,9 @@ class TaskLists extends React.Component {
           <Form>
             <FormItem>
               <TaskModal onOk={this.createTaskHandler}>
-                <Button type="primary">添加任务</Button>
+                <Button type="primary">
+                  <FormattedMessage id="task.operation.create-task" />
+                </Button>
               </TaskModal>
             </FormItem>
           </Form>

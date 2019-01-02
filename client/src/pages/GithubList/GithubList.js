@@ -1,11 +1,13 @@
 import React from 'react';
 import { connect } from 'dva';
-import { Card, Form, Avatar, Col, Row, Tag, Button, Pagination, Select } from 'antd';
+import { Card, Form, Avatar, Col, Row, Tag, Button, Pagination, Select, Tooltip } from 'antd';
 import TagSelect from '@/components/TagSelect';
 import StandardFormRow from '@/components/StandardFormRow';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { github as hlGithub } from 'react-syntax-highlighter/styles/hljs';
-import { leakageStatus, leakageTagColor } from '../../constants';
+import { FormattedMessage, formatMessage } from 'umi/locale';
+import { leakageTagColor } from '../../constants';
+import { FormatLeakageStatus } from './locales';
 
 const FormItem = Form.Item;
 const ButtonGroup = Button.Group;
@@ -107,21 +109,37 @@ class GithubList extends React.Component {
       <div>
         <Card bordered={false}>
           <Form layout="inline">
-            <StandardFormRow title="状态" block style={{ paddingBottom: 11 }}>
+            <StandardFormRow
+              title={formatMessage({ id: 'github.filter.status' })}
+              block
+              style={{ paddingBottom: 11 }}
+            >
               <FormItem>
                 <TagSelect onChange={this.changeTag} value={status} hideCheckAll>
-                  <TagSelect.Option value="a">全部</TagSelect.Option>
-                  <TagSelect.Option value="0">未处理</TagSelect.Option>
-                  <TagSelect.Option value="1">已处理</TagSelect.Option>
-                  <TagSelect.Option value="2">白名单</TagSelect.Option>
+                  <TagSelect.Option value="a">
+                    <FormattedMessage id="github.filter.status.all" />
+                  </TagSelect.Option>
+                  <TagSelect.Option value="0">
+                    <FormattedMessage id="github.filter.status.unsolved" />
+                  </TagSelect.Option>
+                  <TagSelect.Option value="1">
+                    <FormattedMessage id="github.filter.status.solved" />
+                  </TagSelect.Option>
+                  <TagSelect.Option value="2">
+                    <FormattedMessage id="github.filter.status.whitelist" />
+                  </TagSelect.Option>
                 </TagSelect>
               </FormItem>
             </StandardFormRow>
 
-            <StandardFormRow title="任务" block style={{ paddingBottom: 11 }}>
+            <StandardFormRow
+              title={formatMessage({ id: 'github.filter.task' })}
+              block
+              style={{ paddingBottom: 11 }}
+            >
               <FormItem wrapperCol={{ span: 6 }}>
                 <Select
-                  placeholder="按任务筛选条目"
+                  placeholder={formatMessage({ id: 'github.filter.task.placeholder' })}
                   onChange={this.taskFilterHandler}
                   value={github.task}
                   allowClear
@@ -144,7 +162,7 @@ class GithubList extends React.Component {
                 <Col xxl={1} xl={1} lg={2} md={2} sm={2}>
                   <Avatar size="large" src={leakage.user_avatar} />
                 </Col>
-                <Col xxl={19} xl={18} lg={16} md={14} sm={14}>
+                <Col xxl={18} xl={16} lg={14} md={14} sm={14}>
                   <h3>
                     <a href={leakage.repo_url} target="_blank" rel="noopener noreferrer">
                       {leakage.user_name}/{leakage.repo_name}
@@ -155,23 +173,29 @@ class GithubList extends React.Component {
                     </a>
                   </h3>
                   <Tag color="blue">
-                    发布时间：
-                    {leakage.last_modified}
+                    {formatMessage({ id: 'github.list.upload-time' })}:{leakage.last_modified}
                   </Tag>
                   <Tag color="blue">
-                    入库时间：
-                    {leakage.add_time}
+                    {formatMessage({ id: 'github.list.storage-time' })}:{leakage.add_time}
                   </Tag>
                   <Tag color="blue">{leakage.keyword}</Tag>
-                  <Tag color={leakageTagColor[leakage.status]}>{leakageStatus[leakage.status]}</Tag>
+                  <Tag color={leakageTagColor[leakage.status]}>
+                    {FormatLeakageStatus(leakage.status)}
+                  </Tag>
                 </Col>
-                <Col xxl={4} xl={5} lg={6} md={8} sm={8}>
+                <Col xxl={5} xl={7} lg={8} md={8} sm={8}>
                   <ButtonGroup>
                     <Button type="primary" onClick={() => this.updateLeakageStatus(leakage.id, 1)}>
-                      处理
+                      <FormattedMessage id="github.list.solved" />
                     </Button>
-                    <Button onClick={() => this.updateLeakageStatus(leakage.id, 2)}>加白</Button>
-                    <Button onClick={() => this.ignoreRepository(leakage.id)}>忽略仓库</Button>
+                    <Button onClick={() => this.updateLeakageStatus(leakage.id, 2)}>
+                      <FormattedMessage id="github.list.add-whitelist" />
+                    </Button>
+                    <Tooltip title={formatMessage({ id: 'github.list.ignore-repo.tooltip' })}>
+                      <Button onClick={() => this.ignoreRepository(leakage.id)}>
+                        <FormattedMessage id="github.list.ignore-repo" />
+                      </Button>
+                    </Tooltip>
                   </ButtonGroup>
                 </Col>
               </Row>

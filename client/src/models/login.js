@@ -1,4 +1,5 @@
 import { routerRedux } from 'dva/router';
+import { formatMessage } from 'umi/locale';
 import { stringify } from 'qs';
 import { reloadAuthorized } from '@/utils/Authorized';
 import { queryLogin } from '@/services/user';
@@ -18,7 +19,7 @@ export default {
       const response = yield call(queryLogin, payload);
 
       if (response.status === 400) {
-        message.error('帐号密码不正确！');
+        message.error(formatMessage({ id: 'login.error' }));
       }
 
       yield put({

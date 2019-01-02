@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form, Modal, Input } from 'antd';
+import { formatMessage } from 'umi/locale';
 
 const FormItem = Form.Item;
 
@@ -50,7 +51,7 @@ class TokenAddModal extends React.Component {
       <span>
         <span onClick={this.showModalHandler}>{children}</span>
         <Modal
-          title="添加Token"
+          title={formatMessage({ id: 'token.operation.add-token' })}
           visible={visible}
           onOk={this.okHandler}
           onCancel={this.hideModalHandler}
@@ -61,11 +62,11 @@ class TokenAddModal extends React.Component {
                 rules: [
                   {
                     required: true,
-                    message: 'Token不可为空!',
+                    message: formatMessage({ id: 'token.modal.field.token.required' }),
                   },
                   {
                     len: 40,
-                    message: 'Token应为40位!',
+                    message: formatMessage({ id: 'token.modal.field.token.hint' }),
                   },
                 ],
               })(<Input />)}

@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import Link from 'umi/link';
+import { FormattedMessage } from 'umi/locale';
 import { Icon } from 'antd';
 import GlobalFooter from '@/components/GlobalFooter';
 import styles from './UserLayout.less';
@@ -16,7 +17,8 @@ const links = [
 
 const copyright = (
   <Fragment>
-    Copyright <Icon type="copyright" /> 2018 VIPKID - 安全中心
+    Copyright <Icon type="copyright" /> 2018 VIPKID -{' '}
+    <FormattedMessage id="login.footer.security-center" />
   </Fragment>
 );
 
@@ -45,7 +47,9 @@ class UserLayout extends React.PureComponent {
                 <span className={styles.title}>Github Monitor</span>
               </Link>
             </div>
-            <div className={styles.desc}>Github泄漏信息监控平台</div>
+            <div className={styles.desc}>
+              <FormattedMessage id="login.description" />
+            </div>
           </div>
           {children}
         </div>

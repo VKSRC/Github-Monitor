@@ -1,4 +1,5 @@
 import { message } from 'antd';
+import { formatMessage } from 'umi/locale';
 import { queryTaskLists, queryCreateTask, queryEditTask, queryRemoveTask } from '@/services/github';
 
 export default {
@@ -23,19 +24,19 @@ export default {
 
     *createTasks({ payload }, { call, put }) {
       yield call(queryCreateTask, payload);
-      message.success('添加任务成功!');
+      message.success(formatMessage({ id: 'task.operation.create-task-success' }));
       yield put({ type: 'reload' });
     },
 
     *editTask({ id, payload }, { call, put }) {
       yield call(queryEditTask, id, payload);
-      message.success('修改任务成功!');
+      message.success(formatMessage({ id: 'task.operation.edit-task-success' }));
       yield put({ type: 'reload' });
     },
 
     *removeTask({ id }, { call, put }) {
       yield call(queryRemoveTask, id);
-      message.success('删除任务成功!');
+      message.success(formatMessage({ id: 'task.operation.delete-task-success' }));
       yield put({ type: 'reload' });
     },
 

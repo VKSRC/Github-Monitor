@@ -264,6 +264,9 @@ export default {
   'task.operation.no-operations': '无可用操作',
   'task.operation.no-operations-hint': '正在运行的任务无法编辑/删除',
   'task.operation.create-task': '创建任务',
+  'task.operation.create-task-success': '创建任务成功！',
+  'task.operation.edit-task-success': '修改任务成功！',
+  'task.operation.delete-task-success': '删除任务成功！',
   'task.modal.edit-task': '编辑任务',
   'task.modal.create-task': '创建任务',
   'task.modal.field.task-name': '任务名称',
@@ -289,4 +292,6 @@ export default {
   'login.field.username.placeholder': '请输入帐号',
   'login.field.password.placeholder': '请输入密码',
   'login.footer.security-center': '安全中心',
+  'login.error': '帐号或密码不正确！',
+  'effects.operation-succeed': '操作成功！',
 };

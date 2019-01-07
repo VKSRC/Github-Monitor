@@ -29,6 +29,10 @@ DEBUG = True if os.environ.get('DEBUG') == 'True' else False
 
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(",")
 
+if not DEBUG:
+    if '*' in ALLOWED_HOSTS:
+        ALLOWED_HOSTS.remove('*')
+
 
 # Application definition
 

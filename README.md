@@ -72,7 +72,7 @@
 ```
 # Django Settings
 DEBUG="True"  # Django后台是否以debug模式运行, 可选True/False
-ALLOWED_HOSTS="127.0.0.1,localhost"  # 配置Django Allowed_Hosts
+ALLOWED_HOSTS="*,127.0.0.1,localhost"  # 配置Django Allowed_Hosts, 如果DEBUG为False, 需要将访问的host地址添加进来，如'localhost,github.vipkid.com.cn'
 
 # Database Settings
 # DATABASE choice is mysql or sqlite
@@ -101,7 +101,6 @@ EMAIL_USE_SSL="False"  # 与SMTP服务器通信时是否使用SSL（安全）连
 # initial Administrator
 INIT_ADMIN_USERNAME="admin"  # 初始化系统用户使用的用户名
 INIT_ADMIN_PASSWORD="password123!@#"  # 初始化系统用户使用的用户密码
-
 
 ```
 

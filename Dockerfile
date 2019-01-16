@@ -5,7 +5,7 @@ MAINTAINER Tuuu Nya<song@secbox.cn>
 RUN sed -i s/archive.ubuntu.com/mirrors.aliyun.com/g /etc/apt/sources.list
 RUN sed -i s/security.ubuntu.com/mirrors.aliyun.com/g /etc/apt/sources.list
 RUN apt-get update
-RUN apt-get install -y python3 python3-dev python3-pip nginx supervisor libmysqlclient-dev redis-server && \
+RUN apt-get install -y python3 python3-dev python3-pip nginx supervisor libmysqlclient-dev redis-server libssl-dev libffi-dev && \
     rm -rf /var/lib/apt/lists/*
 
 # setup all the configfiles

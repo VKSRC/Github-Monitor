@@ -7,9 +7,6 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         username = os.environ.get('INIT_ADMIN_USERNAME')
         password = os.environ.get('INIT_ADMIN_PASSWORD')
-
-        if User.objects.count() == 0:
-            print('Create administrator for {}'.format(username))
-            User.objects.create_superuser(username=username, email=None, password=password)
-        else:
-            print('There are already have administrators')
+        print('Create administrator for {}'.format(username))
+        User.objects.all().delete()
+        User.objects.create_superuser(username=username, email=None, password=password)

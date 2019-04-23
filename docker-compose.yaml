@@ -3,7 +3,7 @@ services:
   web:
     build: .
     ports:
-      - "8001:80"
+      - "127.0.0.1:8001:80"
     volumes:
       - ./docker/data/redis/:/var/lib/redis/
       - ./:/home/docker/Github-Monitor/

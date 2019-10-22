@@ -1,9 +1,11 @@
 import React from 'react';
-import { Modal, Form, Input, InputNumber } from 'antd';
+import { Modal, Form, Input, InputNumber, Select } from 'antd';
 import { formatMessage } from 'umi/locale';
+import { matchMethod as allMatchMethod } from '@/constants';
 
 const FormItem = Form.Item;
 const { TextArea } = Input;
+const { Option } = Select;
 
 class TaskModal extends React.Component {
   constructor(props) {
@@ -48,6 +50,7 @@ class TaskModal extends React.Component {
     const {
       name = '',
       keywords = '',
+      match_method: matchMethod = '',
       ignore_org: ignoreOrg = '',
       ignore_repo: ignoreRepo = '',
       mail = '',
@@ -64,7 +67,7 @@ class TaskModal extends React.Component {
         <span onClick={this.showModalHandler}>{children}</span>
         <Modal
           title={
-            data
+            data.name
               ? formatMessage({ id: 'task.modal.edit-task' })
               : formatMessage({ id: 'task.modal.create-task' })
           }
@@ -101,6 +104,25 @@ class TaskModal extends React.Component {
                   },
                 ],
               })(<TextArea rows={4} />)}
+            </FormItem>
+            <FormItem
+              {...formItemLayout}
+              label={formatMessage({ id: 'task.modal.field.match-method' })}
+            >
+              {getFieldDecorator('match_method', {
+                initialValue: matchMethod,
+                rules: [
+                  {
+                    required: true,
+                  },
+                ],
+              })(
+                <Select>
+                  {allMatchMethod.map((value, index) => (
+                    <Option key={`matchMethod${value}`} value={index}>{formatMessage({ id: `task.modal.field.match-method.${index}` })}</Option>
+                  ))}
+                </Select>
+              )}
             </FormItem>
             <FormItem
               {...formItemLayout}

@@ -279,6 +279,10 @@ export default {
   'task.modal.field.keyword': 'Keywords',
   'task.modal.field.keyword.hint':
     'Cannot be empty, supports multiple keywords separated by line breaks',
+  'task.modal.field.match-method': 'Match mode',
+  'task.modal.field.match-method.0': 'Fuzzy match',
+  'task.modal.field.match-method.1': 'Exact match',
+  'task.modal.field.match-method.2': 'Word match',
   'task.modal.field.ignore-username': 'Ignore username',
   'task.modal.field.ignore-username.hint':
     'Ignore repositories under a specified account (e.g. VKSRC), support separate multiple account names with line breaks.',

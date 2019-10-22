@@ -17,15 +17,16 @@
   "8.async.js": "/8.async.js",
   "9.chunk.css": "/9.chunk.css",
   "9.async.js": "/9.async.js",
+  "10.chunk.css": "/10.chunk.css",
   "10.async.js": "/10.async.js",
   "11.async.js": "/11.async.js",
   "12.async.js": "/12.async.js",
   "13.async.js": "/13.async.js",
   "14.async.js": "/14.async.js",
   "15.async.js": "/15.async.js",
-  "16.chunk.css": "/16.chunk.css",
   "16.async.js": "/16.async.js",
-  "index.html": "/index.html",
+  "17.async.js": "/17.async.js",
+  "color.less": "/color.less",
   "favicon.ico": "/favicon.ico",
-  "color.less": "/color.less"
+  "index.html": "/index.html"
 }

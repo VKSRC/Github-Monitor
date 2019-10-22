@@ -273,6 +273,10 @@ export default {
   'task.modal.field.task-name.required': '任务名称不可为空!',
   'task.modal.field.keyword': '关键词',
   'task.modal.field.keyword.hint': '不可为空，支持多个关键词使用换行分隔',
+  'task.modal.field.match-method': '匹配模式',
+  'task.modal.field.match-method.0': '模糊匹配',
+  'task.modal.field.match-method.1': '精确匹配',
+  'task.modal.field.match-method.2': '单词匹配',
   'task.modal.field.ignore-username': '忽略帐号',
   'task.modal.field.ignore-username.hint':
     '忽略指定账号下的仓库, 支持多个账号名使用换行分隔, 如VKSRC',

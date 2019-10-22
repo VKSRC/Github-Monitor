@@ -3,7 +3,7 @@ import { Card, Table, Badge, Form, Button, Divider, Popconfirm, Tooltip } from '
 import { connect } from 'dva';
 import Link from 'umi/link';
 import { FormattedMessage, formatMessage } from 'umi/locale';
-import { taskStatus } from '@/constants';
+import { matchMethod, taskStatus } from '@/constants';
 import TaskModal from './TaskModal';
 
 const FormItem = Form.Item;
@@ -28,6 +28,11 @@ class TaskLists extends React.Component {
       {
         title: formatMessage({ id: 'task.table.columns.keyword' }),
         dataIndex: 'keywords',
+      },
+      {
+        title: formatMessage({ id: 'task.modal.field.match-method' }),
+        dataIndex: 'match_method',
+        render: record => formatMessage({ id: `task.modal.field.match-method.${record}` })
       },
       {
         title: formatMessage({ id: 'task.table.columns.crawl-pages' }),

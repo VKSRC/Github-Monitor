@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Form, Input, InputNumber, Select } from 'antd';
+import { Modal, Form, Input, InputNumber, Select, Tooltip, Icon } from 'antd';
 import { formatMessage } from 'umi/locale';
 import { matchMethod as allMatchMethod } from '@/constants';
 
@@ -107,7 +107,21 @@ class TaskModal extends React.Component {
             </FormItem>
             <FormItem
               {...formItemLayout}
-              label={formatMessage({ id: 'task.modal.field.match-method' })}
+              label={
+                <span>
+                  {formatMessage({ id: 'task.modal.field.match-method' })}&nbsp;
+                  <Tooltip title={
+                    <div>
+                      <p>{formatMessage({ id: 'task.modal.field.match-method.0.hint' })}</p>
+                      <p>{formatMessage({ id: 'task.modal.field.match-method.1.hint' })}</p>
+                      <p>{formatMessage({ id: 'task.modal.field.match-method.2.hint' })}</p>
+                    </div>
+                  }
+                  >
+                    <Icon type="question-circle-o" />
+                  </Tooltip>
+                </span>
+              }
             >
               {getFieldDecorator('match_method', {
                 initialValue: matchMethod,

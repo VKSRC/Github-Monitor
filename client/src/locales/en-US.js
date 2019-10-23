@@ -279,6 +279,13 @@ export default {
   'task.modal.field.keyword': 'Keywords',
   'task.modal.field.keyword.hint':
     'Cannot be empty, supports multiple keywords separated by line breaks',
+  'task.modal.field.match-method': 'Match mode',
+  'task.modal.field.match-method.0': 'Fuzzy match',
+  'task.modal.field.match-method.1': 'Exact match',
+  'task.modal.field.match-method.2': 'Word match',
+  'task.modal.field.match-method.0.hint': 'Fuzzy match: as with GitHub\'s official search results, some special characters will be ignored. For example, the search results of vipkid.com.cn will contain three keywords vipkid, com and cn.',
+  'task.modal.field.match-method.1.hint': 'Exact match: an exact match is made on GitHub\'s official results. For example, searching for vipkid.com.cn will only leave search results containing vipkid.com.cn.',
+  'task.modal.field.match-method.2.hint': 'Word matching: this matching mode can only input English words, such as vipkid. If you search for vipkid, you will find the result containing the word vipkid, and aavipkidbb will not be retrieved.',
   'task.modal.field.ignore-username': 'Ignore username',
   'task.modal.field.ignore-username.hint':
     'Ignore repositories under a specified account (e.g. VKSRC), support separate multiple account names with line breaks.',

@@ -273,6 +273,13 @@ export default {
   'task.modal.field.task-name.required': '任务名称不可为空!',
   'task.modal.field.keyword': '关键词',
   'task.modal.field.keyword.hint': '不可为空，支持多个关键词使用换行分隔',
+  'task.modal.field.match-method': '匹配模式',
+  'task.modal.field.match-method.0': '模糊匹配',
+  'task.modal.field.match-method.1': '精确匹配',
+  'task.modal.field.match-method.2': '单词匹配',
+  'task.modal.field.match-method.0.hint': '模糊匹配：同Github官方搜索结果，部分特殊字符会被忽视，比如搜索vipkid.com.cn会包含vipkid、com、cn三个关键词的搜索结果',
+  'task.modal.field.match-method.1.hint': '精确匹配：在Github官方的结果上进行一次精确匹配,比如搜索vipkid.com.cn仅会留下包含vipkid.com.cn的搜索结果。',
+  'task.modal.field.match-method.2.hint': '单词匹配：该匹配模式仅可输入英文单词，如vipkid，比如搜索vipkid则会搜索出包含vipkid这个单词的结果，aavipkidbb这样的结果不会被检索出来',
   'task.modal.field.ignore-username': '忽略帐号',
   'task.modal.field.ignore-username.hint':
     '忽略指定账号下的仓库, 支持多个账号名使用换行分隔, 如VKSRC',

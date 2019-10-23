@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import os
+import re
 import time
 import logging
 import dateutil.parser
@@ -124,9 +125,21 @@ class TaskProcessor(object):
         def format_fragments(_text_matches):
             return ''.join([f['fragment'] for f in _text_matches])
 
+        # 根据任务匹配模式 进行相应的操作
+        def check_match_mode(_fragment):
+            # 精确匹配：如果关键词不在内容中,则跳过
+            if self.task.match_method == 1:
+                if _keyword not in _fragment:
+                    return True
+
+            # 单词匹配
+            if self.task.match_method == 2:
+                if re.search(r'\b' + _keyword + r'\b', _fragment) is None:
+                    return True
+
         for _file in _contents:
 
-            # 根据配置的规则、忽略某些吃账号或仓库下的代码
+            # 根据配置的规则、忽略某些账号或仓库下的代码
             repository = _file.repository
             user = repository.owner.login
             repo_name = repository.name
@@ -145,11 +158,21 @@ class TaskProcessor(object):
             if exists_leakages:
                 if exists_leakages.filter(status=1):
                     update_data = get_data(_file)
+
+                    # 判断匹配模式
+                    if check_match_mode(update_data['fragment']):
+                        continue
+
                     self.email_results.append(update_data)
                     update_data.update({'status': 0, 'add_time': timezone.now()})
                     exists_leakages.filter(status=1).update(**update_data)
             else:
                 data = get_data(_file)
+
+                # 判断匹配模式
+                if check_match_mode(data['fragment']):
+                    continue
+
                 self.email_results.append(data)
                 Leakage(**data).save()
 

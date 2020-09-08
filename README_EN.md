@@ -2,11 +2,11 @@
 
 # VIPKID GITHUB MONITOR
 
-![License](https://img.shields.io/aur/license/yaourt.svg)
-![](https://img.shields.io/badge/python-3.5|3.6|3.7-yellow.svg)
-![](https://img.shields.io/badge/docker-latest-blue.svg)
-![](https://img.shields.io/github/stars/VKSRC/Github-Monitor.svg?label=Stars&style=social?style=plastic)
-![](https://img.shields.io/github/issues/VKSRC/Github-Monitor.svg)
+[![License](https://img.shields.io/badge/license-GPLv3-blue.svg)](./LICENSE)
+[![](https://img.shields.io/badge/python-3.5+-yellow.svg)](https://www.python.org/)
+[![](https://img.shields.io/badge/docker-latest-blue.svg)](https://www.docker.com/)
+[![](https://img.shields.io/github/stars/VKSRC/Github-Monitor.svg?label=Stars&style=social?style=plastic)](https://github.com/VKSRC/Github-Monitor) 
+[![](https://img.shields.io/github/issues/VKSRC/Github-Monitor.svg)](https://github.com/VKSRC/Github-Monitor)
 
 ![](docs/media/screenshot.jpg)
 

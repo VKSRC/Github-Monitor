@@ -1,9 +1,9 @@
-django==2.0
+django==2.1.5
 django-filter==2.0.0
 djangorestframework==3.8.2
 django-cors-headers==2.4.0
 requests[security]
-mysqlclient==1.3.13
+mysqlclient==2.0.1
 uWSGI==2.0.17.1
 python-dateutil==2.7.3
 redis==2.10.6

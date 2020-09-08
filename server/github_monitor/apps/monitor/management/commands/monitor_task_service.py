@@ -3,10 +3,14 @@ from django.core.management.base import BaseCommand
 from django.db import close_old_connections
 from django.db.models import Q
 from django.conf import settings
+import sys
 from multiprocessing import Process
 from github_monitor.apps.monitor.models.token import Token
 from github_monitor.apps.monitor.models.task import Task
 from github_monitor.apps.monitor.processors import TaskProcessor
+if sys.version >= '3.8':
+    import multiprocessing as mp
+    mp.set_start_method('fork')
 
 
 class Command(BaseCommand):

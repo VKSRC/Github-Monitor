@@ -68,7 +68,7 @@ class TaskProcessor(object):
                 total = min(response.totalCount, 1000)
                 break
             except GithubException as e:
-                if 'abuse-rate-limits' in e.data.get('documentation_url'):
+                if 'rate limit' in e.data.get('message', ''):
                     session, _token = self._reset_token(session, _token)
                 else:
                     logger.exception(e)

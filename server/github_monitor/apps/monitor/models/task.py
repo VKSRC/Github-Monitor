@@ -14,7 +14,7 @@ class Task(models.Model):
     )
 
     name = models.CharField(
-        max_length=50, null=False, blank=False, verbose_name=u'任务名'
+        max_length=50, null=False, blank=False, verbose_name='任务名'
     )
     keywords = models.TextField(null=False, blank=False, verbose_name='关键词')
     match_method = models.IntegerField(choices=matchMethodChoices, default=0)

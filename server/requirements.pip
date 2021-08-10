@@ -7,5 +7,5 @@ mysqlclient==2.0.1
 uWSGI==2.0.17.1
 python-dateutil==2.7.3
 redis==2.10.6
-pygithub==1.43.3
+pygithub==1.55
 python-dotenv==0.10.0
